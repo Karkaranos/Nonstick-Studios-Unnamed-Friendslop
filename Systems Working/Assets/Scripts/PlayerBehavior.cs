@@ -7,6 +7,7 @@ External Resources :
 	***************************************************/
 using NaughtyAttributes;
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -50,7 +51,7 @@ public class PlayerBehavior : MonoBehaviour
     /// <summary>
     /// Assigns event listeners to Input Action
     /// </summary>
-    private void Awake()
+    private void OnEnable()
     {
         controlMap.currentActionMap.Enable();
         inputMap = controlMap.currentActionMap;
@@ -69,6 +70,7 @@ public class PlayerBehavior : MonoBehaviour
 
         cameraCour = StartCoroutine(MoveCamera());
     }
+
 
     /// <summary>
     /// Unassigns listeners
