@@ -278,10 +278,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   controlMap: {fileID: 126066982}
-  playerSpeed: 100
+  playerSpeed: 200
   playerJumpHeight: 10
-  cameraTransformParent: {fileID: 0}
+  cameraTransformParent: {fileID: 1309545566}
   raycastDistance: 0
+  mouseSensitivity: 3
+  minCameraY: -60
+  maxCameraY: 60
 --- !u!54 &126066984
 Rigidbody:
   m_ObjectHideFlags: 0

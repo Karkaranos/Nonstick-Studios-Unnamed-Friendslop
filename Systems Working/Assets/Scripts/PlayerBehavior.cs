@@ -31,6 +31,7 @@ public class PlayerBehavior : MonoBehaviour
     private InputAction interact;
     private Rigidbody rb;
     private Coroutine moveCour;
+    private Coroutine cameraCour;
 
 
 
@@ -39,6 +40,12 @@ public class PlayerBehavior : MonoBehaviour
     private Transform cameraTransformParent;
     [SerializeField, Tooltip("The player's sight and interact range")]
     private float raycastDistance;
+    [SerializeField, Tooltip("How sensitive the mouse is")]
+    private float mouseSensitivity;
+    [SerializeField]
+    private float minCameraY;
+    [SerializeField]
+    private float maxCameraY;
 
     /// <summary>
     /// Assigns event listeners to Input Action
@@ -59,6 +66,19 @@ public class PlayerBehavior : MonoBehaviour
         move.canceled += Move_canceled;
         jump.performed += Jump_performed;
         interact.performed += Interact_performed;
+
+        cameraCour = StartCoroutine(MoveCamera());
+    }
+
+    /// <summary>
+    /// Unassigns listeners
+    /// </summary>
+    private void OnDisable()
+    {
+        move.started -= Move_started;
+        move.canceled -= Move_canceled;
+        jump.performed -= Jump_performed;
+        interact.performed -= Interact_performed;
     }
 
     private void Interact_performed(InputAction.CallbackContext obj)
@@ -66,6 +86,10 @@ public class PlayerBehavior : MonoBehaviour
         throw new System.NotImplementedException();
     }
 
+    /// <summary>
+    /// Lets the player jump if they are grounded
+    /// </summary>
+    /// <param name="obj"></param>
     private void Jump_performed(InputAction.CallbackContext obj)
     {
         if(Grounded())
@@ -74,6 +98,10 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Stops moving the player if they are actively moving
+    /// </summary>
+    /// <param name="obj"></param>
     private void Move_canceled(InputAction.CallbackContext obj)
     {
         if(moving)
@@ -83,6 +111,10 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Starts moving the player if they are not actively moving
+    /// </summary>
+    /// <param name="obj"></param>
     private void Move_started(InputAction.CallbackContext obj)
     {
         if (!moving)
@@ -92,12 +124,12 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
+    /// <summary>
+    /// Returns true if the player is touching the ground
+    /// Returns false if in the air
+    /// </summary>
+    /// <returns></returns>
     private bool Grounded()
     {
         RaycastHit hit;
@@ -105,17 +137,48 @@ public class PlayerBehavior : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance);
     }
 
+    /// <summary>
+    /// Moves the player 
+    /// Reads a value from the input action
+    /// Handles any jumping/falling states
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Move()
     {
         Vector2 moveVal;
         while(true)
         {
             moveVal = move.ReadValue<Vector2>();
-            float currYVel = rb.linearVelocity.y;
-            Vector3 newVel = ((cameraTransformParent.forward * moveVal.y) + (cameraTransformParent.right * moveVal.x)) * playerSpeed * Time.fixedDeltaTime;
-            newVel.y = currYVel - GRAVITY * Time.fixedDeltaTime;
-            rb.linearVelocity = newVel;
+            Vector3 newMoveVal = ((cameraTransformParent.forward * moveVal.y) + (cameraTransformParent.right * moveVal.x)) * playerSpeed * Time.fixedDeltaTime;
+            if (!Grounded())
+            {
+                newMoveVal.y = rb.linearVelocity.y;
+            }
+            rb.linearVelocity = newMoveVal;
             yield return null;
+        }
+    }
+
+    private IEnumerator MoveCamera()
+    {
+        Vector2 mDelta;
+        Vector2 adjustedMouseDelta;
+        float xRotation = cameraTransformParent.eulerAngles.y;
+        float yRotation = cameraTransformParent.eulerAngles.x;
+        while(true)
+        {
+            mDelta = mouseDelta.ReadValue<Vector2>();
+
+            adjustedMouseDelta = mDelta * mouseSensitivity * Time.fixedDeltaTime;
+
+            xRotation -= adjustedMouseDelta.y;
+            xRotation = Mathf.Clamp(xRotation, minCameraY, maxCameraY);
+            yRotation += adjustedMouseDelta.x;
+
+            cameraTransformParent.localEulerAngles = new Vector3(xRotation, yRotation, 0);
+
+            yield return null;
+
         }
     }
 }
