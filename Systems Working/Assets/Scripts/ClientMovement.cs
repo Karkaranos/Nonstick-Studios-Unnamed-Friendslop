@@ -11,9 +11,11 @@ using UnityEngine;
 public class ClientMovement : NetworkBehaviour
 {
     [SerializeField] private PlayerBehavior pb;
+    [SerializeField] private GameObject playerRotationParent;
     private void Awake()
     {
         pb.enabled = false;
+        playerRotationParent.SetActive(false);
     }
 
     public override void OnNetworkSpawn()
@@ -23,6 +25,7 @@ public class ClientMovement : NetworkBehaviour
         if (IsOwner)
         {
             pb.enabled = true;
+            playerRotationParent.SetActive(true);
         }
     }
 }
