@@ -12,6 +12,7 @@ public class ClientMovement : NetworkBehaviour
 {
     [SerializeField] private PlayerBehavior pb;
     [SerializeField] private GameObject playerRotationParent;
+
     private void Awake()
     {
         pb.enabled = false;
@@ -19,13 +20,27 @@ public class ClientMovement : NetworkBehaviour
     }
 
     public override void OnNetworkSpawn()
-    {
+    {   
         base.OnNetworkSpawn();
+
+
 
         if (IsOwner)
         {
+            CadePublicEvents.PlayerCountChanged?.Invoke();
             pb.enabled = true;
             playerRotationParent.SetActive(true);
         }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+
+        if (IsOwner)
+        {
+            CadePublicEvents.PlayerCountChanged?.Invoke();
+        }
+
     }
 }
