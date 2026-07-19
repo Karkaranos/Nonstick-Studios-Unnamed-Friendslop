@@ -32,13 +32,22 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [SerializeField] float shipOxygenDepletionAmount;
 
     [Button]
+    ///<summary>
+    ///starts depleting the ship's oxygen
+    ///</summary>
     public void BeginNewDive()
     {
         shipOxygen = shipOxygenMax;
         StartCoroutine(DepleteOxygen());
     }
 
-    //makes the ship's oxygen tick down
+    /// <summary>
+    /// makes the ship's oxygen tick down
+    /// only displays lowered oxygen levels at certain intervals
+    /// </summary>
+    /// <returns>
+    /// time until the oxygen depletes again
+    /// </returns>
     IEnumerator DepleteOxygen()
     {
         bool oxygenDepleting = true;
@@ -64,7 +73,12 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         }
     }
 
-    //for losing oxygen to obstacles
+    /// <summary>
+    /// depletes oxygen based on external forces
+    /// </summary>
+    /// <param name="oxygenLost"> 
+    /// the amount of oxygen lost
+    /// </param>
     public void LoseOxygen(float oxygenLost)
     {
         shipOxygen -= oxygenLost;
@@ -76,7 +90,10 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         }
     }
 
-    //this probably won't have anything in it for now but i'm basing this off of the flowchart
+    /// <summary>
+    /// adds to the max amount of the ship's oxygen
+    /// does nothing for now, but is based off of design's flowchart
+    /// </summary>
     public void AddToMaxOxygen()
     {
 

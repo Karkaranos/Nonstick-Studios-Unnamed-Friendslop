@@ -28,12 +28,21 @@ public class PlayerOxygenManager : MonoBehaviour
     [HideInInspector] public bool IsAttachedToTether;
 
     [Button]
+    ///<summary>
+    ///starts depleting the player's oxygen
+    ///</summary>
     public void BeginDepletingOxygen()
     {
         playerOxygen = playerOxygenMax;
         StartCoroutine(DepletePlayerOxygen());
     }
 
+    /// <summary>
+    /// depletes the player's oxygen per increment
+    /// </summary>
+    /// <returns> 
+    /// time until the oxygen depletes again
+    /// </returns>
     IEnumerator DepletePlayerOxygen()
     {
         while (!IsAttachedToTether)
@@ -54,7 +63,9 @@ public class PlayerOxygenManager : MonoBehaviour
         }
     }
 
-    //resets the player's oxygen
+    /// <summary>
+    /// resets the player's oxygen to max
+    /// </summary>
     public void ResetOxygen()
     {
         playerOxygen = playerOxygenMax;
