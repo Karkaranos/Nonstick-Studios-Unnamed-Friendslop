@@ -433,6 +433,11 @@ public static class StaticUtilities
 
     #region Vectors
 
+    public static float ManhattanDistance(Vector3 a, Vector3 b)
+    {
+        return Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z);
+    }
+
     public static Vector3 Average(this Vector3[] vectors)
     {
         Vector3 total = Vector3.zero;
