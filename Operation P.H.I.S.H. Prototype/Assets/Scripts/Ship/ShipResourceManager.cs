@@ -7,6 +7,7 @@ External Resources :
 ***************************************************/
 
 using System.Collections;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [Tooltip("The amount of oxygen depleted per increment.")]
     [SerializeField] float shipOxygenDepletionAmount;
 
+    [Button]
     public void BeginNewDive()
     {
         shipOxygen = shipOxygenMax;

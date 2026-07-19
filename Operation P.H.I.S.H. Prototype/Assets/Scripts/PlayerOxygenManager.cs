@@ -6,6 +6,7 @@ Brief Description : 	Stores and sets the values of the player's resources
 External Resources : 	
 ***************************************************/
 using System.Collections;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class PlayerOxygenManager : MonoBehaviour
@@ -24,10 +25,12 @@ public class PlayerOxygenManager : MonoBehaviour
 
     //may or may not change how this is detected later on
     //should this depend on a player variable?
-    public bool IsAttachedToTether;
+    [HideInInspector] public bool IsAttachedToTether;
 
+    [Button]
     public void BeginDepletingOxygen()
     {
+        playerOxygen = playerOxygenMax;
         StartCoroutine(DepletePlayerOxygen());
     }
 
