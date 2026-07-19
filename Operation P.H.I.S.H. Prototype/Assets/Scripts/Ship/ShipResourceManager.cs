@@ -3,16 +3,19 @@ Author Names : 		    Jay Embry
 Date Created : 		    7/19/2026
 Date Last Modified : 	7/19/2026
 Brief Description : 	Stores and sets the values of the ship's resources
-External Resources : 	list, including a link to the resource used
+External Resources : 	
 ***************************************************/
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShipResourceManager : Singleton<ShipResourceManager>
 {
     //tracks the ship's current oxygen level
     float shipOxygen;
+
+    [Header("Oxygen Variables")]
 
     //might need to make a separate variable from the inspector variable should we go forward with updating this #
     [Tooltip("The highest value that the oxygen can be.")]
@@ -21,8 +24,11 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [Tooltip("The amount of seconds in between when the ship's oxygen depletes.")]
     [SerializeField] float shipOxygenDepletionTime;
 
-    [Tooltip("The amount of oxygen depleted per increment.")]
+    [Tooltip("The amount of seconds that must pass before the UI is updated.")]
     [SerializeField] float shipOxygenStepAmount;
+
+    [Tooltip("The amount of oxygen depleted per increment.")]
+    [SerializeField] float shipOxygenDepletionAmount;
 
     public void BeginNewDive()
     {
@@ -38,9 +44,13 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         while(oxygenDepleting)
         {
             yield return new WaitForSeconds(shipOxygenDepletionTime);
-            shipOxygen -= shipOxygenStepAmount;
+            shipOxygen -= shipOxygenDepletionAmount;
 
-            Debug.Log("OXYGEN LEFT: " + shipOxygen);
+            if(shipOxygen % shipOxygenStepAmount == 0)
+            {
+                //INSERT FUNCTION FOR UPDATING UI HERE
+                Debug.Log("OXYGEN LEFT: " + shipOxygen);
+            }
 
             if(shipOxygen <= 0)
             {
@@ -49,6 +59,18 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
                 //call the function that ends the dive here
                 Debug.Log("DIVE OVER!");
             }
+        }
+    }
+
+    //for losing oxygen to obstacles
+    public void LoseOxygen(float oxygenLost)
+    {
+        shipOxygen -= oxygenLost;
+
+        if(shipOxygen % shipOxygenStepAmount == 0)
+        {
+            //INSERT FUNCTION FOR UPDATING UI HERE
+            Debug.Log("OXYGEN LEFT: " + shipOxygen);
         }
     }
 
