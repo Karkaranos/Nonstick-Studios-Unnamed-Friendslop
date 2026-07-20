@@ -60,7 +60,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
             if(shipOxygen % shipOxygenStepAmount == 0)
             {
                 //INSERT FUNCTION FOR UPDATING UI HERE
-                Debug.Log("OXYGEN LEFT: " + shipOxygen);
+                Debug.Log($"OXYGEN LEFT: {shipOxygen}");
             }
 
             if(shipOxygen <= 0)
@@ -86,7 +86,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         if(shipOxygen % shipOxygenStepAmount == 0)
         {
             //INSERT FUNCTION FOR UPDATING UI HERE
-            Debug.Log("OXYGEN LEFT: " + shipOxygen);
+            Debug.Log($"OXYGEN LEFT: { shipOxygen}");
         }
     }
 

@@ -51,7 +51,7 @@ public class PlayerOxygenManager : MonoBehaviour
             playerOxygen -= playerOxygenDepletionAmount;
 
             //INSERT FUNCTION FOR UPDATING UI HERE
-            Debug.Log("OXYGEN LEFT: " + playerOxygen);
+            Debug.Log($"OXYGEN LEFT: {playerOxygen}");
 
             if (playerOxygen <= 0)
             {
