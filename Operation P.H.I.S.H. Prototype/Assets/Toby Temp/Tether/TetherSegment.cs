@@ -236,7 +236,10 @@ public class TetherSegment : MonoBehaviour
 
         return false;
     }
-
+    
+    /// <summary>
+    /// Checks the sorrounding area around the node itself. If there is any collisions, the splines node is pushed away.
+    /// </summary>
     private bool CheckForCollisionAroundNode(float deltaTime)
     {
         bool intersecting = SplineUtilities.CheckNodeCollisionSphere(this, radius: TetherManager.Instance.TetherNodeCollisionRadius, out Vector3 hitPoint);
@@ -252,6 +255,10 @@ public class TetherSegment : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Checks for any intersections along the spline. If there is any, then it splits the tether in half and lets the new segment figure it out.
+    /// </summary>
+    /// <returns></returns>
     private bool CheckForCollisionAlongSpline()
     {
         bool intersecting = SplineUtilities.SplineSphereCast(this, out RaycastHit hit, out float intersection_t, radius: TetherManager.Instance.TetherSplineCollisionRadius);
@@ -261,14 +268,16 @@ public class TetherSegment : MonoBehaviour
             return false;
         }
 
-        TODO
-
         // if intersection is in the middle
         if(intersection_t > 0.25f && intersection_t < 0.75f)
         {
             TetherManager.Instance.InsertTetherSegment(this, intersection_t);
             return true;
         }
+
+        //TODO: Handle intersections along the first and last 25% of the spline (its just gonna be clipping for the protoype and thats okay)
+
+        return false;
     }
 
     #endregion Physics
@@ -335,9 +344,16 @@ public class TetherSegment : MonoBehaviour
     #endregion Getters
 
     #region Debug
+
+    /// <summary>
+    /// Instantiates another tether node ahead of this one
+    /// </summary>
     [Button]
     private void AddTetherAhead()
     {
+        if(NextSegment != null)
+            NextSegment.AddTetherAhead();
+
         Vector3 position = startPosition + (forwardDirection * (TetherManager.Instance.MaxLengthToCreateNewTetherSegment * 0.8f));
         TetherSegment newTetherSegment = Instantiate(TetherManager.Instance.TetherSegmentPrefab, position, Quaternion.identity);
 
