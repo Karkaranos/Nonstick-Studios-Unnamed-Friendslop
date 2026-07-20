@@ -11,18 +11,22 @@
 *****************************************************************************/
 
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using static UnityEngine.Rendering.HableCurve;
 
 public class TetherSegment : MonoBehaviour
 {
+    [Foldout("Debug Options"), SerializeField] private bool _drawSplineCalculations;
 
     [Foldout("Debug"),SerializeField] private TetherSegment _previousSegment;
     [Foldout("Debug"), SerializeField] private TetherSegment _nextSegment;
     [Foldout("Debug")] public Transform followingObject;
 
-    [Foldout("Debug Options"), SerializeField] private bool _drawSplineCalculations;
+    [Foldout("Debug")] public float forwardAnchorOffset;
+    [Foldout("Debug")] public float backwardAnchorOffset;
+
 
     public float LastTimeUpdated { get; private set; }
 
@@ -50,17 +54,16 @@ public class TetherSegment : MonoBehaviour
     // Calculations relative to this node
     public Vector3 startPosition => transform.position;
     public Vector3 forwardDirection => transform.forward;
-    private Vector3 forwardAnchorPosition => startPosition + (forwardDirection * ForwardHandleLength);
     private Vector3 backwardDirection => -transform.forward;
-    private Vector3 backwardAnchorPosition => startPosition + (backwardDirection * ForwardHandleLength);
-    public float ForwardHandleLength => (GetForawrdLength() + GetBackwardLength()) / 2; //GetForawrdLength
-    public float BackwardHandleLength => (GetForawrdLength() + GetBackwardLength()) / 2; //GetBackwardLength
+    public float ForwardHandleLength => ((GetForawrdLength() + GetBackwardLength()) / 2) + forwardAnchorOffset; //GetForawrdLength
+    public float BackwardHandleLength => ((GetForawrdLength() + GetBackwardLength()) / 2) + backwardAnchorOffset; //GetBackwardLength
+    private Vector3 forwardAnchorPosition => startPosition + (forwardDirection * ForwardHandleLength);
+    private Vector3 backwardAnchorPosition => startPosition + (backwardDirection * backwardAnchorOffset);
 
     // Calculations relative to the next node or following object (the player)
     private bool hasEndPoint => NextSegment != null || followingObject != null;
     private Vector3 endPosition => GetSegmentEnd();
     private Vector3 endBackwardDirection => GetSegmentEndBackward();
-    private float endBackwardHandleLength => NextSegment.BackwardHandleLength;
     private Vector3 endBackwardAnchorPosition => NextSegment.backwardAnchorPosition;
 
     private void Start()
@@ -68,64 +71,49 @@ public class TetherSegment : MonoBehaviour
         LastTimeUpdated = Time.time;
     }
 
-    #region Physics
-
-    private void Update()
+    /// <summary>
+    /// Move the Tether forwards along itself (towards the next tether).
+    /// </summary>
+    /// <param name="maxStepLength">Is implied to have already accounted for deltatime</param>
+    public void AdjustForwards(float stepLength)
     {
-        // I have an idea for a robust solution that doesnt involve update + heavy calculations every frame but this is a prototype so i dont care.
+        // TODO: CACHE THIS USING LastTimeUpdated
+        float tetherLength = SplineUtilities.GetSegmentLength(this);
 
-        CheckForCollisions(Time.deltaTime);
+        // inverse lerp
+        float t = stepLength / tetherLength;
+
+        Vector3 targetPosition = Evaluate(t);
+        Vector3 targetForwardDirection = EvaluateForwardDirection(t);
+
+        transform.position = targetPosition;
+        transform.forward = targetForwardDirection; 
     }
 
-    //deltaTimes here bc eventually this shouldnt be getting called every frame yk
-    private void CheckForCollisions(float deltaTime)
+    /// <summary>
+    /// Move the Tether forwards along itself (towards the next tether).
+    /// </summary>
+    /// <param name="maxStepLength">Is implied to have already accounted for deltatime</param>
+    public void AdjustBackwards(float stepLength)
     {
-        if (NextSegment == null && followingObject == null) return;
-
-        if (CheckForCollisionAroundNode(Time.deltaTime))
-            return; // dont move the node and update the spline at the same frame, thats just rude.
-
-        // Check for collisions along the spline
-
-        CheckForCollisionAlongSpline();
-    }
-
-    private bool CheckForCollisionAroundNode(float deltaTime) 
-    {
-        bool intersecting = SplineUtilities.CheckNodeCollisionSphere(this,  radius: TetherManager.Instance.TetherNodeCollisionRadius, out Vector3 hitPoint);
-
-        if (!intersecting) return false;
-
-        // Move away from hitpoint (SMOOTH THIS OUT IN THE FINAL GAME OBVIOUSLY)
-        Vector3 direction = transform.position - hitPoint;
-        transform.position = transform.position + (direction.normalized * deltaTime);
-
-        LastTimeUpdated = Time.time;
-
-        return true;
-    }
-
-    private bool CheckForCollisionAlongSpline()
-    {
-        bool intersecting = SplineUtilities.SplineSphereCast(this, out RaycastHit hit, out float intersection_t, radius: TetherManager.Instance.TetherSplineCollisionRadius);
-
-        if (intersecting)
+        if(PreviousSegment == null)
         {
-            TetherManager.Instance.SplitTetherSegment(this, intersection_t);
-            return true;
+            Debug.LogError("Can not step backwards because previous segment is null");
+            return;
         }
-        return false;
-    }
 
-    private bool CheckIfSplineIsTooLong()
-    {
-        // TODO: CACHE DISTANCE SO YOU DONT HAVE TO CALL IT ALL THE TIME !!!!!
-        // ^ i think this could be done with a better implementation of LastUpdated.
-        float distance = SplineUtilities.GetSegmentLength(this);
-        return true;
-    }
+        // TODO: CACHE THIS USING LastTimeUpdated
+        float tetherLength = SplineUtilities.GetSegmentLength(PreviousSegment);
 
-    #endregion Physics
+        // inverse lerp
+        float t = stepLength / tetherLength;
+
+        Vector3 targetPosition = Evaluate(1-t);
+        Vector3 targetForwardDirection = EvaluateForwardDirection(1-t);
+
+        transform.position = targetPosition;
+        transform.forward = targetForwardDirection;
+    }
 
     /// <summary>
     /// Get bezier position at t percent.
@@ -161,6 +149,130 @@ public class TetherSegment : MonoBehaviour
 
         return difference.normalized;
     }
+
+
+    #region Physics
+
+    private void Update()
+    {
+        // I have an idea for a robust solution that doesnt involve update + heavy calculations every frame but this is a prototype so i dont care.
+
+        CheckForCollisions(Time.deltaTime);
+    }
+
+    //deltaTimes here bc eventually this shouldnt be getting called every frame yk
+    private void CheckForCollisions(float deltaTime)
+    {
+        if (NextSegment == null && followingObject == null) return;
+
+        if (TryAdjustTetherLength(deltaTime))
+            return;
+
+        if (CheckForCollisionAroundNode(Time.deltaTime))
+            return; // dont move the node and update the spline at the same frame, thats just rude.
+
+        // Check for collisions along the spline
+
+        CheckForCollisionAlongSpline();
+    }
+
+    /// <summary>
+    /// Nudges the tether node if its length is funky.
+    /// </summary>
+    /// <returns>True if something happened</returns>
+    private bool TryAdjustTetherLength(float deltaTime)
+    {
+        // do not resize if this is one of the ends
+        if(NextSegment == null || PreviousSegment == null) return false;
+
+        // Lengths of tether ahead and behind of this node
+        float forwardLength = SplineUtilities.GetSegmentLength(this);
+        float backwardsLength = SplineUtilities.GetSegmentLength(PreviousSegment);
+
+        // if tether is too long on both sides then there needs to be more nodes!
+        if(forwardLength > TetherManager.Instance.MaxDesiredTetherLength && backwardsLength > TetherManager.Instance.MaxDesiredTetherLength)
+        {
+            TetherManager.Instance.SplitTetherSegment(this);
+            return true;
+        }
+
+        // If tether is too short on both sides then lets just destroy it.
+        if(forwardLength < TetherManager.Instance.MinDesiredTetherLength && backwardsLength < TetherManager.Instance.MinDesiredTetherLength)
+        {
+            TetherManager.Instance.DissolveTetherSegment(this);
+            return true;
+        }
+
+        // If too much length ahead / not enough length behind
+        if(forwardLength > TetherManager.Instance.MaxDesiredTetherLength || backwardsLength < TetherManager.Instance.MinDesiredTetherLength)
+        {
+            AdjustForwards(deltaTime * TetherManager.Instance.TetherAutoAdjustmentSpeed);
+            return true;
+        }
+
+        // If too much length behind / not enough length ahead
+        if (forwardLength < TetherManager.Instance.MinDesiredTetherLength || backwardsLength > TetherManager.Instance.MaxDesiredTetherLength)
+        {
+            AdjustBackwards(deltaTime * TetherManager.Instance.TetherAutoAdjustmentSpeed);
+            return true;
+        }
+
+        // Try to even out tether lengths
+        if (TetherManager.Instance.TryEvenTetherLengths)
+        {
+            float difference = Mathf.Abs(forwardLength - backwardsLength);
+
+            // if the difference is big enough to care
+            if (difference < TetherManager.Instance.UnevenTetherSideDifference)
+                return false;
+
+            if (forwardLength > backwardsLength)
+                AdjustForwards(deltaTime * TetherManager.Instance.TetherAutoEvenLengthSpeed);
+            else
+                AdjustBackwards(deltaTime * TetherManager.Instance.TetherAutoEvenLengthSpeed);
+
+            return false; // <- false because this is only a small adjustment
+        }
+
+        return false;
+    }
+
+    private bool CheckForCollisionAroundNode(float deltaTime)
+    {
+        bool intersecting = SplineUtilities.CheckNodeCollisionSphere(this, radius: TetherManager.Instance.TetherNodeCollisionRadius, out Vector3 hitPoint);
+
+        if (!intersecting) return false;
+
+        // Move away from hitpoint (SMOOTH THIS OUT IN THE FINAL GAME OBVIOUSLY)
+        Vector3 direction = transform.position - hitPoint;
+        transform.position = transform.position + (direction.normalized * deltaTime);
+
+        LastTimeUpdated = Time.time;
+
+        return true;
+    }
+
+    private bool CheckForCollisionAlongSpline()
+    {
+        bool intersecting = SplineUtilities.SplineSphereCast(this, out RaycastHit hit, out float intersection_t, radius: TetherManager.Instance.TetherSplineCollisionRadius);
+
+        if (!intersecting)
+        {
+            return false;
+        }
+
+        TODO
+
+        // if intersection is in the middle
+        if(intersection_t > 0.25f && intersection_t < 0.75f)
+        {
+            TetherManager.Instance.InsertTetherSegment(this, intersection_t);
+            return true;
+        }
+    }
+
+    #endregion Physics
+
 
     #region Getters 
 
