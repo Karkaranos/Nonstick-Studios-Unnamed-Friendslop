@@ -17,16 +17,7 @@ public class TesterScript : NetworkBehaviour
 
     private void SpawnPlayer(NetworkConnection client, bool asServer)
     {
-        Debug.Log("SPAWN PLAYER");
 
-        if (!asServer)
-            return;
-
-        if (!client.Scenes.Contains(gameObject.scene))
-            SceneManager.AddConnectionToScene(client, gameObject.scene);
-
-        NetworkObject obj = NetworkManager.GetPooledInstantiated(player, asServer: true);
-        Spawn(obj, client, gameObject.scene);
     }
 
     public void OnDestroy()

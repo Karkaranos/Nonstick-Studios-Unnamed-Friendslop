@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoroutineManager : Singleton<CoroutineManager>
+public class CoroutineManager : NetworkSingleton<CoroutineManager>
 {
     public List<Coroutine> managedCoroutines = new();
 

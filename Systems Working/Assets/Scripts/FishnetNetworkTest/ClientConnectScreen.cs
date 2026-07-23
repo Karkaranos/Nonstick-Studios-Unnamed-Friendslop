@@ -10,15 +10,9 @@ public class ClientConnectScreen : MonoBehaviour
     [SerializeField] private TMP_InputField playerNameField;
     [SerializeField] private TMP_InputField passwordField;
 
-    public void ConnectToLobby()
+    public void Connect()
     {
-        string[] str = addressField.text.Split(':');
-        string ipv4 = str[0];
-        ushort port = ushort.Parse(str[1]);
-
-        NetworkManager.Instances[0].ClientManager.StartConnection(ipv4, port);
-        Debug.Log($"Connected to lobby at {addressField.text}");
-        Debug.Log($"Player Name is {playerNameField.text}");
+        ConnectionManager.Instance.ConnectToLobby(addressField.text);
 
         lobbyScreen.SetActive(true);
         gameObject.SetActive(false);

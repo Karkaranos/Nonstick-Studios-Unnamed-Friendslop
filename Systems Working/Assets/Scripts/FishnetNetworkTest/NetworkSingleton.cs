@@ -1,10 +1,8 @@
+using FishNet.Object;
 using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : Singleton<T>
+public class NetworkSingleton<T> : NetworkBehaviour where T : NetworkSingleton<T>
 {
-    [Tooltip("False if DontDestroyOnLoad")]
-    [SerializeField] private bool destroyOnLoad;
-
     public static T Instance { get; private set; }
 
     protected virtual void Awake()
@@ -13,8 +11,5 @@ public class Singleton<T> : MonoBehaviour where T : Singleton<T>
             Instance = (T)this;
         else
             Destroy(this);
-
-        if(!destroyOnLoad)
-            DontDestroyOnLoad(this);
     }
 }
