@@ -16,8 +16,7 @@ public static class PublicEvents
     public static Action<Vector2> MoveDirection;
     public static Action<Vector2> MousePosition;
     public static Action EClicked;
-    public static Action SpaceStarted;
-    public static Action SpaceFinished;
+    public static Action SpaceClicked;
     public static Action ShiftStarted;
     public static Action ShiftFinished;
     public static Action ControlStarted;
