@@ -13,16 +13,22 @@ using UnityEngine;
 
 public class PeriscopeController : MonoBehaviour
 {
-    [SerializeField]
+    [Header ("References")]
+    [SerializeField, Tooltip("In scene as TempPlayerCam, will be replaced by static ref later."), Required]
     private CinemachineCamera playerCamera;
-    [SerializeField]
+    [SerializeField, Tooltip("PeriscopeCam prefab, reference for cinemachine camera."), Required]
     private CinemachineCamera periscopeCamera;
-    [SerializeField]
+    [SerializeField, Tooltip("PeriscopeCam prefab, reference for cinemachine pan tilt."), Required]
     private CinemachinePanTilt periscopePanTilt;
+
+    [Header("Design")]
+    [SerializeField, Tooltip("How quickly the periscope camera rotates.")]
+    private float periscopeCameraRotationSpeed = 15;
+
     private Coroutine periscopeRotationCoroutine;
     private bool isRotating = false;
-    [SerializeField]
-    private float periscopeCameraRotationSpeed = 1;
+
+    #region CameraSwitching
 
     [Button]
     /// <summary>
@@ -45,7 +51,20 @@ public class PeriscopeController : MonoBehaviour
     {
         periscopeCamera.gameObject.SetActive(false);
         playerCamera.gameObject.SetActive(true);
+
+        //stop rotation coroutine if still going
+        isRotating = false;
+
+        if (periscopeRotationCoroutine != null)
+        {
+            StopCoroutine(periscopeRotationCoroutine);
+            periscopeRotationCoroutine = null;
+        }
     }
+
+    #endregion
+
+    #region CameraRotation
 
     [Button]
     /// <summary>
@@ -53,26 +72,32 @@ public class PeriscopeController : MonoBehaviour
     /// </summary>
     private void PeriscopeCamRotationClockwise()
     {
+        if (!gameObject.activeSelf)
+        {
+            return;
+        }
+
         //if not rotating, rotate clockwise
         if (!isRotating)
         {
+            isRotating = true;
+
             if (periscopeRotationCoroutine == null)
             {
                 periscopeRotationCoroutine = StartCoroutine(RotatePeriscope(1));
             }
 
-            isRotating = true;
         }
         //if rotating, stop rotating
         else
         {
+            isRotating = false;
+
             if (periscopeRotationCoroutine != null)
             {
                 StopCoroutine(periscopeRotationCoroutine);
                 periscopeRotationCoroutine = null;
             }
-
-            isRotating = false;
         }
     }
 
@@ -84,26 +109,31 @@ public class PeriscopeController : MonoBehaviour
     /// </summary>
     private void PeriscopeCamRotationCounterClockwise()
     {
+        if (!gameObject.activeSelf)
+        {
+            return;
+        }
+
         //if not rotating, rotate counterclockwise
         if (!isRotating)
         {
+            isRotating = true;
+
             if (periscopeRotationCoroutine == null)
             {
                 periscopeRotationCoroutine = StartCoroutine(RotatePeriscope(-1));
             }
-
-            isRotating = true;
         }
         //if rotating, stop rotating
         else
         {
+            isRotating = false;
+
             if (periscopeRotationCoroutine != null)
             {
                 StopCoroutine(periscopeRotationCoroutine);
                 periscopeRotationCoroutine = null;
             }
-
-            isRotating = false;
         }
     }
 
@@ -111,14 +141,16 @@ public class PeriscopeController : MonoBehaviour
     /// Rotates the periscope either clockwise or counterclockwise
     /// </summary>
     /// <param name="direction"></param>
-    /// use 1 for clockwise and -1 for counterclockwise
+    /// determines rotation direction, use 1 for clockwise and -1 for counterclockwise
     /// <returns></returns>
     private IEnumerator RotatePeriscope(int direction)
     {
-        while (true)
+        while (isRotating)
         {
             periscopePanTilt.PanAxis.Value += direction * periscopeCameraRotationSpeed * Time.deltaTime;
             yield return null;
         }
     }
+
+    #endregion 
 }
