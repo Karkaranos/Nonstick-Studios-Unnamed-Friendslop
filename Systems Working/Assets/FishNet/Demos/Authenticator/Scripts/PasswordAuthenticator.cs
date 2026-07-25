@@ -65,6 +65,7 @@ namespace FishNet.Example.Authenticating
 
             /* If not sending host authentication, then
              * authenticate normally. */
+            //TO DO: Add code to pull password from input field rather than serialized inspector field
             PasswordBroadcast pb = new()
             {
                 Password = _password

@@ -14,6 +14,6 @@ public class NetworkPlayer : NetworkBehaviour
      {
         Vector3 movementThisFrame = Vector3.forward * speed * Time.deltaTime;
         transform.Translate(movementThisFrame);
-        Debug.Log($"{gameObject.name} moved {movementThisFrame.magnitude} units");
+        //Debug.Log($"{gameObject.name} moved {movementThisFrame.magnitude} units");
      }
 }
