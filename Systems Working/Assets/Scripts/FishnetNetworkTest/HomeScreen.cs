@@ -9,16 +9,14 @@ public class HomeScreen : MonoBehaviour
 {
     #region Variables
 
-    [SerializeField] private GameObject lobbyScreen;
+    [SerializeField] private GameObject hostScreen;
     [SerializeField] private GameObject clientScreen;
 
     #endregion
 
     public void HostGame()
     {
-        ConnectionManager.Instance.HostGame();
-
-        lobbyScreen.SetActive(true);
+        hostScreen.SetActive(true);
         gameObject.SetActive(false);
     }
 

@@ -5,6 +5,7 @@ using FishNet.Managing;
 public class ClientConnectScreen : MonoBehaviour
 {
     [SerializeField] private GameObject lobbyScreen;
+    [SerializeField] private PasswordAuth authenticationObj;
 
     [SerializeField] private TMP_InputField addressField;
     [SerializeField] private TMP_InputField playerNameField;
@@ -12,6 +13,7 @@ public class ClientConnectScreen : MonoBehaviour
 
     public void Connect()
     {
+        authenticationObj.InputPassword = passwordField.text;
         ConnectionManager.Instance.ConnectToLobby(addressField.text);
 
         lobbyScreen.SetActive(true);
