@@ -12,16 +12,16 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static ShipMovementControllers;
 
+public enum ControllerType
+{
+    FBLever,
+    ADLever,
+    Wheel,
+}
+
 public class ShipMovementControllers : MonoBehaviour
 {
     #region VARIABLES
-
-    public enum ControllerType
-    {
-        FBLever,
-        ADLever,
-        Wheel,
-    }
 
     bool moving;
 

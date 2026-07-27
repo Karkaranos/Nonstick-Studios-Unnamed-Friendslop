@@ -36,22 +36,21 @@ public class ShipMovement : Singleton<ShipMovement>
     /// starts one of the coroutines that allows the ship to move
     /// </summary>
     /// <param name="controllerType">
-    /// in which way the p.h.i.s.h. is moving\
-    /// the int corresponds with the enum entry in ShipMovementController
+    /// which movement type the player has interacted with
     /// </param>
-    public void StartMoving(int controllerType)
+    public void StartMoving(ControllerType controllerType)
     {
         switch (controllerType)
         {
-            case 0:
+            case ControllerType.FBLever:
                 StartCoroutine(MovingForwardAndBackward());
                 break;
 
-            case 1:
+            case ControllerType.ADLever:
                 StartCoroutine(MovingUpAndDown());
                 break;
 
-            case 2:
+            case ControllerType.Wheel:
                 StartCoroutine(MovingLeftOrRight());
                 break;
 
