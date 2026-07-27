@@ -7,12 +7,17 @@ External Resources :
 ***************************************************/
 
 using System.Collections;
+using System.Collections.Generic;
 using NaughtyAttributes;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShipResourceManager : Singleton<ShipResourceManager>
 {
+
+    #region VARIABLES
+
     //tracks the ship's current oxygen level
     float shipOxygen;
 
@@ -22,6 +27,12 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [Tooltip("The highest value that the oxygen can be.")]
     [SerializeField] float shipOxygenMax;
 
+    [Tooltip("How much the maximum oxygen should increase per treasure collected. This should be under 1!")]
+    [SerializeField] float shipOxygenPerTreasure;
+
+    [Tooltip("The highest value that the oxygen can be upgraded to.")]
+    [SerializeField] float shipOxygenUpgradedMax;
+
     [Tooltip("The amount of seconds in between when the ship's oxygen depletes.")]
     [SerializeField] float shipOxygenDepletionTime;
 
@@ -30,6 +41,17 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
     [Tooltip("The amount of oxygen depleted per increment.")]
     [SerializeField] float shipOxygenDepletionAmount;
+
+
+    [Space(10)]
+
+
+    [Header("Testing")]
+
+    #endregion VARIABLES
+
+    //this will NOT be public post-testing
+    [SerializeField] List<Treasure> collectedTreasures = new List<Treasure>();
 
     [Button]
     ///<summary>
@@ -90,12 +112,23 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         }
     }
 
+    [Button]
     /// <summary>
     /// adds to the max amount of the ship's oxygen
     /// does nothing for now, but is based off of design's flowchart
     /// </summary>
     public void AddToMaxOxygen()
     {
+       foreach(Treasure treasure in collectedTreasures)
+       {
+            shipOxygenMax += Mathf.RoundToInt(shipOxygenMax * shipOxygenPerTreasure);
+       }
 
+       if(shipOxygenMax > shipOxygenUpgradedMax)
+       {
+            shipOxygenMax = shipOxygenUpgradedMax;
+       }
+
+        Debug.Log($"MAX OXYGEN: {shipOxygenMax}");
     }
 }
