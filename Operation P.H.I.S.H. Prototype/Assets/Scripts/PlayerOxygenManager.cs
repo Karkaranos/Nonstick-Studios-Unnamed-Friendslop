@@ -11,6 +11,9 @@ using UnityEngine;
 
 public class PlayerOxygenManager : MonoBehaviour
 {
+
+    #region VARIABLES
+
     //tracks the player's personal oxygen level
     float playerOxygen;
 
@@ -26,6 +29,13 @@ public class PlayerOxygenManager : MonoBehaviour
     //may or may not change how this is detected later on
     //should this depend on a player variable?
     [HideInInspector] public bool IsAttachedToTether;
+
+    #endregion VARIABLES
+
+    private void Start()
+    {
+        
+    }
 
     [Button]
     ///<summary>
