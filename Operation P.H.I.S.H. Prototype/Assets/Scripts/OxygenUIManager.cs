@@ -10,18 +10,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class OxygenUIManager : MonoBehaviour
+public class OxygenUIManager : Singleton<OxygenUIManager>
 {
     [Tooltip("The bar that will display the ship's oxygen.")]
     [SerializeField] Image shipOxygenDisplay;
 
     //i've got a vision
-    [HideInInspector] public int NumberOfPlayers = 0;
-
+    //i'd imagine that this is temporary lol
+    [HideInInspector] public List<PlayerOxygenManager> PlayersInGame = new List<PlayerOxygenManager>();
     [SerializeField] List<Image> playerOxygenDisplays = new List<Image>();
 
-    private void Start()
-    {
-       
-    }
 }

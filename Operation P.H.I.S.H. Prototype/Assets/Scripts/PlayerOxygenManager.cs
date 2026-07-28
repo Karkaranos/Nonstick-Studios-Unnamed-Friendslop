@@ -32,9 +32,9 @@ public class PlayerOxygenManager : MonoBehaviour
 
     #endregion VARIABLES
 
-    private void Start()
+    private void Awake()
     {
-        
+        OxygenUIManager.Instance.PlayersInGame.Add(this);
     }
 
     [Button]
