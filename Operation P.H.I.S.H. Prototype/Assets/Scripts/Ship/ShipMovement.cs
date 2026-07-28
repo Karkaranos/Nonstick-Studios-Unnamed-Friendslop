@@ -91,6 +91,8 @@ public class ShipMovement : Singleton<ShipMovement>
     {
         while (WheelAdjustment != 0 || Moving)
         {
+            //i could maybe change how this is calculated based on what design says
+            //it might feel wrong but maybe that's just me
             transform.Rotate(Vector3.up * leftRightMovementSpeed * WheelAdjustment * Time.deltaTime);
             yield return new WaitForFixedUpdate();
         }
