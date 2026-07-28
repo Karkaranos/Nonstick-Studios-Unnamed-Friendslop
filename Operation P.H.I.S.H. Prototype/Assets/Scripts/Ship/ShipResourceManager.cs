@@ -27,7 +27,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [Tooltip("The highest value that the oxygen can be.")]
     [SerializeField] float shipOxygenMax;
 
-    [Tooltip("How much the maximum oxygen should increase per treasure collected. This should be under 1!")]
+    [Tooltip("How much the maximum oxygen should increase per treasure collected.")]
     [SerializeField] float shipOxygenPerTreasure;
 
     [Tooltip("The highest value that the oxygen can be upgraded to.")]
@@ -121,7 +121,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     {
        foreach(Treasure treasure in collectedTreasures)
        {
-            shipOxygenMax += Mathf.RoundToInt(shipOxygenMax * shipOxygenPerTreasure);
+            shipOxygenMax += shipOxygenPerTreasure;
        }
 
        if(shipOxygenMax > shipOxygenUpgradedMax)
