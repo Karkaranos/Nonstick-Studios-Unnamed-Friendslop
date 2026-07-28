@@ -6,6 +6,7 @@ Brief Description : 	Controls the movement of the P.H.I.S.H.
                         Won't need most of the functions from Movement
 External Resources : 	
 ***************************************************/
+using System.Collections;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -128,10 +129,7 @@ public class ShipMovementControllers : MonoBehaviour
                         }
                     }
 
-                    ShipMovement.Instance.FBAdjustment =
-                    Mathf.Lerp(ShipMovement.Instance.FBAdjustment, FBAdjustmentRate, 1.5f);
-
-                    Debug.Log($"SHIP FB ADJUSTMENT: {ShipMovement.Instance.FBAdjustment}");
+                    StartCoroutine(AdjustShipSpeed());
 
                     break;
 
@@ -158,10 +156,7 @@ public class ShipMovementControllers : MonoBehaviour
                         }
                     }
 
-                    ShipMovement.Instance.ADAdjustment =
-                    Mathf.Lerp(ShipMovement.Instance.ADAdjustment, ADAdjustmentRate, 1.5f);
-
-                    Debug.Log($"SHIP AD ADJUSTMENT: {ShipMovement.Instance.ADAdjustment}");
+                    StartCoroutine(AdjustShipSpeed());
 
                     break;
 
@@ -188,10 +183,7 @@ public class ShipMovementControllers : MonoBehaviour
                         }
                     }
 
-                    ShipMovement.Instance.WheelAdjustment =
-                    Mathf.Lerp(ShipMovement.Instance.WheelAdjustment, wheelAdjustmentRate, 1.5f);
-
-                    Debug.Log($"SHIP WHEEL ADJUSTMENT: {ShipMovement.Instance.WheelAdjustment}");
+                    StartCoroutine(AdjustShipSpeed());
 
                     break;
 
@@ -199,6 +191,67 @@ public class ShipMovementControllers : MonoBehaviour
                     break;
 
             }
+        }
+    }
+
+    /// <summary>
+    /// gradually adjusts the ship's speed for real this time
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator AdjustShipSpeed()
+    {
+        float timer = 0;
+
+        //sorry switch statements are fun for me
+        switch(controllerType)
+        {
+            case (ControllerType.FBLever):
+
+                while(timer < 2)
+                {
+                    timer += 1;
+
+                    ShipMovement.Instance.FBAdjustment =
+                    Mathf.Lerp(ShipMovement.Instance.FBAdjustment, FBAdjustmentRate, Mathf.Clamp01(timer/2));
+
+                    yield return new WaitForSeconds(1);
+                }
+
+                Debug.Log($"SHIP FB ADJUSTMENT: {ShipMovement.Instance.FBAdjustment}");
+                break;
+
+            case (ControllerType.ADLever):
+
+                while (timer < 2)
+                {
+                    timer += 1;
+
+                    ShipMovement.Instance.ADAdjustment =
+                    Mathf.Lerp(ShipMovement.Instance.ADAdjustment, ADAdjustmentRate, Mathf.Clamp01(timer / 2));
+
+                    yield return new WaitForSeconds(1);
+                }
+
+                Debug.Log($"SHIP AD ADJUSTMENT: {ShipMovement.Instance.ADAdjustment}");
+                break;
+
+            case (ControllerType.Wheel):
+
+                while (timer < 2)
+                {
+                    timer += 1;
+
+                    ShipMovement.Instance.WheelAdjustment =
+                    Mathf.Lerp(ShipMovement.Instance.WheelAdjustment, wheelAdjustmentRate, Mathf.Clamp01(timer / 2));
+
+                    yield return new WaitForSeconds(1);
+                }
+
+                Debug.Log($"SHIP WHEEL ADJUSTMENT: {ShipMovement.Instance.WheelAdjustment}");
+                break;
+
+            default:
+                break;
         }
     }
 
