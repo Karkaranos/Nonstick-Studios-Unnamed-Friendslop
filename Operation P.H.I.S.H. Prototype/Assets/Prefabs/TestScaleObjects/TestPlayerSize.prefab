@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 2908888437505984136}
   - component: {fileID: 3644946148156667584}
   - component: {fileID: 1828231223060895353}
+  - component: {fileID: 7251757809408993730}
+  - component: {fileID: 1222226372454863550}
   m_Layer: 0
   m_Name: TestPlayerSize
   m_TagString: Untagged
@@ -1175,3 +1177,28 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &7251757809408993730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197106932896169762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf0a504dedb19a47a114f1a32f12904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  defaultMovement: 0
+--- !u!114 &1222226372454863550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197106932896169762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b912e71f0ef0e1a41a7c671af51f6ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LandMovement
