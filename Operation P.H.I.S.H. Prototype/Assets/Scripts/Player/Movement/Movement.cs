@@ -19,7 +19,8 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.MoveDirection += OnMove;
         PublicEvents.MousePosition += OnMouseMove;
         PublicEvents.EClicked += OnEClicked;
-        PublicEvents.SpaceClicked += OnSpaceClicked;
+        PublicEvents.SpaceStarted += OnSpaceStarted;
+        PublicEvents.SpaceFinished += OnSpaceFinished;
         PublicEvents.ShiftStarted += OnShiftStarted;
         PublicEvents.ShiftFinished += OnShiftFinished;
         PublicEvents.ControlStarted += OnControlStarted;
@@ -34,7 +35,8 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.MoveDirection -= OnMove;
         PublicEvents.MousePosition -= OnMouseMove;
         PublicEvents.EClicked -= OnEClicked;
-        PublicEvents.SpaceClicked -= OnSpaceClicked;
+        PublicEvents.SpaceStarted -= OnSpaceStarted;
+        PublicEvents.SpaceFinished -= OnSpaceFinished;
         PublicEvents.ShiftStarted -= OnShiftStarted;
         PublicEvents.ShiftFinished -= OnShiftFinished;
         PublicEvents.ControlStarted -= OnControlStarted;
@@ -45,7 +47,8 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnMove(Vector2 moveVector);
     protected abstract void OnMouseMove(Vector2 cameraVector);
     protected abstract void OnEClicked();
-    protected abstract void OnSpaceClicked();
+    protected abstract void OnSpaceStarted();
+    protected abstract void OnSpaceFinished();
     protected abstract void OnShiftStarted();
     protected abstract void OnShiftFinished();
     protected abstract void OnControlStarted();

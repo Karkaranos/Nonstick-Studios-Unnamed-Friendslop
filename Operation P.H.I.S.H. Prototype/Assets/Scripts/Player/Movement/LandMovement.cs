@@ -39,9 +39,17 @@ public class LandMovement : Movement
     /// <summary>
     /// Override from movement base class
     /// </summary>
-    protected override void OnSpaceClicked()
+    protected override void OnSpaceStarted()
     {
-        Debug.Log("SPACE");
+        Debug.Log("Space Started");
+    }
+
+    /// <summary>
+    /// Override from movement base class
+    /// </summary>
+    protected override void OnSpaceFinished()
+    {
+        Debug.Log("Space Finished");
     }
 
     /// <summary>
@@ -51,6 +59,8 @@ public class LandMovement : Movement
     {
         Debug.Log("Shift Start");
     }
+
+    
 
     /// <summary>
     /// override from movement base class
