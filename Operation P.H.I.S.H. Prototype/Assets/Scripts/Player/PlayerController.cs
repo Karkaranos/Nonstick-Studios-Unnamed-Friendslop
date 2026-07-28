@@ -23,6 +23,14 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("Default movement setting player is set to when the game starts")]
     [SerializeField] private MovementType defaultMovement;
+
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private float cameraSensitivity;
+    [SerializeField] private Transform cameraRotationParent;
+    public Camera PlayerCam { get { return playerCamera; } }
+    public float CameraSensitivity { get { return cameraSensitivity; } }
+    public Transform CameraRotationParent { get { return cameraRotationParent; } }
+
     
     private Dictionary<MovementType, Movement> movementScripts;
 

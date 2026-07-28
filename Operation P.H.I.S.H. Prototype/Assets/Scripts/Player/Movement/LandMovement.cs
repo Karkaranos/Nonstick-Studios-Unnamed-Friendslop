@@ -10,12 +10,30 @@ using UnityEngine;
 
 public class LandMovement : Movement
 {
+    private PlayerController pc;
+    [SerializeField] private float minCameraYClamp = 120f;
+    [SerializeField] private float maxCameraYClamp = 60f;
+
+    Vector2 rotation;
+    private void Start()
+    {
+        pc = GetComponent<PlayerController>();
+        rotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
+    }
+
     /// <summary>
     /// Override from Movement base class
     /// </summary>
     /// <param name="cameraVector"></param>
     protected override void OnMouseMove(Vector2 cameraVector)
     {
+        Vector2 adjustedDelta = cameraVector * pc.CameraSensitivity * Time.fixedDeltaTime;
+
+        rotation.x -= adjustedDelta.y;
+        rotation.x = Mathf.Clamp(rotation.x, minCameraYClamp, maxCameraYClamp);
+        rotation.y += adjustedDelta.x;
+
+        pc.CameraRotationParent.localEulerAngles = rotation;
         Debug.Log("LOOK");
     }
 
