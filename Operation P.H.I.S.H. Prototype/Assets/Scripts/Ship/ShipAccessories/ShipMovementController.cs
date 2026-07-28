@@ -3,14 +3,11 @@ Author Names : 		    Jay Embry
 Date Created : 		    7/27/2026
 Date Last Modified : 	7/27/2026
 Brief Description : 	Controls the movement of the P.H.I.S.H.
+                        Won't need most of the functions from Movement
 External Resources : 	
 ***************************************************/
-using System.Collections;
-using System.Threading;
 using NaughtyAttributes;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using static ShipMovementControllers;
 
 public enum ControllerType
 {
@@ -19,7 +16,7 @@ public enum ControllerType
     Wheel,
 }
 
-public class ShipMovementControllers : MonoBehaviour
+public class ShipMovementControllers : MonoBehaviour 
 {
     #region VARIABLES
 
@@ -38,9 +35,9 @@ public class ShipMovementControllers : MonoBehaviour
 
     [Space(10)]
     [ShowIf(nameof(controllerType), ControllerType.ADLever), SerializeField]
-    float ADAdjustmentCap = 0;
-    [ShowIf(nameof(controllerType), ControllerType.ADLever), SerializeField]
     float ADAdjustmentRate;
+    [ShowIf(nameof(controllerType), ControllerType.ADLever), SerializeField]
+    float ADAdjustmentCap = 0;
 
 
     [Space(10)]
@@ -50,11 +47,29 @@ public class ShipMovementControllers : MonoBehaviour
     #endregion VARIABLES
 
     /// <summary>
+    /// runs when loaded into a scene
+    /// </summary>
+    void OnEnable()
+    {
+        PublicEvents.MoveDirection += MoveController;
+        PublicEvents.EClicked += EClicked;
+    }
+
+    /// <summary>
+    /// runs when this script is destroyed
+    /// </summary>
+    private void OnDisable()
+    {
+        PublicEvents.MoveDirection -= MoveController;
+        PublicEvents.EClicked -= EClicked;
+    }
+
+    [Button]
+    /// <summary>
     /// should be called upon interacting with lever
     /// </summary>
     public void InteractWithController()
     {
-        ShipMovement.Instance.Moving = !moving;
         moving = !moving;
 
         if (moving)
@@ -64,14 +79,136 @@ public class ShipMovementControllers : MonoBehaviour
         else
         {
             //TODO: enable player movement
+
+            if(controllerType == ControllerType.Wheel)
+            {
+                wheelAdjustmentRate = 0;
+                ShipMovement.Instance.WheelAdjustment =
+                Mathf.Lerp(ShipMovement.Instance.WheelAdjustment, 0, 1.5f);
+
+                ShipMovement.Instance.Moving = false;
+            }
         }
     }
 
-    //TODO: put controls here!!!!!
-    //tl;dr: when the player uses WASD while moving,
-    //it should adjust whichever value is associated with controllerType
-    //then, it should gradually adjust the associated variable in ShipMovement using mathf.lerp(?)
-    //to keep the coroutine in ShipMovement from running constantly,
-    //it should start whenever the variable in this script is less than or greater than 0,
-    //and stop whenever the variable in ShipMovement is 0
+    /// <summary>
+    /// runs when WASD is pressed
+    /// </summary>
+    /// <param name="moveVector">
+    /// which key the player has used
+    /// </param>
+    void MoveController(Vector2 moveVector)
+    {
+        if(moving)
+        {
+            switch(controllerType)
+            {
+                case ControllerType.FBLever:
+
+                    if(moveVector.y >= 0.5f && FBAdjustmentRate < FBAdjustmentCap)
+                    {
+                        FBAdjustmentRate += 1;
+
+                        if(FBAdjustmentRate > 0 && !ShipMovement.Instance.Moving)
+                        {
+                            ShipMovement.Instance.Moving = true;
+                            ShipMovement.Instance.StartMoving(controllerType);
+                        }
+                    }
+                    else if(moveVector.y <= -0.5f && FBAdjustmentRate > -FBAdjustmentCap)
+                    {
+                        FBAdjustmentRate -= 1;
+
+                        if (FBAdjustmentRate < 0 && !ShipMovement.Instance.Moving)
+                        {
+                            ShipMovement.Instance.Moving = true;
+                            ShipMovement.Instance.StartMoving(controllerType);
+                        }
+                    }
+
+                    ShipMovement.Instance.FBAdjustment =
+                    Mathf.Lerp(ShipMovement.Instance.FBAdjustment, FBAdjustmentRate, 1.5f);
+
+                    Debug.Log($"SHIP FB ADJUSTMENT: {ShipMovement.Instance.FBAdjustment}");
+
+                    break;
+
+                case ControllerType.ADLever:
+
+                    if (moveVector.y >= 0.5f && ADAdjustmentRate < ADAdjustmentCap)
+                    {
+                        ADAdjustmentRate += 1;
+
+                        if (ADAdjustmentRate > 0 && !ShipMovement.Instance.Moving)
+                        {
+                            ShipMovement.Instance.Moving = true;
+                            ShipMovement.Instance.StartMoving(controllerType);
+                        }
+                    }
+                    else if (moveVector.y <= -0.5f && ADAdjustmentRate > -ADAdjustmentCap)
+                    {
+                        ADAdjustmentRate -= 1;
+
+                        if (ADAdjustmentRate < 0 && !ShipMovement.Instance.Moving)
+                        {
+                            ShipMovement.Instance.Moving = true;
+                            ShipMovement.Instance.StartMoving(controllerType);
+                        }
+                    }
+
+                    ShipMovement.Instance.ADAdjustment =
+                    Mathf.Lerp(ShipMovement.Instance.ADAdjustment, ADAdjustmentRate, 1.5f);
+
+                    Debug.Log($"SHIP AD ADJUSTMENT: {ShipMovement.Instance.ADAdjustment}");
+
+                    break;
+
+                case ControllerType.Wheel:
+
+                    if(moveVector.x >= 0.5f)
+                    {
+                        wheelAdjustmentRate += 1;
+
+                        if (wheelAdjustmentRate > 0 && !ShipMovement.Instance.Moving)
+                        {
+                            ShipMovement.Instance.Moving = true;
+                            ShipMovement.Instance.StartMoving(controllerType);
+                        }
+                    }
+                    else if(moveVector.x <= -0.5f)
+                    {
+                        wheelAdjustmentRate -= 1;
+
+                        if (wheelAdjustmentRate < 0 && !ShipMovement.Instance.Moving)
+                        {
+                            ShipMovement.Instance.Moving = true;
+                            ShipMovement.Instance.StartMoving(controllerType);
+                        }
+                    }
+
+                    ShipMovement.Instance.WheelAdjustment =
+                    Mathf.Lerp(ShipMovement.Instance.WheelAdjustment, wheelAdjustmentRate, 1.5f);
+
+                    Debug.Log($"SHIP WHEEL ADJUSTMENT: {ShipMovement.Instance.WheelAdjustment}");
+
+                    break;
+
+                default:
+                    break;
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// runs when E is pressed
+    /// </summary>
+    void EClicked()
+    {
+        if(moving)
+        {
+            InteractWithController();
+        }
+    }
+
 }

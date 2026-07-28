@@ -7,9 +7,7 @@ External Resources :
 ***************************************************/
 
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using NaughtyAttributes;
 
 public class ShipMovement : Singleton<ShipMovement>
 {
@@ -59,7 +57,10 @@ public class ShipMovement : Singleton<ShipMovement>
         }
     }
 
-    [Button]
+    /// <summary>
+    /// moves the ship forward or backward
+    /// </summary>
+    /// <returns></returns>
     IEnumerator MovingForwardAndBackward()
     {
         while(FBAdjustment != 0 || Moving)
@@ -69,7 +70,10 @@ public class ShipMovement : Singleton<ShipMovement>
         }
     }
 
-    [Button]
+    /// <summary>
+    /// moves the ship up or down
+    /// </summary>
+    /// <returns></returns>
     IEnumerator MovingUpAndDown()
     {
         while (ADAdjustment != 0 || Moving)
@@ -79,7 +83,10 @@ public class ShipMovement : Singleton<ShipMovement>
         }
     }
 
-    [Button]
+    /// <summary>
+    /// rotates the ship
+    /// </summary>
+    /// <returns></returns>
     IEnumerator MovingLeftOrRight()
     {
         while (WheelAdjustment != 0 || Moving)
