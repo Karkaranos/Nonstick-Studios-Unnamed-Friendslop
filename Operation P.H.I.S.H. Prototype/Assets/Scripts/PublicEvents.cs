@@ -23,4 +23,10 @@ public static class PublicEvents
     public static Action ControlFinished;
 
     #endregion
+
+    #region MOVEMENT EVENTS
+
+    public static Action<PlayerController.MovementType> ToggleMovement;
+
+    #endregion
 }

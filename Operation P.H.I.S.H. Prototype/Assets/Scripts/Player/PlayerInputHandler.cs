@@ -27,6 +27,10 @@ public class PlayerInputHandler : MonoBehaviour
 
     #region INITIALIZATION
 
+    /// <summary>
+    /// Enables action map
+    /// Sets each action to what it is in the action map
+    /// </summary>
     private void Awake()
     {
         input.currentActionMap.Enable();
@@ -39,9 +43,13 @@ public class PlayerInputHandler : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// subscribes input actions to functions
+    /// </summary>
     private void OnEnable()
     {
         move.performed += MoveCalled;
+        look.performed += LookCalled;   
         e.performed += EPressed;
         space.performed += SpacePressed;
         shift.started += ShiftPressed;
@@ -51,6 +59,9 @@ public class PlayerInputHandler : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// unsubscribes input actions from functions
+    /// </summary>
     private void OnDisable()
     {
         move.Disable();
@@ -63,46 +74,78 @@ public class PlayerInputHandler : MonoBehaviour
 
     #region FUNCTIONS
 
+    /// <summary>
+    /// Input function for WASD being pressed
+    /// </summary>
+    /// <param name="obj"></param>
     private void MoveCalled(InputAction.CallbackContext obj)
     {
-        Debug.Log("MOVED");
         Vector2 moveDirection = move.ReadValue<Vector2>();
-        //PublicEvents.MoveDirection(moveDirection); 
+        PublicEvents.MoveDirection(moveDirection); 
     }
 
+    /// <summary>
+    /// Input function for moving mouse
+    /// </summary>
+    /// <param name="obj"></param>
     private void LookCalled(InputAction.CallbackContext obj)
     {
-        Debug.Log("LOOK");
         Vector2 lookDirection = look.ReadValue<Vector2>();
+        PublicEvents.MousePosition(lookDirection);
     }
+
+    /// <summary>
+    /// Input function for E pressed
+    /// </summary>
+    /// <param name="obj"></param>
     private void EPressed(InputAction.CallbackContext obj)
     {
-        Debug.Log("INTERACT");
+        PublicEvents.EClicked();
     }
 
+    /// <summary>
+    /// Input function for Space pressed
+    /// </summary>
+    /// <param name="obj"></param>
     private void SpacePressed(InputAction.CallbackContext obj)
     {
-        Debug.Log("SPACE");
+        PublicEvents.SpaceClicked();
     }
 
+    /// <summary>
+    /// Input action for starting to hold shift
+    /// </summary>
+    /// <param name="obj"></param>
     private void ShiftPressed(InputAction.CallbackContext obj)
     {
-        Debug.Log("SHIFT");
+        PublicEvents.ShiftStarted();
     }
 
+    /// <summary>
+    /// Input action for realsing shift
+    /// </summary>
+    /// <param name="obj"></param>
     private void ShiftCancled(InputAction.CallbackContext obj)
     {
-        Debug.Log("END SHIFT");
+        PublicEvents.ShiftFinished();
     }
 
+    /// <summary>
+    /// Input action for starting to hold control
+    /// </summary>
+    /// <param name="obj"></param>
     private void ControlPressed(InputAction.CallbackContext obj)
     {
-        Debug.Log("CONTROL");
+        PublicEvents.ControlStarted();
     }
 
+    /// <summary>
+    /// Input action for realsing control
+    /// </summary>
+    /// <param name="obj"></param>
     private void ControlCancled(InputAction.CallbackContext obj)
     {
-        Debug.Log("END CONTROL");
+        PublicEvents.ControlFinished();
     }    
 
     #endregion

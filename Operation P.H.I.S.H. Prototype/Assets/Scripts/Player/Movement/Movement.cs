@@ -1,0 +1,54 @@
+/*************************************************
+Author Names : 		    Clare Grady
+Date Created : 		    07/22/2026
+Date Last Modified : 	07/22/202
+Brief Description : 	Base Class that defines all functions movement scripts should have
+
+External Resources :    	
+***************************************************/
+using Unity.VisualScripting;
+using UnityEngine;
+
+public abstract class Movement: MonoBehaviour 
+{
+    /// <summary>
+    /// Subscribes to all the Public events for controls
+    /// </summary>
+    protected void OnEnable()
+    {
+        PublicEvents.MoveDirection += OnMove;
+        PublicEvents.MousePosition += OnMouseMove;
+        PublicEvents.EClicked += OnEClicked;
+        PublicEvents.SpaceClicked += OnSpaceClicked;
+        PublicEvents.ShiftStarted += OnShiftStarted;
+        PublicEvents.ShiftFinished += OnShiftFinished;
+        PublicEvents.ControlStarted += OnControlStarted;
+        PublicEvents.ControlFinished += OnControlFinished;
+    }
+
+    /// <summary>
+    /// Unsubscribes from all public events for controls
+    /// </summary>
+    protected void OnDisable()
+    {
+        PublicEvents.MoveDirection -= OnMove;
+        PublicEvents.MousePosition -= OnMouseMove;
+        PublicEvents.EClicked -= OnEClicked;
+        PublicEvents.SpaceClicked -= OnSpaceClicked;
+        PublicEvents.ShiftStarted -= OnShiftStarted;
+        PublicEvents.ShiftFinished -= OnShiftFinished;
+        PublicEvents.ControlStarted -= OnControlStarted;
+        PublicEvents.ControlFinished -= OnControlFinished;
+    }
+
+
+    protected abstract void OnMove(Vector2 moveVector);
+    protected abstract void OnMouseMove(Vector2 cameraVector);
+    protected abstract void OnEClicked();
+    protected abstract void OnSpaceClicked();
+    protected abstract void OnShiftStarted();
+    protected abstract void OnShiftFinished();
+    protected abstract void OnControlStarted();
+    protected abstract void OnControlFinished();
+
+}
