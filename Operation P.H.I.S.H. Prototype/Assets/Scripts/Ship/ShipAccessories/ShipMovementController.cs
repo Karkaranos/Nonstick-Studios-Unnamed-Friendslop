@@ -85,8 +85,7 @@ public class ShipMovementControllers : MonoBehaviour
             if(controllerType == ControllerType.Wheel)
             {
                 wheelAdjustmentRate = 0;
-                ShipMovement.Instance.WheelAdjustment =
-                Mathf.Lerp(ShipMovement.Instance.WheelAdjustment, 0, 1.5f);
+                StartCoroutine(AdjustShipSpeed());
             }
 
             ShipMovement.Instance.Moving = false;
