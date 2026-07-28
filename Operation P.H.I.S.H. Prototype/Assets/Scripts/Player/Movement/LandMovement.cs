@@ -6,6 +6,7 @@ Brief Description : 	Actually defines and handles land movement
 
 External Resources :    	
 ***************************************************/
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerController))]
@@ -16,6 +17,12 @@ public class LandMovement : Movement
     [SerializeField] private float maxCameraYClamp = 60f;
 
     [SerializeField] private float baseLandMovementSpeed = 1f;
+    [SerializeField] private float tapJumpHeightPercent = .5f;
+    [SerializeField] private float fullJumpHeight;
+    [SerializeField] private float timeToMaxAcceleration = 5f;
+    [SerializeField] private float maxAccelerationMultiplier = 3f;
+    private float accelleration = 1f;
+    private Coroutine shiftHold;
 
     Vector2 rotation;
     Rigidbody rb;
@@ -50,11 +57,12 @@ public class LandMovement : Movement
 
     /// <summary>
     /// Override from Movement base class
+    /// Reads a value from the OnMove event and adjust velocity accordingly
     /// </summary>
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
-        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseLandMovementSpeed * 100f*  Time.fixedDeltaTime;
+        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseLandMovementSpeed * 100f * accelleration *  Time.fixedDeltaTime;
 
         if(!Grounded())
         {
@@ -77,9 +85,26 @@ public class LandMovement : Movement
     /// <summary>
     /// Override from movement base class
     /// </summary>
-    protected override void OnSpaceStarted()
+    protected override void OnSpaceStarted(bool fullyPerformed)
     {
-        Debug.Log("Space Started");
+        if(Grounded())
+        {
+            // If the key was tapped and not held, do a smaller jump
+            if(fullyPerformed)
+            {
+                rb.AddForce(pc.CameraRotationParent.up * fullJumpHeight * tapJumpHeightPercent, ForceMode.Impulse);
+            }
+            // Otherwise, do the full height
+            else
+            {
+                rb.AddForce(pc.CameraRotationParent.up * fullJumpHeight, ForceMode.Impulse);
+            }
+        }
+        else
+        {
+            Debug.Log("Not Grounded");
+        }
+            Debug.Log("Space Started");
     }
 
     /// <summary>
@@ -95,6 +120,10 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnShiftStarted()
     {
+        if(shiftHold == null)
+        {
+            shiftHold = StartCoroutine(Accelerate());
+        }
         Debug.Log("Shift Start");
     }
 
@@ -105,6 +134,12 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnShiftFinished()
     {
+        if(shiftHold != null)
+        {
+            StopCoroutine(shiftHold);
+            shiftHold = null;
+            accelleration = 1;
+        }
         Debug.Log("Shift Finished");
     }
     protected override void OnControlStarted()
@@ -127,8 +162,25 @@ public class LandMovement : Movement
     protected bool Grounded()
     {
         RaycastHit hit;
-        float groundCheckDistance = transform.localScale.y * .5f + .2f;
+        float groundCheckDistance = transform.localScale.y + .2f;
         return Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance);
     }
 
+    /// <summary>
+    /// Accellerates the player while shift is held
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerator Accelerate()
+    {
+        float timer = 0f;
+        while(true)
+        {
+            accelleration = 1f + (timer / timeToMaxAcceleration) * maxAccelerationMultiplier;
+            Mathf.Clamp(accelleration, 1f, maxAccelerationMultiplier);
+
+            timer += Time.fixedDeltaTime;
+
+            yield return null;
+        }
+    }
 }

@@ -47,7 +47,7 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnMove(Vector2 moveVector);
     protected abstract void OnMouseMove(Vector2 cameraVector);
     protected abstract void OnEClicked();
-    protected abstract void OnSpaceStarted();
+    protected abstract void OnSpaceStarted(bool fullyPerformed);
     protected abstract void OnSpaceFinished();
     protected abstract void OnShiftStarted();
     protected abstract void OnShiftFinished();

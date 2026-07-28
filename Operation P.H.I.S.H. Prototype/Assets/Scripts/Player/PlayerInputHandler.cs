@@ -57,6 +57,7 @@ public class PlayerInputHandler : MonoBehaviour
         look.performed += LookCalled;   
         e.performed += EPressed;
         space.started += SpacePressed;
+        space.performed += SpacePressed;
         space.canceled += SpaceCancled;
         shift.started += ShiftPressed;
         shift.canceled += ShiftCancled;
@@ -147,7 +148,7 @@ public class PlayerInputHandler : MonoBehaviour
     /// <param name="obj"></param>
     private void SpacePressed(InputAction.CallbackContext obj)
     {
-        PublicEvents.SpaceStarted();
+        PublicEvents.SpaceStarted(obj.performed);
     }
 
     /// <summary>
