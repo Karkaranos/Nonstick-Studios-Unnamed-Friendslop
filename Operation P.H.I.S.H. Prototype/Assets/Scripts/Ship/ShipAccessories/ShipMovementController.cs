@@ -75,6 +75,7 @@ public class ShipMovementControllers : MonoBehaviour
         if (moving)
         {
             //TODO: disable player movement
+            Debug.Log($"{controllerType} ENABLED.");
         }
         else
         {
@@ -85,9 +86,10 @@ public class ShipMovementControllers : MonoBehaviour
                 wheelAdjustmentRate = 0;
                 ShipMovement.Instance.WheelAdjustment =
                 Mathf.Lerp(ShipMovement.Instance.WheelAdjustment, 0, 1.5f);
-
-                ShipMovement.Instance.Moving = false;
             }
+
+            ShipMovement.Instance.Moving = false;
+            Debug.Log($"{controllerType} DISABLED.");
         }
     }
 
