@@ -149,7 +149,7 @@
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.LastSize.Cube",
-                "value": "{\"m_Value\":{\"x\":-0.75,\"y\":2.5,\"z\":17.25}}"
+                "value": "{\"m_Value\":{\"x\":-42.27886199951172,\"y\":89.56576538085938,\"z\":-235.91497802734376}}"
             },
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -295,6 +295,11 @@
                 "type": "System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "uv.uvEditorGridSnapIncrement",
                 "value": "{\"m_Value\":0.125}"
+            },
+            {
+                "type": "UnityEditor.ProBuilder.Actions.ExportAssetOptions, Unity.ProBuilder.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                "key": "export.assetOptions",
+                "value": "{\"m_Value\":{\"makePrefab\":false,\"replaceOriginal\":false}}"
             }
         ]
     }
