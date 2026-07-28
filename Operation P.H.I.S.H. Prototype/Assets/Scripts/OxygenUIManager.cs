@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Jay Embry
 Date Created : 		    7/27/2026
-Date Last Modified : 	7/27/2026
+Date Last Modified : 	7/28/2026
 Brief Description : 	Manages UI related to oxygen
 External Resources : 	
 ***************************************************/
@@ -9,6 +9,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 public class OxygenUIManager : Singleton<OxygenUIManager>
 {
@@ -18,6 +19,30 @@ public class OxygenUIManager : Singleton<OxygenUIManager>
     //i've got a vision
     //i'd imagine that this is temporary lol
     [HideInInspector] public List<PlayerOxygenManager> PlayersInGame = new List<PlayerOxygenManager>();
-    [SerializeField] List<Image> playerOxygenDisplays = new List<Image>();
+    public List<GameObject> PlayerDisplays = new List<GameObject>();
 
+    /// <summary>
+    /// displays the ui for each player once a dive begins
+    /// </summary>
+    public void DisplayUI()
+    {
+        for(int i = 0; i < PlayersInGame.Count; i++)
+        {
+            PlayerDisplays[i].SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// updates the bar depicting the ship's oxygen
+    /// </summary>
+    /// <param name="maxOxygen">
+    /// the max amount of oxygen that the ship can have
+    /// </param>
+    /// <param name="currentOxygen">
+    /// the amount of oxygen that the ship currently has
+    /// </param>
+    public void UpdateShipOxygenUI(float maxOxygen, float currentOxygen)
+    {
+        shipOxygenDisplay.fillAmount = currentOxygen / maxOxygen;
+    }
 }
