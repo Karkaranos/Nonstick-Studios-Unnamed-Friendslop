@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Clare Grady
+Author Names : 		    Clare Grady, Cade Naylor
 Date Created : 		    07/22/2026
-Date Last Modified : 	07/22/202
+Date Last Modified : 	07/28/202
 Brief Description : 	Actually defines and handles land movement
 
 External Resources :    	
@@ -142,6 +142,10 @@ public class LandMovement : Movement
         }
         Debug.Log("Shift Finished");
     }
+
+    /// <summary>
+    /// Override from movement base class
+    /// </summary>
     protected override void OnControlStarted()
     {
         Debug.Log("Control Started");

@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Clare Grady
+Author Names : 		    Clare Grady, Cade Naylor
 Date Created : 		    07/22/2026
-Date Last Modified : 	07/22/202
+Date Last Modified : 	07/28/202
 Brief Description : 	Base Class that defines all functions movement scripts should have
 
 External Resources :    	

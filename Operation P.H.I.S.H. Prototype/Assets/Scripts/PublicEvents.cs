@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Clare Grady
+Author Names : 		    Clare Grady, Cade Naylor
 Date Created : 		    07/21/2026
-Date Last Modified : 	07/21/202
+Date Last Modified : 	07/28/202
 Brief Description : 	Contains all the events for the game
 
 External Resources :    Wayward Woods 	
