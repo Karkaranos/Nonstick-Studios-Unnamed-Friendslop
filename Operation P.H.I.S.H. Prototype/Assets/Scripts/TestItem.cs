@@ -48,6 +48,7 @@ public class TestItem : MonoBehaviour, IInteractable
     public void EnterInteract()
     {
         mr.material = interactMat;
+        Debug.Log($"{gameObject.name} is starting its interaction");
     }
 
     /// <summary>
@@ -66,6 +67,7 @@ public class TestItem : MonoBehaviour, IInteractable
     public void ExitInteract()
     {
         mr.material = standardMat;
+        Debug.Log($"{gameObject.name} has ended its interaction");
     }
     #endregion
 
