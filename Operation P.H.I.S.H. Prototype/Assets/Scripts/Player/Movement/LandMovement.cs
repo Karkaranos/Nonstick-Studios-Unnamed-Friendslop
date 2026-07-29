@@ -7,6 +7,7 @@ Brief Description : 	Actually defines and handles land movement
 External Resources :    	
 ***************************************************/
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerController))]
@@ -24,6 +25,11 @@ public class LandMovement : Movement
     [SerializeField] private float landGravity = -10f;
     private float accelleration = 1f;
     private Coroutine shiftHold;
+
+    private IInteractable lookingAt;
+    private IInteractable interactingWith;
+    private bool interacting;
+    [SerializeField] private float sightDistance = 2f;
 
     bool jumpThisFrame;
 
@@ -44,6 +50,7 @@ public class LandMovement : Movement
     /// Override from Movement base class
     /// Adjusts the delta using sensitivity and fixed timee
     /// Rotates the camera between clamps
+    /// also lowkey this wont work as well for multiplayer but for now i'm throwing rayxast look logic in here
     /// </summary>
     /// <param name="cameraVector">Vector2 containing the mouse's delta </param>
     protected override void OnMouseMove(Vector2 cameraVector)
@@ -55,6 +62,16 @@ public class LandMovement : Movement
         rotation.y += adjustedDelta.x;
 
         pc.CameraRotationParent.localEulerAngles = rotation;
+
+        if(LookingAtObject())
+        {
+            pc.CrosshairImage.sprite = pc.InteractableSprite;
+        }
+        else
+        {
+            pc.CrosshairImage.sprite = pc.StandardSprite;
+        }
+        
         Debug.Log("LOOK");
     }
 
@@ -86,7 +103,35 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnEClicked()
     {
-        Debug.Log("E");
+        if(lookingAt != null)
+        {
+            if(interactingWith == null)
+            {
+                interactingWith = lookingAt;
+                interactingWith.EnterInteract();
+            }
+            else
+            {
+                if(lookingAt!= interactingWith)
+                {
+                    interactingWith.ExitInteract();
+                    interactingWith = lookingAt;
+                    interactingWith.EnterInteract();
+                }
+                else
+                {
+                    interactingWith.ExitInteract();
+                    interactingWith = null;
+                }
+            }
+        }
+        else if (interactingWith != null)
+        {
+            interactingWith.ExitInteract();
+            interactingWith = null;
+        }
+
+            Debug.Log("E");
     }
 
     /// <summary>
@@ -167,6 +212,52 @@ public class LandMovement : Movement
         RaycastHit hit;
         float groundCheckDistance = transform.localScale.y+ .1f;
         return Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance);
+    }
+
+    /// <summary>
+    /// Checks if the player is looking at an object that can be interacted with
+    /// </summary>
+    /// <returns>Returns true if they are</returns>
+    protected override bool LookingAtObject()
+    {
+        RaycastHit hit;
+        Vector3 direction = pc.CameraRotationParent.forward;
+
+        if(Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
+        {
+            if(hit.transform.GetComponent<IInteractable>()!= null)
+            {
+
+                if(interactingWith != null && hit.transform.GetComponent<IInteractable>() == interactingWith)
+                {
+                    return true;
+                }
+
+                if(lookingAt != null && hit.transform.GetComponent<IInteractable>() != lookingAt)
+                {
+                    lookingAt.ExitHover();
+                }
+
+                lookingAt = hit.transform.GetComponent<IInteractable>();
+                lookingAt.EnterHover();
+
+                pc.CrosshairImage.sprite = pc.InteractableSprite;
+
+                return true;
+            }
+        }
+
+        if (lookingAt != null)
+        {
+            if (lookingAt != interactingWith)
+            {
+                lookingAt.ExitHover();
+            }
+            lookingAt = null;
+        }
+
+        pc.CrosshairImage.sprite = pc.StandardSprite;
+        return false;
     }
 
     /// <summary>
