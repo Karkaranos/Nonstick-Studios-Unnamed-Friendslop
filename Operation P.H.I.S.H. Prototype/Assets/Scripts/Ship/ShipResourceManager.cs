@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Jay Embry
 Date Created : 		    7/19/2026
-Date Last Modified : 	7/19/2026
+Date Last Modified : 	7/28/2026
 Brief Description : 	Stores and sets the values of the ship's resources
 External Resources : 	
 ***************************************************/
@@ -61,6 +61,8 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     {
         shipOxygen = shipOxygenMax;
         StartCoroutine(DepleteOxygen());
+
+        OxygenUIManager.Instance.DisplayUI();
     }
 
     /// <summary>
@@ -81,7 +83,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
             if(shipOxygen % shipOxygenStepAmount == 0)
             {
-                //INSERT FUNCTION FOR UPDATING UI HERE
+                OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
                 Debug.Log($"OXYGEN LEFT: {shipOxygen}");
             }
 
@@ -107,7 +109,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
         if(shipOxygen % shipOxygenStepAmount == 0)
         {
-            //INSERT FUNCTION FOR UPDATING UI HERE
+            OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
             Debug.Log($"OXYGEN LEFT: { shipOxygen}");
         }
     }

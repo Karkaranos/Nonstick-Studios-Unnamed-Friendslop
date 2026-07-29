@@ -2945,8 +2945,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 1777
+  m_Mesh: {fileID: 4300000, guid: 7643fc3ebc5eb8c42a7a319283bf2f73, type: 2}
+  m_VersionIndex: 1783
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3035,7 +3035,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 352764197169275395}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 7643fc3ebc5eb8c42a7a319283bf2f73, type: 2}
 --- !u!64 &3816112275229276980
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3057,7 +3057,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 7643fc3ebc5eb8c42a7a319283bf2f73, type: 2}
 --- !u!1 &1717101899527529726
 GameObject:
   m_ObjectHideFlags: 0
@@ -6037,8 +6037,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 1739
+  m_Mesh: {fileID: 4300000, guid: 696815213aeb0f943bbfbae2cc197618, type: 2}
+  m_VersionIndex: 1745
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6109,7 +6109,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 2
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -6127,7 +6127,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5285607508538840711}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 696815213aeb0f943bbfbae2cc197618, type: 2}
 --- !u!64 &9039001196401753729
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6149,7 +6149,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 696815213aeb0f943bbfbae2cc197618, type: 2}
 --- !u!1 &9054975642616490393
 GameObject:
   m_ObjectHideFlags: 0
@@ -23495,8 +23495,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 3574
+  m_Mesh: {fileID: 4300000, guid: 6d4264c8155293544ad58b0915956784, type: 2}
+  m_VersionIndex: 3580
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -23569,7 +23569,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 2
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -23587,7 +23587,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9054975642616490393}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 6d4264c8155293544ad58b0915956784, type: 2}
 --- !u!64 &7012444634710198078
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -23609,4 +23609,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 6d4264c8155293544ad58b0915956784, type: 2}
