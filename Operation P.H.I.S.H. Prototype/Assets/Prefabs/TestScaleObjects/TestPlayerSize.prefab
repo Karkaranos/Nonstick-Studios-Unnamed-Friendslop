@@ -162,7 +162,7 @@ Transform:
   m_GameObject: {fileID: 2470290204978563111}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.71999, z: 0}
+  m_LocalPosition: {x: 0, y: 0.98, z: 0.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1237,7 +1237,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1208
+  m_VersionIndex: 1217
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1276,7 +1276,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5197106932896169762}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1357,10 +1357,11 @@ MonoBehaviour:
   minCameraYClamp: -60
   maxCameraYClamp: 60
   baseLandMovementSpeed: 1
-  tapJumpHeightPercent: 0.9
-  fullJumpHeight: 5
+  tapJumpHeightPercent: 1
+  fullJumpHeight: 2
   timeToMaxAcceleration: 5
   maxAccelerationMultiplier: 3
+  landGravity: -10
 --- !u!54 &6696807443161287276
 Rigidbody:
   m_ObjectHideFlags: 0

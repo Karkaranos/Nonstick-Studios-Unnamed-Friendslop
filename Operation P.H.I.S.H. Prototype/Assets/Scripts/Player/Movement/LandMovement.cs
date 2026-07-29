@@ -21,8 +21,11 @@ public class LandMovement : Movement
     [SerializeField] private float fullJumpHeight;
     [SerializeField] private float timeToMaxAcceleration = 5f;
     [SerializeField] private float maxAccelerationMultiplier = 3f;
+    [SerializeField] private float landGravity = -10f;
     private float accelleration = 1f;
     private Coroutine shiftHold;
+
+    bool jumpThisFrame;
 
     Vector2 rotation;
     Rigidbody rb;
@@ -64,9 +67,13 @@ public class LandMovement : Movement
     {
         Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseLandMovementSpeed * 100f * accelleration *  Time.fixedDeltaTime;
 
-        if(!Grounded())
+        if(!Grounded() || jumpThisFrame)
         {
             newValue.y = rb.linearVelocity.y;
+        }
+        else
+        {
+            newValue.y = 0;
         }
 
         rb.linearVelocity = newValue;
@@ -87,22 +94,15 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnSpaceStarted(bool fullyPerformed)
     {
-        if(Grounded())
+        if (Grounded())
         {
-            // If the key was tapped and not held, do a smaller jump
-            if(fullyPerformed)
-            {
-                rb.AddForce(pc.CameraRotationParent.up * fullJumpHeight * tapJumpHeightPercent, ForceMode.Impulse);
-            }
-            // Otherwise, do the full height
-            else
-            {
-                rb.AddForce(pc.CameraRotationParent.up * fullJumpHeight, ForceMode.Impulse);
-            }
+            jumpThisFrame = true;
+            float jumpForce = Mathf.Sqrt(fullJumpHeight * landGravity * -2f);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
         }
         else
         {
-            Debug.Log("Not Grounded");
+
         }
             Debug.Log("Space Started");
     }
@@ -112,6 +112,7 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnSpaceFinished()
     {
+        jumpThisFrame = false;
         Debug.Log("Space Finished");
     }
 
@@ -126,8 +127,6 @@ public class LandMovement : Movement
         }
         Debug.Log("Shift Start");
     }
-
-    
 
     /// <summary>
     /// override from movement base class
@@ -166,7 +165,7 @@ public class LandMovement : Movement
     protected bool Grounded()
     {
         RaycastHit hit;
-        float groundCheckDistance = transform.localScale.y + .2f;
+        float groundCheckDistance = transform.localScale.y+ .1f;
         return Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance);
     }
 
