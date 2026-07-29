@@ -1,18 +1,31 @@
 /*************************************************
 Author Names : 		    Jay Embry
 Date Created : 		    7/19/2026
-Date Last Modified : 	7/19/2026
+Date Last Modified : 	7/28/2026
 Brief Description : 	Stores and sets the values of the player's resources
 External Resources : 	
 ***************************************************/
 using System.Collections;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerOxygenManager : MonoBehaviour
 {
+
+    #region VARIABLES
+
     //tracks the player's personal oxygen level
     float playerOxygen;
+
+    [Header("ID Display")]
+
+    [Tooltip("DO NOT TOUCH! Reference this to make sure that the display is correct!")]
+    [SerializeField] int playerID;
+
+    [Space(10)]
+
+    [Header("Oxygen Values")]
 
     [Tooltip("The highest value that the oxygen can be.")]
     [SerializeField] float playerOxygenMax;
@@ -23,9 +36,23 @@ public class PlayerOxygenManager : MonoBehaviour
     [Tooltip("The amount of oxygen depleted per increment.")]
     [SerializeField] float playerOxygenDepletionAmount;
 
+    [Space(10)]
+
     //may or may not change how this is detected later on
     //should this depend on a player variable?
     [HideInInspector] public bool IsAttachedToTether;
+
+    #endregion VARIABLES
+
+    /// <summary>
+    /// runs on start
+    /// adds itself to a list in OxygenUIManager
+    /// </summary>
+    void Start()
+    {
+        OxygenUIManager.Instance.PlayersInGame.Add(this);
+        playerID = OxygenUIManager.Instance.PlayersInGame.IndexOf(this) + 1;
+    }
 
     [Button]
     ///<summary>
@@ -50,7 +77,11 @@ public class PlayerOxygenManager : MonoBehaviour
             yield return new WaitForSeconds(playerOxygenDepletionTime);
             playerOxygen -= playerOxygenDepletionAmount;
 
-            //INSERT FUNCTION FOR UPDATING UI HERE
+            //putting this here for now only because there might be more than one tether??
+            //someone please correct me if i'm wrong
+            OxygenUIManager.Instance.PlayerDisplays[OxygenUIManager.Instance.PlayersInGame.IndexOf(this)].
+            GetComponent<Image>().fillAmount = playerOxygen / playerOxygenMax;
+
             Debug.Log($"OXYGEN LEFT: {playerOxygen}");
 
             if (playerOxygen <= 0)
