@@ -10,36 +10,64 @@ using UnityEngine;
 
 public class TestItem : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Material standardMat;
+    #region VARS
+    private Material standardMat;
 
     [SerializeField] private Material hoverMat;
 
     [SerializeField] private Material interactMat;
 
     private MeshRenderer mr;
+
+    #endregion
+
+    #region Functions
+    /// <summary>
+    /// Start is called on the first frame update
+    /// Grabs a reference to the mesh renderer and sets the base material
+    /// </summary>
+    void Start()
+    {
+        mr = GetComponent<MeshRenderer>();
+        standardMat = mr.material;
+    }
+
+    /// <summary>
+    /// Implemented function stub from IInteractable
+    /// Changes the object's material when hovered over
+    /// </summary>
     public void EnterHover()
     {
         mr.material = hoverMat;
     }
 
+    /// <summary>
+    /// Implemented function stub from IInteractable
+    /// Changes the object's material when interacted with
+    /// </summary>
     public void EnterInteract()
     {
         mr.material = interactMat;
     }
 
+    /// <summary>
+    /// Implemented function stub from IInteractable
+    /// Resets the object's material when hover ends
+    /// </summary>
     public void ExitHover()
     {
         mr.material = standardMat;
     }
 
+    /// <summary>
+    /// Implemented function stub from IInteractable
+    /// Resets the object's material when interaction ends
+    /// </summary>
     public void ExitInteract()
     {
         mr.material = standardMat;
     }
+    #endregion
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        mr = GetComponent<MeshRenderer>();
-    }
+
 }
