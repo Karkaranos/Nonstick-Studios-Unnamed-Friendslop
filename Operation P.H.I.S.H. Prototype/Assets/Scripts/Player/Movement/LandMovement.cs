@@ -176,7 +176,7 @@ public class LandMovement : Movement
     protected IEnumerator Accelerate()
     {
         float timer = 0f;
-        while(true)
+        while(timer < timeToMaxAcceleration)
         {
             accelleration = 1f + (timer / timeToMaxAcceleration) * maxAccelerationMultiplier;
             Mathf.Clamp(accelleration, 1f, maxAccelerationMultiplier);
