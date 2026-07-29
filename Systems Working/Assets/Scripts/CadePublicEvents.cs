@@ -6,10 +6,13 @@ Brief Description : 	GPublic events for netcode
 External Resources : 	
 	***************************************************/
 using System;
+using Unity.Collections;
 using UnityEngine;
 
 public static class CadePublicEvents
 {
     public static Action PlayerCountChanged;
     public static Action LobbyCreated;
+    public static Action CallPlayerName;
+    public static Action<FixedString32Bytes> ReturnPlayerName;
 }

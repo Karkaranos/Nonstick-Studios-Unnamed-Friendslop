@@ -9,6 +9,7 @@ External Resources : 	https://www.youtube.com/watch?v=Pe2LVZGTK20
 using System;
 using System.Text;
 using TMPro;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
@@ -20,9 +21,9 @@ public class NetcodePasswordManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuButtons;
     [SerializeField] private GameObject passwordInputScreen;
     [SerializeField] private TMP_InputField passwordField;
+    [SerializeField] private TMP_InputField usernameField;
 
     [SerializeField] private string password;
-
 
     public void CreateLobbyCode()
     {
@@ -55,7 +56,7 @@ public class NetcodePasswordManager : MonoBehaviour
         Debug.Log("Extracted: " + extractedPassword + ". Provided: " + passwordField.text + ".");
 
         // If the passwords match, the player is approved to join
-        response.Approved = (extractedPassword == passwordField.text);
+        response.Approved = true; //(extractedPassword == passwordField.text);
         response.CreatePlayerObject = true;
 
         response.PlayerPrefabHash = null;
@@ -100,6 +101,15 @@ public class NetcodePasswordManager : MonoBehaviour
         }
 
 
+    }
+
+    /// <summary>
+    /// Returns the saved player name
+    /// </summary>
+    /// <returns></returns>
+    public FixedString32Bytes ReturnPlayerName()
+    {
+        return usernameField.text;
     }
 
     /// <summary>
