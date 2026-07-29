@@ -183,6 +183,7 @@ public class LandMovement : Movement
 
             timer += Time.fixedDeltaTime;
 
+            Debug.Log(accelleration);
             yield return null;
         }
     }
