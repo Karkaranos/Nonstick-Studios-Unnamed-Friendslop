@@ -1,11 +1,13 @@
 /*************************************************
-Author Names : 		    Clare Grady
+Author Names : 		    Clare Grady, Cade Naylor
 Date Created : 		    07/22/2026
-Date Last Modified : 	07/22/202
+Date Last Modified : 	07/28/202
 Brief Description : 	Throws out events for whenever and input happens
 
 External Resources :    Wayward Woods 	
 ***************************************************/
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +23,9 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction e;
     private InputAction space;
     private InputAction shift;
-    private InputAction control; 
+    private InputAction control;
+
+    private Coroutine movementUpdates;
 
     #endregion
 
@@ -48,10 +52,12 @@ public class PlayerInputHandler : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        move.performed += MoveCalled;
+        move.started += MoveCalled;
+        move.canceled += MoveStopped;
         look.performed += LookCalled;   
         e.performed += EPressed;
         space.started += SpacePressed;
+        space.performed += SpacePressed;
         space.canceled += SpaceCancled;
         shift.started += ShiftPressed;
         shift.canceled += ShiftCancled;
@@ -81,8 +87,40 @@ public class PlayerInputHandler : MonoBehaviour
     /// <param name="obj"></param>
     private void MoveCalled(InputAction.CallbackContext obj)
     {
+        if(movementUpdates == null)
+        {
+            movementUpdates = StartCoroutine(MovementUpdates());
+        }
+    }
+
+    /// <summary>
+    /// Input function for WASD stopping
+    /// </summary>
+    /// <param name="context"></param>
+    /// <exception cref="NotImplementedException"></exception>
+    private void MoveStopped(InputAction.CallbackContext context)
+    {
+        if(movementUpdates != null)
+        {
+            StopCoroutine(movementUpdates);
+            movementUpdates = null;
+        }
         Vector2 moveDirection = move.ReadValue<Vector2>();
-        PublicEvents.MoveDirection(moveDirection); 
+        PublicEvents.MoveDirection(moveDirection);
+    }
+
+    /// <summary>
+    /// Sends out signals while WASD is held
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator MovementUpdates()
+    {
+        while (true)
+        {
+            Vector2 moveDirection = move.ReadValue<Vector2>();
+            PublicEvents.MoveDirection(moveDirection);
+            yield return null;
+        }
     }
 
     /// <summary>
@@ -110,7 +148,7 @@ public class PlayerInputHandler : MonoBehaviour
     /// <param name="obj"></param>
     private void SpacePressed(InputAction.CallbackContext obj)
     {
-        PublicEvents.SpaceStarted();
+        PublicEvents.SpaceStarted(obj.performed);
     }
 
     /// <summary>

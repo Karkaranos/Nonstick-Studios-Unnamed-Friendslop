@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Clare Grady
+Author Names : 		    Clare Grady, Cade Naylor
 Date Created : 		    07/22/2026
-Date Last Modified : 	07/22/202
+Date Last Modified : 	07/28/202
 Brief Description : 	Base Class that defines all functions movement scripts should have
 
 External Resources :    	
@@ -47,7 +47,7 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnMove(Vector2 moveVector);
     protected abstract void OnMouseMove(Vector2 cameraVector);
     protected abstract void OnEClicked();
-    protected abstract void OnSpaceStarted();
+    protected abstract void OnSpaceStarted(bool fullyPerformed);
     protected abstract void OnSpaceFinished();
     protected abstract void OnShiftStarted();
     protected abstract void OnShiftFinished();
