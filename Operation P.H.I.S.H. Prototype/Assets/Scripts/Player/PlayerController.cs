@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Clare Grady
+Author Names : 		    Clare Grady, Cade Naylor
 Date Created : 		    07/22/2026
-Date Last Modified : 	07/22/202
+Date Last Modified : 	07/28/202
 Brief Description : 	Central script with player info for design
                         Controls movement system management
 
@@ -23,6 +23,14 @@ public class PlayerController : MonoBehaviour
 
     [Tooltip("Default movement setting player is set to when the game starts")]
     [SerializeField] private MovementType defaultMovement;
+
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private float cameraSensitivity;
+    [SerializeField] private Transform cameraRotationParent;
+    public Camera PlayerCam { get { return playerCamera; } }
+    public float CameraSensitivity { get { return cameraSensitivity; } }
+    public Transform CameraRotationParent { get { return cameraRotationParent; } }
+
     
     private Dictionary<MovementType, Movement> movementScripts;
 
