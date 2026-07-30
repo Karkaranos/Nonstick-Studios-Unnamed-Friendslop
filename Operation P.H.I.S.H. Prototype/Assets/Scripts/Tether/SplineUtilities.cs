@@ -6,6 +6,9 @@ using static UnityEngine.Rendering.HableCurve;
 
 public static class SplineUtilities
 {
+    private static int _debug_total_segments_spawned = 2;
+
+
     /// <summary>
     /// Returns the APPROXIMATE length of the spline segment.
     /// </summary>
@@ -93,5 +96,139 @@ public static class SplineUtilities
             .OrderBy(p => StaticUtilities.ManhattanDistance(segment.startPosition, p)) 
             .First();
         return true;
+    }
+
+
+    /// <summary>
+    /// Creates a new TetherSegment between "segment" and its next segment at t percent.
+    /// </summary>
+    /// <returns>The new segment</returns>
+    public static TetherSegment InsertTetherSegment(TetherSegment segment, float t = 0.5f)
+    {
+        if(segment == null)
+        {
+            Debug.LogError($"Segment is null for like, no reason");
+            return null;
+        }
+
+        if (segment.NextSegment == null)
+        {
+            Debug.LogError($"Cant split segment \"{segment.gameObject.name}\" if its Next Segment is null");
+            return null;
+        }
+
+        // if the tethers too fresh
+        if (Time.time - segment.LastTimeUpdated < TetherManager.Instance.SecondsBetweenTetherCreations ||
+            Time.time - segment.NextSegment.LastTimeUpdated < TetherManager.Instance.SecondsBetweenTetherCreations)
+        {
+            return null;
+        }
+
+        Vector3 position = segment.Evaluate(t);
+        Vector3 forwardDirection = segment.EvaluateForwardDirection(t);
+
+
+        TetherSegment newTetherSegment = GameObject.Instantiate(TetherManager.Instance.TetherSegmentPrefab, position, Quaternion.identity);
+        newTetherSegment.gameObject.name = $"Tether {++_debug_total_segments_spawned}";
+
+        newTetherSegment.transform.forward = forwardDirection;
+
+        // Update the linked node structure 
+        SplineUtilities.InsertNodeReference(segment, newTetherSegment, segment.NextSegment);
+
+        Debug.Log($"Inserted Tether Segment between {segment.gameObject.name} and {segment.NextSegment.gameObject.name}:\nt={t}\tPosition={position}");
+
+        return newTetherSegment;
+    }
+
+    /// <summary>
+    /// Deletes segment and inserts two evenly spaced tether nodes.
+    /// </summary>
+    /// <param name="segment"></param>
+    public static void SplitTetherSegment(TetherSegment segment)
+    {
+        #region whatever
+        if (segment.PreviousSegment == null)
+        {
+            Debug.LogError($"Cant split segment \"{segment.gameObject.name}\" if its Previous Segment is null");
+            return;
+        }
+
+        if (segment.NextSegment == null)
+        {
+            Debug.LogError($"Cant split segment \"{segment.gameObject.name}\" if its Next Segment is null");
+            return;
+        }
+
+        // if the tethers too fresh
+        if (Time.time - segment.LastTimeUpdated < TetherManager.Instance.SecondsBetweenTetherCreations ||
+            Time.time - segment.NextSegment.LastTimeUpdated < TetherManager.Instance.SecondsBetweenTetherCreations)
+        {
+            return;
+        }
+
+        #endregion
+
+        Debug.Log("Splitting Tether Segment");
+
+        var segment_a = segment.PreviousSegment;
+
+        // there may be a more efficient way to redo all of this but the temptation to reuse code was too strong...
+
+        // get rid of middle segment
+        DissolveTetherSegment(segment);
+
+        // insert 2 new segments
+        var segment_b = InsertTetherSegment(segment_a, 0.33f);
+        InsertTetherSegment(segment_b, 0.5f); // if there is 0.66 left from the original length, then frick idk how to explain it just trust me on this one.
+    }
+
+    /// <summary>
+    /// Inserts a tether node between two other tether nodes by updating references. 
+    /// Does not update transformations.
+    /// </summary>
+    public static void InsertNodeReference(TetherSegment node1, TetherSegment node2, TetherSegment node3)
+    {
+        node1.NextSegment = node2;
+
+        node2.PreviousSegment = node1;
+        node2.NextSegment = node3;
+
+        node3.PreviousSegment = node2;
+    }
+
+    /// <summary>
+    /// Delete the tether segment and reconnect its neighbor nodes.
+    /// </summary>
+    /// <param name="segment"></param>
+    public static void DissolveTetherSegment(TetherSegment segment)
+    {
+
+        #region whatever
+        if (segment.PreviousSegment == null)
+        {
+            Debug.LogError($"Cant split segment \"{segment.gameObject.name}\" if its Previous Segment is null");
+            return;
+        }
+
+        if (segment.NextSegment == null)
+        {
+            Debug.LogError($"Cant split segment \"{segment.gameObject.name}\" if its Next Segment is null");
+            return;
+        }
+
+        #endregion
+
+        Debug.Log($"Disolving Tether Segment: '{segment.gameObject.name}'");
+
+        var segment_a = segment.PreviousSegment;
+        var segment_b = segment.NextSegment;
+
+        segment_a.NextSegment = segment_b;
+        segment_b.PreviousSegment = segment_a;
+
+        GameObject.Destroy(segment.gameObject);
+
+        // TODO: adjust tether handle lengths so it looks nicer.
     }
 }

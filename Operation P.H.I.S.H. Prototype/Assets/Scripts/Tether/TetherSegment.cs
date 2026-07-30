@@ -55,10 +55,10 @@ public class TetherSegment : MonoBehaviour
     public Vector3 startPosition => transform.position;
     public Vector3 forwardDirection => transform.forward;
     private Vector3 backwardDirection => -transform.forward;
-    public float ForwardHandleLength => ((GetForawrdLength() + GetBackwardLength()) / 2) + forwardAnchorOffset; //GetForawrdLength
-    public float BackwardHandleLength => ((GetForawrdLength() + GetBackwardLength()) / 2) + backwardAnchorOffset; //GetBackwardLength
+    public float ForwardHandleLength => GetForawrdLength() + forwardAnchorOffset; //GetForawrdLength
+    public float BackwardHandleLength => GetBackwardLength() + backwardAnchorOffset; //GetBackwardLength
     private Vector3 forwardAnchorPosition => startPosition + (forwardDirection * ForwardHandleLength);
-    private Vector3 backwardAnchorPosition => startPosition + (backwardDirection * backwardAnchorOffset);
+    private Vector3 backwardAnchorPosition => startPosition + (backwardDirection * BackwardHandleLength);
 
     // Calculations relative to the next node or following object (the player)
     private bool hasEndPoint => NextSegment != null || followingObject != null;
@@ -156,24 +156,80 @@ public class TetherSegment : MonoBehaviour
     private void Update()
     {
         // I have an idea for a robust solution that doesnt involve update + heavy calculations every frame but this is a prototype so i dont care.
+        // Idea is that only one tether segment is adjusted per frame (controlled by tethermanager), except for segments that are close in proximity to player(s)
 
-        CheckForCollisions(Time.deltaTime);
+        PhysicsUpdate(Time.deltaTime);
     }
 
-    //deltaTimes here bc eventually this shouldnt be getting called every frame yk
-    private void CheckForCollisions(float deltaTime)
+    /// <summary>
+    /// Checks for collisions along tether, and responds accordingly.
+    /// Also ensures the tether is an appropriate length.
+    /// TODO: Gravity, enemy interactions, and other forces
+    /// </summary>
+    private void PhysicsUpdate(float deltaTime)
     {
         if (NextSegment == null && followingObject == null) return;
 
+        // If this node is The Follower
+        if(followingObject != null)
+        {
+            FollowFollowingObject();
+            return;
+        }
+
+        if (TrySplitLongSegment(deltaTime))
+        {
+            return;
+        }
+        
+        // TODO: theres some logic problems here that i cant be bothered to figure out rn
         if (TryAdjustTetherLength(deltaTime))
             return;
 
         if (CheckForCollisionAroundNode(Time.deltaTime))
             return; // dont move the node and update the spline at the same frame, thats just rude.
-
+        
         // Check for collisions along the spline
-
         CheckForCollisionAlongSpline();
+    }
+
+    // Stupid Function name
+    private void FollowFollowingObject()
+    {
+        // failsafe in case this node is "attached" to two objects (should not happen!!)
+        if(NextSegment != null)
+        {
+            Debug.LogWarning($"Tether Spline '{gameObject.name}' is following an object AND is connected to another tether. These should be mutually exclusive.");
+
+            if (NextSegment.followingObject == null)
+                NextSegment.followingObject = followingObject;
+
+            followingObject = null;
+
+            return;
+        }
+
+        // just snap to its transform for now. Later this can be smoothed a lil better
+        transform.position = followingObject.position;
+        transform.rotation = followingObject.rotation;
+    }
+
+    /// <summary>
+    /// Split a segment if it is too long
+    /// </summary>
+    private bool TrySplitLongSegment(float deltaTime)
+    {
+        if(NextSegment == null) return false;
+
+
+        float forwardLength = SplineUtilities.GetSegmentLength(this);
+
+        if(forwardLength > TetherManager.Instance.MaxLengthToCreateNewTetherSegment)
+        {
+            SplineUtilities.InsertTetherSegment(this, t:0.5f);
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -192,14 +248,14 @@ public class TetherSegment : MonoBehaviour
         // if tether is too long on both sides then there needs to be more nodes!
         if(forwardLength > TetherManager.Instance.MaxDesiredTetherLength && backwardsLength > TetherManager.Instance.MaxDesiredTetherLength)
         {
-            TetherManager.Instance.SplitTetherSegment(this);
+            SplineUtilities.SplitTetherSegment(this);
             return true;
         }
 
         // If tether is too short on both sides then lets just destroy it.
         if(forwardLength < TetherManager.Instance.MinDesiredTetherLength && backwardsLength < TetherManager.Instance.MinDesiredTetherLength)
         {
-            TetherManager.Instance.DissolveTetherSegment(this);
+            SplineUtilities.DissolveTetherSegment(this);
             return true;
         }
 
@@ -269,9 +325,10 @@ public class TetherSegment : MonoBehaviour
         }
 
         // if intersection is in the middle
+        //TODO: make this not hard coded
         if(intersection_t > 0.25f && intersection_t < 0.75f)
         {
-            TetherManager.Instance.InsertTetherSegment(this, intersection_t);
+            SplineUtilities.InsertTetherSegment(this, intersection_t);
             return true;
         }
 
@@ -382,8 +439,10 @@ public class TetherSegment : MonoBehaviour
 
         // Draw the curve
 
-        bool intersecting = SplineUtilities.SplineSphereCast(this, out RaycastHit raycastHit, out float idontcare, radius: 1 /*TetherManager.Instance.TetherSplineCollisionRadius*/);
-        Gizmos.color = intersecting ? Color.red : Color.cyan;
+        bool intersecting = SplineUtilities.SplineSphereCast(this, out RaycastHit raycastHit, out float intersection_t, radius: 1 /*TetherManager.Instance.TetherSplineCollisionRadius*/);
+        Gizmos.color = intersecting ? 
+            (intersection_t > 0.25f && intersection_t < 0.75f ? Color.red : Color.orangeRed) : 
+            Color.cyan;
 
         if (intersecting)
         {
