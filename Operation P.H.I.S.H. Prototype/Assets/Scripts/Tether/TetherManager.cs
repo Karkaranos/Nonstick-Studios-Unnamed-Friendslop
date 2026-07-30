@@ -18,13 +18,16 @@ public class TetherManager : Singleton<TetherManager>
 
     //TODO: add a way to disable this because it may be laggy
 
-    [BoxGroup("Tether Settings"), Range(5, 100)] public float MaxLengthToCreateNewTetherSegment = 25;
-
     [Header("Tether Auto Adjustment")]
+
+    [BoxGroup("Tether Settings"), Range(0, 15)] public float MinLengthToDissolveTetherSegment = 5;
+    [BoxGroup("Tether Settings"), Range(5, 100)] public float MaxLengthToCreateNewTetherSegment = 25;
 
     [Tooltip("Tethers will auto adjust themselves so they are as close to this length as possible")]
     [BoxGroup("Tether Settings"), MinMaxSlider(5, 100),SerializeField] 
     private Vector2 DesiredTetherLengthRange = new Vector2(5, 15);
+
+    [Space(20)]
 
     [BoxGroup("Tether Settings"), Min(0.001f)]
     public float TetherAutoAdjustmentSpeed = 1;
@@ -41,11 +44,12 @@ public class TetherManager : Singleton<TetherManager>
 
     [BoxGroup("Tether Settings"), Required] public TetherSegment TetherSegmentPrefab;
 
-    [Foldout("Advanced Debug")]
+    [Foldout("Advanced")]
     public float SecondsBetweenTetherCreations = 3;
 
     public float MaxDesiredTetherLength => DesiredTetherLengthRange.y;
     public float MinDesiredTetherLength => DesiredTetherLengthRange.x;
 
 
+    [Foldout("Debug Options"), SerializeField] public TetherSegment.DebugColorOption debugColorOption;
 }

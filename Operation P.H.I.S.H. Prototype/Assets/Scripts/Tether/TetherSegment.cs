@@ -18,8 +18,6 @@ using static UnityEngine.Rendering.HableCurve;
 
 public class TetherSegment : MonoBehaviour
 {
-    [Foldout("Debug Options"), SerializeField] private bool _drawSplineCalculations;
-
     [Foldout("Debug"),SerializeField] private TetherSegment _previousSegment;
     [Foldout("Debug"), SerializeField] private TetherSegment _nextSegment;
     [Foldout("Debug")] public Transform followingObject;
@@ -27,6 +25,7 @@ public class TetherSegment : MonoBehaviour
     [Foldout("Debug")] public float forwardAnchorOffset;
     [Foldout("Debug")] public float backwardAnchorOffset;
 
+    [Foldout("Debug Options"), SerializeField] private bool _drawSplineCalculations;
 
     public float LastTimeUpdated { get; private set; }
 
@@ -178,10 +177,11 @@ public class TetherSegment : MonoBehaviour
         }
 
         if (TrySplitLongSegment(deltaTime))
-        {
             return;
-        }
-        
+
+        if (TryDissolveShortSegment(deltaTime))
+            return;
+
         // TODO: theres some logic problems here that i cant be bothered to figure out rn
         if (TryAdjustTetherLength(deltaTime))
             return;
@@ -232,6 +232,20 @@ public class TetherSegment : MonoBehaviour
         return false;
     }
 
+    private bool TryDissolveShortSegment(float deltaTime)
+    {
+        if (NextSegment == null) return false;
+
+        float forwardLength = SplineUtilities.GetSegmentLength(this);
+
+        if (forwardLength < TetherManager.Instance.MinLengthToDissolveTetherSegment)
+        {
+            SplineUtilities.DissolveTetherSegment(this);
+            return true;
+        }
+        return false;
+    }
+
     /// <summary>
     /// Nudges the tether node if its length is funky.
     /// </summary>
@@ -245,6 +259,7 @@ public class TetherSegment : MonoBehaviour
         float forwardLength = SplineUtilities.GetSegmentLength(this);
         float backwardsLength = SplineUtilities.GetSegmentLength(PreviousSegment);
 
+        /*
         // if tether is too long on both sides then there needs to be more nodes!
         if(forwardLength > TetherManager.Instance.MaxDesiredTetherLength && backwardsLength > TetherManager.Instance.MaxDesiredTetherLength)
         {
@@ -257,7 +272,7 @@ public class TetherSegment : MonoBehaviour
         {
             SplineUtilities.DissolveTetherSegment(this);
             return true;
-        }
+        }*/
 
         // If too much length ahead / not enough length behind
         if(forwardLength > TetherManager.Instance.MaxDesiredTetherLength || backwardsLength < TetherManager.Instance.MinDesiredTetherLength)
@@ -359,7 +374,7 @@ public class TetherSegment : MonoBehaviour
 
         // Specifically not SplineUtilities.distance
         float distance = Vector3.Distance(startPosition, endPosition);
-        return distance/2;
+        return (distance/2) + Mathf.Sin(Time.time * 0.1f);
     }
 
     /// <summary>
@@ -373,7 +388,7 @@ public class TetherSegment : MonoBehaviour
 
         // Specifically not SplineUtilities.distance
         float distance = Vector3.Distance(PreviousSegment.startPosition, startPosition);
-        return distance/2;
+        return distance/2 + Mathf.Cos(Time.time * 0.3f);
     }
 
     /// <summary>
@@ -423,7 +438,6 @@ public class TetherSegment : MonoBehaviour
 
         Selection.activeGameObject = newTetherSegment.gameObject;
     }
-    #endregion
 
     private void OnDrawGizmos()
     {
@@ -440,9 +454,25 @@ public class TetherSegment : MonoBehaviour
         // Draw the curve
 
         bool intersecting = SplineUtilities.SplineSphereCast(this, out RaycastHit raycastHit, out float intersection_t, radius: 1 /*TetherManager.Instance.TetherSplineCollisionRadius*/);
-        Gizmos.color = intersecting ? 
-            (intersection_t > 0.25f && intersection_t < 0.75f ? Color.red : Color.orangeRed) : 
-            Color.cyan;
+
+        #region Get Color
+
+        if (TetherManager.Instance == null || TetherManager.Instance.debugColorOption == DebugColorOption.Collision)
+        {
+            Gizmos.color = intersecting ?
+                (intersection_t > 0.25f && intersection_t < 0.75f ? Color.red : Color.orangeRed) :
+                Color.cyan;
+        }
+        else if (TetherManager.Instance.debugColorOption == DebugColorOption.Length)
+        {
+            float tetherLength = SplineUtilities.GetSegmentLength(this);
+            Gizmos.color = tetherLength >= TetherManager.Instance.MinDesiredTetherLength && tetherLength <= TetherManager.Instance.MaxDesiredTetherLength ? 
+                Color.green : 
+                (tetherLength >= TetherManager.Instance.MaxLengthToCreateNewTetherSegment || tetherLength <= TetherManager.Instance.MinLengthToDissolveTetherSegment ? 
+                    Color.red : 
+                    Color.orangeRed);
+        }
+        #endregion
 
         if (intersecting)
         {
@@ -483,4 +513,11 @@ public class TetherSegment : MonoBehaviour
             //Debug.DrawLine(pos_1, pos_2);
         }
     }
+    public enum DebugColorOption
+    {
+        Collision,
+        Length
+    }
+
+    #endregion
 }

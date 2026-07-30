@@ -260,12 +260,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ba8ab520158f2469ac5f30e146b81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TetherSegment
-  _drawSplineCalculations: 0
   _previousSegment: {fileID: 0}
   _nextSegment: {fileID: 1224003124}
   followingObject: {fileID: 0}
   forwardAnchorOffset: 0
   backwardAnchorOffset: 0
+  _drawSplineCalculations: 0
 --- !u!4 &321927876
 Transform:
   m_ObjectHideFlags: 0
@@ -423,12 +423,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ba8ab520158f2469ac5f30e146b81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TetherSegment
-  _drawSplineCalculations: 0
   _previousSegment: {fileID: 321927875}
   _nextSegment: {fileID: 0}
   followingObject: {fileID: 289547410}
   forwardAnchorOffset: 0
   backwardAnchorOffset: 0
+  _drawSplineCalculations: 0
 --- !u!4 &1224003125
 Transform:
   m_ObjectHideFlags: 0
@@ -873,6 +873,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
+      propertyPath: debugColorOption
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
       propertyPath: DesiredTetherLengthRange.x
       value: 10
       objectReference: {fileID: 0}
@@ -883,6 +887,10 @@ PrefabInstance:
     - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
       propertyPath: SecondsBetweenTetherCreations
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
+      propertyPath: MaxLengthToCreateNewTetherSegment
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
