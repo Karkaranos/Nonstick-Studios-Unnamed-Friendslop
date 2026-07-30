@@ -34,6 +34,27 @@ public static class SplineUtilities
     }
 
     /// <summary>
+    /// Recursively calculates the total length of the entire tether rope.
+    /// </summary>
+    /// <param name="segment">The head node for the rope</param>
+    /// <param name="n_slices">Increase this number to increase accuracy but also do more computations</param>
+    public static float GetTotalRopeLength(TetherSegment segment, int n_slices = 2)
+    {
+        if (segment == null) return 0;
+        return GetSegmentLength(segment, n_slices) + GetTotalRopeLength(segment.NextSegment, n_slices);
+    }
+
+    public static TetherSegment GetEndSegment(TetherSegment segment)
+    {
+        if (segment.NextSegment == null)
+            return segment;
+
+        return GetEndSegment(segment.NextSegment);
+    }
+
+    #region Physics
+
+    /// <summary>
     /// Performes a spherecast along the tether segment towards its end point.
     /// Returns the first point that the spline sees but uhh there could be more.
     /// </summary>
@@ -98,6 +119,9 @@ public static class SplineUtilities
         return true;
     }
 
+    #endregion
+
+    #region Node Manipulation
 
     /// <summary>
     /// Creates a new TetherSegment between "segment" and its next segment at t percent.
@@ -231,4 +255,6 @@ public static class SplineUtilities
 
         // TODO: adjust tether handle lengths so it looks nicer.
     }
+
+    #endregion
 }

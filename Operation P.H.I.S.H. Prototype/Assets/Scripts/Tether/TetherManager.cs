@@ -7,10 +7,19 @@
 *****************************************************************************/
 
 using NaughtyAttributes;
+using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 public class TetherManager : Singleton<TetherManager>   
 {
+    [BoxGroup("Player Interaction"), SerializeField] public float TotalMaxTetherLength = 100f;
+
+    [Range(0, 1f)]
+    [Tooltip("How much toleration the player has if they try to retract the tether while it is at max length")]
+    [BoxGroup("Player Interaction"), SerializeField] private float retractionClearance = 0.3f;
+
     [Tooltip("Minimum space there needs to be around the tether")]
     [BoxGroup("Tether Settings")] public float TetherNodeCollisionRadius = 2;
     [Tooltip("Minimum space there needs to be along the tether's spline")]
@@ -51,5 +60,35 @@ public class TetherManager : Singleton<TetherManager>
     public float MinDesiredTetherLength => DesiredTetherLengthRange.x;
 
 
-    [Foldout("Debug Options"), SerializeField] public TetherSegment.DebugColorOption debugColorOption;
+    [Foldout("Debug Settings"), SerializeField] public TetherSegment.DebugColorOption debugColorOption;
+    [Foldout("Debug Settings"), SerializeField] private TetherSegment startingSegment;
+
+    [Foldout("Debug"), SerializeField] private TetherSegment/*List<TetherSegment>*/ tetherHeadNodes; //TODO: support for multiple tethers lol
+
+    /// <summary>
+    /// Returns true if player can move in a specific direction, given the tether.
+    /// </summary>
+    /// <returns></returns>
+    public bool CanPlayerMoveInDirection(Vector3 moveDirection)
+    {
+        /*float totalDistance = 0;
+        foreach (var tether in tetherHeadNodes)
+        {
+            totalDistance += SplineUtilities.GetTotalRopeLength(tether);
+        }*/
+        float totalDistance = SplineUtilities.GetTotalRopeLength(tetherHeadNodes);
+        TetherSegment playerSegment = SplineUtilities.GetEndSegment(tetherHeadNodes); // TODO: VERY temp patch. add a dictionary or something that maps players to their tethers.
+
+        // player still has so much wiggle room!!
+        if (totalDistance < TotalMaxTetherLength)
+            return true;
+
+        moveDirection.Normalize();
+        Vector3 endSegmentDirection = playerSegment.EvaluateForwardDirection(0.95f).normalized;
+
+        // 1 means perfect alignemt, -1 means player is perfectly moving towards/along the tether
+        float dot = Vector3.Dot(moveDirection, endSegmentDirection);
+        dot *= -1;
+        return (dot > 1 - retractionClearance)
+    }
 }

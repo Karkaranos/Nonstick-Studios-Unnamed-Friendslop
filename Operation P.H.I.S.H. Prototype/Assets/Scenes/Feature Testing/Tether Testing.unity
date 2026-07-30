@@ -890,7 +890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
       propertyPath: MaxLengthToCreateNewTetherSegment
-      value: 25
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
