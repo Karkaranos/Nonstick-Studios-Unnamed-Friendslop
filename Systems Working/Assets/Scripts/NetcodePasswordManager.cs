@@ -24,6 +24,7 @@ public class NetcodePasswordManager : MonoBehaviour
     [SerializeField] private TMP_InputField usernameField;
 
     [SerializeField] private string password;
+    private string username;
 
     public void CreateLobbyCode()
     {
@@ -69,6 +70,11 @@ public class NetcodePasswordManager : MonoBehaviour
         response.Pending = false;
     }
 
+    public void UpdateUsername(string s)
+    {
+        username = s;
+    }
+
     /// <summary>
     /// Open the password entry screen
     /// </summary>
@@ -107,9 +113,9 @@ public class NetcodePasswordManager : MonoBehaviour
     /// Returns the saved player name
     /// </summary>
     /// <returns></returns>
-    public FixedString32Bytes ReturnPlayerName()
+    public string ReturnPlayerName()
     {
-        return usernameField.text;
+        return username;
     }
 
     /// <summary>

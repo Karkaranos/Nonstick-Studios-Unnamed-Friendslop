@@ -24,7 +24,6 @@ public class ClientMovement : NetworkBehaviour
         base.OnNetworkSpawn();
 
 
-
         if (IsOwner)
         {
             CadePublicEvents.PlayerCountChanged?.Invoke();

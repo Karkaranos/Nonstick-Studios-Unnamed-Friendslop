@@ -14,13 +14,49 @@ using UnityEngine;
 public class PlayerSettings : NetworkBehaviour
 {
     [SerializeField] private TMP_Text nameText;
-    private NetworkVariable<FixedString32Bytes> networkPlayerName = new NetworkVariable<FixedString32Bytes>("Player 0", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    private string playerName;
+   //private NetworkVariable<FixedString32Bytes> networkPlayerName = new NetworkVariable<FixedString32Bytes>("Player", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     public override void OnNetworkSpawn()
     {
-        base.OnNetworkSpawn();
-        networkPlayerName.Value =  FindFirstObjectByType<NetcodePasswordManager>(findObjectsInactive:FindObjectsInactive.Include).ReturnPlayerName();
-        nameText.text = networkPlayerName.Value.ToString();
+
+        //ChangeUsernameServerRpc();
+        playerName = FindFirstObjectByType<NetcodePasswordManager>(findObjectsInactive: FindObjectsInactive.Include).ReturnPlayerName();
+        nameText.text = playerName;
+
+
+        //if(IsOwner)
+        //{
+
+        //    networkPlayerName.Value = FindFirstObjectByType<NetcodePasswordManager>(findObjectsInactive: FindObjectsInactive.Include).ReturnPlayerName();
+        //    //    Debug.Log(OwnerClientId + " name is " + networkPlayerName.Value.ToString() + " and expected is " + FindFirstObjectByType<NetcodePasswordManager>(findObjectsInactive: FindObjectsInactive.Include).ReturnPlayerName());
+        //    //    nameText.text = networkPlayerName.Value.ToString();
+        //    nameText.text = networkPlayerName.Value.ToString();
+        //}
     }
+
+
+    private void Update()
+    {
+        //Debug.Log($"{OwnerClientId} is named {networkPlayerName.Value.ToString()}");
+        if(!IsOwner)
+        {
+            return;
+        }
+
+        //if(nameText.text != networkPlayerName.Value.ToString())
+        //{
+        //    nameText.text = networkPlayerName.Value.ToString();
+        //}
+    }
+
+    //[ServerRpc]
+    //private void ChangeUsernameServerRpc()
+    //{
+        
+    //    networkPlayerName.Value = FindFirstObjectByType<NetcodePasswordManager>(findObjectsInactive: FindObjectsInactive.Include).ReturnPlayerName();
+    //    Debug.Log(OwnerClientId + " name is " + networkPlayerName.Value.ToString() + " and expected is " + FindFirstObjectByType<NetcodePasswordManager>(findObjectsInactive: FindObjectsInactive.Include).ReturnPlayerName());
+    //    nameText.text = networkPlayerName.Value.ToString();
+    //}
 
 }
