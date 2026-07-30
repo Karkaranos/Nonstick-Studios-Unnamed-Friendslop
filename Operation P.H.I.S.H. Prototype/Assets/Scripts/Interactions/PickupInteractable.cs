@@ -5,6 +5,7 @@ Date Last Modified : 	07/30/2026
 Brief Description : 	A test object for pick up interactions
 External Resources :    	
 ***************************************************/
+using NaughtyAttributes;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(MeshRenderer))]
@@ -19,7 +20,7 @@ public class PickupInteractable : MonoBehaviour, IInteractable
 
     private MeshRenderer mr;
 
-
+    [SerializeField, Layer] private int shipLayer;
     private PlayerController heldBy;
     private Rigidbody rb;
     #endregion
@@ -84,10 +85,13 @@ public class PickupInteractable : MonoBehaviour, IInteractable
         Debug.Log($"{gameObject.name} has ended its interaction");
     }
 
+    /// <summary>
+    /// When this object collides with another object, child it if it's collided with the ship
+    /// </summary>
+    /// <param name="collision">Information about the collision</param>
     private void OnCollisionStay(Collision collision)
     {
-        // ship layer
-        if(collision.gameObject.layer == 3)
+        if(collision.gameObject.layer == shipLayer)
         {
             GameObject newParent = collision.gameObject;
 

@@ -5998,6 +5998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupInteractable
   hoverMat: {fileID: 2100000, guid: d03d55ef0003b0e40a178110718de389, type: 2}
   interactMat: {fileID: -1980079746186394843, guid: f0f6348f6ba9ace43a99af058e03b71c, type: 3}
+  shipLayer: 3
 --- !u!54 &1097480733
 Rigidbody:
   m_ObjectHideFlags: 0
