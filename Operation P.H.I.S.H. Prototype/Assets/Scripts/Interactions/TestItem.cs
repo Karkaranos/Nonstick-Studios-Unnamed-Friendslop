@@ -8,6 +8,7 @@ External Resources :
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(MeshRenderer))]
 public class TestItem : MonoBehaviour, IInteractable
 {
     #region VARS
@@ -45,7 +46,7 @@ public class TestItem : MonoBehaviour, IInteractable
     /// Implemented function stub from IInteractable
     /// Changes the object's material when interacted with
     /// </summary>
-    public void EnterInteract()
+    public void EnterInteract(PlayerController pc)
     {
         mr.material = interactMat;
         Debug.Log($"{gameObject.name} is starting its interaction");

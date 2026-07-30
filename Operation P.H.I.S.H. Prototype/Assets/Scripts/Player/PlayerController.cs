@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite interactable;
     public Sprite InteractableSprite { get { return interactable; } }
 
+    public Transform PickupPoint;
+
     #endregion
 
     #region FUNCTIONS

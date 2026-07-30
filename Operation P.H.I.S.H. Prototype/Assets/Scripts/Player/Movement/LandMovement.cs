@@ -16,6 +16,7 @@ public class LandMovement : Movement
     private PlayerController pc;
     [SerializeField] private float minCameraYClamp = 120f;
     [SerializeField] private float maxCameraYClamp = 60f;
+    [SerializeField] private Transform armsParent;
 
     [SerializeField] private float baseLandMovementSpeed = 1f;
     [SerializeField] private float tapJumpHeightPercent = .5f;
@@ -63,6 +64,11 @@ public class LandMovement : Movement
 
         pc.CameraRotationParent.localEulerAngles = rotation;
 
+        Vector3 armsRotation = armsParent.transform.localEulerAngles;
+        armsRotation.y = rotation.y;
+        armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
+        armsParent.transform.localEulerAngles = armsRotation;
+
         if(LookingAtObject())
         {
             pc.CrosshairImage.sprite = pc.InteractableSprite;
@@ -108,7 +114,7 @@ public class LandMovement : Movement
             if(interactingWith == null)
             {
                 interactingWith = lookingAt;
-                interactingWith.EnterInteract();
+                interactingWith.EnterInteract(pc);
             }
             else
             {
@@ -116,7 +122,7 @@ public class LandMovement : Movement
                 {
                     interactingWith.ExitInteract();
                     interactingWith = lookingAt;
-                    interactingWith.EnterInteract();
+                    interactingWith.EnterInteract(pc);
                 }
                 else
                 {

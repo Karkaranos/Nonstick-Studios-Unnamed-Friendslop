@@ -22,7 +22,7 @@ public interface IInteractable
     /// <summary>
     /// Abstract function for when an object implementing this starts being interacted with
     /// </summary>
-    public abstract void EnterInteract();
+    public abstract void EnterInteract(PlayerController pc);
 
     /// <summary>
     /// Abstract function for when an object implementing this stops being interacted with
