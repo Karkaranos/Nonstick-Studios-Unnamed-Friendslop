@@ -128,6 +128,10 @@ public class LandMovement : Movement
         else if (interactingWith != null)
         {
             interactingWith.ExitInteract();
+            if(interactingWith == lookingAt)
+            {
+                interactingWith.EnterHover();
+            }
             interactingWith = null;
         }
 
