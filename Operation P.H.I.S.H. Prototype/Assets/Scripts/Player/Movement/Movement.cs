@@ -14,7 +14,7 @@ public abstract class Movement: MonoBehaviour
     /// <summary>
     /// Subscribes to all the Public events for controls
     /// </summary>
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         PublicEvents.MoveDirection += OnMove;
         PublicEvents.MousePosition += OnMouseMove;
@@ -30,7 +30,7 @@ public abstract class Movement: MonoBehaviour
     /// <summary>
     /// Unsubscribes from all public events for controls
     /// </summary>
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         PublicEvents.MoveDirection -= OnMove;
         PublicEvents.MousePosition -= OnMouseMove;
