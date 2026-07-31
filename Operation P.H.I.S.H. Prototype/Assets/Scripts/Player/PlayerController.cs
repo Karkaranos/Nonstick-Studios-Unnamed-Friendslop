@@ -49,6 +49,8 @@ public class PlayerController : MonoBehaviour
 
     public Transform PickupPoint;
 
+    private Vector3 lastCamPosition;
+
     #endregion
 
     #region FUNCTIONS
@@ -97,19 +99,29 @@ public class PlayerController : MonoBehaviour
     private void ToggleMovement(MovementType type)
     {
         currentMovement = type;
+        Movement newMovement = movementScripts[0];
         foreach (var movement in movementScripts.Values)
         {
             if (movementScripts[type].Equals(movement))
             {
                 movement.enabled = true;
+                newMovement = movement;
                 
             }
             else
             {
+                if(movement.enabled)
+                {
+                    lastCamPosition = movement.LastCameraAngle();
+                }
                 movement.enabled = false;
             }
                 
         }
+
+        newMovement.SetCameraAngle(lastCamPosition);
+
+
     }
 
     /// <summary>

@@ -56,4 +56,8 @@ public abstract class Movement: MonoBehaviour
 
     protected abstract bool LookingAtObject();
 
+    public abstract Vector3 LastCameraAngle();
+
+    public abstract void SetCameraAngle(Vector3 angle);
+
 }
