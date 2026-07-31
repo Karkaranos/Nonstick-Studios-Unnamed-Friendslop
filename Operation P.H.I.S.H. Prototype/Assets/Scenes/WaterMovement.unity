@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 56149931}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 25, z: 0}
+  m_LocalPosition: {x: 25, y: 24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12812,7 +12812,7 @@ Transform:
   m_GameObject: {fileID: 1500983330}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25, y: -25, z: 0}
+  m_LocalPosition: {x: -25, y: -24, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -13198,6 +13198,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1222226372454863550, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
+      propertyPath: baseLandMovementSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789071301873677065, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
+      propertyPath: baseWaterMovementSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3463910389663704810, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_Mesh
       value: 
