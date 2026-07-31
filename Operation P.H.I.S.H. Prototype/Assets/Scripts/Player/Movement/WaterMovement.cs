@@ -15,21 +15,27 @@ public class WaterMovement : Movement
     private PlayerController pc;
     [SerializeField] private float minCameraYClamp = 120f;
     [SerializeField] private float maxCameraYClamp = 60f;
+    [SerializeField] private Transform armsParent;
 
-    [SerializeField] private float baseLandMovementSpeed = 1f;
-    [SerializeField] private float tapJumpHeightPercent = .5f;
-    [SerializeField] private float fullJumpHeight;
+    [SerializeField] private float baseWaterMovementSpeed = 1f;
     [SerializeField] private float timeToMaxAcceleration = 5f;
     [SerializeField] private float maxAccelerationMultiplier = 3f;
-    [SerializeField] private float landGravity = -10f;
+    [SerializeField] private float ascentWaterMovementSpeed = .5f;
+    [SerializeField] private float descentWaterMovementSpeed = 1.2f;
     private float accelleration = 1f;
     private Coroutine shiftHold;
+    [SerializeField] private GameObject waterTint;
 
     bool ascending;
     bool descending;
 
     Vector2 rotation;
     Rigidbody rb;
+
+    private IInteractable lookingAt;
+    private IInteractable interactingWith;
+    private bool interacting;
+    [SerializeField] private float sightDistance = 2f;
 
     /// <summary>
     /// Grabs initial references and sets initial variables
@@ -49,7 +55,10 @@ public class WaterMovement : Movement
     protected override void OnEnable()
     {
         base.OnEnable();
+        rb = GetComponent<Rigidbody>();
+        waterTint.SetActive(true);
         rb.useGravity = false;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * .3f, rb.linearVelocity.z);
     }
 
     /// <summary>
@@ -59,7 +68,8 @@ public class WaterMovement : Movement
     protected override void OnDisable()
     {
         base.OnDisable();
-        rb.useGravity = false;
+        waterTint.SetActive(false);
+        rb.useGravity = true;
     }
 
     /// <summary>
@@ -77,6 +87,21 @@ public class WaterMovement : Movement
         rotation.y += adjustedDelta.x;
 
         pc.CameraRotationParent.localEulerAngles = rotation;
+
+        Vector3 armsRotation = armsParent.transform.localEulerAngles;
+        armsRotation.y = rotation.y;
+        armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
+        armsParent.transform.localEulerAngles = armsRotation;
+
+        if (LookingAtObject())
+        {
+            pc.CrosshairImage.sprite = pc.InteractableSprite;
+        }
+        else
+        {
+            pc.CrosshairImage.sprite = pc.StandardSprite;
+        }
+
         Debug.Log("LOOK");
     }
 
@@ -87,7 +112,7 @@ public class WaterMovement : Movement
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
-        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseLandMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
+        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseWaterMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
 
         if (ascending || descending)
         {
@@ -108,6 +133,38 @@ public class WaterMovement : Movement
     /// </summary>
     protected override void OnEClicked()
     {
+        if (lookingAt != null)
+        {
+            if (interactingWith == null)
+            {
+                interactingWith = lookingAt;
+                interactingWith.EnterInteract(pc);
+            }
+            else
+            {
+                if (lookingAt != interactingWith)
+                {
+                    interactingWith.ExitInteract();
+                    interactingWith = lookingAt;
+                    interactingWith.EnterInteract(pc);
+                }
+                else
+                {
+                    interactingWith.ExitInteract();
+                    interactingWith = null;
+                }
+            }
+        }
+        else if (interactingWith != null)
+        {
+            interactingWith.ExitInteract();
+            if (interactingWith == lookingAt)
+            {
+                interactingWith.EnterHover();
+            }
+            interactingWith = null;
+        }
+
         Debug.Log("E");
     }
 
@@ -118,7 +175,10 @@ public class WaterMovement : Movement
     protected override void OnSpaceStarted(bool fullyPerformed)
     {
         // TODO: Make the player ascend
+        ascending = true;
 
+        float ascendForce = ascentWaterMovementSpeed * accelleration * 100f * Time.fixedDeltaTime;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, ascendForce, rb.linearVelocity.z);
         Debug.Log("Space Started");
     }
 
@@ -128,7 +188,8 @@ public class WaterMovement : Movement
     protected override void OnSpaceFinished()
     {
         // TODO: Stop the player's ascension
-
+        ascending = false;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         Debug.Log("Space Finished");
     }
 
@@ -164,6 +225,10 @@ public class WaterMovement : Movement
     /// </summary>
     protected override void OnControlStarted()
     {
+        descending = true;
+
+        float ascendForce = -1 * descentWaterMovementSpeed * accelleration * 100f * Time.fixedDeltaTime;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, ascendForce, rb.linearVelocity.z);
         Debug.Log("Control Started");
     }
 
@@ -173,7 +238,57 @@ public class WaterMovement : Movement
     /// </summary>
     protected override void OnControlFinished()
     {
+        descending = false;
+
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         Debug.Log("Control Finished");
+    }
+
+
+    /// <summary>
+    /// Checks if the player is looking at an object that can be interacted with
+    /// </summary>
+    /// <returns>Returns true if they are</returns>
+    protected override bool LookingAtObject()
+    {
+        RaycastHit hit;
+        Vector3 direction = pc.CameraRotationParent.forward;
+
+        if (Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
+        {
+            if (hit.transform.GetComponent<IInteractable>() != null)
+            {
+
+                if (interactingWith != null && hit.transform.GetComponent<IInteractable>() == interactingWith)
+                {
+                    return true;
+                }
+
+                if (lookingAt != null && hit.transform.GetComponent<IInteractable>() != lookingAt)
+                {
+                    lookingAt.ExitHover();
+                }
+
+                lookingAt = hit.transform.GetComponent<IInteractable>();
+                lookingAt.EnterHover();
+
+                pc.CrosshairImage.sprite = pc.InteractableSprite;
+
+                return true;
+            }
+        }
+
+        if (lookingAt != null)
+        {
+            if (lookingAt != interactingWith)
+            {
+                lookingAt.ExitHover();
+            }
+            lookingAt = null;
+        }
+
+        pc.CrosshairImage.sprite = pc.StandardSprite;
+        return false;
     }
 
     /// <summary>

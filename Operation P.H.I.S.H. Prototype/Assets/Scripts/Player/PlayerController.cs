@@ -10,6 +10,7 @@ External Resources :
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using NaughtyAttributes;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Default movement setting player is set to when the game starts")]
     [SerializeField] private MovementType defaultMovement;
 
+    [SerializeField, Layer, Tooltip("The layer the water is on")] private int waterLayer;
+
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float cameraSensitivity;
     [SerializeField] private Transform cameraRotationParent;
@@ -32,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public float CameraSensitivity { get { return cameraSensitivity; } }
     public Transform CameraRotationParent { get { return cameraRotationParent; } }
 
+    [ReadOnly, SerializeField] private MovementType currentMovement;
     
     private Dictionary<MovementType, Movement> movementScripts;
 
@@ -59,7 +63,8 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         movementScripts = new Dictionary<MovementType, Movement>() 
             {
-                { MovementType.Land, GetComponent<LandMovement>() }
+                { MovementType.Land, GetComponent<LandMovement>() },
+                { MovementType.Water, GetComponent<WaterMovement>() }
             };
 
         ToggleMovement(defaultMovement);
@@ -91,7 +96,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="type"></param>
     private void ToggleMovement(MovementType type)
     {
-
+        currentMovement = type;
         foreach (var movement in movementScripts.Values)
         {
             if (movementScripts[type].Equals(movement))
@@ -106,6 +111,41 @@ public class PlayerController : MonoBehaviour
                 
         }
     }
+
+    /// <summary>
+    /// Swaps between water and land movement when entering water
+    /// </summary>
+    /// <param name="other"></param>
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == waterLayer)
+        {
+            ToggleMovement(MovementType.Water);
+        }
+        else
+        {
+            ToggleMovement(MovementType.Land);
+        }
+    }
+
+
+    /// <summary>
+    /// Swaps between water and land movement when exiting water
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == waterLayer)
+        {
+            ToggleMovement(MovementType.Land);
+        }
+        else
+        {
+            ToggleMovement(MovementType.Water);
+        }
+    }
+
 
     #endregion
     #endregion
