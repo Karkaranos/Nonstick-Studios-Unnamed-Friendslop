@@ -13198,21 +13198,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1222226372454863550, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
-      propertyPath: baseLandMovementSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2789071301873677065, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
-      propertyPath: baseWaterMovementSpeed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3463910389663704810, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 571101479}
     - target: {fileID: 3463910389663704810, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_VersionIndex
-      value: 1259
+      value: 1268
       objectReference: {fileID: 0}
     - target: {fileID: 3644946148156667584, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_Mesh

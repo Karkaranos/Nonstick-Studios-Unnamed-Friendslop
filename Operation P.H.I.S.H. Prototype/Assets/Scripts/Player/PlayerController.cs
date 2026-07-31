@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private MovementType defaultMovement;
 
     [SerializeField, Layer, Tooltip("The layer the water is on")] private int waterLayer;
+    [SerializeField, Layer, Tooltip("The layer the phish is on")] private int shipLayer;
 
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float cameraSensitivity;
@@ -119,7 +120,7 @@ public class PlayerController : MonoBehaviour
                 
         }
 
-        newMovement.SetCameraAngle(lastCamPosition);
+        //newMovement.SetCameraAngle(lastCamPosition);
 
 
     }
@@ -138,6 +139,19 @@ public class PlayerController : MonoBehaviour
         else
         {
             ToggleMovement(MovementType.Land);
+
+            if(other.gameObject.layer == shipLayer)
+            {
+                GameObject newParent = other.gameObject;
+
+                // theres so many better ways to do this but this works for now
+                while (!newParent.name.Contains("Ship") && newParent.transform.parent != null)
+                {
+                    newParent = newParent.transform.parent.gameObject;
+                }
+
+                transform.parent = newParent.transform;
+            }
         }
     }
 
@@ -152,9 +166,10 @@ public class PlayerController : MonoBehaviour
         {
             ToggleMovement(MovementType.Land);
         }
-        else
+        else if (other.gameObject.layer == shipLayer)
         {
-            ToggleMovement(MovementType.Water);
+            ToggleMovement(MovementType.Land);
+            transform.parent = null;
         }
     }
 

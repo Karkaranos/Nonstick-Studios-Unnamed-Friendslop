@@ -298,7 +298,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3092470131023193500
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1256
+  m_VersionIndex: 1265
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1564,6 +1564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   defaultMovement: 0
   waterLayer: 4
+  shipLayer: 3
   playerCamera: {fileID: 1532764095068027488}
   cameraSensitivity: 1
   cameraRotationParent: {fileID: 3125365121831113921}
@@ -1587,7 +1588,7 @@ MonoBehaviour:
   minCameraYClamp: -60
   maxCameraYClamp: 60
   armsParent: {fileID: 6447669609287298506}
-  baseLandMovementSpeed: 1
+  baseLandMovementSpeed: 3
   tapJumpHeightPercent: 1
   fullJumpHeight: 2
   timeToMaxAcceleration: 5
@@ -1657,7 +1658,7 @@ MonoBehaviour:
   minCameraYClamp: -60
   maxCameraYClamp: 60
   armsParent: {fileID: 6447669609287298506}
-  baseWaterMovementSpeed: 1
+  baseWaterMovementSpeed: 2
   timeToMaxAcceleration: 5
   maxAccelerationMultiplier: 3
   ascentWaterMovementSpeed: 0.5
