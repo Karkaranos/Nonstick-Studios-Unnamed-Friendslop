@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3595122977127024725}
   - component: {fileID: 209538055384316108}
   - component: {fileID: 6694546223126345595}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1492,7 +1492,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1432
+  m_VersionIndex: 1441
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1614,7 +1614,7 @@ GameObject:
   - component: {fileID: 4217408396149157074}
   - component: {fileID: 5621160056285010288}
   - component: {fileID: 9154538134975532577}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2812,7 +2812,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 51
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2937,7 +2937,7 @@ GameObject:
   - component: {fileID: 5544957765942497131}
   - component: {fileID: 6542291570490961562}
   - component: {fileID: 408340643961229551}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Torus (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3821,7 +3821,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4637
+  m_VersionIndex: 4646
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3941,7 +3941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7602586832769262805}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tether
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3974,7 +3974,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4282882327296123071}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Oxygen Reactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4017,7 +4017,7 @@ GameObject:
   - component: {fileID: 962159698504555395}
   - component: {fileID: 6347148403736776990}
   - component: {fileID: 7698652846155028131}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Torus (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5095,7 +5095,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4661
+  m_VersionIndex: 4670
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5215,7 +5215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4545901561276329462}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Periscope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5253,7 +5253,7 @@ GameObject:
   - component: {fileID: 5806103322836063511}
   - component: {fileID: 1092176046695608539}
   - component: {fileID: 2648780435679170855}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Window (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5367,7 +5367,7 @@ GameObject:
   - component: {fileID: 6665013405903509465}
   - component: {fileID: 8444630642161444002}
   - component: {fileID: 9092760520129896199}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6850,7 +6850,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1981
+  m_VersionIndex: 1990
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6972,7 +6972,7 @@ GameObject:
   - component: {fileID: 3418487613067427639}
   - component: {fileID: 6352083173781333322}
   - component: {fileID: 5540231946863216758}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8170,7 +8170,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 51
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8295,7 +8295,7 @@ GameObject:
   - component: {fileID: 7194433583859206296}
   - component: {fileID: 2220742209460826323}
   - component: {fileID: 6427531047346650008}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9369,7 +9369,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 46
+  m_VersionIndex: 52
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9496,7 +9496,7 @@ GameObject:
   - component: {fileID: 1601387574220169425}
   - component: {fileID: 2671191037392392020}
   - component: {fileID: 5958920182301654138}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10570,7 +10570,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 357
+  m_VersionIndex: 366
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -10697,7 +10697,7 @@ GameObject:
   - component: {fileID: 170810277761394716}
   - component: {fileID: 9206107218378613013}
   - component: {fileID: 5120459645486625502}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10931,7 +10931,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1392
+  m_VersionIndex: 1395
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -11053,7 +11053,7 @@ GameObject:
   - component: {fileID: 8763964717930062757}
   - component: {fileID: 8188879246256009114}
   - component: {fileID: 3633057302685442493}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12127,7 +12127,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 307
+  m_VersionIndex: 316
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -12249,7 +12249,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1946636292893083233}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Structure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12314,7 +12314,7 @@ GameObject:
   - component: {fileID: 8085553784176826073}
   - component: {fileID: 3088664126475625394}
   - component: {fileID: 4951769311348439971}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13594,7 +13594,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2224
+  m_VersionIndex: 2233
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -13716,7 +13716,7 @@ GameObject:
   - component: {fileID: 7276254343303794287}
   - component: {fileID: 529126665287396240}
   - component: {fileID: 4251192028295873254}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14914,7 +14914,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -15039,7 +15039,7 @@ GameObject:
   - component: {fileID: 2101050417682189091}
   - component: {fileID: 6012241702797062617}
   - component: {fileID: 2955980550180416950}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15273,7 +15273,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1392
+  m_VersionIndex: 1401
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -15390,7 +15390,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7990675391499854990}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PrototypeShipGraybox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15434,7 +15434,7 @@ GameObject:
   - component: {fileID: 7605315344508664255}
   - component: {fileID: 2337777888947302591}
   - component: {fileID: 3411875161113831412}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16632,7 +16632,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 51
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -16757,7 +16757,7 @@ GameObject:
   - component: {fileID: 1676964441230929826}
   - component: {fileID: 4920728362653923016}
   - component: {fileID: 6152949523122140428}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16991,7 +16991,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1392
+  m_VersionIndex: 1395
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -17113,7 +17113,7 @@ GameObject:
   - component: {fileID: 698995593880677058}
   - component: {fileID: 8673656597059284565}
   - component: {fileID: 4645240870686851843}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18187,7 +18187,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 307
+  m_VersionIndex: 316
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -18314,7 +18314,7 @@ GameObject:
   - component: {fileID: 8180740167548053251}
   - component: {fileID: 880276804997215518}
   - component: {fileID: 6235669710613674493}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18548,7 +18548,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1392
+  m_VersionIndex: 1395
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -18670,7 +18670,7 @@ GameObject:
   - component: {fileID: 2901777182640147664}
   - component: {fileID: 538370888773485058}
   - component: {fileID: 1149130136989033959}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShipHull (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18904,7 +18904,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2395
+  m_VersionIndex: 2401
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -19026,7 +19026,7 @@ GameObject:
   - component: {fileID: 8576569858614057409}
   - component: {fileID: 4255069619106085281}
   - component: {fileID: 8275618349430961601}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pipe (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20970,7 +20970,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 941
+  m_VersionIndex: 950
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -21094,7 +21094,7 @@ GameObject:
   - component: {fileID: 3151203676673306871}
   - component: {fileID: 5641930804373721023}
   - component: {fileID: 6040888132527114885}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Window (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21208,7 +21208,7 @@ GameObject:
   - component: {fileID: 4989289830460214294}
   - component: {fileID: 6311112143547689220}
   - component: {fileID: 2657603993335869494}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22282,7 +22282,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 307
+  m_VersionIndex: 316
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -22409,7 +22409,7 @@ GameObject:
   - component: {fileID: 1920603575541328842}
   - component: {fileID: 2178963291997431951}
   - component: {fileID: 7371948252943183576}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24381,7 +24381,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 472
+  m_VersionIndex: 481
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -24507,7 +24507,7 @@ GameObject:
   - component: {fileID: 6949103010166417904}
   - component: {fileID: 9147155987848888465}
   - component: {fileID: 2423435816532096356}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25581,7 +25581,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 391
+  m_VersionIndex: 400
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -25703,7 +25703,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3620584861535334210}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Windows
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25742,7 +25742,7 @@ GameObject:
   - component: {fileID: 8241105726818421876}
   - component: {fileID: 2829902801707176061}
   - component: {fileID: 5526516726628451552}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Window (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25856,7 +25856,7 @@ GameObject:
   - component: {fileID: 5110855448967389539}
   - component: {fileID: 8445749094972944349}
   - component: {fileID: 5048358915101255476}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27054,7 +27054,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -27179,7 +27179,7 @@ GameObject:
   - component: {fileID: 5340707331867474838}
   - component: {fileID: 5352973384097971105}
   - component: {fileID: 4750044048253602821}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28377,7 +28377,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -28502,7 +28502,7 @@ GameObject:
   - component: {fileID: 3130752261468510573}
   - component: {fileID: 2068901399123537495}
   - component: {fileID: 6091523010439191466}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29576,7 +29576,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 307
+  m_VersionIndex: 316
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -29698,7 +29698,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1780691602773325599}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShipControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29738,7 +29738,7 @@ GameObject:
   - component: {fileID: 2945624449107962457}
   - component: {fileID: 3626879080040298419}
   - component: {fileID: 502706685867556981}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31216,7 +31216,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1432
+  m_VersionIndex: 1441
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -31338,7 +31338,7 @@ GameObject:
   - component: {fileID: 160383005218342674}
   - component: {fileID: 1085293821528451101}
   - component: {fileID: 5264551818629307352}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShipPipe (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32830,7 +32830,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 745
+  m_VersionIndex: 754
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -32956,7 +32956,7 @@ GameObject:
   - component: {fileID: 1671854399595230920}
   - component: {fileID: 6269114153191239212}
   - component: {fileID: 7357618552980132714}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pipe (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34928,7 +34928,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 766
+  m_VersionIndex: 775
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -35049,7 +35049,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 877130009009689677}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35090,7 +35090,7 @@ GameObject:
   - component: {fileID: 7836337163340052659}
   - component: {fileID: 3707405969417816902}
   - component: {fileID: 5474228174778032809}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShipPipe (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36582,7 +36582,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 745
+  m_VersionIndex: 751
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -36708,7 +36708,7 @@ GameObject:
   - component: {fileID: 2035022948054531929}
   - component: {fileID: 7231867179212187209}
   - component: {fileID: 6135065163948058760}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37906,7 +37906,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -38026,7 +38026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 815549381575162846}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: UpDownLever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38064,7 +38064,7 @@ GameObject:
   - component: {fileID: 430562869022266000}
   - component: {fileID: 6429488927463974062}
   - component: {fileID: 1200211019235204615}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38298,7 +38298,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1392
+  m_VersionIndex: 1395
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -38420,7 +38420,7 @@ GameObject:
   - component: {fileID: 7627860150674857464}
   - component: {fileID: 283320019849250736}
   - component: {fileID: 2441698621320975596}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39618,7 +39618,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 51
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -39738,7 +39738,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 778455692085201801}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FBLever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39776,7 +39776,7 @@ GameObject:
   - component: {fileID: 5979575258114506488}
   - component: {fileID: 259416498810172962}
   - component: {fileID: 7728204656614095966}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40850,7 +40850,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 46
+  m_VersionIndex: 52
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -40977,7 +40977,7 @@ GameObject:
   - component: {fileID: 3155267548905996580}
   - component: {fileID: 1747284088913060906}
   - component: {fileID: 8425676543565823668}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41211,7 +41211,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1392
+  m_VersionIndex: 1401
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -41333,7 +41333,7 @@ GameObject:
   - component: {fileID: 543366355944680941}
   - component: {fileID: 1127876974905775004}
   - component: {fileID: 5990283667313268877}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42531,7 +42531,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -42656,7 +42656,7 @@ GameObject:
   - component: {fileID: 5814504706239784048}
   - component: {fileID: 3337287624174050736}
   - component: {fileID: 4787778312188139224}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43730,7 +43730,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 307
+  m_VersionIndex: 316
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -43857,7 +43857,7 @@ GameObject:
   - component: {fileID: 3678456365398928462}
   - component: {fileID: 6772894350331150826}
   - component: {fileID: 3126077541531571464}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45055,7 +45055,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -45180,7 +45180,7 @@ GameObject:
   - component: {fileID: 360155134322983894}
   - component: {fileID: 3211425171119772694}
   - component: {fileID: 6623028878376342900}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45414,7 +45414,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1392
+  m_VersionIndex: 1401
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -45536,7 +45536,7 @@ GameObject:
   - component: {fileID: 8503871591891237565}
   - component: {fileID: 3545611802772057446}
   - component: {fileID: 5139495759511114220}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46610,7 +46610,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 307
+  m_VersionIndex: 316
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -46737,7 +46737,7 @@ GameObject:
   - component: {fileID: 5591703972368850033}
   - component: {fileID: 5386902683145290327}
   - component: {fileID: 335996850540346282}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47935,7 +47935,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 51
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -48060,7 +48060,7 @@ GameObject:
   - component: {fileID: 8838684227115073749}
   - component: {fileID: 4369034526859454788}
   - component: {fileID: 4090775612002154779}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48294,7 +48294,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1392
+  m_VersionIndex: 1401
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -48416,7 +48416,7 @@ GameObject:
   - component: {fileID: 854203154777692557}
   - component: {fileID: 1402651759531756357}
   - component: {fileID: 2349448507051219415}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49614,7 +49614,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 51
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -49734,7 +49734,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3245178077567080909}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Outside Periscope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49773,7 +49773,7 @@ GameObject:
   - component: {fileID: 2487052712623059683}
   - component: {fileID: 4054585036632038292}
   - component: {fileID: 7558194131584854225}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50971,7 +50971,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -51096,7 +51096,7 @@ GameObject:
   - component: {fileID: 5783281003406371265}
   - component: {fileID: 192128653316039849}
   - component: {fileID: 5055425146726531143}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52294,7 +52294,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -52419,7 +52419,7 @@ GameObject:
   - component: {fileID: 8982647056036334842}
   - component: {fileID: 6064772490638569982}
   - component: {fileID: 2751655833892071045}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53493,7 +53493,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2060
+  m_VersionIndex: 2063
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -53620,7 +53620,7 @@ GameObject:
   - component: {fileID: 252053654007074164}
   - component: {fileID: 6671843605307091711}
   - component: {fileID: 253899403571425472}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53854,7 +53854,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1392
+  m_VersionIndex: 1395
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -53974,7 +53974,7 @@ GameObject:
   - component: {fileID: 2202203887007840113}
   - component: {fileID: 8933882403072427224}
   - component: {fileID: 6681026789144518447}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Window (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54088,7 +54088,7 @@ GameObject:
   - component: {fileID: 7095233811606264359}
   - component: {fileID: 2155065312584615371}
   - component: {fileID: 26080837616908972}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55162,7 +55162,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 347
+  m_VersionIndex: 356
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -55289,7 +55289,7 @@ GameObject:
   - component: {fileID: 4176144393417798482}
   - component: {fileID: 6035472899992302179}
   - component: {fileID: 1425481215005626388}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arch (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56363,7 +56363,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 307
+  m_VersionIndex: 316
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -56490,7 +56490,7 @@ GameObject:
   - component: {fileID: 536795215952389676}
   - component: {fileID: 6664747059103263771}
   - component: {fileID: 1180507864646360131}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57688,7 +57688,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -57813,7 +57813,7 @@ GameObject:
   - component: {fileID: 7119621479883448194}
   - component: {fileID: 2817767137163443067}
   - component: {fileID: 4284473926594021173}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58167,7 +58167,7 @@ GameObject:
   - component: {fileID: 2116201786656298218}
   - component: {fileID: 2888637931449032842}
   - component: {fileID: 3683581174066569794}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58281,7 +58281,7 @@ GameObject:
   - component: {fileID: 1573127850978874519}
   - component: {fileID: 760336862861949338}
   - component: {fileID: 2240853314231097711}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59764,7 +59764,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1766
+  m_VersionIndex: 1775
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -59886,7 +59886,7 @@ GameObject:
   - component: {fileID: 895450059143002789}
   - component: {fileID: 376569614335722116}
   - component: {fileID: 5268206109925830943}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61084,7 +61084,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 48
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -61209,7 +61209,7 @@ GameObject:
   - component: {fileID: 3494557644043129113}
   - component: {fileID: 6854461903639246101}
   - component: {fileID: 2712921000080256818}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cylinder (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62407,7 +62407,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 42
+  m_VersionIndex: 51
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -62526,6 +62526,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7990675391499854990}
     m_Modifications:
+    - target: {fileID: 7619283946724463662, guid: e1f798a561bc5cd4a801c034f8580e5d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8409118682559835177, guid: e1f798a561bc5cd4a801c034f8580e5d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.09
@@ -62566,9 +62570,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8693850343067852613, guid: e1f798a561bc5cd4a801c034f8580e5d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9221366871086085779, guid: e1f798a561bc5cd4a801c034f8580e5d, type: 3}
       propertyPath: m_Name
       value: Prototype_TetherHook
+      objectReference: {fileID: 0}
+    - target: {fileID: 9221366871086085779, guid: e1f798a561bc5cd4a801c034f8580e5d, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -62588,9 +62600,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4545901561276329462}
     m_Modifications:
+    - target: {fileID: 625268391545273226, guid: dc8b51ca5c6bba147af4b86f668d56cd, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956292562468528486, guid: dc8b51ca5c6bba147af4b86f668d56cd, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2490925805281973225, guid: dc8b51ca5c6bba147af4b86f668d56cd, type: 3}
       propertyPath: m_Name
       value: Prototype_Periscope
+      objectReference: {fileID: 0}
+    - target: {fileID: 2490925805281973225, guid: dc8b51ca5c6bba147af4b86f668d56cd, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3015823497522825555, guid: dc8b51ca5c6bba147af4b86f668d56cd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62632,6 +62656,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3328402712323627855, guid: dc8b51ca5c6bba147af4b86f668d56cd, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960241821626730242, guid: dc8b51ca5c6bba147af4b86f668d56cd, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7263397485749676574, guid: dc8b51ca5c6bba147af4b86f668d56cd, type: 3}
       propertyPath: m_LocalScale.z
       value: -2612.346
@@ -62658,6 +62690,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7990675391499854990}
     m_Modifications:
+    - target: {fileID: 18242397461019658, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1869366949341691803, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065563773513260919, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3955630662816679733, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.163
@@ -62698,9 +62742,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4019564909524867475, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072312398024660655, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403030779646004675, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4444746677775277455, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
       propertyPath: m_Name
       value: Prototype_ControlTable
+      objectReference: {fileID: 0}
+    - target: {fileID: 4444746677775277455, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5650955544891620342, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6936655221047464074, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7360645639421404256, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341232973749945510, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8973066655126435401, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123779683818286312, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
