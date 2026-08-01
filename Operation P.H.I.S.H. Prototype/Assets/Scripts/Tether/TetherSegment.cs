@@ -181,8 +181,10 @@ public class TetherSegment : MonoBehaviour
     {
         if (NextSegment == null && followingObject == null) return;
 
+        bool intersecting = SplineUtilities.SplineSphereCast(this, out RaycastHit hit, out float intersection_t, radius: TetherManager.Instance.TetherSplineCollisionRadius);
+
         // If this node is The Follower
-        if(followingObject != null)
+        if (followingObject != null)
         {
             FollowFollowingObject(deltaTime);
             return;
@@ -191,18 +193,18 @@ public class TetherSegment : MonoBehaviour
         if (TrySplitLongSegment(deltaTime))
             return;
 
-        if (TryDissolveShortSegment(deltaTime))
+        if (TryDissolveShortSegment(deltaTime, intersecting))
             return;
 
         // TODO: theres some logic problems here that i cant be bothered to figure out rn
         if (TryAdjustTetherLength(deltaTime))
             return;
 
-        if (CheckForCollisionAroundNode(Time.deltaTime))
+        if (CheckForCollisionAroundNode(deltaTime))
             return; // dont move the node and update the spline at the same frame, thats just rude.
         
         // Check for collisions along the spline
-        CheckForCollisionAlongSpline();
+        CheckForCollisionAlongSpline(intersecting, intersection_t);
     }
 
     // Stupid Function name
@@ -252,9 +254,12 @@ public class TetherSegment : MonoBehaviour
     /// <summary>
     /// Tries to dissolve a tether if it is too short
     /// </summary>
-    private bool TryDissolveShortSegment(float deltaTime)
+    private bool TryDissolveShortSegment(float deltaTime, bool intersecting)
     {
         if (NextSegment == null) return false;
+
+        // dont disolve if colliding
+        if (intersecting) return false;
 
         float forwardLength = SplineUtilities.GetSegmentLength(this);
 
@@ -279,6 +284,10 @@ public class TetherSegment : MonoBehaviour
         float forwardLength = SplineUtilities.GetSegmentLength(this);
         float backwardsLength = SplineUtilities.GetSegmentLength(PreviousSegment);
 
+        bool intersecting = SplineUtilities.CheckNodeCollisionSphere(this, radius: TetherManager.Instance.TetherNodeCollisionRadius, out Vector3 hitPoint);
+        if (intersecting)
+            return false;
+
         /*
         // if tether is too long on both sides then there needs to be more nodes!
         if(forwardLength > TetherManager.Instance.MaxDesiredTetherLength && backwardsLength > TetherManager.Instance.MaxDesiredTetherLength)
@@ -295,7 +304,7 @@ public class TetherSegment : MonoBehaviour
         }*/
 
         // If too much length ahead / not enough length behind
-        if(forwardLength > TetherManager.Instance.MaxDesiredTetherLength || backwardsLength < TetherManager.Instance.MinDesiredTetherLength)
+        if (forwardLength > TetherManager.Instance.MaxDesiredTetherLength || backwardsLength < TetherManager.Instance.MinDesiredTetherLength)
         {
             AdjustForwards(deltaTime * TetherManager.Instance.TetherAutoAdjustmentSpeed);
             return true;
@@ -335,8 +344,6 @@ public class TetherSegment : MonoBehaviour
     {
         bool intersecting = SplineUtilities.CheckNodeCollisionSphere(this, radius: TetherManager.Instance.TetherNodeCollisionRadius, out Vector3 hitPoint);
 
-        if (!intersecting) return false;
-
         // Move away from hitpoint (SMOOTH THIS OUT IN THE FINAL GAME OBVIOUSLY)
         Vector3 direction = transform.position - hitPoint;
         transform.position = transform.position + (direction.normalized * deltaTime);
@@ -350,10 +357,8 @@ public class TetherSegment : MonoBehaviour
     /// Checks for any intersections along the spline. If there is any, then it splits the tether in half and lets the new segment figure it out.
     /// </summary>
     /// <returns></returns>
-    private bool CheckForCollisionAlongSpline()
+    private bool CheckForCollisionAlongSpline(bool intersecting, float intersection_t)
     {
-        bool intersecting = SplineUtilities.SplineSphereCast(this, out RaycastHit hit, out float intersection_t, radius: TetherManager.Instance.TetherSplineCollisionRadius);
-
         if (!intersecting)
         {
             return false;
@@ -474,7 +479,7 @@ public class TetherSegment : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(startPosition, 2 /*TetherManager.Instance.TetherNodeCollisionRadius*/);
+        Gizmos.DrawWireSphere(startPosition, 1 /*TetherManager.Instance.TetherNodeCollisionRadius*/);
 
         if (NextSegment == null) return;
 
