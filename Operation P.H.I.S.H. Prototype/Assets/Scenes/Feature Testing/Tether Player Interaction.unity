@@ -10065,12 +10065,20 @@ PrefabInstance:
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2667296226010111041, guid: 495b22bb5f6c3a946be67cb8e37bb07c, type: 3}
+      propertyPath: DesiredTetherLengthRange.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2667296226010111041, guid: 495b22bb5f6c3a946be67cb8e37bb07c, type: 3}
       propertyPath: SecondsBetweenTetherCreations
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2667296226010111041, guid: 495b22bb5f6c3a946be67cb8e37bb07c, type: 3}
       propertyPath: MinLengthToDissolveTetherSegment
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2667296226010111041, guid: 495b22bb5f6c3a946be67cb8e37bb07c, type: 3}
+      propertyPath: MaxLengthToCreateNewTetherSegment
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3767350341903313878, guid: 495b22bb5f6c3a946be67cb8e37bb07c, type: 3}
       propertyPath: m_Name
