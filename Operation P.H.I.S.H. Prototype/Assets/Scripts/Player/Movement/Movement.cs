@@ -63,4 +63,6 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnControlStarted();
     protected abstract void OnControlFinished();
 
+    protected abstract bool LookingAtObject();
+
 }

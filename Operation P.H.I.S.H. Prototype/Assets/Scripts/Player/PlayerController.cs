@@ -9,6 +9,7 @@ External Resources :
 ***************************************************/
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,6 +35,16 @@ public class PlayerController : MonoBehaviour
     
     private Dictionary<MovementType, Movement> movementScripts;
 
+    // in a non-prototype, these should be stored in a different script
+    [SerializeField] private Image playerCrosshair;
+    public Image CrosshairImage {  get { return playerCrosshair; } }
+    [SerializeField] private Sprite standard;
+    public Sprite StandardSprite { get { return standard; } }
+    [SerializeField] private Sprite interactable;
+    public Sprite InteractableSprite { get { return interactable; } }
+
+    public Transform PickupPoint;
+
     #endregion
 
     #region FUNCTIONS
@@ -45,6 +56,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        Cursor.visible = false;
         movementScripts = new Dictionary<MovementType, Movement>() 
             {
                 { MovementType.Land, GetComponent<LandMovement>() }
