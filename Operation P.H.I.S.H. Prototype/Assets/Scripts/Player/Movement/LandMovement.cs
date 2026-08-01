@@ -309,4 +309,13 @@ public class LandMovement : Movement
     {
         pc.CameraRotationParent.transform.localEulerAngles = angle;
     }
+
+    /// <summary>
+    /// Override from movement class
+    /// </summary>
+    /// <exception cref="System.NotImplementedException"></exception>
+    protected override void OnMoveEnd()
+    {
+        // does nothinbg lol
+    }
 }

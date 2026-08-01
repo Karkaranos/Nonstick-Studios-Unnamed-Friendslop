@@ -8,6 +8,7 @@ External Resources :
 ***************************************************/
 using System.Collections;
 using UnityEngine;
+using NaughtyAttributes;
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerController))]
 public class WaterMovement : Movement
@@ -22,12 +23,14 @@ public class WaterMovement : Movement
     [SerializeField] private float maxAccelerationMultiplier = 3f;
     [SerializeField] private float ascentWaterMovementSpeed = .5f;
     [SerializeField] private float descentWaterMovementSpeed = 1.2f;
+    [SerializeField] private float waterGravity = -4f;
     private float accelleration = 1f;
     private Coroutine shiftHold;
     [SerializeField] private GameObject waterTint;
 
-    bool ascending;
-    bool descending;
+    [ReadOnly, SerializeField] bool ascending;
+    [ReadOnly, SerializeField] bool descending;
+    [ReadOnly, SerializeField] bool moving;
 
     Vector2 rotation;
     Rigidbody rb;
@@ -35,6 +38,7 @@ public class WaterMovement : Movement
     private IInteractable lookingAt;
     private IInteractable interactingWith;
     private bool interacting;
+    private Coroutine waterGravityCour;
     [SerializeField] private float sightDistance = 2f;
 
     /// <summary>
@@ -58,7 +62,8 @@ public class WaterMovement : Movement
         rb = GetComponent<Rigidbody>();
         waterTint.SetActive(true);
         rb.useGravity = false;
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * .3f, rb.linearVelocity.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * .5f, rb.linearVelocity.z);
+        waterGravityCour = StartCoroutine(WaterGravity());
     }
 
     /// <summary>
@@ -70,6 +75,7 @@ public class WaterMovement : Movement
         base.OnDisable();
         waterTint.SetActive(false);
         rb.useGravity = true;
+        StopCoroutine(waterGravityCour);
     }
 
     /// <summary>
@@ -112,6 +118,7 @@ public class WaterMovement : Movement
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
+        moving = true;
         Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseWaterMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
 
         if (ascending || descending)
@@ -120,13 +127,16 @@ public class WaterMovement : Movement
         }
         else
         {
-            newValue.y = 0;
+            newValue.y = waterGravity;
         }
 
         rb.linearVelocity = newValue;
 
         Debug.Log("MOVE");
     }
+
+
+
 
     /// <summary>
     /// Override from Movement base class
@@ -311,6 +321,27 @@ public class WaterMovement : Movement
     }
 
     /// <summary>
+    /// Fakes adding water gravity
+    /// </summary>
+    /// <returns></returns>
+
+    protected IEnumerator WaterGravity()
+    {
+        Vector3 newValue;
+        while(true)
+        {
+            newValue = rb.linearVelocity;
+            if(!moving && !ascending && !descending)
+            {
+                newValue.y = waterGravity;
+            }
+            rb.linearVelocity = newValue;
+
+            yield return null;
+        }
+    }
+
+    /// <summary>
     /// Override from Movement class
     /// Sends the last camera angle when disabled
     /// </summary>
@@ -328,5 +359,14 @@ public class WaterMovement : Movement
     public override void SetCameraAngle(Vector3 angle)
     {
         pc.CameraRotationParent.transform.localEulerAngles = angle;
+    }
+
+    /// <summary>
+    /// Override from movement class
+    /// Stops movement
+    /// </summary>
+    protected override void OnMoveEnd()
+    {
+        moving = false;
     }
 }

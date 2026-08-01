@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1265
+  m_VersionIndex: 1280
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1661,9 +1661,13 @@ MonoBehaviour:
   baseWaterMovementSpeed: 2
   timeToMaxAcceleration: 5
   maxAccelerationMultiplier: 3
-  ascentWaterMovementSpeed: 0.5
-  descentWaterMovementSpeed: 1.2
+  ascentWaterMovementSpeed: 0.8
+  descentWaterMovementSpeed: 2
+  waterGravity: -1.5
   waterTint: {fileID: 4795254821901988266}
+  ascending: 0
+  descending: 0
+  moving: 0
   sightDistance: 2
 --- !u!1 &5712952953863956896
 GameObject:
