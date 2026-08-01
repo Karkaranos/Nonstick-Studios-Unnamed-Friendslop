@@ -135,9 +135,17 @@ public class TetherManager : Singleton<TetherManager>
         return (dot > 1 - retractionClearance);
     }
 
+    /// <summary>
+    /// Get Length of all used tethers
+    /// </summary>
+    public float GetTotalTetherLength()
+    {
+        return SplineUtilities.GetTotalRopeLength(startingSegment);
+    }
+
     public bool IsTotalTetherLengthMaxed()
     {
-        float totalDistance = SplineUtilities.GetTotalRopeLength(startingSegment);  // TODO: VERY temp patch. add a dictionary or something that maps players to their tethers.
+        float totalDistance = GetTotalTetherLength();  // TODO: VERY temp patch. add a dictionary or something that maps players to their tethers.
 
         // player still has so much wiggle room!!
         return (totalDistance < TotalMaxTetherLength) ;
