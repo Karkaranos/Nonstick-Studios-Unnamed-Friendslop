@@ -872,26 +872,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
-      propertyPath: debugColorOption
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
-      propertyPath: DesiredTetherLengthRange.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
-      propertyPath: DesiredTetherLengthRange.y
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
-      propertyPath: SecondsBetweenTetherCreations
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3707096386323491791, guid: 74f13059c64a84a40af8ff45788faa48, type: 3}
-      propertyPath: MaxLengthToCreateNewTetherSegment
-      value: 30
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

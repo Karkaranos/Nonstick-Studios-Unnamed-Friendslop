@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,7 +9,7 @@ using static UnityEngine.Rendering.HableCurve;
 public static class SplineUtilities
 {
     private static int _debug_total_segments_spawned = 2;
-
+    private static LayerMask layerMask => TetherManager.Instance == null ? new LayerMask() : TetherManager.Instance.TetherLayerMask;
 
     /// <summary>
     /// Returns the APPROXIMATE length of the spline segment.
@@ -46,10 +48,27 @@ public static class SplineUtilities
 
     public static TetherSegment GetEndSegment(TetherSegment segment)
     {
+        if (segment == null) return null;
         if (segment.NextSegment == null)
             return segment;
 
         return GetEndSegment(segment.NextSegment);
+    }
+
+    public static List<BezierKnot> CreateBezierKnots(TetherSegment segment)
+    {
+        List<BezierKnot> splineKnots = new List<BezierKnot>();
+        while (segment != null)
+        {
+            splineKnots.Add(segment.GetBezierKnot());
+            segment = segment.NextSegment;
+        }
+        return splineKnots;
+    }
+
+    public static Spline CreateSpline(TetherSegment segment)
+    {
+        return new Spline(CreateBezierKnots(segment));
     }
 
     #region Physics
@@ -77,7 +96,7 @@ public static class SplineUtilities
 
             Ray ray = new Ray();
             // TODO: layermask
-            bool hit = Physics.SphereCast(pos_1, radius, direction, out raycastResult, distance);
+            bool hit = Physics.SphereCast(pos_1, radius, direction, out raycastResult, distance, layerMask: layerMask);
 
             if (hit)
             {
@@ -102,7 +121,8 @@ public static class SplineUtilities
             radius: radius,
             // not sure what to do with direction / maxDistance since i really just want a sphere rn
             direction: segment.forwardDirection,
-            maxDistance: 0.01f
+            maxDistance: 0.01f,
+            layerMask: layerMask
         );
 
         if (hits.Length <= 0)
@@ -150,7 +170,7 @@ public static class SplineUtilities
 
         Vector3 position = segment.Evaluate(t);
         Vector3 forwardDirection = segment.EvaluateForwardDirection(t);
-
+        float length = SplineUtilities.GetSegmentLength(segment);
 
         TetherSegment newTetherSegment = GameObject.Instantiate(TetherManager.Instance.TetherSegmentPrefab, position, Quaternion.identity);
         newTetherSegment.gameObject.name = $"Tether {++_debug_total_segments_spawned}";
@@ -160,7 +180,7 @@ public static class SplineUtilities
         // Update the linked node structure 
         SplineUtilities.InsertNodeReference(segment, newTetherSegment, segment.NextSegment);
 
-        Debug.Log($"Inserted Tether Segment between {segment.gameObject.name} and {segment.NextSegment.gameObject.name}:\nt={t}\tPosition={position}");
+        Debug.Log($"Inserted Tether Segment between {segment.gameObject.name} and {segment.NextSegment.gameObject.name}:\nt={t}\tPosition:{position}\tPrevious Length: {length}");
 
         return newTetherSegment;
     }
@@ -243,7 +263,10 @@ public static class SplineUtilities
 
         #endregion
 
-        Debug.Log($"Disolving Tether Segment: '{segment.gameObject.name}'");
+
+        float segmentLength = SplineUtilities.GetSegmentLength( segment );
+        Debug.Log($"Disolving Tether Segment: '{segment.gameObject.name}'\n" +
+            $"Length: {segmentLength}");
 
         var segment_a = segment.PreviousSegment;
         var segment_b = segment.NextSegment;

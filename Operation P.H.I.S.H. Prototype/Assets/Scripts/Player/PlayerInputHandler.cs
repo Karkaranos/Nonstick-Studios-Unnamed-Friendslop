@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class PlayerInputHandler : MonoBehaviour
+public class PlayerInputHandler : Singleton<PlayerInputHandler>
 {
     #region VARIABLES
 
@@ -21,11 +21,14 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction move;
     private InputAction look;
     private InputAction e;
+    private InputAction reelTether;
     private InputAction space;
     private InputAction shift;
     private InputAction control;
 
     private Coroutine movementUpdates;
+
+    public bool IsReelTetherHeld { get; private set; } = false;
 
     #endregion
 
@@ -37,10 +40,13 @@ public class PlayerInputHandler : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        base.Awake();
+
         input.currentActionMap.Enable();
         move = input.currentActionMap.FindAction("Move");
         look = input.currentActionMap.FindAction("Look");
         e = input.currentActionMap.FindAction("E");
+        reelTether = input.currentActionMap.FindAction("Reel Tether");
         space = input.currentActionMap.FindAction("Space");
         shift = input.currentActionMap.FindAction("Shift");
         control = input.currentActionMap.FindAction("Control");
@@ -56,13 +62,15 @@ public class PlayerInputHandler : MonoBehaviour
         move.canceled += MoveStopped;
         look.performed += LookCalled;   
         e.performed += EPressed;
+        reelTether.started += ReelTetherStarted;
+        reelTether.canceled += ReelTetherCanceled;
         space.started += SpacePressed;
         space.performed += SpacePressed;
-        space.canceled += SpaceCancled;
+        space.canceled += SpaceCanceled;
         shift.started += ShiftPressed;
-        shift.canceled += ShiftCancled;
+        shift.canceled += ShiftCanceled;
         control.started += ControlPressed;
-        control.canceled += ControlCancled;
+        control.canceled += ControlCanceled;
         
     }
 
@@ -73,6 +81,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         move.Disable();
         e.Disable();
+        reelTether.Disable();
         space.Disable();
         shift.Disable();
         control.Disable();
@@ -143,6 +152,26 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     /// <summary>
+    /// Input function for Reel Tether started
+    /// </summary>
+    /// <param name="obj"></param>
+    private void ReelTetherStarted(InputAction.CallbackContext obj)
+    {
+        IsReelTetherHeld = true;
+        PublicEvents.ReelTetherStarted();
+    }
+
+    /// <summary>
+    /// Input function for Reel Tether started
+    /// </summary>
+    /// <param name="obj"></param>
+    private void ReelTetherCanceled(InputAction.CallbackContext obj)
+    {
+        IsReelTetherHeld = false;
+        PublicEvents.ReelTetherFinished();
+    }
+
+    /// <summary>
     /// Input function for Space started
     /// </summary>
     /// <param name="obj"></param>
@@ -155,7 +184,7 @@ public class PlayerInputHandler : MonoBehaviour
     /// Input function for space released
     /// </summary>
     /// <param name="obj"></param>
-    private void SpaceCancled(InputAction.CallbackContext obj)
+    private void SpaceCanceled(InputAction.CallbackContext obj)
     {
         PublicEvents.SpaceFinished();
     }
@@ -173,7 +202,7 @@ public class PlayerInputHandler : MonoBehaviour
     /// Input action for realsing shift
     /// </summary>
     /// <param name="obj"></param>
-    private void ShiftCancled(InputAction.CallbackContext obj)
+    private void ShiftCanceled(InputAction.CallbackContext obj)
     {
         PublicEvents.ShiftFinished();
     }
@@ -191,10 +220,22 @@ public class PlayerInputHandler : MonoBehaviour
     /// Input action for realsing control
     /// </summary>
     /// <param name="obj"></param>
-    private void ControlCancled(InputAction.CallbackContext obj)
+    private void ControlCanceled(InputAction.CallbackContext obj)
     {
         PublicEvents.ControlFinished();
-    }    
+    }
 
+    #endregion
+
+    #region Held Events
+
+    /// <summary>
+    /// Send events for "held" events
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if(IsReelTetherHeld)
+            PublicEvents.ReelTetherHeld(Time.fixedDeltaTime);
+    }
     #endregion
 }

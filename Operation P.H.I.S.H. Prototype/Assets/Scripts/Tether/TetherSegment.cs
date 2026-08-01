@@ -14,6 +14,7 @@ using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Splines;
 using static UnityEngine.Rendering.HableCurve;
 
 public class TetherSegment : MonoBehaviour
@@ -63,7 +64,7 @@ public class TetherSegment : MonoBehaviour
     private bool hasEndPoint => NextSegment != null || followingObject != null;
     private Vector3 endPosition => GetSegmentEnd();
     private Vector3 endBackwardDirection => GetSegmentEndBackward();
-    private Vector3 endBackwardAnchorPosition => NextSegment.backwardAnchorPosition;
+    private Vector3 endBackwardAnchorPosition => NextSegment == null ? startPosition : NextSegment.backwardAnchorPosition;
 
     private void Start()
     {
@@ -90,7 +91,7 @@ public class TetherSegment : MonoBehaviour
     }
 
     /// <summary>
-    /// Move the Tether forwards along itself (towards the next tether).
+    /// Move the Tether backwards along itself (towards the previous tether).
     /// </summary>
     /// <param name="maxStepLength">Is implied to have already accounted for deltatime</param>
     public void AdjustBackwards(float stepLength)
@@ -110,8 +111,19 @@ public class TetherSegment : MonoBehaviour
         Vector3 targetPosition = Evaluate(1-t);
         Vector3 targetForwardDirection = EvaluateForwardDirection(1-t);
 
+
+        if (followingObject != null)
+        {
+            Vector3 direction = (followingObject.position - targetPosition).normalized;
+            // TODO: yes i know calling getcomponent every frame is bad i dont care. this is temp
+            followingObject.parent.parent.GetComponent<Rigidbody>().linearVelocity = direction * 10;
+            Debug.DrawRay(followingObject.parent.parent.position, direction * 10, Color.green);
+            return;
+        }
+
         transform.position = targetPosition;
         transform.forward = targetForwardDirection;
+
     }
 
     /// <summary>
@@ -172,7 +184,7 @@ public class TetherSegment : MonoBehaviour
         // If this node is The Follower
         if(followingObject != null)
         {
-            FollowFollowingObject();
+            FollowFollowingObject(deltaTime);
             return;
         }
 
@@ -194,7 +206,7 @@ public class TetherSegment : MonoBehaviour
     }
 
     // Stupid Function name
-    private void FollowFollowingObject()
+    private void FollowFollowingObject(float deltaTime)
     {
         // failsafe in case this node is "attached" to two objects (should not happen!!)
         if(NextSegment != null)
@@ -211,7 +223,12 @@ public class TetherSegment : MonoBehaviour
 
         // just snap to its transform for now. Later this can be smoothed a lil better
         transform.position = followingObject.position;
-        transform.rotation = followingObject.rotation;
+        Vector3 direction = PreviousSegment.startPosition - transform.position;
+        transform.LookAway(PreviousSegment.transform);
+        //transform.forward = -PreviousSegment.transform.forward;
+        //transform.rotation = followingObject.rotation;
+        // slowly adjust tether
+        //transform.forward = Vector3.Slerp(transform.forward, followingObject.forward, deltaTime*0.1f);
     }
 
     /// <summary>
@@ -232,6 +249,9 @@ public class TetherSegment : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Tries to dissolve a tether if it is too short
+    /// </summary>
     private bool TryDissolveShortSegment(float deltaTime)
     {
         if (NextSegment == null) return false;
@@ -414,6 +434,18 @@ public class TetherSegment : MonoBehaviour
     }
 
     #endregion Getters
+
+    #region Other
+
+    /// <summary>
+    /// Convert to bezier knot
+    /// </summary>
+    public BezierKnot GetBezierKnot()
+    {
+        return new BezierKnot(startPosition, forwardAnchorPosition, backwardAnchorPosition);
+    }
+
+    #endregion
 
     #region Debug
 

@@ -19,6 +19,9 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.MoveDirection += OnMove;
         PublicEvents.MousePosition += OnMouseMove;
         PublicEvents.EClicked += OnEClicked;
+        PublicEvents.ReelTetherStarted += ReelTetherStarted;
+        PublicEvents.ReelTetherHeld += WhileReelTetherHeld;
+        PublicEvents.ReelTetherFinished += ReelTetherFinished;
         PublicEvents.SpaceStarted += OnSpaceStarted;
         PublicEvents.SpaceFinished += OnSpaceFinished;
         PublicEvents.ShiftStarted += OnShiftStarted;
@@ -35,6 +38,9 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.MoveDirection -= OnMove;
         PublicEvents.MousePosition -= OnMouseMove;
         PublicEvents.EClicked -= OnEClicked;
+        PublicEvents.ReelTetherStarted -= ReelTetherStarted;
+        PublicEvents.ReelTetherHeld -= WhileReelTetherHeld;
+        PublicEvents.ReelTetherFinished -= ReelTetherFinished;
         PublicEvents.SpaceStarted -= OnSpaceStarted;
         PublicEvents.SpaceFinished -= OnSpaceFinished;
         PublicEvents.ShiftStarted -= OnShiftStarted;
@@ -49,6 +55,9 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnEClicked();
     protected abstract void OnSpaceStarted(bool fullyPerformed);
     protected abstract void OnSpaceFinished();
+    protected abstract void ReelTetherStarted();
+    protected abstract void WhileReelTetherHeld(float deltaTime);
+    protected abstract void ReelTetherFinished();
     protected abstract void OnShiftStarted();
     protected abstract void OnShiftFinished();
     protected abstract void OnControlStarted();

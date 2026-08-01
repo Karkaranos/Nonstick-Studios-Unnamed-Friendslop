@@ -30,6 +30,8 @@ public class LandMovement : Movement
     Vector2 rotation;
     Rigidbody rb;
 
+    private Vector3 lookingDirection(Vector2 moveVector) => (pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x);
+
     /// <summary>
     /// Grabs initial references and sets initial variables
     /// </summary>
@@ -65,9 +67,15 @@ public class LandMovement : Movement
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
-        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseLandMovementSpeed * 100f * accelleration *  Time.fixedDeltaTime;
+        /*Vector3 newValue;
+        if (TetherManager.Instance.CanPlayerMoveInDirection(moveVector))
+            newValue = lookingDirection(moveVector) * baseLandMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
+        else
+            newValue = Vector3.zero;*/
 
-        if(!Grounded() || jumpThisFrame)
+        Vector3 newValue = lookingDirection(moveVector) * baseLandMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
+
+        if (!Grounded() || jumpThisFrame)
         {
             newValue.y = rb.linearVelocity.y;
         }
@@ -87,6 +95,25 @@ public class LandMovement : Movement
     protected override void OnEClicked()
     {
         Debug.Log("E");
+    }
+
+    protected override void WhileReelTetherHeld(float deltaTime)
+    {
+        Debug.Log("REELIN IN");
+        TetherManager.Instance.PullTetheredObject(null, deltaTime);
+    }
+
+    protected override void ReelTetherStarted()
+    {
+        Debug.Log("Reel Tether");
+    }
+
+    protected override void ReelTetherFinished()
+    {
+        Debug.Log("Reel Tether Finished");
+
+        // this feels terrible for the player but its temp and i need to get this done fast
+        rb.angularVelocity = Vector3.zero;
     }
 
     /// <summary>
@@ -187,4 +214,29 @@ public class LandMovement : Movement
             yield return null;
         }
     }
+
+    /// <summary>
+    /// Adjust movement for tether
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if (TetherManager.Instance == null) return;
+
+        if (TetherManager.Instance.IsPlayerTethered(this) == false)
+            return;
+
+        // dont care if player isnt moving
+        Vector3 velocity = rb.linearVelocity;
+        if (Mathf.Approximately(velocity.magnitude, 0))
+            return;
+
+        /*
+        bool canMove = TetherManager.Instance.CanPlayerMoveInDirection(velocity);
+        if (!canMove && PlayerInputHandler.Instance.IsReelTetherHeld)
+        {
+            rb.linearVelocity = Vector3.zero;
+        }*/
+    }
+
+    
 }
