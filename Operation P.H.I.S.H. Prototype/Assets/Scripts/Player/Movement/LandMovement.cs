@@ -66,10 +66,13 @@ public class LandMovement : Movement
 
         pc.CameraRotationParent.localEulerAngles = rotation;
 
-        Vector3 armsRotation = armsParent.transform.localEulerAngles;
-        armsRotation.y = rotation.y;
-        armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
-        armsParent.transform.localEulerAngles = armsRotation;
+        if (armsParent != null)
+        {
+            Vector3 armsRotation = armsParent.transform.localEulerAngles;
+            armsRotation.y = rotation.y;
+            armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
+            armsParent.transform.localEulerAngles = armsRotation;
+        }
 
         if(LookingAtObject())
         {
@@ -151,11 +154,15 @@ public class LandMovement : Movement
 
             Debug.Log("E");
     }
-
+    
+    /// <summary>
+    /// Reel in tether while reel button is held (in theory)
+    /// </summary>
+    /// <param name="deltaTime"></param>
     protected override void WhileReelTetherHeld(float deltaTime)
     {
         Debug.Log("REELIN IN");
-        TetherManager.Instance.PullTetheredObject(null, deltaTime);
+        //TetherManager.Instance.PullTetheredObject(null, deltaTime);
     }
 
     protected override void ReelTetherStarted()
@@ -168,7 +175,7 @@ public class LandMovement : Movement
         Debug.Log("Reel Tether Finished");
 
         // this feels terrible for the player but its temp and i need to get this done fast
-        rb.angularVelocity = Vector3.zero;
+        //rb.angularVelocity = Vector3.zero;
     }
 
     /// <summary>
@@ -182,11 +189,7 @@ public class LandMovement : Movement
             float jumpForce = Mathf.Sqrt(fullJumpHeight * landGravity * -2f);
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
         }
-        else
-        {
-
-        }
-            Debug.Log("Space Started");
+        Debug.Log("Space Started");
     }
 
     /// <summary>
