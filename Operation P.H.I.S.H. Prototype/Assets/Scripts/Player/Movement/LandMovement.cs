@@ -343,4 +343,33 @@ public class LandMovement : Movement
     }
 
     
+
+    /// <summary>
+    /// Override from Movement class
+    /// Sends the last camera angle when disabled
+    /// </summary>
+    /// <returns></returns>
+    public override Vector3 LastCameraAngle()
+    {
+        return pc.CameraRotationParent.transform.localEulerAngles;
+    }
+
+    /// <summary>
+    /// Override from movement class
+    /// Sets the first camera angle when enabled
+    /// </summary>
+    /// <param name="angle"></param>
+    public override void SetCameraAngle(Vector3 angle)
+    {
+        pc.CameraRotationParent.transform.localEulerAngles = angle;
+    }
+
+    /// <summary>
+    /// Override from movement class
+    /// </summary>
+    /// <exception cref="System.NotImplementedException"></exception>
+    protected override void OnMoveEnd()
+    {
+        // does nothinbg lol
+    }
 }

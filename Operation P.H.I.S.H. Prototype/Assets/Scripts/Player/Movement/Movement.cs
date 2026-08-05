@@ -14,9 +14,10 @@ public abstract class Movement: MonoBehaviour
     /// <summary>
     /// Subscribes to all the Public events for controls
     /// </summary>
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
         PublicEvents.MoveDirection += OnMove;
+        PublicEvents.MoveStopped += OnMoveEnd;
         PublicEvents.MousePosition += OnMouseMove;
         PublicEvents.EClicked += OnEClicked;
         PublicEvents.ReelTetherStarted += ReelTetherStarted;
@@ -33,9 +34,10 @@ public abstract class Movement: MonoBehaviour
     /// <summary>
     /// Unsubscribes from all public events for controls
     /// </summary>
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         PublicEvents.MoveDirection -= OnMove;
+        PublicEvents.MoveStopped -= OnMoveEnd;
         PublicEvents.MousePosition -= OnMouseMove;
         PublicEvents.EClicked -= OnEClicked;
         PublicEvents.ReelTetherStarted -= ReelTetherStarted;
@@ -51,6 +53,7 @@ public abstract class Movement: MonoBehaviour
 
 
     protected abstract void OnMove(Vector2 moveVector);
+    protected abstract void OnMoveEnd();
     protected abstract void OnMouseMove(Vector2 cameraVector);
     protected abstract void OnEClicked();
     protected abstract void OnSpaceStarted(bool fullyPerformed);
@@ -64,5 +67,9 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnControlFinished();
 
     protected abstract bool LookingAtObject();
+
+    public abstract Vector3 LastCameraAngle();
+
+    public abstract void SetCameraAngle(Vector3 angle);
 
 }

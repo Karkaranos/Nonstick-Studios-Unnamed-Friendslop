@@ -116,6 +116,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         }
         Vector2 moveDirection = move.ReadValue<Vector2>();
         PublicEvents.MoveDirection(moveDirection);
+        PublicEvents.MoveStopped?.Invoke();
     }
 
     /// <summary>
