@@ -369,4 +369,19 @@ public class WaterMovement : Movement
     {
         moving = false;
     }
+
+    protected override void ReelTetherStarted()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void WhileReelTetherHeld(float deltaTime)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override void ReelTetherFinished()
+    {
+        throw new System.NotImplementedException();
+    }
 }
