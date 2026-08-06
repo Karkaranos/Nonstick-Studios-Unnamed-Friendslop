@@ -17,7 +17,7 @@ public enum ControllerType
     Wheel,
 }
 
-public class ShipMovementControllers : MonoBehaviour 
+public class ShipMovementControllers : MonoBehaviour, IInteractable
 {
     #region VARIABLES
 
@@ -53,7 +53,6 @@ public class ShipMovementControllers : MonoBehaviour
     void OnEnable()
     {
         PublicEvents.MoveDirection += MoveController;
-        PublicEvents.EClicked += EClicked;
     }
 
     /// <summary>
@@ -62,35 +61,30 @@ public class ShipMovementControllers : MonoBehaviour
     private void OnDisable()
     {
         PublicEvents.MoveDirection -= MoveController;
-        PublicEvents.EClicked -= EClicked;
     }
 
     [Button]
     /// <summary>
     /// should be called upon interacting with lever
     /// </summary>
-    public void InteractWithController()
+    public void EnterInteract(PlayerController pc)
     {
-        moving = !moving;
+        moving = true;
+        Debug.Log($"{controllerType} ENABLED.");
+    }
 
-        if (moving)
+    public void ExitInteract()
+    {
+        moving = false;
+
+        if (controllerType == ControllerType.Wheel)
         {
-            //TODO: disable player movement
-            Debug.Log($"{controllerType} ENABLED.");
+            wheelAdjustmentRate = 0;
+            StartCoroutine(AdjustShipSpeed());
         }
-        else
-        {
-            //TODO: enable player movement
 
-            if(controllerType == ControllerType.Wheel)
-            {
-                wheelAdjustmentRate = 0;
-                StartCoroutine(AdjustShipSpeed());
-            }
-
-            ShipMovement.Instance.Moving = false;
-            Debug.Log($"{controllerType} DISABLED.");
-        }
+        ShipMovement.Instance.Moving = false;
+        Debug.Log($"{controllerType} DISABLED.");
     }
 
     /// <summary>
@@ -103,7 +97,7 @@ public class ShipMovementControllers : MonoBehaviour
     {
         if(moving)
         {
-            switch(controllerType)
+            switch (controllerType)
             {
                 case ControllerType.FBLever:
 
@@ -254,15 +248,13 @@ public class ShipMovementControllers : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// runs when E is pressed
-    /// </summary>
-    void EClicked()
+    public void EnterHover()
     {
-        if(moving)
-        {
-            InteractWithController();
-        }
+        Debug.Log($"{controllerType} SPOTTED");
     }
 
+    public void ExitHover()
+    {
+        Debug.Log($"{controllerType} LOST");
+    }
 }
