@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Jay Embry
 Date Created : 		    7/27/2026
-Date Last Modified : 	7/28/2026
+Date Last Modified : 	8/6/2026
 Brief Description : 	Manages UI related to oxygen
 External Resources : 	
 ***************************************************/
@@ -29,6 +29,17 @@ public class OxygenUIManager : Singleton<OxygenUIManager>
         for(int i = 0; i < PlayersInGame.Count; i++)
         {
             PlayerDisplays[i].SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// stops displaying the ui for each player once a dive ends
+    /// </summary>
+    public void StopDisplayingUI()
+    {
+        for (int i = 0; i < PlayersInGame.Count; i++)
+        {
+            PlayerDisplays[i].SetActive(false);
         }
     }
 

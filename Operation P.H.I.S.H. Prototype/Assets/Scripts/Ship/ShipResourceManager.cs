@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Jay Embry
 Date Created : 		    7/19/2026
-Date Last Modified : 	7/28/2026
+Date Last Modified : 	8/6/2026
 Brief Description : 	Stores and sets the values of the ship's resources
 External Resources : 	
 ***************************************************/
@@ -20,6 +20,9 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
     //tracks the ship's current oxygen level
     float shipOxygen;
+
+    //whether or not the ship's oxygen is going down
+    bool oxygenDepleting;
 
     [Header("Oxygen Variables")]
 
@@ -45,24 +48,48 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
     [Space(10)]
 
+    [Header("Scene Variables")]
+
+    [Tooltip("Where the ship will be at the start of a dive.")]
+    [SerializeField] Vector3 startingLocation;
+
+    [Space(10)]
 
     [Header("Testing")]
-
-    #endregion VARIABLES
 
     //this will NOT be public post-testing
     [SerializeField] List<Treasure> collectedTreasures = new List<Treasure>();
 
+    #endregion VARIABLES
+
+    #region FUNCTIONS
+
     [Button]
     ///<summary>
-    ///starts depleting the ship's oxygen
+    ///starts a new dive
     ///</summary>
-    public void BeginNewDive()
+    public void BeginDive()
     {
-        shipOxygen = shipOxygenMax;
         StartCoroutine(DepleteOxygen());
-
         OxygenUIManager.Instance.DisplayUI();
+    }
+
+    /// <summary>
+    /// ends a dive
+    /// </summary>
+    public void EndDive()
+    {
+        oxygenDepleting = false;
+        shipOxygen = shipOxygenMax;
+
+        gameObject.transform.position = startingLocation;
+
+        OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
+        OxygenUIManager.Instance.StopDisplayingUI();
+
+        AddToMaxOxygen();
+
+        Debug.Log("DIVE OVER.");
     }
 
     /// <summary>
@@ -74,25 +101,25 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </returns>
     IEnumerator DepleteOxygen()
     {
-        bool oxygenDepleting = true;
+        oxygenDepleting = true;
 
-        while(oxygenDepleting)
+        while (oxygenDepleting)
         {
             yield return new WaitForSeconds(shipOxygenDepletionTime);
             shipOxygen -= shipOxygenDepletionAmount;
 
-            if(shipOxygen % shipOxygenStepAmount == 0)
+            if (shipOxygen % shipOxygenStepAmount == 0)
             {
                 OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
                 Debug.Log($"OXYGEN LEFT: {shipOxygen}");
             }
 
-            if(shipOxygen <= 0)
+            if (shipOxygen <= 0)
             {
-                oxygenDepleting = false;
+                collectedTreasures.Clear();
+                EndDive();
 
-                //call the function that ends the dive here
-                Debug.Log("DIVE OVER!");
+                Debug.Log("YOU LOSE!");
             }
         }
     }
@@ -107,30 +134,33 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     {
         shipOxygen -= oxygenLost;
 
-        if(shipOxygen % shipOxygenStepAmount == 0)
+        if (shipOxygen % shipOxygenStepAmount == 0)
         {
             OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
-            Debug.Log($"OXYGEN LEFT: { shipOxygen}");
+            Debug.Log($"OXYGEN LEFT: {shipOxygen}");
         }
     }
 
     [Button]
     /// <summary>
     /// adds to the max amount of the ship's oxygen
-    /// does nothing for now, but is based off of design's flowchart
     /// </summary>
     public void AddToMaxOxygen()
     {
-       foreach(Treasure treasure in collectedTreasures)
-       {
+        foreach (Treasure treasure in collectedTreasures)
+        {
             shipOxygenMax += shipOxygenPerTreasure;
-       }
+        }
 
-       if(shipOxygenMax > shipOxygenUpgradedMax)
-       {
+        if (shipOxygenMax > shipOxygenUpgradedMax)
+        {
             shipOxygenMax = shipOxygenUpgradedMax;
-       }
+        }
+
+        collectedTreasures.Clear();
 
         Debug.Log($"MAX OXYGEN: {shipOxygenMax}");
     }
+
+    #endregion FUNCTIONS
 }
