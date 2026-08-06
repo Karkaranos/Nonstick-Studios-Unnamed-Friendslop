@@ -14,6 +14,7 @@ using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Services.Multiplayer;
 
 public class NetcodePasswordManager : MonoBehaviour
 {
