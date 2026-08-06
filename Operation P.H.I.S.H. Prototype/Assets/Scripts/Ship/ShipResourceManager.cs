@@ -87,6 +87,8 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
         OxygenUIManager.Instance.StopDisplayingUI();
 
+        OxygenUIManager.Instance.DeadPlayersInGame.Clear();
+
         AddToMaxOxygen();
 
         Debug.Log("DIVE OVER.");

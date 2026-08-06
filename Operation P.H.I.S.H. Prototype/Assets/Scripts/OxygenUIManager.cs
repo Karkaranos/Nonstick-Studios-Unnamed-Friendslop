@@ -19,6 +19,8 @@ public class OxygenUIManager : Singleton<OxygenUIManager>
     //i've got a vision
     //i'd imagine that this is temporary lol
     [HideInInspector] public List<PlayerOxygenManager> PlayersInGame = new List<PlayerOxygenManager>();
+    [HideInInspector] public List<PlayerOxygenManager> DeadPlayersInGame = new List<PlayerOxygenManager>();
+
     public List<GameObject> PlayerDisplays = new List<GameObject>();
 
     /// <summary>
@@ -28,6 +30,7 @@ public class OxygenUIManager : Singleton<OxygenUIManager>
     {
         for(int i = 0; i < PlayersInGame.Count; i++)
         {
+            PlayersInGame[i].ResetOxygen();
             PlayerDisplays[i].SetActive(true);
         }
     }
