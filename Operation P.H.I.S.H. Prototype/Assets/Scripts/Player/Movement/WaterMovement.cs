@@ -1,41 +1,45 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor
-Date Created : 		    07/22/2026
-Date Last Modified : 	07/28/202
-Brief Description : 	Actually defines and handles land movement
+Author Names : 		    Cade Naylor
+Date Created : 		    07/30/2026
+Date Last Modified : 	07/30/2026
+Brief Description : 	Actually defines and handles water movement
 
 External Resources :    	
 ***************************************************/
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using NaughtyAttributes;
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerController))]
-public class LandMovement : Movement
+public class WaterMovement : Movement
 {
     private PlayerController pc;
     [SerializeField] private float minCameraYClamp = 120f;
     [SerializeField] private float maxCameraYClamp = 60f;
     [SerializeField] private Transform armsParent;
 
-    [SerializeField] private float baseLandMovementSpeed = 1f;
-    [SerializeField] private float tapJumpHeightPercent = .5f;
-    [SerializeField] private float fullJumpHeight;
+    [SerializeField] private float baseWaterMovementSpeed = 1f;
     [SerializeField] private float timeToMaxAcceleration = 5f;
     [SerializeField] private float maxAccelerationMultiplier = 3f;
-    [SerializeField] private float landGravity = -10f;
+    [SerializeField] private float ascentWaterMovementSpeed = .5f;
+    [SerializeField] private float descentWaterMovementSpeed = 1.2f;
+    [SerializeField] private float waterGravity = -4f;
     private float accelleration = 1f;
     private Coroutine shiftHold;
+    [SerializeField] private GameObject waterTint;
+
+    [ReadOnly, SerializeField] bool ascending;
+    [ReadOnly, SerializeField] bool descending;
+    [ReadOnly, SerializeField] bool moving;
+
+    Vector2 rotation;
+    Rigidbody rb;
 
     private IInteractable lookingAt;
     private IInteractable interactingWith;
     private bool interacting;
+    private Coroutine waterGravityCour;
     [SerializeField] private float sightDistance = 2f;
-
-    bool jumpThisFrame;
-
-    Vector2 rotation;
-    Rigidbody rb;
 
     /// <summary>
     /// Grabs initial references and sets initial variables
@@ -47,20 +51,41 @@ public class LandMovement : Movement
         rotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
     }
 
+
+    /// <summary>
+    /// Override from movement base class to add extra functionality
+    /// Disables the player's gravity when in swim mode
+    /// </summary>
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        rb = GetComponent<Rigidbody>();
+        waterTint.SetActive(true);
+        rb.useGravity = false;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * .5f, rb.linearVelocity.z);
+        waterGravityCour = StartCoroutine(WaterGravity());
+    }
+
+    /// <summary>
+    /// Override from movement base class to add extra functionality
+    /// Enables the player's gravity when exiting swim mode
+    /// </summary>
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        waterTint.SetActive(false);
+        rb.useGravity = true;
+        StopCoroutine(waterGravityCour);
+    }
+
     /// <summary>
     /// Override from Movement base class
     /// Adjusts the delta using sensitivity and fixed timee
     /// Rotates the camera between clamps
-    /// also lowkey this wont work as well for multiplayer but for now i'm throwing rayxast look logic in here
     /// </summary>
     /// <param name="cameraVector">Vector2 containing the mouse's delta </param>
     protected override void OnMouseMove(Vector2 cameraVector)
     {
-        if (interactingWith != null && interactingWith.ToString().Contains("ShipMovementControllers"))
-        {
-            return;
-        }
-
         Vector2 adjustedDelta = cameraVector * pc.CameraSensitivity * Time.fixedDeltaTime;
 
         rotation.x -= adjustedDelta.y;
@@ -74,7 +99,7 @@ public class LandMovement : Movement
         armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
         armsParent.transform.localEulerAngles = armsRotation;
 
-        if(LookingAtObject())
+        if (LookingAtObject())
         {
             pc.CrosshairImage.sprite = pc.InteractableSprite;
         }
@@ -82,7 +107,7 @@ public class LandMovement : Movement
         {
             pc.CrosshairImage.sprite = pc.StandardSprite;
         }
-        
+
         Debug.Log("LOOK");
     }
 
@@ -93,20 +118,16 @@ public class LandMovement : Movement
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
-        if(interactingWith != null && interactingWith.ToString().Contains("ShipMovementControllers"))
-        {
-            return;
-        }
+        moving = true;
+        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseWaterMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
 
-        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseLandMovementSpeed * 100f * accelleration *  Time.fixedDeltaTime;
-
-        if(!Grounded() || jumpThisFrame)
+        if (ascending || descending)
         {
             newValue.y = rb.linearVelocity.y;
         }
         else
         {
-            newValue.y = 0;
+            newValue.y = waterGravity;
         }
 
         rb.linearVelocity = newValue;
@@ -114,21 +135,24 @@ public class LandMovement : Movement
         Debug.Log("MOVE");
     }
 
+
+
+
     /// <summary>
     /// Override from Movement base class
     /// </summary>
     protected override void OnEClicked()
     {
-        if(lookingAt != null)
+        if (lookingAt != null)
         {
-            if(interactingWith == null)
+            if (interactingWith == null)
             {
                 interactingWith = lookingAt;
                 interactingWith.EnterInteract(pc);
             }
             else
             {
-                if(lookingAt!= interactingWith)
+                if (lookingAt != interactingWith)
                 {
                     interactingWith.ExitInteract();
                     interactingWith = lookingAt;
@@ -144,32 +168,28 @@ public class LandMovement : Movement
         else if (interactingWith != null)
         {
             interactingWith.ExitInteract();
-            if(interactingWith == lookingAt)
+            if (interactingWith == lookingAt)
             {
                 interactingWith.EnterHover();
             }
             interactingWith = null;
         }
 
-            Debug.Log("E");
+        Debug.Log("E");
     }
 
     /// <summary>
     /// Override from movement base class
+    /// Should make the player ascend in the water
     /// </summary>
     protected override void OnSpaceStarted(bool fullyPerformed)
     {
-        if (Grounded())
-        {
-            jumpThisFrame = true;
-            float jumpForce = Mathf.Sqrt(fullJumpHeight * landGravity * -2f);
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
-        }
-        else
-        {
+        // TODO: Make the player ascend
+        ascending = true;
 
-        }
-            Debug.Log("Space Started");
+        float ascendForce = ascentWaterMovementSpeed * accelleration * 100f * Time.fixedDeltaTime;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, ascendForce, rb.linearVelocity.z);
+        Debug.Log("Space Started");
     }
 
     /// <summary>
@@ -177,7 +197,9 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnSpaceFinished()
     {
-        jumpThisFrame = false;
+        // TODO: Stop the player's ascension
+        ascending = false;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         Debug.Log("Space Finished");
     }
 
@@ -186,7 +208,7 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnShiftStarted()
     {
-        if(shiftHold == null)
+        if (shiftHold == null)
         {
             shiftHold = StartCoroutine(Accelerate());
         }
@@ -198,7 +220,7 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnShiftFinished()
     {
-        if(shiftHold != null)
+        if (shiftHold != null)
         {
             StopCoroutine(shiftHold);
             shiftHold = null;
@@ -209,30 +231,29 @@ public class LandMovement : Movement
 
     /// <summary>
     /// Override from movement base class
+    /// Should make the player descend
     /// </summary>
     protected override void OnControlStarted()
     {
+        descending = true;
+
+        float ascendForce = -1 * descentWaterMovementSpeed * accelleration * 100f * Time.fixedDeltaTime;
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, ascendForce, rb.linearVelocity.z);
         Debug.Log("Control Started");
     }
 
     /// <summary>
     /// override from movement base class
+    /// Should make the player descend
     /// </summary>
     protected override void OnControlFinished()
     {
+        descending = false;
+
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         Debug.Log("Control Finished");
     }
 
-    /// <summary>
-    /// Checks if the player is on the ground
-    /// </summary>
-    /// <returns></returns>
-    protected bool Grounded()
-    {
-        RaycastHit hit;
-        float groundCheckDistance = transform.localScale.y+ .1f;
-        return Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance);
-    }
 
     /// <summary>
     /// Checks if the player is looking at an object that can be interacted with
@@ -243,17 +264,17 @@ public class LandMovement : Movement
         RaycastHit hit;
         Vector3 direction = pc.CameraRotationParent.forward;
 
-        if(Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
+        if (Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
         {
-            if(hit.transform.GetComponent<IInteractable>()!= null)
+            if (hit.transform.GetComponent<IInteractable>() != null)
             {
 
-                if(interactingWith != null && hit.transform.GetComponent<IInteractable>() == interactingWith)
+                if (interactingWith != null && hit.transform.GetComponent<IInteractable>() == interactingWith)
                 {
                     return true;
                 }
 
-                if(lookingAt != null && hit.transform.GetComponent<IInteractable>() != lookingAt)
+                if (lookingAt != null && hit.transform.GetComponent<IInteractable>() != lookingAt)
                 {
                     lookingAt.ExitHover();
                 }
@@ -287,7 +308,7 @@ public class LandMovement : Movement
     protected IEnumerator Accelerate()
     {
         float timer = 0f;
-        while(timer < timeToMaxAcceleration)
+        while (timer < timeToMaxAcceleration)
         {
             accelleration = 1f + (timer / timeToMaxAcceleration) * maxAccelerationMultiplier;
             Mathf.Clamp(accelleration, 1f, maxAccelerationMultiplier);
@@ -299,6 +320,26 @@ public class LandMovement : Movement
         }
     }
 
+    /// <summary>
+    /// Fakes adding water gravity
+    /// </summary>
+    /// <returns></returns>
+
+    protected IEnumerator WaterGravity()
+    {
+        Vector3 newValue;
+        while(true)
+        {
+            newValue = rb.linearVelocity;
+            if(!moving && !ascending && !descending)
+            {
+                newValue.y = waterGravity;
+            }
+            rb.linearVelocity = newValue;
+
+            yield return null;
+        }
+    }
 
     /// <summary>
     /// Override from Movement class
@@ -322,10 +363,10 @@ public class LandMovement : Movement
 
     /// <summary>
     /// Override from movement class
+    /// Stops movement
     /// </summary>
-    /// <exception cref="System.NotImplementedException"></exception>
     protected override void OnMoveEnd()
     {
-        // does nothinbg lol
+        moving = false;
     }
 }

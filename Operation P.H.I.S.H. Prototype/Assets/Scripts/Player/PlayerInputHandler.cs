@@ -107,6 +107,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
         Vector2 moveDirection = move.ReadValue<Vector2>();
         PublicEvents.MoveDirection(moveDirection);
+        PublicEvents.MoveStopped?.Invoke();
     }
 
     /// <summary>
