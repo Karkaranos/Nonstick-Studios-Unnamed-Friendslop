@@ -4,6 +4,7 @@ Date Created : 		    7/27/2026
 Date Last Modified : 	7/27/2026
 Brief Description : 	Controls the movement of the P.H.I.S.H.
                         Won't need most of the functions from Movement
+                        TODO: With networking, make sure that multiple players cannot interact with one controller
 External Resources : 	
 ***************************************************/
 using System.Collections;
@@ -66,7 +67,7 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
 
     [Button]
     /// <summary>
-    /// should be called upon interacting with lever
+    /// called when the player interacts with a controller
     /// </summary>
     public void EnterInteract(PlayerController pc)
     {
@@ -74,6 +75,9 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
         Debug.Log($"{controllerType} ENABLED.");
     }
 
+    /// <summary>
+    /// called when the player interacts with a controller in use
+    /// </summary>
     public void ExitInteract()
     {
         moving = false;
@@ -257,11 +261,17 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
         }
     }
 
+    /// <summary>
+    /// called when the player is looking at a controller
+    /// </summary>
     public void EnterHover()
     {
         Debug.Log($"{controllerType} SPOTTED");
     }
 
+    /// <summary>
+    /// called when the player stops looking at a controller
+    /// </summary>
     public void ExitHover()
     {
         Debug.Log($"{controllerType} LOST");
