@@ -28,8 +28,27 @@ public class NetcodePasswordManager : MonoBehaviour
     [SerializeField] private TMP_InputField passwordField;
     [SerializeField] private TMP_InputField usernameField;
 
+
     [SerializeField] private string password;
     private string username;
+
+    private void Awake()
+    {
+        hostButton.onClick.AddListener(() => CadePublicEvents.OnStartHost?.Invoke());
+        joinButton.onClick.AddListener(() => CadePublicEvents.OnStartClient?.Invoke());
+        quit.onClick.AddListener(() => CadePublicEvents.OnDisconnect?.Invoke());
+        setName.onEndEdit.AddListener((string s) => CallNameUpdate(s));
+    }
+
+
+    /// <summary>
+    /// Loophole maybe
+    /// </summary>
+    /// <param name="s"></param>
+    private void CallNameUpdate(string s)
+    {
+        CadePublicEvents.OnUsernameChange?.Invoke(s);
+    }
 
     public void CreateLobbyCode()
     {
@@ -46,7 +65,6 @@ public class NetcodePasswordManager : MonoBehaviour
         CreateLobbyCode();
         NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.ASCII.GetBytes(password);
         NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-        NetworkManager.Singleton.StartHost();
         CadePublicEvents.LobbyCreated?.Invoke();
         CadePublicEvents.PlayerCountChanged?.Invoke();
         transform.gameObject.SetActive(false);
