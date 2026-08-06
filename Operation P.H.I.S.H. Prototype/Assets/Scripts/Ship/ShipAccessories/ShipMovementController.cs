@@ -22,6 +22,7 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
     #region VARIABLES
 
     bool moving;
+    bool canMove = true;
 
     [Tooltip("Match this variable with the game object!")]
     [SerializeField] ControllerType controllerType;
@@ -95,8 +96,10 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
     /// </param>
     void MoveController(Vector2 moveVector)
     {
-        if(moving)
+        if(moving && canMove)
         {
+            canMove = false;
+
             switch (controllerType)
             {
                 case ControllerType.FBLever:
@@ -208,6 +211,8 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
                     Mathf.Lerp(ShipMovement.Instance.FBAdjustment, FBAdjustmentRate, Mathf.Clamp01(timer/2));
 
                     yield return new WaitForSeconds(1);
+
+                    canMove = true;
                 }
 
                 Debug.Log($"SHIP FB ADJUSTMENT: {ShipMovement.Instance.FBAdjustment}");
@@ -223,6 +228,8 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
                     Mathf.Lerp(ShipMovement.Instance.ADAdjustment, ADAdjustmentRate, Mathf.Clamp01(timer / 2));
 
                     yield return new WaitForSeconds(1);
+
+                    canMove = true;
                 }
 
                 Debug.Log($"SHIP AD ADJUSTMENT: {ShipMovement.Instance.ADAdjustment}");
@@ -238,6 +245,8 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
                     Mathf.Lerp(ShipMovement.Instance.WheelAdjustment, wheelAdjustmentRate, Mathf.Clamp01(timer / 2));
 
                     yield return new WaitForSeconds(1);
+
+                    canMove = true;
                 }
 
                 Debug.Log($"SHIP WHEEL ADJUSTMENT: {ShipMovement.Instance.WheelAdjustment}");
