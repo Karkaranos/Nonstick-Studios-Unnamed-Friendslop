@@ -60,7 +60,6 @@ public class PlayerOxygenManager : MonoBehaviour
     ///</summary>
     public void BeginDepletingOxygen()
     {
-        playerOxygen = playerOxygenMax;
         StartCoroutine(DepletePlayerOxygen());
     }
 
@@ -86,7 +85,16 @@ public class PlayerOxygenManager : MonoBehaviour
 
             if (playerOxygen <= 0)
             {
-                //call the function that ends the dive here
+                OxygenUIManager.Instance.PlayerDisplays[OxygenUIManager.Instance.PlayersInGame.IndexOf(this)].
+                SetActive(false);
+
+                //MAKE A NEW LIST OF DEAD PLAYERS IN OXYGENMANAGERUI
+                //IF THE # OF DEAD PLAYERS = THE # OF PLAYERS IN GAME,
+                //END THE DIVE HERE
+                //REMOVE SHIP'S TREASURES HERE
+
+                //DISABLE THE PLAYER'S MOVEMENT
+
                 Debug.Log("YOU DIED!");
 
                 yield break;
