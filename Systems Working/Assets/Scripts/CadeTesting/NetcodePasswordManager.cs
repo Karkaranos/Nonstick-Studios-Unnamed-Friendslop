@@ -20,6 +20,10 @@ public class NetcodePasswordManager : MonoBehaviour
 {
     [Header("Object References")]
     [SerializeField] private GameObject mainMenuButtons;
+    [SerializeField] public  Button hostButton;
+    [SerializeField] public Button joinButton;
+    [SerializeField] public TMP_InputField setName;
+    [SerializeField] public Button quit;
     [SerializeField] private GameObject passwordInputScreen;
     [SerializeField] private TMP_InputField passwordField;
     [SerializeField] private TMP_InputField usernameField;
