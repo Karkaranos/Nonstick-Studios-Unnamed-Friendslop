@@ -55,10 +55,10 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
     [Space(10)]
 
-    [Header("Testing")]
+    [Header("Treasures")]
 
-    //this will NOT be public post-testing
-    [SerializeField] List<Treasure> collectedTreasures = new List<Treasure>();
+
+    [HideInInspector] public List<Treasure> CollectedTreasures = new List<Treasure>();
 
     #endregion VARIABLES
 
@@ -118,7 +118,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
             if (shipOxygen <= 0)
             {
-                collectedTreasures.Clear();
+                CollectedTreasures.Clear();
                 EndDive();
 
                 Debug.Log("YOU LOSE!");
@@ -149,7 +149,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </summary>
     public void AddToMaxOxygen()
     {
-        foreach (Treasure treasure in collectedTreasures)
+        foreach (Treasure treasure in CollectedTreasures)
         {
             shipOxygenMax += shipOxygenPerTreasure;
         }
@@ -159,7 +159,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
             shipOxygenMax = shipOxygenUpgradedMax;
         }
 
-        collectedTreasures.Clear();
+        CollectedTreasures.Clear();
 
         Debug.Log($"MAX OXYGEN: {shipOxygenMax}");
     }
