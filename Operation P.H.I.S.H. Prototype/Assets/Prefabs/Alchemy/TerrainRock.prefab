@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2638813902834810237}
   - component: {fileID: 6370678612094745008}
   - component: {fileID: 1711946866299659850}
+  - component: {fileID: 4482837532090719687}
   m_Layer: 0
   m_Name: TerrainRock
   m_TagString: Untagged
@@ -90,3 +91,30 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!205 &4482837532090719687
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586971300286120172}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.0028061345, y: 0.0013244431, z: 0.010534093}
+  m_Size: 0.041849658
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.6
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1711946866299659850}
+  - screenRelativeHeight: 0.3
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1711946866299659850}
+  - screenRelativeHeight: 0.1
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1711946866299659850}
+  m_Enabled: 1
