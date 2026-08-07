@@ -128,7 +128,7 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   periscopeCamera: {fileID: 0}
   periscopeCameraRotationParent: {fileID: 0}
-  periscopeCameraRotationSpeed: 15
+  periscopeCameraRotationSpeed: 20
 --- !u!65 &8584751725719753689
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -148,5 +148,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 40.5185, y: 34.854607, z: 29.153526}
-  m_Center: {x: -23.535086, y: 20.70691, z: -63.14408}
+  m_Size: {x: 18.860317, y: 34.854607, z: 29.15352}
+  m_Center: {x: -22.664053, y: 20.70691, z: -63.14408}

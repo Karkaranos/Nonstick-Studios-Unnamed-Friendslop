@@ -62846,13 +62846,255 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7360645639421404256, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2736656031051498074}
+    - targetCorrespondingSourceObject: {fileID: 7360645639421404256, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5510131645374708514}
+    - targetCorrespondingSourceObject: {fileID: 7360645639421404256, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7910824859196340538}
+    - targetCorrespondingSourceObject: {fileID: 4019564909524867475, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4567398270795575266}
+    - targetCorrespondingSourceObject: {fileID: 4019564909524867475, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3146496260570385605}
+    - targetCorrespondingSourceObject: {fileID: 4019564909524867475, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2074108583509114766}
+    - targetCorrespondingSourceObject: {fileID: 4403030779646004675, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4882878207560870498}
+    - targetCorrespondingSourceObject: {fileID: 4403030779646004675, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 914761082790036908}
+    - targetCorrespondingSourceObject: {fileID: 4403030779646004675, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7649506462609874116}
   m_SourcePrefab: {fileID: 100100000, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+--- !u!1 &1309169796248226380 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4403030779646004675, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+  m_PrefabInstance: {fileID: 3400692519311411087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &4882878207560870498
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309169796248226380}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &914761082790036908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309169796248226380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507de339fa480584cb5ccc5eb05b1677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipMovementControllers
+  controllerType: 2
+  FBAdjustmentRate: 0
+  FBAdjustmentCap: 0
+  ADAdjustmentRate: 0
+  ADAdjustmentCap: 0
+  wheelAdjustmentRate: 0
+--- !u!136 &7649506462609874116
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309169796248226380}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.12117374
+  m_Height: 0.037552234
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.018775998, z: 0.0033200758}
+--- !u!1 &1799736884406541852 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4019564909524867475, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+  m_PrefabInstance: {fileID: 3400692519311411087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &4567398270795575266
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799736884406541852}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &3146496260570385605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799736884406541852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507de339fa480584cb5ccc5eb05b1677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipMovementControllers
+  controllerType: 1
+  FBAdjustmentRate: 0
+  FBAdjustmentCap: 0
+  ADAdjustmentRate: 0
+  ADAdjustmentCap: 5
+  wheelAdjustmentRate: 0
+--- !u!65 &2074108583509114766
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799736884406541852}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.026559323, y: 0.054650474, z: 0.025992671}
+  m_Center: {x: 0.000000114818, y: -0.004117408, z: 0.012996331}
 --- !u!4 &1861278526703288506 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3955630662816679733, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
   m_PrefabInstance: {fileID: 3400692519311411087}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5266937644270429167 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7360645639421404256, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
+  m_PrefabInstance: {fileID: 3400692519311411087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &2736656031051498074
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266937644270429167}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &5510131645374708514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266937644270429167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507de339fa480584cb5ccc5eb05b1677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShipMovementControllers
+  controllerType: 0
+  FBAdjustmentRate: 0
+  FBAdjustmentCap: 5
+  ADAdjustmentRate: 0
+  ADAdjustmentCap: 0
+  wheelAdjustmentRate: 0
+--- !u!65 &7910824859196340538
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266937644270429167}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.026559329, y: 0.031026969, z: 0.02599267}
+  m_Center: {x: 0.00000008075981, y: -0.002233889, z: 0.012996337}
 --- !u!1001 &5794713885594256521
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -93,7 +93,7 @@ public class LandMovement : Movement
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
-        if(interactingWith != null && interactingWith.ToString().Contains("ShipMovementControllers"))
+        if(interactingWith != null && (interactingWith.ToString().Contains("ShipMovementControllers") || interactingWith.ToString().Contains("PeriscopeController")))
         {
             return;
         }
