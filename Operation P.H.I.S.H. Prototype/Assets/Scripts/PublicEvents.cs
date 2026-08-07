@@ -31,4 +31,11 @@ public static class PublicEvents
     public static Action<PlayerController.MovementType> ToggleMovement;
 
     #endregion
+
+    #region OTHER EVENTS
+
+    public static Action HaltShipMovement;
+    public static Action ResetPlayerInteractions;
+
+    #endregion OTHER EVENTS
 }

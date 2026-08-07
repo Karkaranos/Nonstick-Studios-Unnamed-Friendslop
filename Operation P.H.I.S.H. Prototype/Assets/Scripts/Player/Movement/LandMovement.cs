@@ -37,6 +37,16 @@ public class LandMovement : Movement
     Vector2 rotation;
     Rigidbody rb;
 
+    private void OnEnable()
+    {
+        PublicEvents.ResetPlayerInteractions += ResetInteractions;
+    }
+
+    private void OnDisable()
+    {
+        PublicEvents.ResetPlayerInteractions -= ResetInteractions;
+    }
+
     /// <summary>
     /// Grabs initial references and sets initial variables
     /// </summary>
@@ -327,5 +337,11 @@ public class LandMovement : Movement
     protected override void OnMoveEnd()
     {
         // does nothinbg lol
+    }
+
+    void ResetInteractions()
+    {
+        lookingAt = null;
+        interactingWith = null;
     }
 }

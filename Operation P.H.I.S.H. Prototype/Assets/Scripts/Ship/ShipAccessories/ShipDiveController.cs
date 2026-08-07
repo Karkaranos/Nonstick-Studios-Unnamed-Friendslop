@@ -5,7 +5,6 @@ Date Last Modified : 	8/6/2026
 Brief Description : 	Starts and ends a dive
 External Resources : 	
 ***************************************************/
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShipDiveController : MonoBehaviour, IInteractable

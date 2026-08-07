@@ -22,7 +22,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     float shipOxygen;
 
     //whether or not the ship's oxygen is going down
-    bool oxygenDepleting;
+    [HideInInspector] public bool OxygenDepleting;
 
     [Header("Oxygen Variables")]
 
@@ -55,8 +55,10 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
     [Space(10)]
 
-    [Header("Treasures")]
+    [Header("Controller Variables")]
 
+    [Tooltip("The controllers that move the ship.")]
+    [SerializeField] List<ShipMovementControllers> shipControllers = new List<ShipMovementControllers>();
 
     [HideInInspector] public List<Treasure> CollectedTreasures = new List<Treasure>();
 
@@ -72,6 +74,11 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     {
         StartCoroutine(DepleteOxygen());
         OxygenUIManager.Instance.DisplayUI();
+
+        foreach(ShipMovementControllers controller in shipControllers)
+        {
+            controller.enabled = true;
+        }
     }
 
     /// <summary>
@@ -79,7 +86,10 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </summary>
     public void EndDive()
     {
-        oxygenDepleting = false;
+        PublicEvents.HaltShipMovement();
+        PublicEvents.ResetPlayerInteractions();
+
+        OxygenDepleting = false;
         shipOxygen = shipOxygenMax;
 
         gameObject.transform.position = startingLocation;
@@ -90,6 +100,11 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         OxygenUIManager.Instance.DeadPlayersInGame.Clear();
 
         AddToMaxOxygen();
+
+        foreach (ShipMovementControllers controller in shipControllers)
+        {
+            controller.enabled = false;
+        }
 
         Debug.Log("DIVE OVER.");
     }
@@ -103,9 +118,9 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </returns>
     IEnumerator DepleteOxygen()
     {
-        oxygenDepleting = true;
+        OxygenDepleting = true;
 
-        while (oxygenDepleting)
+        while (OxygenDepleting)
         {
             yield return new WaitForSeconds(shipOxygenDepletionTime);
             shipOxygen -= shipOxygenDepletionAmount;

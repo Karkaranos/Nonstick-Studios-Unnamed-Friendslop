@@ -40,7 +40,7 @@ public class PlayerOxygenManager : MonoBehaviour
 
     //may or may not change how this is detected later on
     //should this depend on a player variable?
-    [HideInInspector] public bool IsAttachedToTether;
+    [HideInInspector] public bool LosingOxygen;
 
     #endregion VARIABLES
 
@@ -61,6 +61,7 @@ public class PlayerOxygenManager : MonoBehaviour
     public void BeginDepletingOxygen()
     {
         playerOxygen = playerOxygenMax;
+        LosingOxygen = true;
         StartCoroutine(DepletePlayerOxygen());
     }
 
@@ -72,7 +73,7 @@ public class PlayerOxygenManager : MonoBehaviour
     /// </returns>
     IEnumerator DepletePlayerOxygen()
     {
-        while (!IsAttachedToTether)
+        while (LosingOxygen && ShipResourceManager.Instance.OxygenDepleting)
         {
             yield return new WaitForSeconds(playerOxygenDepletionTime);
             playerOxygen -= playerOxygenDepletionAmount;

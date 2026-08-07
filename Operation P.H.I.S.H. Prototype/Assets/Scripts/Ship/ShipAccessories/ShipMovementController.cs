@@ -55,6 +55,7 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
     void OnEnable()
     {
         PublicEvents.MoveDirection += MoveController;
+        PublicEvents.HaltShipMovement += ResetSpeed;
     }
 
     /// <summary>
@@ -63,6 +64,7 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
     private void OnDisable()
     {
         PublicEvents.MoveDirection -= MoveController;
+        PublicEvents.HaltShipMovement -= ResetSpeed;
     }
 
     [Button]
@@ -80,8 +82,6 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
     /// </summary>
     public void ExitInteract()
     {
-        moving = false;
-
         if (controllerType == ControllerType.Wheel)
         {
             wheelAdjustmentRate = 0;
@@ -254,6 +254,36 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
                 }
 
                 Debug.Log($"SHIP WHEEL ADJUSTMENT: {ShipMovement.Instance.WheelAdjustment}");
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void ResetSpeed()
+    {
+        moving = false;
+        ShipMovement.Instance.Moving = false;
+
+        switch(controllerType)
+        {
+            case ControllerType.FBLever:
+
+                FBAdjustmentRate = 0;
+                ShipMovement.Instance.FBAdjustment = 0;
+                break;
+
+            case ControllerType.ADLever:
+
+                ADAdjustmentRate = 0;
+                ShipMovement.Instance.ADAdjustment = 0;
+                break;
+
+            case ControllerType.Wheel:
+
+                wheelAdjustmentRate = 0;
+                ShipMovement.Instance.WheelAdjustment = 0;
                 break;
 
             default:
