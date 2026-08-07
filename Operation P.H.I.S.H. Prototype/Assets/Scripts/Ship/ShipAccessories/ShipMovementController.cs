@@ -4,6 +4,7 @@ Date Created : 		    7/27/2026
 Date Last Modified : 	7/27/2026
 Brief Description : 	Controls the movement of the P.H.I.S.H.
                         Won't need most of the functions from Movement
+                        TODO: With networking, make sure that multiple players cannot interact with one controller
 External Resources : 	
 ***************************************************/
 using System.Collections;
@@ -17,11 +18,12 @@ public enum ControllerType
     Wheel,
 }
 
-public class ShipMovementControllers : MonoBehaviour 
+public class ShipMovementControllers : MonoBehaviour, IInteractable
 {
     #region VARIABLES
 
     bool moving;
+    bool canMove = true;
 
     [Tooltip("Match this variable with the game object!")]
     [SerializeField] ControllerType controllerType;
@@ -53,7 +55,6 @@ public class ShipMovementControllers : MonoBehaviour
     void OnEnable()
     {
         PublicEvents.MoveDirection += MoveController;
-        PublicEvents.EClicked += EClicked;
     }
 
     /// <summary>
@@ -62,35 +63,33 @@ public class ShipMovementControllers : MonoBehaviour
     private void OnDisable()
     {
         PublicEvents.MoveDirection -= MoveController;
-        PublicEvents.EClicked -= EClicked;
     }
 
     [Button]
     /// <summary>
-    /// should be called upon interacting with lever
+    /// called when the player interacts with a controller
     /// </summary>
-    public void InteractWithController()
+    public void EnterInteract(PlayerController pc)
     {
-        moving = !moving;
+        moving = true;
+        Debug.Log($"{controllerType} ENABLED.");
+    }
 
-        if (moving)
+    /// <summary>
+    /// called when the player interacts with a controller in use
+    /// </summary>
+    public void ExitInteract()
+    {
+        moving = false;
+
+        if (controllerType == ControllerType.Wheel)
         {
-            //TODO: disable player movement
-            Debug.Log($"{controllerType} ENABLED.");
+            wheelAdjustmentRate = 0;
+            StartCoroutine(AdjustShipSpeed());
         }
-        else
-        {
-            //TODO: enable player movement
 
-            if(controllerType == ControllerType.Wheel)
-            {
-                wheelAdjustmentRate = 0;
-                StartCoroutine(AdjustShipSpeed());
-            }
-
-            ShipMovement.Instance.Moving = false;
-            Debug.Log($"{controllerType} DISABLED.");
-        }
+        ShipMovement.Instance.Moving = false;
+        Debug.Log($"{controllerType} DISABLED.");
     }
 
     /// <summary>
@@ -101,9 +100,11 @@ public class ShipMovementControllers : MonoBehaviour
     /// </param>
     void MoveController(Vector2 moveVector)
     {
-        if(moving)
+        if(moving && canMove)
         {
-            switch(controllerType)
+            canMove = false;
+
+            switch (controllerType)
             {
                 case ControllerType.FBLever:
 
@@ -214,6 +215,8 @@ public class ShipMovementControllers : MonoBehaviour
                     Mathf.Lerp(ShipMovement.Instance.FBAdjustment, FBAdjustmentRate, Mathf.Clamp01(timer/2));
 
                     yield return new WaitForSeconds(1);
+
+                    canMove = true;
                 }
 
                 Debug.Log($"SHIP FB ADJUSTMENT: {ShipMovement.Instance.FBAdjustment}");
@@ -229,6 +232,8 @@ public class ShipMovementControllers : MonoBehaviour
                     Mathf.Lerp(ShipMovement.Instance.ADAdjustment, ADAdjustmentRate, Mathf.Clamp01(timer / 2));
 
                     yield return new WaitForSeconds(1);
+
+                    canMove = true;
                 }
 
                 Debug.Log($"SHIP AD ADJUSTMENT: {ShipMovement.Instance.ADAdjustment}");
@@ -244,6 +249,8 @@ public class ShipMovementControllers : MonoBehaviour
                     Mathf.Lerp(ShipMovement.Instance.WheelAdjustment, wheelAdjustmentRate, Mathf.Clamp01(timer / 2));
 
                     yield return new WaitForSeconds(1);
+
+                    canMove = true;
                 }
 
                 Debug.Log($"SHIP WHEEL ADJUSTMENT: {ShipMovement.Instance.WheelAdjustment}");
@@ -255,14 +262,18 @@ public class ShipMovementControllers : MonoBehaviour
     }
 
     /// <summary>
-    /// runs when E is pressed
+    /// called when the player is looking at a controller
     /// </summary>
-    void EClicked()
+    public void EnterHover()
     {
-        if(moving)
-        {
-            InteractWithController();
-        }
+        Debug.Log($"{controllerType} SPOTTED");
     }
 
+    /// <summary>
+    /// called when the player stops looking at a controller
+    /// </summary>
+    public void ExitHover()
+    {
+        Debug.Log($"{controllerType} LOST");
+    }
 }
