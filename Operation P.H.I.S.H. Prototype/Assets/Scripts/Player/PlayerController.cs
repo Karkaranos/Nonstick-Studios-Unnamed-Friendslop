@@ -179,6 +179,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Periodically check for movement type updates
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator MovementTypeUpdates()
     {
         MovementType lastMovement = defaultMovement;
@@ -245,7 +249,90 @@ public class PlayerController : MonoBehaviour
             // no collider detected immediately under the player
             else
             {
-                // needs information from design
+                // Not childed to the ship, so in the ocean or on the ground
+                if(transform.parent == null)
+                {
+                    // Unbounded raycast up
+                    Physics.Raycast(transform.position, Vector3.up, out hit);
+
+                    // Let's check if they're on the ship
+                    GameObject newParent = hit.collider.gameObject;
+                    while (!newParent.name.Contains("Ship") && newParent.transform.parent != null)
+                    {
+                        newParent = newParent.transform.parent.gameObject;
+                    }
+
+                    // If they're on the ship, child them
+                    if(newParent.name.Contains("Ship"))
+                    {
+                        ToggleMovement(MovementType.Land);
+                        lastMovement = MovementType.Land;
+
+                        transform.parent = newParent.transform;
+                    }
+                    // If they aren't on the ship, had been on land, and there's something above them, they're probably in water
+                    else if (hit.collider.gameObject != null && lastMovement == MovementType.Land)
+                    {
+                        ToggleMovement(MovementType.Water);
+                        lastMovement = MovementType.Water;
+                    }
+                    // if there's nothing above them, they're probably on land
+                    else
+                    {
+                        ToggleMovement(MovementType.Land);
+                        lastMovement = MovementType.Land;
+                    }
+                }
+                // Otherwise, they're on the ship or are leaving the ship
+                else
+                {
+                    // Let's cast down again, but further, in case they're jumping
+                    // This shouldn't cause issues if they jump off something while on land
+                    Physics.Raycast(transform.position, Vector3.down, out hit, longerDistanceToCheck);
+
+                    // if it hit something
+                    if(hit.collider != null)
+                    {
+                        // If they're jumping on the ship and they dont currently have land movement (this is a redundancy check)
+                        if(hit.collider.gameObject.layer == shipLayer && lastMovement == MovementType.Water)
+                        {
+                            GameObject newParent = hit.collider.gameObject;
+
+                            // theres so many better ways to do this but this works for now
+                            while (!newParent.name.Contains("Ship") && newParent.transform.parent != null)
+                            {
+                                newParent = newParent.transform.parent.gameObject;
+                            }
+
+                            transform.parent = newParent.transform;
+
+
+                            ToggleMovement(MovementType.Land);
+
+                            lastMovement = MovementType.Land;
+                        }
+                        // they're jumping on the ship with correct movement
+                        else if (hit.collider.gameObject.layer == shipLayer)
+                        {
+                            // do nothing
+                        }
+                        // They're leaving the ship or are jumping and on land
+                        else if (hit.collider.gameObject.layer == landLayer)
+                        {
+                            transform.parent = null;
+
+                            ToggleMovement(MovementType.Land);
+                            lastMovement = MovementType.Land;
+                        }
+                        // they're leaving the ship and going into water
+                        else
+                        {
+                            transform.parent = null;
+                            ToggleMovement(MovementType.Water);
+                            lastMovement = MovementType.Water;
+                        }
+                    }
+                }
             }
 
 
