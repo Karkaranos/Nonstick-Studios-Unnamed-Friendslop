@@ -261,6 +261,9 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
         }
     }
 
+    /// <summary>
+    /// resets all variables related to the ship's movement
+    /// </summary>
     void ResetSpeed()
     {
         moving = false;

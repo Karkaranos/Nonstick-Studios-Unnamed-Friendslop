@@ -334,6 +334,10 @@ public class LandMovement : Movement
         // does nothinbg lol
     }
 
+    /// <summary>
+    /// override from movement class
+    /// sets interaction variables to null
+    /// </summary>
     public override void ResetInteractions()
     {
         lookingAt = null;
