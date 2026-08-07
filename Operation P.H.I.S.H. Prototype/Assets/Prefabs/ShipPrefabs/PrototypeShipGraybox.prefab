@@ -15056,7 +15056,7 @@ Transform:
   m_Children:
   - {fileID: 7550597748293035210}
   - {fileID: 4814666037875148147}
-  - {fileID: 2279321080628945805}
+  - {fileID: 7046581671501170137}
   m_Father: {fileID: 3245178077567080909}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2053433811818094736
@@ -62739,72 +62739,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3015823497522825555, guid: dc8b51ca5c6bba147af4b86f668d56cd, type: 3}
   m_PrefabInstance: {fileID: 1509018936955210319}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &3315018021519958749
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 921777361619032628}
-    m_Modifications:
-    - target: {fileID: 1567381229230008292, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_Name
-      value: PeriscopeCam
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567381229230008292, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.016
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.036
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
---- !u!4 &2279321080628945805 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
-  m_PrefabInstance: {fileID: 3315018021519958749}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3400692519311411087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62918,4 +62852,70 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3955630662816679733, guid: 81060a362498f0f4c86fdd7183af9e88, type: 3}
   m_PrefabInstance: {fileID: 3400692519311411087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5794713885594256521
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 921777361619032628}
+    m_Modifications:
+    - target: {fileID: 1567381229230008292, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_Name
+      value: PeriscopeCam
+      objectReference: {fileID: 0}
+    - target: {fileID: 1567381229230008292, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+--- !u!4 &7046581671501170137 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3576008882839191888, guid: 69cf2a0bcf7694545997d8f21bbe26eb, type: 3}
+  m_PrefabInstance: {fileID: 5794713885594256521}
   m_PrefabAsset: {fileID: 0}

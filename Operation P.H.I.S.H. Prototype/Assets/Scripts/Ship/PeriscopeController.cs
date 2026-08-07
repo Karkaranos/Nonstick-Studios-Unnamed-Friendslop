@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Sky Beal
 Date Created : 		    7/23/2026
-Date Last Modified : 	7/23/2026
+Date Last Modified : 	8/7/2026
 Brief Description : 	Controls the switch to the periscope camera
                         and controls periscope movement
 External Resources : 	
@@ -12,56 +12,56 @@ using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PeriscopeController : Monobehaviour, IInteractable
+public class PeriscopeController : MonoBehaviour, IInteractable
 {
     [Header ("References")]
     [SerializeField, Tooltip("In scene as TempPlayerCam, will be replaced by static ref later."), Required]
     private CinemachineCamera playerCamera;
     [SerializeField, Tooltip("PeriscopeCam prefab, reference for cinemachine camera."), Required]
     private CinemachineCamera periscopeCamera;
-    [SerializeField, Tooltip("PeriscopeCam prefab, reference for cinemachine pan tilt."), Required]
-    private CinemachinePanTilt periscopePanTilt;
+    [SerializeField, Tooltip("Parent of the outside periscope, named RotationParent under the ship periscope."), Required]
+    private GameObject periscopeCameraRotationParent;
+
 
     [Header("Design")]
     [SerializeField, Tooltip("How quickly the periscope camera rotates.")]
     private float periscopeCameraRotationSpeed = 15;
-
-    private Coroutine periscopeRotationCoroutine;
     private bool isRotating = false;
+    private Coroutine rotationCoroutine;
 
     public void OnEnable()
     {
-        PublicEvents.EClicked += PeriscopeChangeCamera;
+        PublicEvents.MoveDirection += PeriscopeCamRotate;
     }
     public void OnDisable()
     {
-        PublicEvents.EClicked -= PeriscopeChangeCamera;
+        PublicEvents.MoveDirection -= PeriscopeCamRotate;
     }
 
 
     public void EnterHover()
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
     public void EnterInteract(PlayerController pc)
     {
-        throw new System.NotImplementedException();
+        PeriscopeChangeCamera();
     }
 
     public void ExitHover()
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
     public void ExitInteract()
     {
-        throw new System.NotImplementedException();
+        PeriscopeChangeCamera();
+        isRotating = false;
+        rotationCoroutine = null;
     }
 
     #region CameraSwitching
-
-    [Button]
     /// <summary>
     /// Switches cameras on interact pressed, will determine which camera based on which is active
     /// Does Player -> Periscope and Periscope -> Player
@@ -71,14 +71,14 @@ public class PeriscopeController : Monobehaviour, IInteractable
         //change to periscope
         if (!periscopeCamera.gameObject.activeSelf)
         {
-            periscopeCamera.gameObject.SetActive(true);
             playerCamera.gameObject.SetActive(false);
+            periscopeCamera.gameObject.SetActive(true);
         }
         //change to player
         else
         {
-            playerCamera.gameObject.SetActive(true);
             periscopeCamera.gameObject.SetActive(false);
+            playerCamera.gameObject.SetActive(true);
         }
     }
 
@@ -90,70 +90,22 @@ public class PeriscopeController : Monobehaviour, IInteractable
     /// <summary>
     /// Starts or stops periscope rotation clockwise
     /// </summary>
-    private void PeriscopeCamRotationClockwise()
+    private void PeriscopeCamRotate(Vector2 moveVector)
     {
-        if (!gameObject.activeSelf)
+        if (!gameObject.activeSelf || rotationCoroutine != null)
         {
             return;
         }
 
-        //if not rotating, rotate clockwise
-        if (!isRotating)
+        isRotating = true;
+
+        if (moveVector.x < 0)
         {
-            isRotating = true;
-
-            if (periscopeRotationCoroutine == null)
-            {
-                periscopeRotationCoroutine = StartCoroutine(RotatePeriscope(1));
-            }
-
+            rotationCoroutine = StartCoroutine(RotatePeriscope(-1));
         }
-        //if rotating, stop rotating
-        else
+        else if (moveVector.x > 0)
         {
-            isRotating = false;
-
-            if (periscopeRotationCoroutine != null)
-            {
-                StopCoroutine(periscopeRotationCoroutine);
-                periscopeRotationCoroutine = null;
-            }
-        }
-    }
-
-
-
-    [Button]
-    /// <summary>
-    /// Starts or stops periscope rotation counterclockwise
-    /// </summary>
-    private void PeriscopeCamRotationCounterClockwise()
-    {
-        if (!gameObject.activeSelf)
-        {
-            return;
-        }
-
-        //if not rotating, rotate counterclockwise
-        if (!isRotating)
-        {
-            isRotating = true;
-
-            if (periscopeRotationCoroutine == null)
-            {
-                periscopeRotationCoroutine = StartCoroutine(RotatePeriscope(-1));
-            }
-        }
-        //if rotating, stop rotating
-        else
-        {
-            isRotating = false;
-
-            if (periscopeRotationCoroutine != null)
-            {
-                StopCoroutine(periscopeRotationCoroutine);
-                periscopeRotationCoroutine = null;
-            }
+            rotationCoroutine = StartCoroutine(RotatePeriscope(1));
         }
     }
 
@@ -167,9 +119,11 @@ public class PeriscopeController : Monobehaviour, IInteractable
     {
         while (isRotating)
         {
-            periscopePanTilt.PanAxis.Value += direction * periscopeCameraRotationSpeed * Time.deltaTime;
+            periscopeCameraRotationParent.transform.Rotate(new Vector3(0, direction * periscopeCameraRotationSpeed, 0) * Time.deltaTime);
             yield return null;
         }
+
+        rotationCoroutine = null;
     }
 
     #endregion 
