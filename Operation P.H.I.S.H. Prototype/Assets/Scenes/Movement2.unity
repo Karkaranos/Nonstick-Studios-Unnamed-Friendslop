@@ -6011,11 +6011,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!4 &985616260 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6447669609287298506, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
-  m_PrefabInstance: {fileID: 1894765649}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &990290015
 Mesh:
   m_ObjectHideFlags: 0
@@ -9210,7 +9205,7 @@ GameObject:
   - component: {fileID: 1500983333}
   - component: {fileID: 1500983332}
   - component: {fileID: 1500983331}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10870,17 +10865,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1222226372454863550, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
-      propertyPath: armsParent
-      value: 
-      objectReference: {fileID: 985616260}
     - target: {fileID: 3463910389663704810, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1908306666}
     - target: {fileID: 3463910389663704810, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_VersionIndex
-      value: 1262
+      value: 1265
       objectReference: {fileID: 0}
     - target: {fileID: 3644946148156667584, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_Mesh
@@ -10896,7 +10887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5487737853025909706, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5487737853025909706, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_LocalPosition.z

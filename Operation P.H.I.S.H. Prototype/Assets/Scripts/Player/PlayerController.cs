@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using NaughtyAttributes;
+using System.Collections;
+using System.Runtime.CompilerServices;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,21 +30,24 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField, Layer, Tooltip("The layer the water is on")] private int waterLayer;
     [SerializeField, Layer, Tooltip("The layer the phish is on")] private int shipLayer;
+    [SerializeField, Layer, Tooltip("The layer land is on")] private int landLayer;
 
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float cameraSensitivity;
     [SerializeField] private Transform cameraRotationParent;
+
+    [SerializeField, Tooltip("How often, in seconds, the game should check for a new movement type")] private float timeBetweenMovementUpdates;
     public Camera PlayerCam { get { return playerCamera; } }
     public float CameraSensitivity { get { return cameraSensitivity; } }
     public Transform CameraRotationParent { get { return cameraRotationParent; } }
 
     [ReadOnly, SerializeField] private MovementType currentMovement;
-    
+
     private Dictionary<MovementType, Movement> movementScripts;
 
     // in a non-prototype, these should be stored in a different script
     [SerializeField] private Image playerCrosshair;
-    public Image CrosshairImage {  get { return playerCrosshair; } }
+    public Image CrosshairImage { get { return playerCrosshair; } }
     [SerializeField] private Sprite standard;
     public Sprite StandardSprite { get { return standard; } }
     [SerializeField] private Sprite interactable;
@@ -64,13 +69,15 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Cursor.visible = false;
-        movementScripts = new Dictionary<MovementType, Movement>() 
+        movementScripts = new Dictionary<MovementType, Movement>()
             {
                 { MovementType.Land, GetComponent<LandMovement>() },
                 { MovementType.Water, GetComponent<WaterMovement>() }
             };
 
         ToggleMovement(defaultMovement);
+
+        StartCoroutine(MovementTypeUpdates());
     }
 
     /// <summary>
@@ -107,17 +114,17 @@ public class PlayerController : MonoBehaviour
             {
                 movement.enabled = true;
                 newMovement = movement;
-                
+
             }
             else
             {
-                if(movement.enabled)
+                if (movement.enabled)
                 {
                     lastCamPosition = movement.LastCameraAngle();
                 }
                 movement.enabled = false;
             }
-                
+
         }
 
         //newMovement.SetCameraAngle(lastCamPosition);
@@ -140,7 +147,7 @@ public class PlayerController : MonoBehaviour
         {
             ToggleMovement(MovementType.Land);
 
-            if(other.gameObject.layer == shipLayer)
+            if (other.gameObject.layer == shipLayer)
             {
                 GameObject newParent = other.gameObject;
 
@@ -168,11 +175,85 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.layer == shipLayer)
         {
-            ToggleMovement(MovementType.Land);
             transform.parent = null;
         }
     }
 
+    private IEnumerator MovementTypeUpdates()
+    {
+        MovementType lastMovement = defaultMovement;
+        RaycastHit hit;
+
+        float distanceToCheck = transform.localScale.y + .2f;
+        float longerDistanceToCheck = transform.localScale.y + .2f + GetComponent<LandMovement>().GetJumpHeight();
+        while (true)
+        {
+            Physics.Raycast(transform.position, Vector3.down, out hit, distanceToCheck);
+
+            // If there's something just under the player
+            if (hit.collider != null)
+            {
+                // When entering the ship, set the movement type to land and parent the player to the ship
+                if(hit.collider.gameObject.layer == shipLayer && gameObject.transform.parent == null)
+                {
+                    GameObject newParent = hit.collider.gameObject;
+
+                    // theres so many better ways to do this but this works for now
+                    while (!newParent.name.Contains("Ship") && newParent.transform.parent != null)
+                    {
+                        newParent = newParent.transform.parent.gameObject;
+                    }
+
+                    transform.parent = newParent.transform;
+
+
+                    ToggleMovement(MovementType.Land);
+
+                    lastMovement = MovementType.Land;
+
+                }
+                //When exiting the ship onto land
+                // In theory the last condition should be redundant
+                else if (hit.collider.gameObject.layer == landLayer && gameObject.transform.parent != null && lastMovement == MovementType.Land)
+                {
+                    transform.parent = null;
+                }
+                else if (hit.collider.gameObject.layer == landLayer && lastMovement == MovementType.Water)
+                {
+                    if(transform.parent != null)
+                    {
+                        transform.parent = null;
+                    }
+
+                    ToggleMovement(MovementType.Land);
+                    lastMovement = MovementType.Land;
+
+                }
+                // If any other layer is hit, they should be in water
+                else if (hit.collider.gameObject.layer != landLayer && hit.collider.gameObject.layer != shipLayer)
+                {
+                    // in case the ship was just exited
+                    if (transform.parent != null)
+                    {
+                        transform.parent = null;
+                    }
+                    ToggleMovement(MovementType.Water);
+                    lastMovement = MovementType.Water;
+                }
+
+            }
+            // no collider detected immediately under the player
+            else
+            {
+                // needs information from design
+            }
+
+
+
+            yield return new WaitForSecondsRealtime(timeBetweenMovementUpdates);
+
+        }
+    }
 
     #endregion
     #endregion
