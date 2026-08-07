@@ -3035,18 +3035,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShipResourceManager
   destroyGameObject: 1
   dontDestroyOnLoad: 0
-  OxygenDepleting: 0
-  shipOxygenMax: 0
-  shipOxygenPerTreasure: 0
-  shipOxygenUpgradedMax: 0
-  shipOxygenDepletionTime: 0
-  shipOxygenStepAmount: 0
-  shipOxygenDepletionAmount: 0
+  shipOxygenMax: 50
+  shipOxygenPerTreasure: 0.25
+  shipOxygenUpgradedMax: 100
+  shipOxygenDepletionTime: 1
+  shipOxygenStepAmount: 2
+  shipOxygenDepletionAmount: 1
   startingLocation: {x: -1.2, y: 0.81, z: 1.3}
-  shipControllers:
-  - {fileID: 1745842520}
-  - {fileID: 1725360490}
-  - {fileID: 306950664}
   CollectedTreasures: []
 --- !u!114 &498791687
 MonoBehaviour:
@@ -4371,6 +4366,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3764e66e0c49c444b37a8a698db07b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShipDiveController
+  destroyGameObject: 1
+  dontDestroyOnLoad: 0
+  Diving: 0
 --- !u!54 &642954526
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9500,9 +9498,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerOxygenManager
   playerID: 0
-  playerOxygenMax: 0
-  playerOxygenDepletionTime: 0
-  playerOxygenDepletionAmount: 0
+  playerOxygenMax: 50
+  playerOxygenDepletionTime: 1
+  playerOxygenDepletionAmount: 1
   LosingOxygen: 0
 --- !u!43 &1449803043
 Mesh:

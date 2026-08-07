@@ -73,7 +73,7 @@ public class PlayerOxygenManager : MonoBehaviour
     /// </returns>
     IEnumerator DepletePlayerOxygen()
     {
-        while (LosingOxygen && ShipResourceManager.Instance.OxygenDepleting)
+        while (LosingOxygen && ShipDiveController.Instance.Diving)
         {
             yield return new WaitForSeconds(playerOxygenDepletionTime);
             playerOxygen -= playerOxygenDepletionAmount;

@@ -42,6 +42,7 @@ public class OxygenUIManager : Singleton<OxygenUIManager>
     {
         for (int i = 0; i < PlayersInGame.Count; i++)
         {
+            PlayerDisplays[i].GetComponent<Image>().fillAmount = 1;
             PlayerDisplays[i].SetActive(false);
         }
     }

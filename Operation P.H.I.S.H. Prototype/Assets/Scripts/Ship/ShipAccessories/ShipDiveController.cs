@@ -7,14 +7,25 @@ External Resources :
 ***************************************************/
 using UnityEngine;
 
-public class ShipDiveController : MonoBehaviour, IInteractable
+public class ShipDiveController : Singleton<ShipDiveController>, IInteractable
 {
+    [HideInInspector] public bool Diving = false;
+
     /// <summary>
     /// called when this is interacted with
     /// </summary>
     public void EnterInteract(PlayerController pc)
     {
-        ShipResourceManager.Instance.BeginDive();
+        Diving = !Diving;
+
+        if(Diving)
+        {
+            ShipResourceManager.Instance.BeginDive();
+        }
+        else
+        {
+            ShipResourceManager.Instance.EndDive();
+        }
     }
 
     /// <summary>

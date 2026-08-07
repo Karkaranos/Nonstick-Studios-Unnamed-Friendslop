@@ -37,16 +37,6 @@ public class LandMovement : Movement
     Vector2 rotation;
     Rigidbody rb;
 
-    private void OnEnable()
-    {
-        PublicEvents.ResetPlayerInteractions += ResetInteractions;
-    }
-
-    private void OnDisable()
-    {
-        PublicEvents.ResetPlayerInteractions -= ResetInteractions;
-    }
-
     /// <summary>
     /// Grabs initial references and sets initial variables
     /// </summary>
@@ -257,6 +247,11 @@ public class LandMovement : Movement
         {
             if(hit.transform.GetComponent<IInteractable>()!= null)
             {
+                if(hit.transform.GetComponent<ShipMovementControllers>() != null &&
+                !ShipDiveController.Instance.Diving)
+                {
+                    return false;
+                }
 
                 if(interactingWith != null && hit.transform.GetComponent<IInteractable>() == interactingWith)
                 {
@@ -339,7 +334,7 @@ public class LandMovement : Movement
         // does nothinbg lol
     }
 
-    void ResetInteractions()
+    public override void ResetInteractions()
     {
         lookingAt = null;
         interactingWith = null;

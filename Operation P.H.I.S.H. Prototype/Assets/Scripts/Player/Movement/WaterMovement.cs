@@ -369,4 +369,9 @@ public class WaterMovement : Movement
     {
         moving = false;
     }
+
+    public override void ResetInteractions()
+    {
+        //dw
+    }
 }

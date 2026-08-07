@@ -9,7 +9,6 @@ External Resources :
 using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +21,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     float shipOxygen;
 
     //whether or not the ship's oxygen is going down
-    [HideInInspector] public bool OxygenDepleting;
+    [HideInInspector] bool oxygenDepleting;
 
     [Header("Oxygen Variables")]
 
@@ -53,13 +52,6 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [Tooltip("Where the ship will be at the start of a dive.")]
     [SerializeField] Vector3 startingLocation;
 
-    [Space(10)]
-
-    [Header("Controller Variables")]
-
-    [Tooltip("The controllers that move the ship.")]
-    [SerializeField] List<ShipMovementControllers> shipControllers = new List<ShipMovementControllers>();
-
     [HideInInspector] public List<Treasure> CollectedTreasures = new List<Treasure>();
 
     #endregion VARIABLES
@@ -72,13 +64,9 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     ///</summary>
     public void BeginDive()
     {
+        shipOxygen = shipOxygenMax;
         StartCoroutine(DepleteOxygen());
         OxygenUIManager.Instance.DisplayUI();
-
-        foreach(ShipMovementControllers controller in shipControllers)
-        {
-            controller.enabled = true;
-        }
     }
 
     /// <summary>
@@ -89,7 +77,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         PublicEvents.HaltShipMovement();
         PublicEvents.ResetPlayerInteractions();
 
-        OxygenDepleting = false;
+        oxygenDepleting = false;
         shipOxygen = shipOxygenMax;
 
         gameObject.transform.position = startingLocation;
@@ -100,11 +88,6 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         OxygenUIManager.Instance.DeadPlayersInGame.Clear();
 
         AddToMaxOxygen();
-
-        foreach (ShipMovementControllers controller in shipControllers)
-        {
-            controller.enabled = false;
-        }
 
         Debug.Log("DIVE OVER.");
     }
@@ -118,9 +101,9 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </returns>
     IEnumerator DepleteOxygen()
     {
-        OxygenDepleting = true;
+        oxygenDepleting = true;
 
-        while (OxygenDepleting)
+        while (oxygenDepleting)
         {
             yield return new WaitForSeconds(shipOxygenDepletionTime);
             shipOxygen -= shipOxygenDepletionAmount;
