@@ -9,9 +9,10 @@ External Resources :
 using NaughtyAttributes;
 using System.Collections;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PeriscopeController : MonoBehaviour
+public class PeriscopeController : Monobehaviour, IInteractable
 {
     [Header ("References")]
     [SerializeField, Tooltip("In scene as TempPlayerCam, will be replaced by static ref later."), Required]
@@ -28,37 +29,56 @@ public class PeriscopeController : MonoBehaviour
     private Coroutine periscopeRotationCoroutine;
     private bool isRotating = false;
 
+    public void OnEnable()
+    {
+        PublicEvents.EClicked += PeriscopeChangeCamera;
+    }
+    public void OnDisable()
+    {
+        PublicEvents.EClicked -= PeriscopeChangeCamera;
+    }
+
+
+    public void EnterHover()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void EnterInteract(PlayerController pc)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ExitHover()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ExitInteract()
+    {
+        throw new System.NotImplementedException();
+    }
+
     #region CameraSwitching
 
     [Button]
     /// <summary>
-    /// Switches from Player Camera to Periscope Camera
-    /// this would eventually take in player camera from a static ref in playermanager
+    /// Switches cameras on interact pressed, will determine which camera based on which is active
+    /// Does Player -> Periscope and Periscope -> Player
     /// </summary>
-    private void ChangeToPeriscopeCamera()
+    private void PeriscopeChangeCamera()
     {
-        playerCamera.gameObject.SetActive(false);
-        periscopeCamera.gameObject.SetActive(true);
-    }
-
-
-    [Button]
-    /// <summary>
-    /// Switches from Periscope Camera to Player Camera
-    /// this would eventually take in player camera from a static ref in playermanager
-    /// </summary>
-    private void ChangeToPlayerCamera()
-    {
-        periscopeCamera.gameObject.SetActive(false);
-        playerCamera.gameObject.SetActive(true);
-
-        //stop rotation coroutine if still going
-        isRotating = false;
-
-        if (periscopeRotationCoroutine != null)
+        //change to periscope
+        if (!periscopeCamera.gameObject.activeSelf)
         {
-            StopCoroutine(periscopeRotationCoroutine);
-            periscopeRotationCoroutine = null;
+            periscopeCamera.gameObject.SetActive(true);
+            playerCamera.gameObject.SetActive(false);
+        }
+        //change to player
+        else
+        {
+            playerCamera.gameObject.SetActive(true);
+            periscopeCamera.gameObject.SetActive(false);
         }
     }
 
