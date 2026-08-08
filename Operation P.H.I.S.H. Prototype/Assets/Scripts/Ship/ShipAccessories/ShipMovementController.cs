@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Jay Embry
 Date Created : 		    7/27/2026
-Date Last Modified : 	7/27/2026
+Date Last Modified : 	08/07/2026
 Brief Description : 	Controls the movement of the P.H.I.S.H.
                         Won't need most of the functions from Movement
                         TODO: With networking, make sure that multiple players cannot interact with one controller
@@ -82,6 +82,8 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
     /// </summary>
     public void ExitInteract()
     {
+        moving = false;
+
         if (controllerType == ControllerType.Wheel)
         {
             wheelAdjustmentRate = 0;

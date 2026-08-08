@@ -10552,8 +10552,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.026559323, y: 0.054650474, z: 0.025992671}
-  m_Center: {x: 0.000000114818, y: -0.004117408, z: 0.012996331}
+  m_Size: {x: 0.026559323, y: 0.10739802, z: 0.05219913}
+  m_Center: {x: 0.00000031049254, y: -0.0057699066, z: 0.0052629444}
 --- !u!1 &1745842513 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5266937644270429167, guid: e3d0522e566e31e4e802c535e9ac9820, type: 3}
@@ -10623,8 +10623,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.026559329, y: 0.031026969, z: 0.02599267}
-  m_Center: {x: 0.00000008075981, y: -0.002233889, z: 0.012996337}
+  m_Size: {x: 0.026559323, y: 0.10739802, z: 0.05219913}
+  m_Center: {x: 0.00000031049254, y: -0.0057699066, z: 0.0052629444}
 --- !u!43 &1761255672
 Mesh:
   m_ObjectHideFlags: 0

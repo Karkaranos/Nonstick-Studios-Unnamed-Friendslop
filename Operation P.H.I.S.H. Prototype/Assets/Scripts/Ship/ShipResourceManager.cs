@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Jay Embry
 Date Created : 		    7/19/2026
-Date Last Modified : 	8/6/2026
+Date Last Modified : 	08/07/2026
 Brief Description : 	Stores and sets the values of the ship's resources
 External Resources : 	
 ***************************************************/
@@ -76,6 +76,11 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     {
         PublicEvents.HaltShipMovement();
         PublicEvents.ResetPlayerInteractions();
+
+        if(ShipDiveController.Instance.Diving)
+        {
+            ShipDiveController.Instance.Diving = false;
+        }
 
         oxygenDepleting = false;
         shipOxygen = shipOxygenMax;
