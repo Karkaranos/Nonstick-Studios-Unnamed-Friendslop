@@ -58,6 +58,11 @@ public class LandMovement : Movement
     /// <param name="cameraVector">Vector2 containing the mouse's delta </param>
     protected override void OnMouseMove(Vector2 cameraVector)
     {
+        if (interactingWith != null && interactingWith.ToString().Contains("ShipMovementControllers"))
+        {
+            return;
+        }
+
         Vector2 adjustedDelta = cameraVector * pc.CameraSensitivity * Time.fixedDeltaTime;
 
         rotation.x -= adjustedDelta.y;
@@ -98,8 +103,12 @@ public class LandMovement : Movement
             newValue = lookingDirection(moveVector) * baseLandMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
         else
             newValue = Vector3.zero;*/
+        if(interactingWith != null && interactingWith.ToString().Contains("ShipMovementControllers"))
+        {
+            return;
+        }
 
-        Vector3 newValue = lookingDirection(moveVector) * baseLandMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
+        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseLandMovementSpeed * 100f * accelleration *  Time.fixedDeltaTime;
 
         if (!Grounded() || jumpThisFrame)
         {
