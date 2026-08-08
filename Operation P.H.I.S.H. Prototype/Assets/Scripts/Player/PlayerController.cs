@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     public Transform PickupPoint;
 
     private Vector3 lastCamPosition;
+    private float lineLength;
 
     #endregion
 
@@ -189,6 +190,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
 
         float distanceToCheck = transform.localScale.y + .2f;
+        lineLength = distanceToCheck;
         float longerDistanceToCheck = transform.localScale.y + .2f + GetComponent<LandMovement>().GetJumpHeight();
         while (true)
         {
@@ -197,10 +199,10 @@ public class PlayerController : MonoBehaviour
             // If there's something just under the player
             if (hit.collider != null)
             {
+                lineLength = distanceToCheck;
                 // When entering the ship, set the movement type to land and parent the player to the ship
                 if (hit.collider.gameObject.layer == shipLayer && gameObject.transform.parent == null)
                 {
-                    Debug.Log("Case 1");
                     GameObject newParent = hit.collider.gameObject;
 
                     // theres so many better ways to do this but this works for now
@@ -221,14 +223,10 @@ public class PlayerController : MonoBehaviour
                 // In theory the last condition should be redundant
                 else if (hit.collider.gameObject.layer == landLayer && gameObject.transform.parent != null && lastMovement == MovementType.Land)
                 {
-
-                    Debug.Log("Case 2");
                     transform.parent = null;
                 }
                 else if (hit.collider.gameObject.layer == landLayer && lastMovement == MovementType.Water)
                 {
-
-                    Debug.Log("Case 3");
                     if (transform.parent != null)
                     {
                         transform.parent = null;
@@ -251,8 +249,6 @@ public class PlayerController : MonoBehaviour
                 // If any other layer is hit, they should be in water
                 else if (hit.collider.gameObject.layer != landLayer && hit.collider.gameObject.layer != shipLayer && hit.collider.gameObject.layer != waterLayer)
                 {
-
-                    Debug.Log("Case 4");
                     // in case the ship was just exited
                     if (transform.parent != null)
                     {
@@ -269,44 +265,26 @@ public class PlayerController : MonoBehaviour
                 // Not childed to the ship, so in the ocean or on the ground
                 if(transform.parent == null)
                 {
-                    // Unbounded raycast up
-                    Physics.Raycast(transform.position, Vector3.up, out hit);
+                    // short raycast up
+                    Physics.Raycast(transform.position, Vector3.up, out hit, 3f);
+                    lineLength = 3;
 
                     if (hit.collider != null)
                     {
-                        // Let's check if they're on the ship
-                        GameObject newParent = hit.collider.gameObject;
-                        while (!newParent.name.Contains("Ship") && newParent.transform.parent != null)
-                        {
-                            newParent = newParent.transform.parent.gameObject;
-                        }
-
-                        // If they're on the ship, child them
-                        if (newParent.name.Contains("Ship"))
-                        {
-
-                            Debug.Log("Case 5");
-                            ToggleMovement(MovementType.Land);
-                            lastMovement = MovementType.Land;
-
-                            transform.parent = newParent.transform;
-                        }
+                       
                         // If they aren't on the ship, had been on land, and there's something above them, they're probably in water
-                        else if (hit.collider.gameObject != null && lastMovement == MovementType.Land)
+                        if (hit.collider.gameObject != null && lastMovement == MovementType.Land)
                         {
-
-                            Debug.Log("Case 6");
                             ToggleMovement(MovementType.Water);
                             lastMovement = MovementType.Water;
                         }
                     }
-                    // if there's nothing above them, they're probably on land
-                    //else
-                    //{
-                    //    Debug.Log("Case 7");
-                    //    ToggleMovement(MovementType.Land);
-                    //    lastMovement = MovementType.Land;
-                    //}
+                    // idk this works
+                    else
+                    {
+                        ToggleMovement(MovementType.Water);
+                        lastMovement = MovementType.Water;
+                    }
                 }
                 // Otherwise, they're on the ship or are leaving the ship
                 else
@@ -314,6 +292,7 @@ public class PlayerController : MonoBehaviour
                     // Let's cast down again, but further, in case they're jumping
                     // This shouldn't cause issues if they jump off something while on land
                     Physics.Raycast(transform.position, Vector3.down, out hit, longerDistanceToCheck);
+                    lineLength = longerDistanceToCheck;
 
                     // if it hit something
                     if(hit.collider != null)
@@ -321,8 +300,6 @@ public class PlayerController : MonoBehaviour
                         // If they're jumping on the ship and they dont currently have land movement (this is a redundancy check)
                         if(hit.collider.gameObject.layer == shipLayer && lastMovement == MovementType.Water)
                         {
-
-                            Debug.Log("Case 8");
                             GameObject newParent = hit.collider.gameObject;
 
                             // theres so many better ways to do this but this works for now
@@ -341,15 +318,11 @@ public class PlayerController : MonoBehaviour
                         // they're jumping on the ship with correct movement
                         else if (hit.collider.gameObject.layer == shipLayer)
                         {
-
-                            Debug.Log("Case 9");
                             // do nothing
                         }
                         // They're leaving the ship or are jumping and on land
                         else if (hit.collider.gameObject.layer == landLayer)
                         {
-
-                            Debug.Log("Case 10");
                             transform.parent = null;
 
                             ToggleMovement(MovementType.Land);
@@ -358,19 +331,24 @@ public class PlayerController : MonoBehaviour
                         // they're leaving the ship and going into water
                         else
                         {
-
-                            Debug.Log("Case 11");
                             transform.parent = null;
                             ToggleMovement(MovementType.Water);
                             lastMovement = MovementType.Water;
                         }
+                    }
+                    else
+                    {
+                        transform.parent = null;
+                        ToggleMovement(MovementType.Water);
+                        lastMovement = MovementType.Water;
                     }
                 }
             }
 
 
 
-            yield return new WaitForSecondsRealtime(timeBetweenMovementUpdates);
+
+                yield return new WaitForSecondsRealtime(timeBetweenMovementUpdates);
 
         }
     }
