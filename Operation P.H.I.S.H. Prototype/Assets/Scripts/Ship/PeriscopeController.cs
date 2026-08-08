@@ -29,6 +29,9 @@ public class PeriscopeController : MonoBehaviour, IInteractable
     private bool isRotating = false;
     private Coroutine rotationCoroutine;
 
+    /// <summary>
+    /// when periscope is hovered over
+    /// </summary>
     public void EnterHover()
     {
         return;
@@ -45,6 +48,9 @@ public class PeriscopeController : MonoBehaviour, IInteractable
         PublicEvents.MoveStopped += PeriscopeCamStopRotate;
     }
 
+    /// <summary>
+    /// when periscope is unhovered over
+    /// </summary>
     public void ExitHover()
     {
         return;
