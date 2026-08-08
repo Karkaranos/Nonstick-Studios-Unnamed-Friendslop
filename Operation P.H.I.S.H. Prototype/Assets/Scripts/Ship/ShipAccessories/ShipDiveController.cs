@@ -33,7 +33,8 @@ public class ShipDiveController : Singleton<ShipDiveController>, IInteractable
     /// </summary>
     public void ExitInteract()
     {
-        ShipResourceManager.Instance.EndDive();
+        //i never needed to put anything here at all, actually
+        //this button is weird
     }
 
     /// <summary>
