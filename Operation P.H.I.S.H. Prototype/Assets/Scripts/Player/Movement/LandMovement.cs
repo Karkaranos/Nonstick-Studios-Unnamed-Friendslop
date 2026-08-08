@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor
+Author Names : 		    Clare Grady, Cade Naylor, Sky Beal
 Date Created : 		    07/22/2026
-Date Last Modified : 	07/28/202
+Date Last Modified : 	08/7/2026
 Brief Description : 	Actually defines and handles land movement
 
 External Resources :    	
@@ -37,6 +37,8 @@ public class LandMovement : Movement
     Vector2 rotation;
     Rigidbody rb;
 
+    private Vector3 lookingDirection(Vector2 moveVector) => (pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x);
+
     /// <summary>
     /// Grabs initial references and sets initial variables
     /// </summary>
@@ -69,10 +71,13 @@ public class LandMovement : Movement
 
         pc.CameraRotationParent.localEulerAngles = rotation;
 
-        Vector3 armsRotation = armsParent.transform.localEulerAngles;
-        armsRotation.y = rotation.y;
-        armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
-        armsParent.transform.localEulerAngles = armsRotation;
+        if (armsParent != null)
+        {
+            Vector3 armsRotation = armsParent.transform.localEulerAngles;
+            armsRotation.y = rotation.y;
+            armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
+            armsParent.transform.localEulerAngles = armsRotation;
+        }
 
         if(LookingAtObject())
         {
@@ -93,6 +98,11 @@ public class LandMovement : Movement
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
+        /*Vector3 newValue;
+        if (TetherManager.Instance.CanPlayerMoveInDirection(moveVector))
+            newValue = lookingDirection(moveVector) * baseLandMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
+        else
+            newValue = Vector3.zero;*/
         if(interactingWith != null && (interactingWith.ToString().Contains("ShipMovementControllers") || interactingWith.ToString().Contains("PeriscopeController")))
         {
             return;
@@ -100,7 +110,7 @@ public class LandMovement : Movement
 
         Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseLandMovementSpeed * 100f * accelleration *  Time.fixedDeltaTime;
 
-        if(!Grounded() || jumpThisFrame)
+        if (!Grounded() || jumpThisFrame)
         {
             newValue.y = rb.linearVelocity.y;
         }
@@ -153,6 +163,29 @@ public class LandMovement : Movement
 
             Debug.Log("E");
     }
+    
+    /// <summary>
+    /// Reel in tether while reel button is held (in theory)
+    /// </summary>
+    /// <param name="deltaTime"></param>
+    protected override void WhileReelTetherHeld(float deltaTime)
+    {
+        Debug.Log("REELIN IN");
+        //TetherManager.Instance.PullTetheredObject(null, deltaTime);
+    }
+
+    protected override void ReelTetherStarted()
+    {
+        Debug.Log("Reel Tether");
+    }
+
+    protected override void ReelTetherFinished()
+    {
+        Debug.Log("Reel Tether Finished");
+
+        // this feels terrible for the player but its temp and i need to get this done fast
+        //rb.angularVelocity = Vector3.zero;
+    }
 
     /// <summary>
     /// Override from movement base class
@@ -165,11 +198,7 @@ public class LandMovement : Movement
             float jumpForce = Mathf.Sqrt(fullJumpHeight * landGravity * -2f);
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
         }
-        else
-        {
-
-        }
-            Debug.Log("Space Started");
+        Debug.Log("Space Started");
     }
 
     /// <summary>
@@ -299,6 +328,30 @@ public class LandMovement : Movement
         }
     }
 
+    /// <summary>
+    /// Adjust movement for tether
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if (TetherManager.Instance == null) return;
+
+        if (TetherManager.Instance.IsPlayerTethered(this) == false)
+            return;
+
+        // dont care if player isnt moving
+        Vector3 velocity = rb.linearVelocity;
+        if (Mathf.Approximately(velocity.magnitude, 0))
+            return;
+
+        /*
+        bool canMove = TetherManager.Instance.CanPlayerMoveInDirection(velocity);
+        if (!canMove && PlayerInputHandler.Instance.IsReelTetherHeld)
+        {
+            rb.linearVelocity = Vector3.zero;
+        }*/
+    }
+
+    
 
     /// <summary>
     /// Override from Movement class
