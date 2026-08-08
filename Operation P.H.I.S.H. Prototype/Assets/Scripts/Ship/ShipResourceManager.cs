@@ -1,18 +1,23 @@
 /*************************************************
 Author Names : 		    Jay Embry
 Date Created : 		    7/19/2026
-Date Last Modified : 	7/19/2026
+Date Last Modified : 	7/28/2026
 Brief Description : 	Stores and sets the values of the ship's resources
 External Resources : 	
 ***************************************************/
 
 using System.Collections;
+using System.Collections.Generic;
 using NaughtyAttributes;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShipResourceManager : Singleton<ShipResourceManager>
 {
+
+    #region VARIABLES
+
     //tracks the ship's current oxygen level
     float shipOxygen;
 
@@ -21,6 +26,12 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     //might need to make a separate variable from the inspector variable should we go forward with updating this #
     [Tooltip("The highest value that the oxygen can be.")]
     [SerializeField] float shipOxygenMax;
+
+    [Tooltip("How much the maximum oxygen should increase per treasure collected.")]
+    [SerializeField] float shipOxygenPerTreasure;
+
+    [Tooltip("The highest value that the oxygen can be upgraded to.")]
+    [SerializeField] float shipOxygenUpgradedMax;
 
     [Tooltip("The amount of seconds in between when the ship's oxygen depletes.")]
     [SerializeField] float shipOxygenDepletionTime;
@@ -31,6 +42,17 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [Tooltip("The amount of oxygen depleted per increment.")]
     [SerializeField] float shipOxygenDepletionAmount;
 
+
+    [Space(10)]
+
+
+    [Header("Testing")]
+
+    #endregion VARIABLES
+
+    //this will NOT be public post-testing
+    [SerializeField] List<Treasure> collectedTreasures = new List<Treasure>();
+
     [Button]
     ///<summary>
     ///starts depleting the ship's oxygen
@@ -39,6 +61,8 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     {
         shipOxygen = shipOxygenMax;
         StartCoroutine(DepleteOxygen());
+
+        OxygenUIManager.Instance.DisplayUI();
     }
 
     /// <summary>
@@ -59,7 +83,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
             if(shipOxygen % shipOxygenStepAmount == 0)
             {
-                //INSERT FUNCTION FOR UPDATING UI HERE
+                OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
                 Debug.Log($"OXYGEN LEFT: {shipOxygen}");
             }
 
@@ -85,17 +109,28 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
         if(shipOxygen % shipOxygenStepAmount == 0)
         {
-            //INSERT FUNCTION FOR UPDATING UI HERE
+            OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
             Debug.Log($"OXYGEN LEFT: { shipOxygen}");
         }
     }
 
+    [Button]
     /// <summary>
     /// adds to the max amount of the ship's oxygen
     /// does nothing for now, but is based off of design's flowchart
     /// </summary>
     public void AddToMaxOxygen()
     {
+       foreach(Treasure treasure in collectedTreasures)
+       {
+            shipOxygenMax += shipOxygenPerTreasure;
+       }
 
+       if(shipOxygenMax > shipOxygenUpgradedMax)
+       {
+            shipOxygenMax = shipOxygenUpgradedMax;
+       }
+
+        Debug.Log($"MAX OXYGEN: {shipOxygenMax}");
     }
 }

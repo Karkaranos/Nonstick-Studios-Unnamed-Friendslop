@@ -2143,8 +2143,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 2548
+  m_Mesh: {fileID: 4300000, guid: 35b551d5684ef324d98e9b64b91a0b87, type: 2}
+  m_VersionIndex: 3049
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2233,7 +2233,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3897749436637127400}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 35b551d5684ef324d98e9b64b91a0b87, type: 2}
 --- !u!64 &7571864695245590900
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2255,7 +2255,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 35b551d5684ef324d98e9b64b91a0b87, type: 2}
 --- !u!1 &4555549534156297537
 GameObject:
   m_ObjectHideFlags: 0

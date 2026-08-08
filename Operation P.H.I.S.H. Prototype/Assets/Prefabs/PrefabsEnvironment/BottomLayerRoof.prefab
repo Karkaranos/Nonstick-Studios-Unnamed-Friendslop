@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3671695567936086435}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -322.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4418,8 +4418,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 3008
+  m_Mesh: {fileID: 4300000, guid: ece767cf3e8c96b4faaca5c212d66c6b, type: 2}
+  m_VersionIndex: 3017
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4508,7 +4508,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3916072352603208095}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: ece767cf3e8c96b4faaca5c212d66c6b, type: 2}
 --- !u!64 &2089839623972005459
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4530,7 +4530,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: ece767cf3e8c96b4faaca5c212d66c6b, type: 2}
 --- !u!1 &6698898082072194640
 GameObject:
   m_ObjectHideFlags: 0
@@ -7476,8 +7476,8 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 0}
-  m_VersionIndex: 3602
+  m_Mesh: {fileID: 4300000, guid: 4aaf1ee294f0bbe4ea3c919c24fb903b, type: 2}
+  m_VersionIndex: 3611
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -7566,7 +7566,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6698898082072194640}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 4aaf1ee294f0bbe4ea3c919c24fb903b, type: 2}
 --- !u!64 &6534114215385724479
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7588,4 +7588,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300000, guid: 4aaf1ee294f0bbe4ea3c919c24fb903b, type: 2}
