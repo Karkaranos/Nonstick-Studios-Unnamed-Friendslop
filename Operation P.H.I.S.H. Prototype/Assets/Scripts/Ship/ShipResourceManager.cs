@@ -9,6 +9,7 @@ External Resources :
 using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -74,6 +75,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </summary>
     public void EndDive()
     {
+        oxygenDepleting = false;
         AddToMaxOxygen();
 
         PublicEvents.HaltShipMovement();
@@ -83,8 +85,6 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         {
             ShipDiveController.Instance.Diving = false;
         }
-
-        oxygenDepleting = false;
 
         gameObject.transform.position = startingLocation;
 
@@ -153,6 +153,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         foreach (GameObject treasure in CollectedTreasures)
         {
             shipOxygenMax += shipOxygenPerTreasure;
+            Destroy(treasure);
         }
 
         if (shipOxygenMax > shipOxygenUpgradedMax)
@@ -160,9 +161,9 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
             shipOxygenMax = shipOxygenUpgradedMax;
         }
 
-        CollectedTreasures.Clear();
-
         Debug.Log($"MAX OXYGEN: {shipOxygenMax}");
+
+        CollectedTreasures.Clear();
 
         shipOxygen = shipOxygenMax;
         OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
