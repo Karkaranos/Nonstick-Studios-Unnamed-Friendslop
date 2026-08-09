@@ -110,6 +110,7 @@ public class PlayerOxygenManager : MonoBehaviour
                     Debug.Log("YOU LOSE!");
                 }
 
+                ShipResourceManager.Instance.ResetTreasures();
                 ResetLocation();
 
                 Debug.Log("YOU DIED!");

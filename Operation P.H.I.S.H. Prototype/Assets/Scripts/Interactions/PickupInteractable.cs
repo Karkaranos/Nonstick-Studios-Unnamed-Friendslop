@@ -23,6 +23,8 @@ public class PickupInteractable : MonoBehaviour, IInteractable
     [SerializeField, Layer] private int shipLayer;
     private PlayerController heldBy;
     private Rigidbody rb;
+
+    [HideInInspector] public Vector3 OriginalPos;
     #endregion
 
     #region Functions
@@ -35,6 +37,8 @@ public class PickupInteractable : MonoBehaviour, IInteractable
         mr = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
         standardMat = mr.material;
+
+        position = gameObject.transform.position;
     }
 
     /// <summary>

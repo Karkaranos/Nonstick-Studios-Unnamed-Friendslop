@@ -119,8 +119,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
             if (shipOxygen <= 0)
             {
-                CollectedTreasures.Clear();
-                EndDive();
+                ResetTreasures();
 
                 Debug.Log("YOU LOSE!");
             }
@@ -167,6 +166,21 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
         shipOxygen = shipOxygenMax;
         OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
+    }
+
+    /// <summary>
+    /// puts treasures back after losing a dive
+    /// </summary>
+    public void ResetTreasures()
+    {
+        foreach(GameObject treasure in CollectedTreasures)
+        {
+            treasure.transform.position = treasure.GetComponent<PickupInteractable>().OriginalPos;
+        }
+
+        CollectedTreasures.Clear();
+
+        EndDive();
     }
 
     #endregion FUNCTIONS
