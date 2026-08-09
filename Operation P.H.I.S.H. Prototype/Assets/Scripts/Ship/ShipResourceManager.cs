@@ -52,7 +52,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [Tooltip("Where the ship will be at the start of a dive.")]
     [SerializeField] Vector3 startingLocation;
 
-    public List<GameObject> CollectedTreasures = new List<GameObject>();
+    [HideInInspector] public List<GameObject> CollectedTreasures = new List<GameObject>();
 
     #endregion VARIABLES
 

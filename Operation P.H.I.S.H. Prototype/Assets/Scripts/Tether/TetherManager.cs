@@ -94,6 +94,7 @@ public class TetherManager : Singleton<TetherManager>
     public bool IsPlayerTethered(Movement player)
     {
         // TODO:
+        //changed for testing for now
         return false;
     }
 
