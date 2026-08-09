@@ -92,6 +92,15 @@ public class LandMovement : Movement
     }
 
     /// <summary>
+    /// Return the jump height
+    /// </summary>
+    /// <returns></returns>
+    public float GetJumpHeight()
+    {
+        return Mathf.Sqrt(fullJumpHeight * landGravity * -2f) + 1f;
+    }
+
+    /// <summary>
     /// Override from Movement base class
     /// Reads a value from the OnMove event and adjust velocity accordingly
     /// </summary>

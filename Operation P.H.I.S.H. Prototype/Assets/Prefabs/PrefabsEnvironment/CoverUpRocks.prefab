@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7141888511231085728}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CoverUpRocks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6734931222400396607}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -140.5714, y: -173.71762, z: 68.27846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -122,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 643f806bf1064c648a5984ae42b7dd63, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -12464,6 +12464,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -12556,7 +12560,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 48efe822363988b40b7dc90fa22f540f, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -24898,6 +24902,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -24990,7 +24998,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 7abc62406b35647458af39a0615cc356, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -37331,6 +37339,10 @@ PrefabInstance:
     - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Name
       value: EnvironmentRocks (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
@@ -49767,6 +49779,10 @@ PrefabInstance:
       value: EnvironmentRocks (18)
       objectReference: {fileID: 0}
     - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -49862,7 +49878,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 2c4a18905ec048848909960a2e70f4a5, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -62204,6 +62220,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -62296,7 +62316,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 3bbf62eb7e5c2574e80eb09b82af015d, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -74638,6 +74658,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -74730,7 +74754,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 2a0f0d69120459741806efa1c53e0b14, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -87072,6 +87096,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -87164,7 +87192,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: e9064875c1c9b8846a6f516651970b17, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -99506,6 +99534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -99598,7 +99630,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 3fbc8c707bd88684f89cd2f9ba61ec05, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -111940,6 +111972,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -112032,7 +112068,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: cb6dfb12793a1f94f8105362b40fd141, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -124374,6 +124410,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -124466,7 +124506,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 2f9de61276171434492774e235f73b5e, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -136808,6 +136848,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -136900,7 +136944,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: ab413fa8f186ede4ea90a97991da4056, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -149242,6 +149286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -149334,7 +149382,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: f22cae05e28775941943f370d2a670f8, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -161676,6 +161724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -161768,7 +161820,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 3cb2fcb961bfa404ebde58aa79f46f42, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -174110,6 +174162,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -174202,7 +174258,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 0c98ff2fc36d2494ab55960215810300, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -186544,6 +186600,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -186636,7 +186696,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 17683ce5101e02540aa278fb5484d2fa, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -198978,6 +199038,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -199070,7 +199134,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 9a751b3ebc6b42b4ea999d0ff0d8e5e9, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -211412,6 +211476,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -211504,7 +211572,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 8f27c9f49acc72c49a28fb1cd4826ffc, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -223846,6 +223914,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -223938,7 +224010,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 763511d4e7c87804d9f680fd65193cb5, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -236280,6 +236352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -236372,7 +236448,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: e49bc0b4f16c64840afe5b98abf1879d, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -248714,6 +248790,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentRocks (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -248806,7 +248886,7 @@ PrefabInstance:
       objectReference: {fileID: 4300000, guid: 62c2d2a62399ec040839ff52320231a8, type: 2}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_VersionIndex
-      value: 1743
+      value: 1746
       objectReference: {fileID: 0}
     - target: {fileID: 6810419345872876469, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Tangents.Array.data[0].x
@@ -261147,6 +261227,10 @@ PrefabInstance:
     - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Name
       value: EnvironmentRocks (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235195512483529758, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7485980277464724580, guid: 8b1b64000c71b374cb59c6853c308b69, type: 3}
       propertyPath: m_Mesh
