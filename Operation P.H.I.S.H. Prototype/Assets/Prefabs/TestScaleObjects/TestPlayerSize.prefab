@@ -1565,9 +1565,11 @@ MonoBehaviour:
   defaultMovement: 0
   waterLayer: 4
   shipLayer: 3
+  landLayer: 6
   playerCamera: {fileID: 1532764095068027488}
   cameraSensitivity: 1
   cameraRotationParent: {fileID: 3125365121831113921}
+  timeBetweenMovementUpdates: 0
   currentMovement: 0
   playerCrosshair: {fileID: 3811807432046950369}
   standard: {fileID: 21300000, guid: fec5d2007c9009b48aa48accb0b1baa1, type: 3}

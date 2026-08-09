@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 216159221292010166}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RedRockClusterGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}

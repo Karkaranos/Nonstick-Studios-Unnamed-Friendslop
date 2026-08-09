@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 836269622}
   - component: {fileID: 836269621}
   - component: {fileID: 836269620}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Land Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6689,7 +6689,7 @@ GameObject:
   - component: {fileID: 1163640656}
   - component: {fileID: 1163640655}
   - component: {fileID: 1163640654}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Land
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12739,7 +12739,7 @@ GameObject:
   - component: {fileID: 1500983333}
   - component: {fileID: 1500983332}
   - component: {fileID: 1500983335}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
