@@ -39,6 +39,12 @@ public class LandMovement : Movement
 
     private Vector3 lookingDirection(Vector2 moveVector) => (pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x);
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        this.GetComponent<PlayerOxygenManager>().ResetOxygen();
+    }
+
     /// <summary>
     /// Grabs initial references and sets initial variables
     /// </summary>

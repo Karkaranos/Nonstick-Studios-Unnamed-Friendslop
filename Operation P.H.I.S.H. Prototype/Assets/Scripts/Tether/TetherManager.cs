@@ -91,10 +91,10 @@ public class TetherManager : Singleton<TetherManager>
 
     #endregion
 
-    public bool IsPlayerTethered(LandMovement player)
+    public bool IsPlayerTethered(Movement player)
     {
         // TODO:
-        return true;
+        return false;
     }
 
     /// <summary>

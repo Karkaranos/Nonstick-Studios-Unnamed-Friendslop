@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Jay Embry
-Date Created : 		    7/19/2026
-Date Last Modified : 	7/28/2026
+Date Created : 		    07/19/2026
+Date Last Modified : 	08/09/2026
 Brief Description : 	Stores and sets the values of the player's resources
 External Resources : 	
 ***************************************************/
@@ -89,13 +89,19 @@ public class PlayerOxygenManager : MonoBehaviour
             {
                 OxygenUIManager.Instance.PlayerDisplays[OxygenUIManager.Instance.PlayersInGame.IndexOf(this)].
                 SetActive(false);
+                OxygenUIManager.Instance.DeadPlayersInGame.Add(this);
 
-                //MAKE A NEW LIST OF DEAD PLAYERS IN OXYGENMANAGERUI
-                //IF THE # OF DEAD PLAYERS = THE # OF PLAYERS IN GAME,
-                //END THE DIVE HERE
-                //REMOVE SHIP'S TREASURES HERE
+                //i wanna disable movement in the future, but there's only one player for now
+                //so it would be a redundant for now
 
-                //DISABLE THE PLAYER'S MOVEMENT
+                if(OxygenUIManager.Instance.DeadPlayersInGame.Count >=
+                OxygenUIManager.Instance.PlayersInGame.Count)
+                {
+                    ShipResourceManager.Instance.CollectedTreasures.Clear();
+                    ShipResourceManager.Instance.EndDive();
+
+                    Debug.Log("YOU LOSE!");
+                }
 
                 Debug.Log("YOU DIED!");
 
@@ -109,6 +115,7 @@ public class PlayerOxygenManager : MonoBehaviour
     /// </summary>
     public void ResetOxygen()
     {
+        LosingOxygen = false;
         playerOxygen = playerOxygenMax;
     }
 }

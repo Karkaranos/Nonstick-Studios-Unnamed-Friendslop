@@ -102,6 +102,11 @@ public class PickupInteractable : MonoBehaviour, IInteractable
             }
 
             transform.parent = newParent.transform;
+
+            if(this.GetComponent<Treasure>() != null)
+            {
+                ShipResourceManager.Instance.CollectedTreasures.Add(this.GetComponent<Treasure>());
+            }
         }
     }
     #endregion
