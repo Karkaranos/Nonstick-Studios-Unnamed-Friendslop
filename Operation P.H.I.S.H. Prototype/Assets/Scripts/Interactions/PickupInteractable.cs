@@ -103,9 +103,10 @@ public class PickupInteractable : MonoBehaviour, IInteractable
 
             transform.parent = newParent.transform;
 
-            if(this.GetComponent<Treasure>() != null)
+            if(!ShipResourceManager.Instance.CollectedTreasures.Contains(gameObject))
             {
-                ShipResourceManager.Instance.CollectedTreasures.Add(this.GetComponent<Treasure>());
+                ShipResourceManager.Instance.CollectedTreasures.Add(gameObject);
+                Debug.Log("LOOT COLLECTED.");
             }
         }
     }

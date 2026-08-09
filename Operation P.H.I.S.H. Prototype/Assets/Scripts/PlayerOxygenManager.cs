@@ -18,6 +18,8 @@ public class PlayerOxygenManager : MonoBehaviour
     //tracks the player's personal oxygen level
     float playerOxygen;
 
+    Vector3 startingPosition;
+
     [Header("ID Display")]
 
     [Tooltip("DO NOT TOUCH! Reference this to make sure that the display is correct!")]
@@ -52,6 +54,8 @@ public class PlayerOxygenManager : MonoBehaviour
     {
         OxygenUIManager.Instance.PlayersInGame.Add(this);
         playerID = OxygenUIManager.Instance.PlayersInGame.IndexOf(this) + 1;
+
+        startingPosition = gameObject.transform.position;
     }
 
     [Button]
@@ -60,6 +64,9 @@ public class PlayerOxygenManager : MonoBehaviour
     ///</summary>
     public void BeginDepletingOxygen()
     {
+        OxygenUIManager.Instance.PlayerDisplays[OxygenUIManager.Instance.PlayersInGame.IndexOf(this)].
+        GetComponent<Image>().fillAmount = 1;
+
         playerOxygen = playerOxygenMax;
         LosingOxygen = true;
         StartCoroutine(DepletePlayerOxygen());
@@ -103,6 +110,8 @@ public class PlayerOxygenManager : MonoBehaviour
                     Debug.Log("YOU LOSE!");
                 }
 
+                ResetLocation();
+
                 Debug.Log("YOU DIED!");
 
                 yield break;
@@ -117,5 +126,17 @@ public class PlayerOxygenManager : MonoBehaviour
     {
         LosingOxygen = false;
         playerOxygen = playerOxygenMax;
+
+        OxygenUIManager.Instance.PlayerDisplays[OxygenUIManager.Instance.PlayersInGame.IndexOf(this)].
+        GetComponent<Image>().fillAmount = 1;
+    }
+
+    /// <summary>
+    /// resets player's location
+    /// </summary>
+    public void ResetLocation()
+    {
+        //shitty but works for now
+        gameObject.transform.position = startingPosition;
     }
 }

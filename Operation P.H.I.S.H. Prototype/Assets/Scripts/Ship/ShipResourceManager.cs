@@ -52,7 +52,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [Tooltip("Where the ship will be at the start of a dive.")]
     [SerializeField] Vector3 startingLocation;
 
-    [HideInInspector] public List<Treasure> CollectedTreasures = new List<Treasure>();
+    public List<GameObject> CollectedTreasures = new List<GameObject>();
 
     #endregion VARIABLES
 
@@ -74,6 +74,8 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </summary>
     public void EndDive()
     {
+        AddToMaxOxygen();
+
         PublicEvents.HaltShipMovement();
         PublicEvents.ResetPlayerInteractions();
 
@@ -83,16 +85,12 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         }
 
         oxygenDepleting = false;
-        shipOxygen = shipOxygenMax;
 
         gameObject.transform.position = startingLocation;
 
-        OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
         OxygenUIManager.Instance.StopDisplayingUI();
 
         OxygenUIManager.Instance.DeadPlayersInGame.Clear();
-
-        AddToMaxOxygen();
 
         Debug.Log("DIVE OVER.");
     }
@@ -152,7 +150,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </summary>
     public void AddToMaxOxygen()
     {
-        foreach (Treasure treasure in CollectedTreasures)
+        foreach (GameObject treasure in CollectedTreasures)
         {
             shipOxygenMax += shipOxygenPerTreasure;
         }
@@ -165,6 +163,9 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
         CollectedTreasures.Clear();
 
         Debug.Log($"MAX OXYGEN: {shipOxygenMax}");
+
+        shipOxygen = shipOxygenMax;
+        OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
     }
 
     #endregion FUNCTIONS

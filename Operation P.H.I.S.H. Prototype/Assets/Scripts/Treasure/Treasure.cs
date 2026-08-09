@@ -7,8 +7,7 @@ External Resources :
 ***************************************************/
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Treasure", menuName = "Scriptable Objects/Treasure")]
-public class Treasure : ScriptableObject
+public class Treasure : MonoBehaviour
 {
     //put something in here eventually idk
 }

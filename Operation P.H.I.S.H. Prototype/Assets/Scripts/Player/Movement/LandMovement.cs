@@ -42,7 +42,12 @@ public class LandMovement : Movement
     protected override void OnEnable()
     {
         base.OnEnable();
-        this.GetComponent<PlayerOxygenManager>().ResetOxygen();
+
+        if(ShipDiveController.Instance != null)
+        {
+            this.GetComponent<PlayerOxygenManager>().ResetOxygen();
+        }
+
     }
 
     /// <summary>
