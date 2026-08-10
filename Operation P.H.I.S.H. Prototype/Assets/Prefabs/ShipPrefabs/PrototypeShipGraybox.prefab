@@ -62915,9 +62915,13 @@ PrefabInstance:
       propertyPath: _nextSegment
       value: 
       objectReference: {fileID: 2263594654852545066}
+    - target: {fileID: 136606197519714858, guid: 2dfab1e9a13099244b0def7ee2ca2fde, type: 3}
+      propertyPath: lockedLocalPosition
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 391095119206825492, guid: 2dfab1e9a13099244b0def7ee2ca2fde, type: 3}
       propertyPath: m_Name
-      value: Tether Segment
+      value: Ship Tether Segment
       objectReference: {fileID: 0}
     - target: {fileID: 3963486375569868640, guid: 2dfab1e9a13099244b0def7ee2ca2fde, type: 3}
       propertyPath: m_LocalPosition.x

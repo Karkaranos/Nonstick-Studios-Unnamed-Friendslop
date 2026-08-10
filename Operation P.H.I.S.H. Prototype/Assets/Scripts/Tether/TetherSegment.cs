@@ -22,6 +22,7 @@ public class TetherSegment : MonoBehaviour
     [Foldout("Debug"),SerializeField] private TetherSegment _previousSegment;
     [Foldout("Debug"), SerializeField] private TetherSegment _nextSegment;
     [Foldout("Debug")] public Transform followingObject;
+    [Foldout("Debug")] public bool lockedLocalPosition = false;
 
     [Foldout("Debug")] public float forwardAnchorOffset;
     [Foldout("Debug")] public float backwardAnchorOffset;
@@ -29,6 +30,7 @@ public class TetherSegment : MonoBehaviour
     [Foldout("Debug Options"), SerializeField] private bool _drawSplineCalculations;
 
     public float LastTimeUpdated { get; private set; }
+    private Vector3 TEMP_startLocalPostion;
 
     public TetherSegment PreviousSegment
     {
@@ -69,6 +71,7 @@ public class TetherSegment : MonoBehaviour
     private void Start()
     {
         LastTimeUpdated = Time.time;
+        TEMP_startLocalPostion = transform.localPosition;
     }
 
     /// <summary>
@@ -77,6 +80,8 @@ public class TetherSegment : MonoBehaviour
     /// <param name="maxStepLength">Is implied to have already accounted for deltatime</param>
     public void AdjustForwards(float stepLength)
     {
+        if (lockedLocalPosition) return;
+
         // TODO: CACHE THIS USING LastTimeUpdated
         float tetherLength = SplineUtilities.GetSegmentLength(this);
 
@@ -96,7 +101,9 @@ public class TetherSegment : MonoBehaviour
     /// <param name="maxStepLength">Is implied to have already accounted for deltatime</param>
     public void AdjustBackwards(float stepLength)
     {
-        if(PreviousSegment == null)
+        if (lockedLocalPosition) return;
+
+        if (PreviousSegment == null)
         {
             Debug.LogError("Can not step backwards because previous segment is null");
             return;
@@ -179,6 +186,9 @@ public class TetherSegment : MonoBehaviour
     /// </summary>
     private void PhysicsUpdate(float deltaTime)
     {
+        if (lockedLocalPosition)
+            transform.localPosition = TEMP_startLocalPostion;
+
         if (NextSegment == null && followingObject == null) return;
 
         bool intersecting = SplineUtilities.SplineSphereCast(this, out RaycastHit hit, out float intersection_t, radius: TetherManager.Instance.TetherSplineCollisionRadius);

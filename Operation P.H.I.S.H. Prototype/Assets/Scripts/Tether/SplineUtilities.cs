@@ -55,7 +55,7 @@ public static class SplineUtilities
         if (segment.PreviousSegment == null)
             return segment;
 
-        return GetEndSegment(segment.PreviousSegment);
+        return GetStartSegment(segment.PreviousSegment);
     }
 
     public static TetherSegment GetEndSegment(TetherSegment segment)
