@@ -79,6 +79,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4b9b82b41dfe0314bb07478c9c7b0889, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1782025964026054523}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4b9b82b41dfe0314bb07478c9c7b0889, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5091709196312157659}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4b9b82b41dfe0314bb07478c9c7b0889, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8584751725719753689}
   m_SourcePrefab: {fileID: 100100000, guid: 4b9b82b41dfe0314bb07478c9c7b0889, type: 3}
 --- !u!1 &2490925805281973225 stripped
 GameObject:
@@ -107,3 +113,40 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &5091709196312157659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490925805281973225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13560ecd114514c41afbd60727bf3e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PeriscopeController
+  playerCamera: {fileID: 0}
+  periscopeCamera: {fileID: 0}
+  periscopeCameraRotationParent: {fileID: 0}
+  periscopeCameraRotationSpeed: 20
+--- !u!65 &8584751725719753689
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490925805281973225}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 18.860317, y: 34.854607, z: 29.15352}
+  m_Center: {x: -22.664053, y: 20.70691, z: -63.14408}
