@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2348355830728973229}
   - component: {fileID: 928773966845342581}
   - component: {fileID: 1924387677250707629}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: WaterLineTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
