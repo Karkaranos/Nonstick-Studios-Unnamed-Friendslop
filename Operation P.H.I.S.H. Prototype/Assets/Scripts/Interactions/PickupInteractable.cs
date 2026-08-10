@@ -38,7 +38,7 @@ public class PickupInteractable : MonoBehaviour, IInteractable
         rb = GetComponent<Rigidbody>();
         standardMat = mr.material;
 
-        position = gameObject.transform.position;
+        OriginalPos = gameObject.transform.position;
     }
 
     /// <summary>

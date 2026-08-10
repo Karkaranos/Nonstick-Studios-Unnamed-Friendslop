@@ -39,6 +39,9 @@ public class LandMovement : Movement
 
     private Vector3 lookingDirection(Vector2 moveVector) => (pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x);
 
+    /// <summary>
+    /// runs when loaded into a scene
+    /// </summary>
     protected override void OnEnable()
     {
         base.OnEnable();
