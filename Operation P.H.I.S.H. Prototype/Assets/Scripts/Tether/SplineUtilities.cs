@@ -46,6 +46,18 @@ public static class SplineUtilities
         return GetSegmentLength(segment, n_slices) + GetTotalRopeLength(segment.NextSegment, n_slices);
     }
 
+    /// <summary>
+    /// Get the first segment in the spline chain
+    /// </summary>
+    public static TetherSegment GetStartSegment(TetherSegment segment)
+    {
+        if (segment == null) return null;
+        if (segment.PreviousSegment == null)
+            return segment;
+
+        return GetEndSegment(segment.PreviousSegment);
+    }
+
     public static TetherSegment GetEndSegment(TetherSegment segment)
     {
         if (segment == null) return null;
