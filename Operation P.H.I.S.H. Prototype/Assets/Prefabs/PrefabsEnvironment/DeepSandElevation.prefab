@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5811760454842664924}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DeepSandElevation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
