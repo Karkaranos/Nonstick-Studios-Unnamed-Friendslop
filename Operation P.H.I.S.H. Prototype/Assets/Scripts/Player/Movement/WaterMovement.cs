@@ -64,6 +64,11 @@ public class WaterMovement : Movement
         rb.useGravity = false;
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y * .5f, rb.linearVelocity.z);
         waterGravityCour = StartCoroutine(WaterGravity());
+
+        if (ShipDiveController.Instance.Diving && TetherManager.Instance.IsPlayerTethered(this) == false)
+        {
+            this.GetComponent<PlayerOxygenManager>().BeginDepletingOxygen();
+        }
     }
 
     /// <summary>

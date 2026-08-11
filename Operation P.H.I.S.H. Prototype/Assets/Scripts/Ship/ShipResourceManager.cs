@@ -9,6 +9,7 @@ External Resources :
 using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,7 +53,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     [Tooltip("Where the ship will be at the start of a dive.")]
     [SerializeField] Vector3 startingLocation;
 
-    [HideInInspector] public List<Treasure> CollectedTreasures = new List<Treasure>();
+    [HideInInspector] public List<GameObject> CollectedTreasures = new List<GameObject>();
 
     #endregion VARIABLES
 
@@ -74,6 +75,9 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </summary>
     public void EndDive()
     {
+        oxygenDepleting = false;
+        AddToMaxOxygen();
+
         PublicEvents.HaltShipMovement();
         PublicEvents.ResetPlayerInteractions();
 
@@ -82,17 +86,11 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
             ShipDiveController.Instance.Diving = false;
         }
 
-        oxygenDepleting = false;
-        shipOxygen = shipOxygenMax;
-
         gameObject.transform.position = startingLocation;
 
-        OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
         OxygenUIManager.Instance.StopDisplayingUI();
 
         OxygenUIManager.Instance.DeadPlayersInGame.Clear();
-
-        AddToMaxOxygen();
 
         Debug.Log("DIVE OVER.");
     }
@@ -121,8 +119,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
 
             if (shipOxygen <= 0)
             {
-                CollectedTreasures.Clear();
-                EndDive();
+                ResetTreasures();
 
                 Debug.Log("YOU LOSE!");
             }
@@ -152,9 +149,10 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     /// </summary>
     public void AddToMaxOxygen()
     {
-        foreach (Treasure treasure in CollectedTreasures)
+        foreach (GameObject treasure in CollectedTreasures)
         {
             shipOxygenMax += shipOxygenPerTreasure;
+            Destroy(treasure);
         }
 
         if (shipOxygenMax > shipOxygenUpgradedMax)
@@ -162,9 +160,27 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
             shipOxygenMax = shipOxygenUpgradedMax;
         }
 
+        Debug.Log($"MAX OXYGEN: {shipOxygenMax}");
+
         CollectedTreasures.Clear();
 
-        Debug.Log($"MAX OXYGEN: {shipOxygenMax}");
+        shipOxygen = shipOxygenMax;
+        OxygenUIManager.Instance.UpdateShipOxygenUI(shipOxygenMax, shipOxygen);
+    }
+
+    /// <summary>
+    /// puts treasures back after losing a dive
+    /// </summary>
+    public void ResetTreasures()
+    {
+        foreach(GameObject treasure in CollectedTreasures)
+        {
+            treasure.transform.position = treasure.GetComponent<PickupInteractable>().OriginalPos;
+        }
+
+        CollectedTreasures.Clear();
+
+        EndDive();
     }
 
     #endregion FUNCTIONS

@@ -40,6 +40,20 @@ public class LandMovement : Movement
     private Vector3 lookingDirection(Vector2 moveVector) => (pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x);
 
     /// <summary>
+    /// runs when loaded into a scene
+    /// </summary>
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        if(ShipDiveController.Instance != null)
+        {
+            this.GetComponent<PlayerOxygenManager>().ResetOxygen();
+        }
+
+    }
+
+    /// <summary>
     /// Grabs initial references and sets initial variables
     /// </summary>
     private void Start()
