@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor
+Author Names : 		    Clare Grady, Cade Naylor, Sky Beal
 Date Created : 		    07/22/2026
-Date Last Modified : 	07/28/202
+Date Last Modified : 	08/7/2026
 Brief Description : 	Actually defines and handles land movement
 
 External Resources :    	
@@ -112,7 +112,7 @@ public class LandMovement : Movement
             newValue = lookingDirection(moveVector) * baseLandMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
         else
             newValue = Vector3.zero;*/
-        if(interactingWith != null && interactingWith.ToString().Contains("ShipMovementControllers"))
+        if(interactingWith != null && (interactingWith.ToString().Contains("ShipMovementControllers") || interactingWith.ToString().Contains("PeriscopeController")))
         {
             return;
         }
@@ -285,6 +285,11 @@ public class LandMovement : Movement
         {
             if(hit.transform.GetComponent<IInteractable>()!= null)
             {
+                if(hit.transform.GetComponent<ShipMovementControllers>() != null &&
+                !ShipDiveController.Instance.Diving)
+                {
+                    return false;
+                }
 
                 if(interactingWith != null && hit.transform.GetComponent<IInteractable>() == interactingWith)
                 {
@@ -389,5 +394,15 @@ public class LandMovement : Movement
     protected override void OnMoveEnd()
     {
         // does nothinbg lol
+    }
+
+    /// <summary>
+    /// override from movement class
+    /// sets interaction variables to null
+    /// </summary>
+    public override void ResetInteractions()
+    {
+        lookingAt = null;
+        interactingWith = null;
     }
 }
