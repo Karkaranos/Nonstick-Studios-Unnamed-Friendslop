@@ -29,6 +29,8 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.ShiftFinished += OnShiftFinished;
         PublicEvents.ControlStarted += OnControlStarted;
         PublicEvents.ControlFinished += OnControlFinished;
+
+        PublicEvents.ResetPlayerInteractions += ResetInteractions;
     }
 
     /// <summary>
@@ -49,6 +51,8 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.ShiftFinished -= OnShiftFinished;
         PublicEvents.ControlStarted -= OnControlStarted;
         PublicEvents.ControlFinished -= OnControlFinished;
+
+        PublicEvents.ResetPlayerInteractions -= ResetInteractions;
     }
 
 
@@ -72,4 +76,5 @@ public abstract class Movement: MonoBehaviour
 
     public abstract void SetCameraAngle(Vector3 angle);
 
+    public abstract void ResetInteractions();
 }

@@ -384,4 +384,12 @@ public class WaterMovement : Movement
     {
         throw new System.NotImplementedException();
     }
+
+    /// <summary>
+    /// override from movement class
+    /// </summary>
+    public override void ResetInteractions()
+    {
+        //dw
+    }
 }

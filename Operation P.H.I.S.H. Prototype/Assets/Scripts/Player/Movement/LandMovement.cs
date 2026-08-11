@@ -285,6 +285,11 @@ public class LandMovement : Movement
         {
             if(hit.transform.GetComponent<IInteractable>()!= null)
             {
+                if(hit.transform.GetComponent<ShipMovementControllers>() != null &&
+                !ShipDiveController.Instance.Diving)
+                {
+                    return false;
+                }
 
                 if(interactingWith != null && hit.transform.GetComponent<IInteractable>() == interactingWith)
                 {
@@ -389,5 +394,15 @@ public class LandMovement : Movement
     protected override void OnMoveEnd()
     {
         // does nothinbg lol
+    }
+
+    /// <summary>
+    /// override from movement class
+    /// sets interaction variables to null
+    /// </summary>
+    public override void ResetInteractions()
+    {
+        lookingAt = null;
+        interactingWith = null;
     }
 }

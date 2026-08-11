@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Jay Embry
 Date Created : 		    7/27/2026
-Date Last Modified : 	7/27/2026
+Date Last Modified : 	08/07/2026
 Brief Description : 	Controls the movement of the P.H.I.S.H.
                         Won't need most of the functions from Movement
                         TODO: With networking, make sure that multiple players cannot interact with one controller
@@ -55,6 +55,7 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
     void OnEnable()
     {
         PublicEvents.MoveDirection += MoveController;
+        PublicEvents.HaltShipMovement += ResetSpeed;
     }
 
     /// <summary>
@@ -63,6 +64,7 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
     private void OnDisable()
     {
         PublicEvents.MoveDirection -= MoveController;
+        PublicEvents.HaltShipMovement -= ResetSpeed;
     }
 
     [Button]
@@ -254,6 +256,39 @@ public class ShipMovementControllers : MonoBehaviour, IInteractable
                 }
 
                 Debug.Log($"SHIP WHEEL ADJUSTMENT: {ShipMovement.Instance.WheelAdjustment}");
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// resets all variables related to the ship's movement
+    /// </summary>
+    void ResetSpeed()
+    {
+        moving = false;
+        ShipMovement.Instance.Moving = false;
+
+        switch(controllerType)
+        {
+            case ControllerType.FBLever:
+
+                FBAdjustmentRate = 0;
+                ShipMovement.Instance.FBAdjustment = 0;
+                break;
+
+            case ControllerType.ADLever:
+
+                ADAdjustmentRate = 0;
+                ShipMovement.Instance.ADAdjustment = 0;
+                break;
+
+            case ControllerType.Wheel:
+
+                wheelAdjustmentRate = 0;
+                ShipMovement.Instance.WheelAdjustment = 0;
                 break;
 
             default:
