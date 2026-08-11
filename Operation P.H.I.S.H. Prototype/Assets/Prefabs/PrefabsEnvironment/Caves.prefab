@@ -1793,7 +1793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7267545518483204935}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Caves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
