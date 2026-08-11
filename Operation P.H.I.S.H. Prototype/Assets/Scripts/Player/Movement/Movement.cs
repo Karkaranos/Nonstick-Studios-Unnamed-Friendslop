@@ -20,12 +20,17 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.MoveStopped += OnMoveEnd;
         PublicEvents.MousePosition += OnMouseMove;
         PublicEvents.EClicked += OnEClicked;
+        PublicEvents.ReelTetherStarted += ReelTetherStarted;
+        PublicEvents.ReelTetherHeld += WhileReelTetherHeld;
+        PublicEvents.ReelTetherFinished += ReelTetherFinished;
         PublicEvents.SpaceStarted += OnSpaceStarted;
         PublicEvents.SpaceFinished += OnSpaceFinished;
         PublicEvents.ShiftStarted += OnShiftStarted;
         PublicEvents.ShiftFinished += OnShiftFinished;
         PublicEvents.ControlStarted += OnControlStarted;
         PublicEvents.ControlFinished += OnControlFinished;
+
+        PublicEvents.ResetPlayerInteractions += ResetInteractions;
     }
 
     /// <summary>
@@ -37,12 +42,17 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.MoveStopped -= OnMoveEnd;
         PublicEvents.MousePosition -= OnMouseMove;
         PublicEvents.EClicked -= OnEClicked;
+        PublicEvents.ReelTetherStarted -= ReelTetherStarted;
+        PublicEvents.ReelTetherHeld -= WhileReelTetherHeld;
+        PublicEvents.ReelTetherFinished -= ReelTetherFinished;
         PublicEvents.SpaceStarted -= OnSpaceStarted;
         PublicEvents.SpaceFinished -= OnSpaceFinished;
         PublicEvents.ShiftStarted -= OnShiftStarted;
         PublicEvents.ShiftFinished -= OnShiftFinished;
         PublicEvents.ControlStarted -= OnControlStarted;
         PublicEvents.ControlFinished -= OnControlFinished;
+
+        PublicEvents.ResetPlayerInteractions -= ResetInteractions;
     }
 
 
@@ -52,6 +62,9 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnEClicked();
     protected abstract void OnSpaceStarted(bool fullyPerformed);
     protected abstract void OnSpaceFinished();
+    protected abstract void ReelTetherStarted();
+    protected abstract void WhileReelTetherHeld(float deltaTime);
+    protected abstract void ReelTetherFinished();
     protected abstract void OnShiftStarted();
     protected abstract void OnShiftFinished();
     protected abstract void OnControlStarted();
@@ -63,4 +76,5 @@ public abstract class Movement: MonoBehaviour
 
     public abstract void SetCameraAngle(Vector3 angle);
 
+    public abstract void ResetInteractions();
 }

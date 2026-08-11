@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8274195090510457123}
   - component: {fileID: 9153548258785465942}
   - component: {fileID: 2573385248485332059}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TransitionBarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}

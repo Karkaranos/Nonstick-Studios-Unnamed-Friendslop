@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3415047554636019533}
   - component: {fileID: 1360200539057148719}
   - component: {fileID: 817444365976581224}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OOBGrassLowestLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3072,7 +3072,7 @@ GameObject:
   - component: {fileID: 5570851221633666932}
   - component: {fileID: 282586075315330652}
   - component: {fileID: 9027164981106160459}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OOBRockTopLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6165,7 +6165,7 @@ GameObject:
   - component: {fileID: 678674090344065100}
   - component: {fileID: 3412853328624999222}
   - component: {fileID: 7141424676012118400}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OOBRockMiddleLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
