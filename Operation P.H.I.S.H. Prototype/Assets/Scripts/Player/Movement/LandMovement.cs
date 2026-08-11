@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor
+Author Names : 		    Clare Grady, Cade Naylor, Sky Beal
 Date Created : 		    07/22/2026
-Date Last Modified : 	07/28/202
+Date Last Modified : 	08/7/2026
 Brief Description : 	Actually defines and handles land movement
 
 External Resources :    	
@@ -126,7 +126,7 @@ public class LandMovement : Movement
             newValue = lookingDirection(moveVector) * baseLandMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
         else
             newValue = Vector3.zero;*/
-        if(interactingWith != null && interactingWith.ToString().Contains("ShipMovementControllers"))
+        if(interactingWith != null && (interactingWith.ToString().Contains("ShipMovementControllers") || interactingWith.ToString().Contains("PeriscopeController")))
         {
             return;
         }
