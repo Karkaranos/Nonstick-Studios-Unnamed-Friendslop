@@ -1,7 +1,7 @@
 /*************************************************
 Author Names : 		    Jay Embry
-Date Created : 		    7/19/2026
-Date Last Modified : 	7/28/2026
+Date Created : 		    07/19/2026
+Date Last Modified : 	08/09/2026
 Brief Description : 	Stores and sets the values of the player's resources
 External Resources : 	
 ***************************************************/
@@ -17,6 +17,8 @@ public class PlayerOxygenManager : MonoBehaviour
 
     //tracks the player's personal oxygen level
     float playerOxygen;
+
+    Vector3 startingPosition;
 
     [Header("ID Display")]
 
@@ -52,6 +54,8 @@ public class PlayerOxygenManager : MonoBehaviour
     {
         OxygenUIManager.Instance.PlayersInGame.Add(this);
         playerID = OxygenUIManager.Instance.PlayersInGame.IndexOf(this) + 1;
+
+        startingPosition = gameObject.transform.position;
     }
 
     [Button]
@@ -60,6 +64,9 @@ public class PlayerOxygenManager : MonoBehaviour
     ///</summary>
     public void BeginDepletingOxygen()
     {
+        OxygenUIManager.Instance.PlayerDisplays[OxygenUIManager.Instance.PlayersInGame.IndexOf(this)].
+        GetComponent<Image>().fillAmount = 1;
+
         playerOxygen = playerOxygenMax;
         LosingOxygen = true;
         StartCoroutine(DepletePlayerOxygen());
@@ -87,7 +94,25 @@ public class PlayerOxygenManager : MonoBehaviour
 
             if (playerOxygen <= 0)
             {
-                //call the function that ends the dive here
+                OxygenUIManager.Instance.PlayerDisplays[OxygenUIManager.Instance.PlayersInGame.IndexOf(this)].
+                SetActive(false);
+                OxygenUIManager.Instance.DeadPlayersInGame.Add(this);
+
+                //i wanna disable movement in the future, but there's only one player for now
+                //so it would be a redundant for now
+
+                if(OxygenUIManager.Instance.DeadPlayersInGame.Count >=
+                OxygenUIManager.Instance.PlayersInGame.Count)
+                {
+                    ShipResourceManager.Instance.CollectedTreasures.Clear();
+                    ShipResourceManager.Instance.EndDive();
+
+                    Debug.Log("YOU LOSE!");
+                }
+
+                ShipResourceManager.Instance.ResetTreasures();
+                ResetLocation();
+
                 Debug.Log("YOU DIED!");
 
                 yield break;
@@ -100,6 +125,19 @@ public class PlayerOxygenManager : MonoBehaviour
     /// </summary>
     public void ResetOxygen()
     {
+        LosingOxygen = false;
         playerOxygen = playerOxygenMax;
+
+        OxygenUIManager.Instance.PlayerDisplays[OxygenUIManager.Instance.PlayersInGame.IndexOf(this)].
+        GetComponent<Image>().fillAmount = 1;
+    }
+
+    /// <summary>
+    /// resets player's location
+    /// </summary>
+    public void ResetLocation()
+    {
+        //shitty but works for now
+        gameObject.transform.position = startingPosition;
     }
 }

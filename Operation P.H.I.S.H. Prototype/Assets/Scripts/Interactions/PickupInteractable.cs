@@ -23,6 +23,8 @@ public class PickupInteractable : MonoBehaviour, IInteractable
     [SerializeField, Layer] private int shipLayer;
     private PlayerController heldBy;
     private Rigidbody rb;
+
+    [HideInInspector] public Vector3 OriginalPos;
     #endregion
 
     #region Functions
@@ -35,6 +37,8 @@ public class PickupInteractable : MonoBehaviour, IInteractable
         mr = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
         standardMat = mr.material;
+
+        OriginalPos = gameObject.transform.position;
     }
 
     /// <summary>
@@ -102,6 +106,12 @@ public class PickupInteractable : MonoBehaviour, IInteractable
             }
 
             transform.parent = newParent.transform;
+
+            if(!ShipResourceManager.Instance.CollectedTreasures.Contains(gameObject))
+            {
+                ShipResourceManager.Instance.CollectedTreasures.Add(gameObject);
+                Debug.Log("LOOT COLLECTED.");
+            }
         }
     }
     #endregion
