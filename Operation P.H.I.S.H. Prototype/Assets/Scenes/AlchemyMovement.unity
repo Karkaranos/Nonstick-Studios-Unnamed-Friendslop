@@ -655,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316db7833c9db1e4281b851d2afc4c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlchemyMovement
-  minCameraYClamp: 120
+  minCameraYClamp: -60
   maxCameraYClamp: 60
   armsParent: {fileID: 1968969809}
   baseMovementSpeed: 1
@@ -678,7 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlchemyPlayerController
   playerCamera: {fileID: 2004476108}
-  cameraSensitivity: 0.1
+  cameraSensitivity: 1
   cameraRotationParent: {fileID: 2080748853}
   playerCrosshair: {fileID: 504544417}
   standard: {fileID: 21300000, guid: fec5d2007c9009b48aa48accb0b1baa1, type: 3}
