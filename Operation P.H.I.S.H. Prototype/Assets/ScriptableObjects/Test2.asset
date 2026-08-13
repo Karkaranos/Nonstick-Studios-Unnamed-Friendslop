@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c013cf5952d146244a2a0ab15ac34886, type: 3}
+  m_Name: Test2
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredients
+  SpawnLocation: {x: 0, y: 0, z: 0}
+  SpawnableIngredients:
+  - {fileID: 605512128339813487, guid: 85a8aa14747aa8341af88a4cdbfcc605, type: 3}

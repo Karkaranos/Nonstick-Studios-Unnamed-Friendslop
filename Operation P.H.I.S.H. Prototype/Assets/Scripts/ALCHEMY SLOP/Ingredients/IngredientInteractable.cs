@@ -2,6 +2,7 @@
 Author Names : 		    Jay Embry
 Date Created : 		    08/13/2026
 Brief Description : 	Script for interacting with ingredients
+                        This should be put on each ingredient prefab(?)
                         Thank you for IInteractable, Cade!!
 External Resources :    	
 ***************************************************/
