@@ -7,6 +7,7 @@ External Resources :
 
 using UnityEngine;
 using System.Collections.Generic;
+using NaughtyAttributes;
 
 public class IngredientManager : MonoBehaviour
 {
@@ -15,8 +16,28 @@ public class IngredientManager : MonoBehaviour
 
     [SerializeField] List<Ingredients> ingredients = new List<Ingredients>();
 
-    void SpawnIngredient()
-    {
+    //TODO: spawn based on timer intervals
 
+    [Button]
+    void TestSpawning()
+    {
+        SpawnIngredient(null, new Vector3(0, 0, 0));
+    }
+
+    void SpawnIngredient(GameObject ingredient, Vector3 pos)
+    {
+        if(ingredient == null)
+        {
+            int index = Random.Range(0, ingredients.Count);
+
+            ingredient = ingredients[index].SpawnableIngredients
+            [Random.Range(0, ingredients[index].SpawnableIngredients.Count)];
+
+            pos = ingredients[index].SpawnLocation;
+        }
+
+        Instantiate(ingredient, pos, Quaternion.identity);
+
+        Debug.Log($"{ingredient.name} spawned at {pos}!");
     }
 }
