@@ -16,6 +16,7 @@ using UnityEngine.Splines;
 public class TetherManager : Singleton<TetherManager>   
 {
     [BoxGroup("Temp"), SerializeField] private LineRenderer TEMP_lineRenderer;
+    [BoxGroup("Temp"), SerializeField] private GameObject TEMP_TetherCanvasUIPrefab;
 
     [BoxGroup("Player Interaction"), SerializeField] public float TotalMaxTetherLength = 100f;
     [BoxGroup("Player Interaction"), SerializeField] private SplineContainer splineContainer;
@@ -67,6 +68,41 @@ public class TetherManager : Singleton<TetherManager>
 
     [Foldout("Debug Settings"), SerializeField] public TetherSegment.DebugColorOption debugColorOption;
     [Foldout("Debug Settings"), SerializeField] private TetherSegment startingSegment; //TODO: support for multiple tethers lol
+
+    #region TEMP
+
+    private void Start()
+    {
+        Instantiate(TEMP_TetherCanvasUIPrefab);
+
+        // VERY TEMP bandaid fix to get the tether working in every scene without making scene changes.
+
+        if(startingSegment == null)
+            startingSegment = SplineUtilities.GetStartSegment(FindFirstObjectByType<TetherSegment>());
+
+        TetherSegment endSegment = SplineUtilities.GetEndSegment(startingSegment);
+
+        if (endSegment.NextSegment == null && endSegment.followingObject == null)
+        {
+            Transform playerObject;
+            playerObject = FindFirstObjectByType<WaterMovement>().transform;
+
+            // if no water movement in the scene...
+            if (playerObject == null)
+                playerObject = FindFirstObjectByType<LandMovement>().transform;
+
+            // the other two types of movement are prioritized bc of weird types of movement like the parascope.
+            if (playerObject == null)
+                playerObject = FindFirstObjectByType<Movement>().transform;
+
+            endSegment.followingObject = playerObject;
+        }
+
+        // this isnt temp tho
+        endSegment.transform.parent = null;
+    }
+
+    #endregion
 
     #region Player Interaction
 
@@ -182,4 +218,23 @@ public class TetherManager : Singleton<TetherManager>
         TEMP_lineRenderer.positionCount = tetherPoints.Count;
         TEMP_lineRenderer.SetPositions(tetherPoints.ToArray());
     }
+
+    #region Debug
+
+    /// <summary>
+    /// Debug tool that Deletes all tether nodes and lets the tether interpolation algorithm figure it out
+    /// </summary>
+    [Button]
+    private void ResetTether()
+    {
+        TetherSegment tetherNode = startingSegment;
+        while (tetherNode.NextSegment != null)
+        {
+            TetherSegment nextSegment = tetherNode.NextSegment;    
+            SplineUtilities.DissolveTetherSegment(tetherNode);
+            tetherNode = nextSegment;
+        }
+    }
+
+    #endregion
 }
