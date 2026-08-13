@@ -659,8 +659,9 @@ MonoBehaviour:
   maxCameraYClamp: 60
   armsParent: {fileID: 1968969809}
   baseMovementSpeed: 1
+  crouchMovementPenalty: 0.5
   tapJumpHeightPercent: 0.5
-  fullJumpHeight: 0
+  fullJumpHeight: 5
   timeToMaxAcceleration: 5
   maxAccelerationMultiplier: 3
   gravity: -10

@@ -7,8 +7,11 @@ Jacob Note:             Took this script from PHISH and edited it to fit AS.
 
 External Resources :    	
 ***************************************************/
+using NaughtyAttributes;
 using System.Collections;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(AlchemyPlayerController))]
 public class AlchemyMovement : Movement
@@ -19,6 +22,9 @@ public class AlchemyMovement : Movement
     [SerializeField] private Transform armsParent;
 
     [SerializeField] private float baseMovementSpeed = 1f;
+    [Tooltip("This penalty is multiplied with the speed and should be 0 - 0.9")]
+    [MinValue(0f), MaxValue(0.99f)]
+    [SerializeField] private float crouchMovementPenalty = 0.5f;
     [SerializeField] private float tapJumpHeightPercent = .5f;
     [SerializeField] private float fullJumpHeight;
     [SerializeField] private float timeToMaxAcceleration = 5f;
@@ -32,7 +38,8 @@ public class AlchemyMovement : Movement
     private bool interacting;
     [SerializeField] private float sightDistance = 2f;
 
-    bool jumpThisFrame;
+    private bool jumpThisFrame;
+    private bool isCrouching = false;
 
     Vector2 rotation;
     Rigidbody rb;
@@ -112,6 +119,9 @@ public class AlchemyMovement : Movement
     {
         Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) 
             * baseMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
+
+        if (isCrouching)
+            newValue *= crouchMovementPenalty;
 
         if (!Grounded() || jumpThisFrame)
         {
@@ -195,7 +205,7 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnShiftStarted()
     {
-        if (shiftHold == null)
+        if (shiftHold == null && !isCrouching)
         {
             shiftHold = StartCoroutine(Accelerate());
         }
@@ -221,6 +231,9 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnControlStarted()
     {
+        isCrouching = true;
+        Crouch();
+
         Debug.Log("Control Started");
     }
 
@@ -229,7 +242,26 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnControlFinished()
     {
+        isCrouching = false;
+        Crouch();
+
         Debug.Log("Control Finished");
+    }
+
+    /// <summary>
+    /// Sets player height depending on whether or not they are crouching.
+    /// In a non-prototype this should be controlled by animations.
+    /// </summary>
+    private void Crouch()
+    {
+        Vector3 newScale = gameObject.transform.localScale;
+
+        if (isCrouching)
+            newScale.y /= 2f;
+        else
+            newScale.y *= 2f;
+
+        gameObject.transform.localScale = newScale;
     }
 
     /// <summary>
