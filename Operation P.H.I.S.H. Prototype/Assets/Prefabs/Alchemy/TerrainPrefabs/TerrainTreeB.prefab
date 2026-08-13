@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2998538215495167041}
   - component: {fileID: 68990373801242735}
   - component: {fileID: 7898819621131296910}
+  - component: {fileID: 6550445518926495673}
   m_Layer: 0
   m_Name: foliage_TreeB
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4530697700713108516}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.0145, y: -0.0076, z: -0.0113}
+  m_LocalPosition: {x: 0.0145, y: -0.0189, z: -0.0113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -91,6 +92,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6550445518926495673
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4530697700713108516}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4379425207783750732, guid: 1616c99870cb56c4d9c70001c034c9dd, type: 3}
 --- !u!1 &5300601751535006857
 GameObject:
   m_ObjectHideFlags: 0
