@@ -690,10 +690,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8931304189006172952}
     m_Modifications:
-    - target: {fileID: 2789071301873677065, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3463910389663704810, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_VersionIndex
       value: 1205
@@ -742,10 +738,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7251757809408993730, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
-      propertyPath: PickupPoint
-      value: 
-      objectReference: {fileID: 7525304252059372850}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -781,8 +773,3 @@ MonoBehaviour:
   playerOxygenDepletionTime: 1
   playerOxygenDepletionAmount: 1
   LosingOxygen: 0
---- !u!4 &7525304252059372850 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4362974470884034219, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
-  m_PrefabInstance: {fileID: 6116774994255563673}
-  m_PrefabAsset: {fileID: 0}

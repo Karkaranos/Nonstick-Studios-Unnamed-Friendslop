@@ -452,6 +452,7 @@ GameObject:
   - component: {fileID: 6696807443161287276}
   - component: {fileID: 6723208571614187424}
   - component: {fileID: 2789071301873677065}
+  - component: {fileID: 2299841895731492267}
   m_Layer: 0
   m_Name: TestPlayerSize
   m_TagString: Untagged
@@ -1505,7 +1506,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1280
+  m_VersionIndex: 1283
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1618,7 +1619,7 @@ MonoBehaviour:
   playerCrosshair: {fileID: 3811807432046950369}
   standard: {fileID: 21300000, guid: fec5d2007c9009b48aa48accb0b1baa1, type: 3}
   interactable: {fileID: 21300000, guid: 1218ecbaaed330d4fb67cc140631f37f, type: 3}
-  PickupPoint: {fileID: 0}
+  PickupPoint: {fileID: 4362974470884034219}
 --- !u!114 &1222226372454863550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1696,7 +1697,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5197106932896169762}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f981eb34bfebe847ae7c98b55c8fb0a, type: 3}
   m_Name: 
@@ -1715,6 +1716,23 @@ MonoBehaviour:
   descending: 0
   moving: 0
   sightDistance: 2
+--- !u!114 &2299841895731492267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197106932896169762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46db4f49bbcfec847bb0444726addd7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerOxygenManager
+  playerID: 0
+  playerOxygenMax: 10
+  playerOxygenDepletionTime: 1
+  playerOxygenDepletionAmount: 1
+  LosingOxygen: 0
 --- !u!1 &5712952953863956896
 GameObject:
   m_ObjectHideFlags: 0
