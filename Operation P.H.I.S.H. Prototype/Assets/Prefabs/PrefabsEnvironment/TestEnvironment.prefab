@@ -690,9 +690,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8931304189006172952}
     m_Modifications:
+    - target: {fileID: 2789071301873677065, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3463910389663704810, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_VersionIndex
-      value: 1202
+      value: 1205
       objectReference: {fileID: 0}
     - target: {fileID: 5197106932896169762, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
       propertyPath: m_Name
@@ -738,13 +742,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7251757809408993730, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
+      propertyPath: PickupPoint
+      value: 
+      objectReference: {fileID: 7525304252059372850}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5197106932896169762, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5403795825272395311}
   m_SourcePrefab: {fileID: 100100000, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
 --- !u!4 &1786656859022340179 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5487737853025909706, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
+  m_PrefabInstance: {fileID: 6116774994255563673}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2088811829255386299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5197106932896169762, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
+  m_PrefabInstance: {fileID: 6116774994255563673}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5403795825272395311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088811829255386299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46db4f49bbcfec847bb0444726addd7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerOxygenManager
+  playerID: 0
+  playerOxygenMax: 10
+  playerOxygenDepletionTime: 1
+  playerOxygenDepletionAmount: 1
+  LosingOxygen: 0
+--- !u!4 &7525304252059372850 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4362974470884034219, guid: 89263ebb96db4cd49bedf135de8f63d3, type: 3}
   m_PrefabInstance: {fileID: 6116774994255563673}
   m_PrefabAsset: {fileID: 0}
