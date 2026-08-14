@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c013cf5952d146244a2a0ab15ac34886, type: 3}
   m_Name: Test1
   m_EditorClassIdentifier: Assembly-CSharp::Ingredients
-  SpawnLocation: {x: 0, y: 0, z: 0}
+  SpawnLocation: {x: 1, y: 1, z: 1}
   SpawnableIngredients:
   - {fileID: 605512128339813487, guid: 85a8aa14747aa8341af88a4cdbfcc605, type: 3}
   - {fileID: 2620564954723259593, guid: 8d97834f721ad3044a42879049752593, type: 3}
