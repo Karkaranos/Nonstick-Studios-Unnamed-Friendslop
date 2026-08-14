@@ -192,6 +192,9 @@ public class PlayerController : MonoBehaviour
         float distanceToCheck = transform.localScale.y + .2f;
         lineLength = distanceToCheck;
         float longerDistanceToCheck = transform.localScale.y + .2f + GetComponent<LandMovement>().GetJumpHeight();
+
+        transform.parent = FindFirstObjectByType<ShipMovement>(findObjectsInactive: FindObjectsInactive.Include).transform;
+
         while (true)
         {
             Physics.Raycast(transform.position, Vector3.down, out hit, distanceToCheck);
