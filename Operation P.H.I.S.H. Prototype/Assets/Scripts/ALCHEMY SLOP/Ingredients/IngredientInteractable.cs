@@ -33,7 +33,9 @@ public class IngredientInteractable : MonoBehaviour, IInteractable
     [SerializeField] bool isMoving;
 
     [Tooltip("Where will this ingredient move?")]
-    [ShowIf("isMoving")] public List<GameObject> destinations = new List<GameObject>();
+    [ShowIf("isMoving")] public List<Transform> Transforms = new List<Transform>();
+
+    int transformIndex = 0;
 
     NavMeshAgent navMeshAgent;
 
@@ -53,6 +55,8 @@ public class IngredientInteractable : MonoBehaviour, IInteractable
     {
         transform.parent = pc.PickupPoint;
         isPickedUp = true;
+
+        transformIndex = 0;
     }
 
     public void ExitInteract()
@@ -81,21 +85,25 @@ public class IngredientInteractable : MonoBehaviour, IInteractable
     /// <returns></returns>
     IEnumerator MoveNavMesh()
     {
-        int index = 0;
+        //int index = 0;
 
         while (!isPickedUp)
         {
-            navMeshAgent.SetDestination(destinations[index].transform.position);
 
-            if (navMeshAgent.destination == destinations[index].transform.position)
+            float distanceFromDestination = Vector3.Distance
+            (Transforms[transformIndex].position, transform.position);
+
+            if (distanceFromDestination <= 2)
             {
-                index++;
+                transformIndex++;
 
-                if(index >= destinations.Count)
+                if (transformIndex > Transforms.Count - 1)
                 {
-                    index = 0;
+                    transformIndex = 0;
                 }
             }
+
+            navMeshAgent.SetDestination(Transforms[transformIndex].position);
 
             yield return new WaitForFixedUpdate();
         }

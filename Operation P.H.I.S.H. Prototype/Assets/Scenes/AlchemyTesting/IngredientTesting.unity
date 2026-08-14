@@ -24125,6 +24125,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9164662418826998815, guid: f69bf059d4e0f394a9da83296ac3f651, type: 3}
   m_PrefabInstance: {fileID: 475689516}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &477733592 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2273631539295719032, guid: 8d97834f721ad3044a42879049752593, type: 3}
+  m_PrefabInstance: {fileID: 694494795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &481853988
 Mesh:
   m_ObjectHideFlags: 0
@@ -33518,9 +33523,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 419195123774041310, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: m_Name
+      value: Transform 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 800362860931567014, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: m_Name
+      value: Transform 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1734910729439508005, guid: 8d97834f721ad3044a42879049752593, type: 3}
       propertyPath: m_Height
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734910729439508005, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734910729439508005, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: m_AutoRepath
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2179384785207783968, guid: 8d97834f721ad3044a42879049752593, type: 3}
       propertyPath: m_Constraints
@@ -33535,9 +33556,37 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3621972206192256446, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621972206192256446, guid: 8d97834f721ad3044a42879049752593, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.07
       objectReference: {fileID: 0}
+    - target: {fileID: 4234350178141054983, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: Waypoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234350178141054983, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: Transforms.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234350178141054983, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: 'Waypoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 477733592}
+    - target: {fileID: 4234350178141054983, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: 'Waypoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 837270216}
+    - target: {fileID: 4234350178141054983, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: 'Transforms.Array.data[0]'
+      value: 
+      objectReference: {fileID: 477733592}
+    - target: {fileID: 4234350178141054983, guid: 8d97834f721ad3044a42879049752593, type: 3}
+      propertyPath: 'Transforms.Array.data[1]'
+      value: 
+      objectReference: {fileID: 837270216}
     - target: {fileID: 4234350178141054983, guid: 8d97834f721ad3044a42879049752593, type: 3}
       propertyPath: destinations.Array.data[0].y
       value: 0.07
@@ -38603,6 +38652,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!4 &837270216 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8426055463155936470, guid: 8d97834f721ad3044a42879049752593, type: 3}
+  m_PrefabInstance: {fileID: 694494795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &837355818
 Mesh:
   m_ObjectHideFlags: 0
