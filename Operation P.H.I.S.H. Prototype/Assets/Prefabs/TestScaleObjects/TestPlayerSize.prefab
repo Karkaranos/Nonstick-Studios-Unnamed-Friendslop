@@ -1715,7 +1715,7 @@ MonoBehaviour:
   ascending: 0
   descending: 0
   moving: 0
-  sightDistance: 2
+  sightDistance: 10
 --- !u!114 &5793180973673437054
 MonoBehaviour:
   m_ObjectHideFlags: 0
