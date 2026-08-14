@@ -1727,6 +1727,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &493064233802934780
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3202786341914771505, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_Name
+      value: Bulbshroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4799471133001317879, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 125d74d559db4fc4cacb0e5c0587d9aa, type: 3}
 --- !u!1001 &2131466679916396128
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1841,6 +1898,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577a48588a2e2b4428281064e12b33dd, type: 3}
+--- !u!1001 &3177549400016213336
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8577982254490926382, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_Name
+      value: BulbshroomChopped
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1851,3 +1965,5 @@ SceneRoots:
   - {fileID: 2073468854}
   - {fileID: 3123039034127644735}
   - {fileID: 2131466679916396128}
+  - {fileID: 3177549400016213336}
+  - {fileID: 493064233802934780}
