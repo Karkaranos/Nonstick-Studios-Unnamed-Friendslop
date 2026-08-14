@@ -86,8 +86,8 @@ public class PickupInteractable : MonoBehaviour, IInteractable
     {
         mr.material = standardMat;
 
-        c.enabled = true;
         transform.parent = null;
+        c.enabled = true;
         rb.isKinematic = false;
 
         Debug.Log($"{gameObject.name} has ended its interaction");
