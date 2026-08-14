@@ -36173,6 +36173,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -63.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2343760976482882104, guid: e3d0522e566e31e4e802c535e9ac9820, type: 3}
+      propertyPath: shipOxygenMax
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343760976482882104, guid: e3d0522e566e31e4e802c535e9ac9820, type: 3}
+      propertyPath: shipOxygenPerTreasure
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343760976482882104, guid: e3d0522e566e31e4e802c535e9ac9820, type: 3}
+      propertyPath: shipOxygenUpgradedMax
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343760976482882104, guid: e3d0522e566e31e4e802c535e9ac9820, type: 3}
+      propertyPath: shipOxygenDepletionTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2349448507051219415, guid: e3d0522e566e31e4e802c535e9ac9820, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -58416,6 +58432,22 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 760
       objectReference: {fileID: 0}
+    - target: {fileID: 326129528764308711, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: LosingOxygen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 326129528764308711, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: playerOxygenMax
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 326129528764308711, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: playerOxygenDepletionTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 326129528764308711, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: playerOxygenDepletionAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 355486725372008321, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
       propertyPath: m_VersionIndex
       value: 2300
@@ -58508,6 +58540,30 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 2351
       objectReference: {fileID: 0}
+    - target: {fileID: 4905860466155264295, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: landGravity
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905860466155264295, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: fullJumpHeight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905860466155264295, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: tapJumpHeightPercent
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905860466155264295, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: baseLandMovementSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905860466155264295, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: timeToMaxAcceleration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4905860466155264295, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: maxAccelerationMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5157744752621128278, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -58559,6 +58615,30 @@ PrefabInstance:
     - target: {fileID: 8215761751858035764, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
       propertyPath: m_VersionIndex
       value: 2318
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239304597042296976, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: waterGravity
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239304597042296976, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: timeToMaxAcceleration
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239304597042296976, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: baseWaterMovementSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239304597042296976, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: ascentWaterMovementSpeed
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239304597042296976, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: descentWaterMovementSpeed
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8239304597042296976, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
+      propertyPath: maxAccelerationMultiplier
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 8572834964258126542, guid: ef6f6def967941f49b7f2b6170243169, type: 3}
       propertyPath: m_VersionIndex
