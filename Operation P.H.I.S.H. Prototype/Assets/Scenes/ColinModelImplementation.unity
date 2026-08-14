@@ -1898,7 +1898,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577a48588a2e2b4428281064e12b33dd, type: 3}
---- !u!1001 &3177549400016213336
+--- !u!1001 &3431589698003997298
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1906,47 +1906,47 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8577982254490926382, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 3637186969011338735, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_Name
       value: BulbshroomChopped
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8906001626989388149, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
+    - target: {fileID: 4717452159668691808, guid: dcb816704a5a8ff42ba6f4104951f9e7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
@@ -1965,5 +1965,5 @@ SceneRoots:
   - {fileID: 2073468854}
   - {fileID: 3123039034127644735}
   - {fileID: 2131466679916396128}
-  - {fileID: 3177549400016213336}
+  - {fileID: 3431589698003997298}
   - {fileID: 493064233802934780}
