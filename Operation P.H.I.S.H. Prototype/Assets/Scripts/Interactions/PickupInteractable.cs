@@ -8,7 +8,7 @@ External Resources :
 using NaughtyAttributes;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(MeshRenderer))]
+[RequireComponent(typeof(Rigidbody), typeof(MeshRenderer), typeof(Collider))]
 public class PickupInteractable : MonoBehaviour, IInteractable
 {
     #region VARS
@@ -19,6 +19,7 @@ public class PickupInteractable : MonoBehaviour, IInteractable
     [SerializeField] private Material interactMat;
 
     private MeshRenderer mr;
+    private Collider c;
 
     [SerializeField, Layer] private int shipLayer;
     private PlayerController heldBy;
@@ -36,6 +37,7 @@ public class PickupInteractable : MonoBehaviour, IInteractable
     {
         mr = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
+        c = GetComponent<Collider>();
         standardMat = mr.material;
 
         OriginalPos = gameObject.transform.position;
@@ -60,6 +62,7 @@ public class PickupInteractable : MonoBehaviour, IInteractable
 
         heldBy = pc;
         rb.isKinematic = true;
+        c.enabled = false;
         transform.parent = pc.PickupPoint;
         transform.localPosition = Vector3.zero;
 
@@ -84,6 +87,7 @@ public class PickupInteractable : MonoBehaviour, IInteractable
         mr.material = standardMat;
 
         transform.parent = null;
+        c.enabled = true;
         rb.isKinematic = false;
 
         Debug.Log($"{gameObject.name} has ended its interaction");

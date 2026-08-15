@@ -46,7 +46,7 @@ public class LandMovement : Movement
     {
         base.OnEnable();
 
-        if(ShipDiveController.Instance != null)
+        if(ShipDiveController.Instance.Diving)
         {
             this.GetComponent<PlayerOxygenManager>().ResetOxygen();
         }
