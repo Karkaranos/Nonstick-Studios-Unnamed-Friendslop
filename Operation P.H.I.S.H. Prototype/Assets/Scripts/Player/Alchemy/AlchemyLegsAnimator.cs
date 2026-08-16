@@ -58,6 +58,9 @@ public class AlchemyLegsAnimator : MonoBehaviour
     /// <returns></returns>
     IEnumerator AnimateLegs()
     {
+        leftLegMovingForwards = true;
+        rightLegMovingForwards = false;
+
         while (PlayerInputHandler.Instance.IsMovementHeld)
         {
             Debug.Log(leftLeg_t);
@@ -83,11 +86,8 @@ public class AlchemyLegsAnimator : MonoBehaviour
             if (rightLeg_t <= 0) rightLegMovingForwards = false;
             if (rightLeg_t >= 1) rightLegMovingForwards = true;
 
-            float left_x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, leftLeg_t);
-            float right_x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, rightLeg_t);
-
-            leftLegRotation.x = left_x;
-            rightLegRotation.x = right_x;
+            leftLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, leftLeg_t);
+            rightLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, rightLeg_t);
             leftLegPivot.transform.localEulerAngles = leftLegRotation;
             rightLegPivot.transform.localEulerAngles = rightLegRotation;
 
@@ -100,6 +100,18 @@ public class AlchemyLegsAnimator : MonoBehaviour
         Debug.Log("Resting Position");
         leftLegMovingForwards = true;
         rightLegMovingForwards = false;
-        yield return null;  
+
+        while(leftLeg_t != restingLegRotation_percent && rightLeg_t != restingLegRotation_percent)
+        {
+            leftLeg_t = Mathf.MoveTowards(leftLeg_t, restingLegRotation_percent, Time.deltaTime * legRotationSpeed);
+            rightLeg_t = Mathf.MoveTowards(rightLeg_t, restingLegRotation_percent, Time.deltaTime * legRotationSpeed);
+
+            leftLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, leftLeg_t);
+            rightLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, rightLeg_t);
+            leftLegPivot.transform.localEulerAngles = leftLegRotation;
+            rightLegPivot.transform.localEulerAngles = rightLegRotation;
+
+            yield return null;
+        }
     }
 }

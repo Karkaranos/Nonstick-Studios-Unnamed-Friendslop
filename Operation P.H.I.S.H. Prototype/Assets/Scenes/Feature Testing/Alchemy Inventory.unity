@@ -3523,7 +3523,7 @@ GameObject:
   - component: {fileID: 455589640}
   - component: {fileID: 455589639}
   m_Layer: 0
-  m_Name: LArm
+  m_Name: L Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3561,7 +3561,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -3650,14 +3650,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459968287}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
   m_LocalPosition: {x: 0.3, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.30000007, z: 0.30000007}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 892507952}
   m_Father: {fileID: 1322269822}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
 --- !u!33 &459968289
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6809,7 +6809,7 @@ GameObject:
   - component: {fileID: 892507954}
   - component: {fileID: 892507953}
   m_Layer: 0
-  m_Name: RArm
+  m_Name: R Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6847,7 +6847,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Height: 2
@@ -10149,7 +10149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322269821}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.24064186, y: -0, z: -0, w: 0.970614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.26, z: 0.312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12382,14 +12382,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894034640}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
   m_LocalPosition: {x: -0.3, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.30000007, z: 0.30000007}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 455589638}
   m_Father: {fileID: 1322269822}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
 --- !u!33 &1894034642
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -16182,8 +16182,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AlchemyLegsAnimator
   leftLegPivot: {fileID: 1894034641}
   rightLegPivot: {fileID: 459968288}
-  legRotationRange: {x: 0, y: 120}
-  legRotationSpeed: 3
+  legRotationRange: {x: 20, y: 120}
+  legRotationSpeed: 1.5
 --- !u!23 &7292522974538319975
 MeshRenderer:
   m_ObjectHideFlags: 0
