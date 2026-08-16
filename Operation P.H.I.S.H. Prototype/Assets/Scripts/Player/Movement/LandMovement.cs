@@ -419,4 +419,9 @@ public class LandMovement : Movement
         lookingAt = null;
         interactingWith = null;
     }
+
+    protected override void OnECanceled()
+    {
+        throw new System.NotImplementedException();
+    }
 }

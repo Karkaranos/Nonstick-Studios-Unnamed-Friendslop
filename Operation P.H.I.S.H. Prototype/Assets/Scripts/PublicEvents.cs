@@ -17,6 +17,7 @@ public static class PublicEvents
     public static Action MoveStopped;
     public static Action<Vector2> MousePosition;
     public static Action EClicked;
+    public static Action ECanceled;
     public static Action ReelTetherStarted;
     public static Action<float> ReelTetherHeld; // float: deltaTime
     public static Action ReelTetherFinished;

@@ -39,7 +39,6 @@ public class AlchemyPlayerController : MonoBehaviour
 
     private Vector3 lastCamPosition;
     private float lineLength;
-
     #endregion
 
     #region FUNCTIONS
