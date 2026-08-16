@@ -13,6 +13,7 @@ using UnityEngine.UI;
 using NaughtyAttributes;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -108,7 +109,11 @@ public class PlayerController : MonoBehaviour
     private void ToggleMovement(MovementType type)
     {
         currentMovement = type;
-        Movement newMovement = movementScripts[0];
+        // first movement script thats not null.
+        Movement newMovement = movementScripts
+            .Select(k_v=>k_v.Value)
+            .Where(m=>m!=null)
+            .First();
         foreach (var movement in movementScripts.Values)
         {
             if (movement == null)

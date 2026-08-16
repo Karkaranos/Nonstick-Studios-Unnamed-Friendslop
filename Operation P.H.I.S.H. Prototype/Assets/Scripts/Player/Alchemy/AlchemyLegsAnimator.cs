@@ -2,7 +2,7 @@
 Author Names : 		    Toby Schamberger
 Date Created : 		    8/15/2026
 Date Last Modified : 	8/15/2026
-Brief Description : 	Animates the players legs while theyre moving
+Brief Description : 	Animates the players legs while theyre moving. Hip rotation is handled in LandMovement.
 External Resources : 	
 ***************************************************/
 
@@ -17,8 +17,8 @@ public class AlchemyLegsAnimator : MonoBehaviour
     [SerializeField, MinMaxSlider(0,180)] private Vector2 legRotationRange;
     [SerializeField] private float legRotationSpeed = 3f;
 
-    private float leftLeg_t;
-    private float rightLeg_t;
+    // t refers to the left leg primarily. RLeg rotation is a 1-t
+    private float t;
 
     private bool leftLegMovingForwards = true;
     private bool rightLegMovingForwards = false;
@@ -31,10 +31,9 @@ public class AlchemyLegsAnimator : MonoBehaviour
     private void Start()
     {
         // Get players resting leg percent as a percent
-        float restingLegRotation = leftLegPivot.rotation.x;
+        float restingLegRotation = leftLegPivot.localEulerAngles.x;
         restingLegRotation_percent = Mathf.InverseLerp(legRotationRange.x, legRotationRange.y, restingLegRotation);
-        leftLeg_t = restingLegRotation_percent;
-        rightLeg_t = restingLegRotation_percent;
+        t = restingLegRotation_percent;
 
         leftLegRotation = leftLegPivot.localEulerAngles;
         rightLegRotation = rightLegPivot.localEulerAngles;
@@ -58,36 +57,24 @@ public class AlchemyLegsAnimator : MonoBehaviour
     /// <returns></returns>
     IEnumerator AnimateLegs()
     {
-        leftLegMovingForwards = true;
-        rightLegMovingForwards = false;
-
         while (PlayerInputHandler.Instance.IsMovementHeld)
         {
-            Debug.Log(leftLeg_t);
+            Debug.Log(t);
 
             // theres definitely a cleaner way to do this that isnt a million if statements and itll haunt me every night but idc
 
             if(leftLegMovingForwards)
-                leftLeg_t -= Time.deltaTime * legRotationSpeed;
+                t -= Time.deltaTime * legRotationSpeed;
             else
-                leftLeg_t += Time.deltaTime * legRotationSpeed;
+                t += Time.deltaTime * legRotationSpeed;
 
-            if (rightLegMovingForwards)
-                rightLeg_t -= Time.deltaTime * legRotationSpeed;
-            else
-                rightLeg_t += Time.deltaTime * legRotationSpeed;
+            t = Mathf.Clamp01(t);
 
-            leftLeg_t = Mathf.Clamp01(leftLeg_t);
-            rightLeg_t = Mathf.Clamp01(rightLeg_t);
+            if (t <= 0) leftLegMovingForwards = false;
+            if (t >= 1) leftLegMovingForwards = true;
 
-            if (leftLeg_t <= 0) leftLegMovingForwards = false;
-            if (leftLeg_t >= 1) leftLegMovingForwards = true;
-
-            if (rightLeg_t <= 0) rightLegMovingForwards = false;
-            if (rightLeg_t >= 1) rightLegMovingForwards = true;
-
-            leftLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, leftLeg_t);
-            rightLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, rightLeg_t);
+            leftLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, t);
+            rightLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, 1-t);
             leftLegPivot.transform.localEulerAngles = leftLegRotation;
             rightLegPivot.transform.localEulerAngles = rightLegRotation;
 
@@ -98,20 +85,25 @@ public class AlchemyLegsAnimator : MonoBehaviour
     IEnumerator ReturnLegsToRestingPosition()
     {
         Debug.Log("Resting Position");
-        leftLegMovingForwards = true;
-        rightLegMovingForwards = false;
 
-        while(leftLeg_t != restingLegRotation_percent && rightLeg_t != restingLegRotation_percent)
+        float rightLeg_t = Mathf.InverseLerp(legRotationRange.x, legRotationRange.y, rightLegPivot.localEulerAngles.x);
+
+        while (t != restingLegRotation_percent || rightLeg_t != restingLegRotation_percent)
         {
-            leftLeg_t = Mathf.MoveTowards(leftLeg_t, restingLegRotation_percent, Time.deltaTime * legRotationSpeed);
+            t = Mathf.MoveTowards(t, restingLegRotation_percent, Time.deltaTime * legRotationSpeed);
             rightLeg_t = Mathf.MoveTowards(rightLeg_t, restingLegRotation_percent, Time.deltaTime * legRotationSpeed);
 
-            leftLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, leftLeg_t);
+            leftLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, t);
             rightLegRotation.x = Mathf.Lerp(legRotationRange.x, legRotationRange.y, rightLeg_t);
             leftLegPivot.transform.localEulerAngles = leftLegRotation;
             rightLegPivot.transform.localEulerAngles = rightLegRotation;
 
             yield return null;
         }
+
+        Debug.Log("Legs rested");
+
+        leftLegMovingForwards = true;
+        rightLegMovingForwards = false;
     }
 }

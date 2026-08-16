@@ -21,6 +21,7 @@ public class LandMovement : Movement
     [SerializeField] private Transform bodyParent;
     [SerializeField] private Transform hipsParent;
 
+    [Header("Movement Variables")]
     [SerializeField] private float baseLandMovementSpeed = 1f;
     [SerializeField] private float tapJumpHeightPercent = .5f;
     [SerializeField] private float fullJumpHeight;
@@ -33,11 +34,18 @@ public class LandMovement : Movement
     private IInteractable lookingAt;
     private IInteractable interactingWith;
     private bool interacting;
+
+    [Header("Camera Interaction")]
     [SerializeField] private float sightDistance = 2f;
+    [Tooltip("The minimum angle for the camera to be considered to be \"looking down\"")]
+    [SerializeField] private float lookingDownAngle = 50f;
+    [Tooltip("If the difference between the players look direction and their legs rotation is greater, then legs start rotating with the camera")]
+    [SerializeField] private float lookingAwayFromLegsAngle = 50f;
 
     bool jumpThisFrame;
+    Vector3 baseHipLocalRotation;
 
-    Vector2 rotation;
+    Vector2 cameraRotation;
     Rigidbody rb;
 
     private Vector3 lookingDirection(Vector2 moveVector) => (pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x);
@@ -63,7 +71,10 @@ public class LandMovement : Movement
     {
         pc = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
-        rotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
+        cameraRotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
+
+        if(hipsParent != null) 
+            baseHipLocalRotation = hipsParent.transform.localEulerAngles;
     }
 
     /// <summary>
@@ -82,32 +93,37 @@ public class LandMovement : Movement
 
         Vector2 adjustedDelta = cameraVector * pc.CameraSensitivity * Time.fixedDeltaTime;
 
-        rotation.x -= adjustedDelta.y;
-        rotation.x = Mathf.Clamp(rotation.x, minCameraYClamp, maxCameraYClamp);
-        rotation.y += adjustedDelta.x;
+        cameraRotation.x -= adjustedDelta.y;
+        cameraRotation.x = Mathf.Clamp(cameraRotation.x, minCameraYClamp, maxCameraYClamp);
+        cameraRotation.y += adjustedDelta.x;
 
-        pc.CameraRotationParent.localEulerAngles = rotation;
+        pc.CameraRotationParent.localEulerAngles = cameraRotation;
 
+        #region Rotate Arms Parent
         if (armsParent != null)
         {
             Vector3 armsRotation = armsParent.transform.localEulerAngles;
-            armsRotation.y = rotation.y;
-            armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
+            armsRotation.y = cameraRotation.y;
+            armsRotation.x = Mathf.Clamp(cameraRotation.x, -40, 40);
             armsParent.transform.localEulerAngles = armsRotation;
         }
+        #endregion
 
+        #region Rotate Body Parent
         // Similar rotation to arms, but doesnt move up and down with camera.
         if (bodyParent != null)
         {
             Vector3 bodyRotation = bodyParent.transform.localEulerAngles;
-            bodyRotation.y = rotation.y;
+            bodyRotation.y = cameraRotation.y;
             bodyParent.transform.localEulerAngles = bodyRotation;
-
-            if (hipsParent != null)
-                hipsParent.transform.localEulerAngles = bodyRotation;
         }
+        #endregion
 
-        if(LookingAtObject())
+        #region Rotate hips/legs Parent
+        RotateHips();
+        #endregion
+
+        if (LookingAtObject())
         {
             pc.CrosshairImage.sprite = pc.InteractableSprite;
         }
@@ -115,8 +131,34 @@ public class LandMovement : Movement
         {
             pc.CrosshairImage.sprite = pc.StandardSprite;
         }
-        
-        Debug.Log("LOOK");
+    }
+
+    /// <summary>
+    /// Rotates legs so that pockets can be easily accessed.
+    /// </summary>
+    private void RotateHips()
+    {
+        if (hipsParent == null)
+            return;
+
+        float hipRotation = hipsParent.transform.localEulerAngles.y;
+
+        Debug.Log(Mathf.Abs(Mathf.DeltaAngle(hipRotation, cameraRotation.y)));
+
+        // only rotate the hips if the player is looking up, this way they can reach in their pockets
+        if (cameraRotation.x < lookingDownAngle)
+        {
+            hipRotation = cameraRotation.y;
+        }
+
+        // if the player is looking too far away from their legs, then rotate em just a lil
+        else if (Mathf.Abs(Mathf.DeltaAngle(hipRotation, cameraRotation.y)) > lookingAwayFromLegsAngle)
+        {
+            hipRotation = Mathf.MoveTowardsAngle(hipRotation, cameraRotation.y, Time.deltaTime * 10); //todo: dont hardcode this l8r
+        }
+
+        // if code reaches this point, then player is looking down, so we dont rotate anything.
+        hipsParent.transform.localEulerAngles = baseHipLocalRotation.WithY( hipRotation );
     }
 
     /// <summary>
