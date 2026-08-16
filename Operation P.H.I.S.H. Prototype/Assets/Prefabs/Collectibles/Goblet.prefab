@@ -110,6 +110,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f0f6348f6ba9ace43a99af058e03b71c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8975334091590428993}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f0f6348f6ba9ace43a99af058e03b71c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7458594118163085235}
   m_SourcePrefab: {fileID: 100100000, guid: f0f6348f6ba9ace43a99af058e03b71c, type: 3}
 --- !u!4 &5957202162792417107 stripped
 Transform:
@@ -170,3 +173,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7458594118163085235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6478405392633044457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11bf7f5b3aa9ff24c8ce5313f3362a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupInteractable
+  hoverMat: {fileID: 2100000, guid: d03d55ef0003b0e40a178110718de389, type: 2}
+  interactMat: {fileID: -1980079746186394843, guid: f0f6348f6ba9ace43a99af058e03b71c, type: 3}
+  shipLayer: 3
+  OriginalPos: {x: 0, y: 0, z: 0}

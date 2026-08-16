@@ -1,38 +1,45 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor, Sky Beal
-Date Created : 		    07/22/2026
-Date Last Modified : 	08/7/2026
-Brief Description : 	Actually defines and handles land movement
+Author Names : 		    Jacob Bateman, Clare Grady, Cade Naylor, Sky Beal
+Date Created : 		    08/12/2026
+Date Last Modified : 	08/12/2026
+Brief Description : 	Actually defines and handles land movement.
+Jacob Note:             Took this script from PHISH and edited it to fit AS.
 
 External Resources :    	
 ***************************************************/
+using NaughtyAttributes;
 using System.Collections;
-using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 
-[RequireComponent(typeof(Rigidbody), typeof(PlayerController))]
-public class LandMovement : Movement
+[RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(AlchemyPlayerController))]
+public class AlchemyMovement : Movement
 {
-    private PlayerController pc;
+    private AlchemyPlayerController pc;
     [SerializeField] private float minCameraYClamp = 120f;
     [SerializeField] private float maxCameraYClamp = 60f;
     [SerializeField] private Transform armsParent;
 
-    [SerializeField] private float baseLandMovementSpeed = 1f;
+    [SerializeField] private float baseMovementSpeed = 1f;
+    [Tooltip("This penalty is multiplied with the speed and should be 0 - 0.9")]
+    [MinValue(0f), MaxValue(0.99f)]
+    [SerializeField] private float crouchMovementPenalty = 0.5f;
     [SerializeField] private float tapJumpHeightPercent = .5f;
     [SerializeField] private float fullJumpHeight;
     [SerializeField] private float timeToMaxAcceleration = 5f;
     [SerializeField] private float maxAccelerationMultiplier = 3f;
-    [SerializeField] private float landGravity = -10f;
+    [SerializeField] private float gravity = -10f;
     private float accelleration = 1f;
     private Coroutine shiftHold;
 
-    private IInteractable lookingAt;
-    private IInteractable interactingWith;
+    private IAlchemyInteractable lookingAt;
+    private IAlchemyInteractable interactingWith;
     private bool interacting;
     [SerializeField] private float sightDistance = 2f;
 
-    bool jumpThisFrame;
+    private bool jumpThisFrame;
+    private bool isCrouching = false;
 
     Vector2 rotation;
     Rigidbody rb;
@@ -45,12 +52,6 @@ public class LandMovement : Movement
     protected override void OnEnable()
     {
         base.OnEnable();
-
-        if(ShipDiveController.Instance.Diving)
-        {
-            this.GetComponent<PlayerOxygenManager>().ResetOxygen();
-        }
-
     }
 
     /// <summary>
@@ -58,7 +59,7 @@ public class LandMovement : Movement
     /// </summary>
     private void Start()
     {
-        pc = GetComponent<PlayerController>();
+        pc = GetComponent<AlchemyPlayerController>();
         rb = GetComponent<Rigidbody>();
         rotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
     }
@@ -72,11 +73,6 @@ public class LandMovement : Movement
     /// <param name="cameraVector">Vector2 containing the mouse's delta </param>
     protected override void OnMouseMove(Vector2 cameraVector)
     {
-        if (interactingWith != null && interactingWith.ToString().Contains("ShipMovementControllers"))
-        {
-            return;
-        }
-
         Vector2 adjustedDelta = cameraVector * pc.CameraSensitivity * Time.fixedDeltaTime;
 
         rotation.x -= adjustedDelta.y;
@@ -93,7 +89,7 @@ public class LandMovement : Movement
             armsParent.transform.localEulerAngles = armsRotation;
         }
 
-        if(LookingAtObject())
+        if (LookingAtObject())
         {
             pc.CrosshairImage.sprite = pc.InteractableSprite;
         }
@@ -101,7 +97,7 @@ public class LandMovement : Movement
         {
             pc.CrosshairImage.sprite = pc.StandardSprite;
         }
-        
+
         Debug.Log("LOOK");
     }
 
@@ -111,7 +107,7 @@ public class LandMovement : Movement
     /// <returns></returns>
     public float GetJumpHeight()
     {
-        return Mathf.Sqrt(fullJumpHeight * landGravity * -2f) + 1f;
+        return Mathf.Sqrt(fullJumpHeight * gravity * -2f) + 1f;
     }
 
     /// <summary>
@@ -121,17 +117,11 @@ public class LandMovement : Movement
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
-        /*Vector3 newValue;
-        if (TetherManager.Instance.CanPlayerMoveInDirection(moveVector))
-            newValue = lookingDirection(moveVector) * baseLandMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
-        else
-            newValue = Vector3.zero;*/
-        if(interactingWith != null && (interactingWith.ToString().Contains("ShipMovementControllers") || interactingWith.ToString().Contains("PeriscopeController")))
-        {
-            return;
-        }
+        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) 
+            * baseMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
 
-        Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) * baseLandMovementSpeed * 100f * accelleration *  Time.fixedDeltaTime;
+        if (isCrouching)
+            newValue *= crouchMovementPenalty;
 
         if (!Grounded() || jumpThisFrame)
         {
@@ -152,16 +142,16 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnEClicked()
     {
-        if(lookingAt != null)
+        if (lookingAt != null)
         {
-            if(interactingWith == null)
+            if (interactingWith == null)
             {
                 interactingWith = lookingAt;
                 interactingWith.EnterInteract(pc);
             }
             else
             {
-                if(lookingAt!= interactingWith)
+                if (lookingAt != interactingWith)
                 {
                     interactingWith.ExitInteract();
                     interactingWith = lookingAt;
@@ -177,37 +167,14 @@ public class LandMovement : Movement
         else if (interactingWith != null)
         {
             interactingWith.ExitInteract();
-            if(interactingWith == lookingAt)
+            if (interactingWith == lookingAt)
             {
                 interactingWith.EnterHover();
             }
             interactingWith = null;
         }
 
-            Debug.Log("E");
-    }
-    
-    /// <summary>
-    /// Reel in tether while reel button is held (in theory)
-    /// </summary>
-    /// <param name="deltaTime"></param>
-    protected override void WhileReelTetherHeld(float deltaTime)
-    {
-        Debug.Log("REELIN IN");
-        //TetherManager.Instance.PullTetheredObject(null, deltaTime);
-    }
-
-    protected override void ReelTetherStarted()
-    {
-        Debug.Log("Reel Tether");
-    }
-
-    protected override void ReelTetherFinished()
-    {
-        Debug.Log("Reel Tether Finished");
-
-        // this feels terrible for the player but its temp and i need to get this done fast
-        //rb.angularVelocity = Vector3.zero;
+        Debug.Log("E");
     }
 
     /// <summary>
@@ -218,7 +185,7 @@ public class LandMovement : Movement
         if (Grounded())
         {
             jumpThisFrame = true;
-            float jumpForce = Mathf.Sqrt(fullJumpHeight * landGravity * -2f);
+            float jumpForce = Mathf.Sqrt(fullJumpHeight * gravity * -2f);
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
         }
         Debug.Log("Space Started");
@@ -238,7 +205,7 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnShiftStarted()
     {
-        if(shiftHold == null)
+        if (shiftHold == null && !isCrouching)
         {
             shiftHold = StartCoroutine(Accelerate());
         }
@@ -250,7 +217,7 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnShiftFinished()
     {
-        if(shiftHold != null)
+        if (shiftHold != null)
         {
             StopCoroutine(shiftHold);
             shiftHold = null;
@@ -264,6 +231,9 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnControlStarted()
     {
+        isCrouching = true;
+        Crouch();
+
         Debug.Log("Control Started");
     }
 
@@ -272,7 +242,26 @@ public class LandMovement : Movement
     /// </summary>
     protected override void OnControlFinished()
     {
+        isCrouching = false;
+        Crouch();
+
         Debug.Log("Control Finished");
+    }
+
+    /// <summary>
+    /// Sets player height depending on whether or not they are crouching.
+    /// In a non-prototype this should be controlled by animations.
+    /// </summary>
+    private void Crouch()
+    {
+        Vector3 newScale = gameObject.transform.localScale;
+
+        if (isCrouching)
+            newScale.y /= 2f;
+        else
+            newScale.y *= 2f;
+
+        gameObject.transform.localScale = newScale;
     }
 
     /// <summary>
@@ -282,7 +271,7 @@ public class LandMovement : Movement
     protected bool Grounded()
     {
         RaycastHit hit;
-        float groundCheckDistance = transform.localScale.y+ .1f;
+        float groundCheckDistance = transform.localScale.y + .1f;
         return Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance);
     }
 
@@ -295,27 +284,21 @@ public class LandMovement : Movement
         RaycastHit hit;
         Vector3 direction = pc.CameraRotationParent.forward;
 
-        if(Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
+        if (Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
         {
-            if(hit.transform.GetComponent<IInteractable>()!= null)
+            if (hit.transform.GetComponent<IAlchemyInteractable>() != null)
             {
-                if(hit.transform.GetComponent<ShipMovementControllers>() != null &&
-                !ShipDiveController.Instance.Diving)
-                {
-                    return false;
-                }
-
-                if(interactingWith != null && hit.transform.GetComponent<IInteractable>() == interactingWith)
+                if (interactingWith != null && hit.transform.GetComponent<IAlchemyInteractable>() == interactingWith)
                 {
                     return true;
                 }
 
-                if(lookingAt != null && hit.transform.GetComponent<IInteractable>() != lookingAt)
+                if (lookingAt != null && hit.transform.GetComponent<IAlchemyInteractable>() != lookingAt)
                 {
                     lookingAt.ExitHover();
                 }
 
-                lookingAt = hit.transform.GetComponent<IInteractable>();
+                lookingAt = hit.transform.GetComponent<IAlchemyInteractable>();
                 lookingAt.EnterHover();
 
                 pc.CrosshairImage.sprite = pc.InteractableSprite;
@@ -344,7 +327,7 @@ public class LandMovement : Movement
     protected IEnumerator Accelerate()
     {
         float timer = 0f;
-        while(timer < timeToMaxAcceleration)
+        while (timer < timeToMaxAcceleration)
         {
             accelleration = 1f + (timer / timeToMaxAcceleration) * maxAccelerationMultiplier;
             Mathf.Clamp(accelleration, 1f, maxAccelerationMultiplier);
@@ -355,31 +338,6 @@ public class LandMovement : Movement
             yield return null;
         }
     }
-
-    /// <summary>
-    /// Adjust movement for tether
-    /// </summary>
-    private void FixedUpdate()
-    {
-        if (TetherManager.Instance == null) return;
-
-        if (TetherManager.Instance.IsPlayerTethered(this) == false)
-            return;
-
-        // dont care if player isnt moving
-        Vector3 velocity = rb.linearVelocity;
-        if (Mathf.Approximately(velocity.magnitude, 0))
-            return;
-
-        /*
-        bool canMove = TetherManager.Instance.CanPlayerMoveInDirection(velocity);
-        if (!canMove && PlayerInputHandler.Instance.IsReelTetherHeld)
-        {
-            rb.linearVelocity = Vector3.zero;
-        }*/
-    }
-
-    
 
     /// <summary>
     /// Override from Movement class
@@ -398,7 +356,8 @@ public class LandMovement : Movement
     /// <param name="angle"></param>
     public override void SetCameraAngle(Vector3 angle)
     {
-        pc.CameraRotationParent.transform.localEulerAngles = angle;
+        //pc.CameraRotationParent.transform.localEulerAngles = angle;
+        Debug.LogWarning("Function SetCameraAngle should not be called in AS");
     }
 
     /// <summary>
@@ -407,7 +366,7 @@ public class LandMovement : Movement
     /// <exception cref="System.NotImplementedException"></exception>
     protected override void OnMoveEnd()
     {
-        // does nothinbg lol
+        // does nothing lol
     }
 
     /// <summary>
@@ -419,4 +378,26 @@ public class LandMovement : Movement
         lookingAt = null;
         interactingWith = null;
     }
+
+    /// <summary>
+    /// This section contains functions that are necessary to prevent compilation errors but should not be used for AS.
+    /// </summary>
+    #region Empty Overrides
+
+    protected override void ReelTetherStarted()
+    {
+        Debug.LogWarning("Function ReelTetherStarted should not be called in AS");
+    }
+
+    protected override void WhileReelTetherHeld(float deltaTime)
+    {
+        Debug.LogWarning("Function WhileReelTetherHeld should not be called in AS");
+    }
+
+    protected override void ReelTetherFinished()
+    {
+        Debug.LogWarning("Function ReelTetherFinished should not be called in AS");
+    }
+
+    #endregion
 }
