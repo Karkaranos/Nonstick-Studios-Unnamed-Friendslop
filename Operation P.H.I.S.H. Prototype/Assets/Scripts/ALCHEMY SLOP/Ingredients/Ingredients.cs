@@ -12,16 +12,16 @@ using System.Collections.Generic;
 public class Ingredients : ScriptableObject
 {
     [Tooltip("Where should this ingredient spawn?")]
-    public Vector3 SpawnLocation;
+    public List<Vector3> SpawnPoints;
 
     //TODO: add spawning intervals once the timer is finished!!
 
     [Tooltip("Which ingredient(s) can spawn here?")]
-    public List<GameObject> SpawnableIngredients = new List<GameObject>();
+    public GameObject SpawnableIngredient;
 
-    public Ingredients(Vector3 spawnLocation, List<GameObject> spawnableIngredients)
+    public Ingredients(List<Vector3> spawnPoints, GameObject spawnableIngredient)
     {
-        this.SpawnLocation = spawnLocation;
-        this.SpawnableIngredients = spawnableIngredients;
+        this.SpawnPoints = spawnPoints;
+        this.SpawnableIngredient = spawnableIngredient;
     }
 }

@@ -30,10 +30,9 @@ public class IngredientManager : MonoBehaviour
         {
             int index = Random.Range(0, ingredients.Count);
 
-            ingredient = ingredients[index].SpawnableIngredients
-            [Random.Range(0, ingredients[index].SpawnableIngredients.Count)];
+            ingredient = ingredients[index].SpawnableIngredient;
 
-            pos = ingredients[index].SpawnLocation;
+            pos = ingredients[index].SpawnPoints[Random.Range(0, ingredients[index].SpawnPoints.Count)];
         }
 
         Instantiate(ingredient, pos, Quaternion.identity);
