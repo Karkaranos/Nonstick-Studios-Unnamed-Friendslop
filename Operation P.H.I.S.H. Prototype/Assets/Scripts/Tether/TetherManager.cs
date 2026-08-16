@@ -85,15 +85,15 @@ public class TetherManager : Singleton<TetherManager>
         if (endSegment.NextSegment == null && endSegment.followingObject == null)
         {
             Transform playerObject;
-            playerObject = FindFirstObjectByType<WaterMovement>().transform;
+            playerObject = FindFirstObjectByType<WaterMovement>()?.transform;
 
             // if no water movement in the scene...
             if (playerObject == null)
-                playerObject = FindFirstObjectByType<LandMovement>().transform;
+                playerObject = FindFirstObjectByType<LandMovement>()?.transform;
 
             // the other two types of movement are prioritized bc of weird types of movement like the parascope.
             if (playerObject == null)
-                playerObject = FindFirstObjectByType<Movement>().transform;
+                playerObject = FindFirstObjectByType<Movement>()?.transform;
 
             endSegment.followingObject = playerObject;
         }

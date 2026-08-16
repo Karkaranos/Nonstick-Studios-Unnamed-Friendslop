@@ -29,6 +29,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     private Coroutine movementUpdates;
 
     public bool IsReelTetherHeld { get; private set; } = false;
+    public bool IsMovementHeld { get; private set; } = false;
 
     #endregion
 
@@ -96,10 +97,12 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     /// <param name="obj"></param>
     private void MoveCalled(InputAction.CallbackContext obj)
     {
-        if(movementUpdates == null)
+        if (movementUpdates == null)
         {
             movementUpdates = StartCoroutine(MovementUpdates());
         }
+        IsMovementHeld = true;
+        PublicEvents.MoveStarted.Invoke();
     }
 
     /// <summary>
@@ -117,6 +120,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         Vector2 moveDirection = move.ReadValue<Vector2>();
         PublicEvents.MoveDirection(moveDirection);
         PublicEvents.MoveStopped?.Invoke();
+        IsMovementHeld = false;
     }
 
     /// <summary>

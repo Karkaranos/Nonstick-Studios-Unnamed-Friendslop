@@ -111,6 +111,9 @@ public class PlayerController : MonoBehaviour
         Movement newMovement = movementScripts[0];
         foreach (var movement in movementScripts.Values)
         {
+            if (movement == null)
+                continue;
+
             if (movementScripts[type].Equals(movement))
             {
                 movement.enabled = true;
@@ -119,7 +122,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (movement.enabled)
+                if (movement!=null && movement.enabled)
                 {
                     lastCamPosition = movement.LastCameraAngle();
                 }

@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor, Sky Beal
+Author Names : 		    Clare Grady, Cade Naylor, Sky Beal, Toby Schamberger
 Date Created : 		    07/22/2026
-Date Last Modified : 	08/7/2026
+Date Last Modified : 	08/15/2026
 Brief Description : 	Actually defines and handles land movement
 
 External Resources :    	
@@ -19,7 +19,7 @@ public class LandMovement : Movement
     [SerializeField] private float maxCameraYClamp = 60f;
     [SerializeField] private Transform armsParent;
     [SerializeField] private Transform bodyParent;
-    [SerializeField] private Transform torsoParent;
+    [SerializeField] private Transform hipsParent;
 
     [SerializeField] private float baseLandMovementSpeed = 1f;
     [SerializeField] private float tapJumpHeightPercent = .5f;
@@ -94,12 +94,17 @@ public class LandMovement : Movement
             armsRotation.y = rotation.y;
             armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
             armsParent.transform.localEulerAngles = armsRotation;
+        }
 
-            if(torsoParent != null)
-                torsoParent.transform.localEulerAngles = armsRotation;
+        // Similar rotation to arms, but doesnt move up and down with camera.
+        if (bodyParent != null)
+        {
+            Vector3 bodyRotation = bodyParent.transform.localEulerAngles;
+            bodyRotation.y = rotation.y;
+            bodyParent.transform.localEulerAngles = bodyRotation;
 
-            if (bodyParent != null)
-                bodyParent.transform.localEulerAngles = armsRotation;
+            if (hipsParent != null)
+                hipsParent.transform.localEulerAngles = bodyRotation;
         }
 
         if(LookingAtObject())
