@@ -98,7 +98,7 @@ public class AlchemyMovement : Movement
             pc.CrosshairImage.sprite = pc.StandardSprite;
         }
 
-        Debug.Log("LOOK");
+        //Debug.Log("LOOK");
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ public class AlchemyMovement : Movement
 
         rb.linearVelocity = newValue;
 
-        Debug.Log("MOVE");
+        //Debug.Log("MOVE");
     }
 
     /// <summary>
@@ -174,7 +174,7 @@ public class AlchemyMovement : Movement
             interactingWith = null;
         }
 
-        Debug.Log("E");
+        //Debug.Log("E");
     }
 
     /// <summary>
@@ -188,7 +188,7 @@ public class AlchemyMovement : Movement
             float jumpForce = Mathf.Sqrt(fullJumpHeight * gravity * -2f);
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
         }
-        Debug.Log("Space Started");
+        //Debug.Log("Space Started");
     }
 
     /// <summary>
@@ -197,7 +197,7 @@ public class AlchemyMovement : Movement
     protected override void OnSpaceFinished()
     {
         jumpThisFrame = false;
-        Debug.Log("Space Finished");
+        //Debug.Log("Space Finished");
     }
 
     /// <summary>
@@ -209,7 +209,7 @@ public class AlchemyMovement : Movement
         {
             shiftHold = StartCoroutine(Accelerate());
         }
-        Debug.Log("Shift Start");
+        //Debug.Log("Shift Start");
     }
 
     /// <summary>
@@ -223,7 +223,7 @@ public class AlchemyMovement : Movement
             shiftHold = null;
             accelleration = 1;
         }
-        Debug.Log("Shift Finished");
+        //Debug.Log("Shift Finished");
     }
 
     /// <summary>
@@ -234,7 +234,7 @@ public class AlchemyMovement : Movement
         isCrouching = true;
         Crouch();
 
-        Debug.Log("Control Started");
+        //Debug.Log("Control Started");
     }
 
     /// <summary>
@@ -245,7 +245,7 @@ public class AlchemyMovement : Movement
         isCrouching = false;
         Crouch();
 
-        Debug.Log("Control Finished");
+        //Debug.Log("Control Finished");
     }
 
     /// <summary>
