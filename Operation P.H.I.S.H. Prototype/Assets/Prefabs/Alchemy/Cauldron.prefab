@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6522302751629910726}
+  - component: {fileID: 5073936091912292644}
   m_Layer: 0
   m_Name: Cauldron
   m_TagString: Untagged
@@ -34,6 +35,18 @@ Transform:
   - {fileID: 1549842117646038808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5073936091912292644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571032340604588789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd8ee6416b0adb548bf912afac0435b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CauldronInteractable
 --- !u!1 &1677447475300112709
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1110,7 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 4300000, guid: 7b39bf043b4d2fc43a8d3e6858a09b7d, type: 2}
+  m_Mesh: {fileID: 0}
   m_VersionIndex: 569
   m_IsSelectable: 1
   m_SelectedFaces: 
@@ -1186,7 +1199,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677447475300112709}
-  m_Mesh: {fileID: 4300000, guid: 7b39bf043b4d2fc43a8d3e6858a09b7d, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!64 &858311960999763666
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4154,7 +4167,7 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 4300000, guid: dc65c3e027fea7d47992bb721968b6c3, type: 2}
+  m_Mesh: {fileID: 0}
   m_VersionIndex: 1525
   m_IsSelectable: 1
   m_SelectedFaces: 
@@ -4244,7 +4257,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3253917240786213365}
-  m_Mesh: {fileID: 4300000, guid: dc65c3e027fea7d47992bb721968b6c3, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!64 &4810184688454583541
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5772,7 +5785,7 @@ MonoBehaviour:
     m_AreaError: 15
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
-  m_Mesh: {fileID: 4300000, guid: 4ea8e8bbfff166548bfeca2ed4874b6d, type: 2}
+  m_Mesh: {fileID: 0}
   m_VersionIndex: 1275
   m_IsSelectable: 1
   m_SelectedFaces: 
@@ -5862,7 +5875,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4227558483066033936}
-  m_Mesh: {fileID: 4300000, guid: 4ea8e8bbfff166548bfeca2ed4874b6d, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!64 &2043326681584965385
 MeshCollider:
   m_ObjectHideFlags: 0
