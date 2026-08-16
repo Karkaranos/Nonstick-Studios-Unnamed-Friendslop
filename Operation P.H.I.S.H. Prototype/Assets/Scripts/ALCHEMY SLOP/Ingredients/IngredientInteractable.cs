@@ -3,7 +3,6 @@ Author Names : 		    Jay Embry
 Date Created : 		    08/13/2026
 Brief Description : 	Script for interacting with ingredients
                         This should be put on each ingredient prefab(?)
-                        Thank you for IInteractable, Cade!!
 External Resources :    	
 ***************************************************/
 
@@ -13,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class IngredientInteractable : MonoBehaviour, IInteractable
+public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
 {
     Rigidbody rb;
     bool isPickedUp = false;
@@ -50,21 +49,31 @@ public class IngredientInteractable : MonoBehaviour, IInteractable
         }
     }
 
-    //wait im blocked
-    public void EnterInteract(PlayerController pc)
+    public void EnterInteract(AlchemyPlayerController pc)
     {
         transform.parent = pc.PickupPoint;
         isPickedUp = true;
 
+        if (isMoving)
+        {
+            rb.isKinematic = true;
+            navMeshAgent.enabled = false;
+        }
+
         transformIndex = 0;
+
+        Debug.Log($"GRABBED {this.name}.");
     }
 
     public void ExitInteract()
     {
+        transform.parent = null;
         isPickedUp = false;
 
-        if(isMoving)
+        if (isMoving)
         {
+            rb.isKinematic = false;
+            navMeshAgent.enabled = true;
             StartCoroutine(MoveNavMesh());
         }
     }
@@ -115,11 +124,28 @@ public class IngredientInteractable : MonoBehaviour, IInteractable
     {
         if (isBreakable)
         {
-            if(breakableSurfaces == (breakableSurfaces | 1 << collision.gameObject.layer) &&
-            rb.linearVelocity.magnitude >= minVelocity)
+            //this is driving me a little crazy
+            if(breakableSurfaces == (breakableSurfaces | 1 << collision.gameObject.layer))
             {
-                //swap for broken version of ingredient later
-                Destroy(this);
+                if(rb.linearVelocity.magnitude >= minVelocity)
+                {
+                    //swap for broken version of ingredient later
+                    Destroy(this.gameObject);
+                }
+                else if (collision.gameObject.GetComponent<Rigidbody>() != null && 
+                collision.gameObject.GetComponent<Rigidbody>().linearVelocity.magnitude >= minVelocity)
+                {
+                    //swap for broken version of ingredient later
+                    Destroy(this.gameObject);
+                }
+                //this is gross i'm sorry
+                else if (transform.parent.name.Contains("Hold") &&
+                transform.GetComponentInParent<AlchemyPlayerController>().
+                GetComponent<Rigidbody>().linearVelocity.magnitude >= minVelocity)
+                {
+                    //swap for broken version of ingredient later
+                    Destroy(this.gameObject);
+                }
             }
         }
     }

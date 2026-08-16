@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 369025426535251698}
-  - component: {fileID: -4016590523774119467}
   m_Layer: 0
   m_Name: TestIngredient1
   m_TagString: Untagged
@@ -33,25 +32,6 @@ Transform:
   - {fileID: 9048908826457350362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4016590523774119467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605512128339813487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c83027668664b43a043504fd71f7f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IngredientInteractable
-  isBreakable: 1
-  minVelocity: 0
-  breakableSurfaces:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  isMoving: 0
-  Transforms: []
 --- !u!1 &5210477721512649001
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,6 +44,8 @@ GameObject:
   - component: {fileID: 6859422974287291004}
   - component: {fileID: 7940404356105429853}
   - component: {fileID: 5315399382915896085}
+  - component: {fileID: 3237620306211042235}
+  - component: {fileID: 7433624072054393623}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -162,5 +144,51 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &3237620306211042235
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5210477721512649001}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &7433624072054393623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5210477721512649001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c83027668664b43a043504fd71f7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientInteractable
+  isBreakable: 1
+  minVelocity: 0.6
+  breakableSurfaces:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  isMoving: 0
+  Transforms: []
