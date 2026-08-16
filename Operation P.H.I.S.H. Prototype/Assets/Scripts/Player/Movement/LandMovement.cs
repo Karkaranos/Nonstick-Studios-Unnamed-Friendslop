@@ -6,6 +6,7 @@ Brief Description : 	Actually defines and handles land movement
 
 External Resources :    	
 ***************************************************/
+using NaughtyAttributes;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,6 +18,8 @@ public class LandMovement : Movement
     [SerializeField] private float minCameraYClamp = 120f;
     [SerializeField] private float maxCameraYClamp = 60f;
     [SerializeField] private Transform armsParent;
+    [SerializeField] private Transform bodyParent;
+    [SerializeField] private Transform torsoParent;
 
     [SerializeField] private float baseLandMovementSpeed = 1f;
     [SerializeField] private float tapJumpHeightPercent = .5f;
@@ -91,6 +94,12 @@ public class LandMovement : Movement
             armsRotation.y = rotation.y;
             armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
             armsParent.transform.localEulerAngles = armsRotation;
+
+            if(torsoParent != null)
+                torsoParent.transform.localEulerAngles = armsRotation;
+
+            if (bodyParent != null)
+                bodyParent.transform.localEulerAngles = armsRotation;
         }
 
         if(LookingAtObject())
