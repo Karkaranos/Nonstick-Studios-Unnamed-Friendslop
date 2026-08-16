@@ -70,7 +70,7 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnControlStarted();
     protected abstract void OnControlFinished();
 
-    protected abstract bool LookingAtObject();
+    protected abstract bool UpdateLookingAtObject();
 
     public abstract Vector3 LastCameraAngle();
 

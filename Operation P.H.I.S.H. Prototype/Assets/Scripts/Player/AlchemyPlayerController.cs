@@ -14,28 +14,13 @@ using UnityEngine.UI;
 using NaughtyAttributes;
 using System.Collections;
 
-public class AlchemyPlayerController : MonoBehaviour
+public class AlchemyPlayerController : PlayerController
 {
     #region VARS
 
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float cameraSensitivity;
     [SerializeField] private Transform cameraRotationParent;
-
-    public Camera PlayerCam { get { return playerCamera; } }
-    public float CameraSensitivity { get { return cameraSensitivity; } }
-    public Transform CameraRotationParent { get { return cameraRotationParent; } }
-
-
-    // in a non-prototype, these should be stored in a different script
-    [SerializeField] private Image playerCrosshair;
-    public Image CrosshairImage { get { return playerCrosshair; } }
-    [SerializeField] private Sprite standard;
-    public Sprite StandardSprite { get { return standard; } }
-    [SerializeField] private Sprite interactable;
-    public Sprite InteractableSprite { get { return interactable; } }
-
-    public Transform PickupPoint;
 
     private Vector3 lastCamPosition;
     private float lineLength;

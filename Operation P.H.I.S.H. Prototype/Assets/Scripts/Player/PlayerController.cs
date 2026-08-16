@@ -53,11 +53,13 @@ public class PlayerController : MonoBehaviour
     public Sprite StandardSprite { get { return standard; } }
     [SerializeField] private Sprite interactable;
     public Sprite InteractableSprite { get { return interactable; } }
+    public PickupInteractable heldInteractable { get; private set; }
 
     public Transform PickupPoint;
 
     private Vector3 lastCamPosition;
     private float lineLength;
+
 
     #endregion
 
@@ -116,8 +118,8 @@ public class PlayerController : MonoBehaviour
             .First();
         foreach (var movement in movementScripts.Values)
         {
-            if (movement == null)
-                continue;
+            if (movement == null) continue;
+            if (!movementScripts.ContainsKey(type) || movementScripts[type] == null) continue;
 
             if (movementScripts[type].Equals(movement))
             {
@@ -356,14 +358,33 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-
-
-
-                yield return new WaitForSecondsRealtime(timeBetweenMovementUpdates);
+            yield return new WaitForSecondsRealtime(timeBetweenMovementUpdates);
 
         }
     }
 
     #endregion
+
+    #region Interaction
+
+    /// <summary>
+    /// Sets held item. Rest of pickup logic is handled in the PickupInteractable script.
+    /// </summary>
+    /// <param name="pickup"></param>
+    public void SetPickupItem(PickupInteractable pickup, bool dropHeldItem = true)
+    {
+        Debug.Log($"{gameObject.name} is now holding {(pickup == null ? "nothing" : pickup.gameObject.name)}");
+
+        // if already holding something
+        if(heldInteractable != null && dropHeldItem)
+        {
+            heldInteractable.DropItem();
+        }
+
+        heldInteractable = pickup;
+    }
+
+    #endregion
+
     #endregion
 }

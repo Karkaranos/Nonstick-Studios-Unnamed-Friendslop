@@ -18,8 +18,6 @@ public class LandMovement : Movement
     [SerializeField] private float minCameraYClamp = 120f;
     [SerializeField] private float maxCameraYClamp = 60f;
     [SerializeField] private Transform armsParent;
-    [SerializeField] private Transform bodyParent;
-    [SerializeField] private Transform hipsParent;
 
     [Header("Movement Variables")]
     [SerializeField] private float baseLandMovementSpeed = 1f;
@@ -37,13 +35,8 @@ public class LandMovement : Movement
 
     [Header("Camera Interaction")]
     [SerializeField] private float sightDistance = 2f;
-    [Tooltip("The minimum angle for the camera to be considered to be \"looking down\"")]
-    [SerializeField] private float lookingDownAngle = 50f;
-    [Tooltip("If the difference between the players look direction and their legs rotation is greater, then legs start rotating with the camera")]
-    [SerializeField] private float lookingAwayFromLegsAngle = 50f;
 
     bool jumpThisFrame;
-    Vector3 baseHipLocalRotation;
 
     Vector2 cameraRotation;
     Rigidbody rb;
@@ -72,9 +65,6 @@ public class LandMovement : Movement
         pc = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
         cameraRotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
-
-        if(hipsParent != null) 
-            baseHipLocalRotation = hipsParent.transform.localEulerAngles;
     }
 
     /// <summary>
@@ -109,21 +99,9 @@ public class LandMovement : Movement
         }
         #endregion
 
-        #region Rotate Body Parent
-        // Similar rotation to arms, but doesnt move up and down with camera.
-        if (bodyParent != null)
-        {
-            Vector3 bodyRotation = bodyParent.transform.localEulerAngles;
-            bodyRotation.y = cameraRotation.y;
-            bodyParent.transform.localEulerAngles = bodyRotation;
-        }
-        #endregion
+       
 
-        #region Rotate hips/legs Parent
-        RotateHips();
-        #endregion
-
-        if (LookingAtObject())
+        if (UpdateLookingAtObject())
         {
             pc.CrosshairImage.sprite = pc.InteractableSprite;
         }
@@ -131,34 +109,6 @@ public class LandMovement : Movement
         {
             pc.CrosshairImage.sprite = pc.StandardSprite;
         }
-    }
-
-    /// <summary>
-    /// Rotates legs so that pockets can be easily accessed.
-    /// </summary>
-    private void RotateHips()
-    {
-        if (hipsParent == null)
-            return;
-
-        float hipRotation = hipsParent.transform.localEulerAngles.y;
-
-        Debug.Log(Mathf.Abs(Mathf.DeltaAngle(hipRotation, cameraRotation.y)));
-
-        // only rotate the hips if the player is looking up, this way they can reach in their pockets
-        if (cameraRotation.x < lookingDownAngle)
-        {
-            hipRotation = cameraRotation.y;
-        }
-
-        // if the player is looking too far away from their legs, then rotate em just a lil
-        else if (Mathf.Abs(Mathf.DeltaAngle(hipRotation, cameraRotation.y)) > lookingAwayFromLegsAngle)
-        {
-            hipRotation = Mathf.MoveTowardsAngle(hipRotation, cameraRotation.y, Time.deltaTime * 10); //todo: dont hardcode this l8r
-        }
-
-        // if code reaches this point, then player is looking down, so we dont rotate anything.
-        hipsParent.transform.localEulerAngles = baseHipLocalRotation.WithY( hipRotation );
     }
 
     /// <summary>
@@ -346,14 +296,14 @@ public class LandMovement : Movement
     /// Checks if the player is looking at an object that can be interacted with
     /// </summary>
     /// <returns>Returns true if they are</returns>
-    protected override bool LookingAtObject()
+    protected override bool UpdateLookingAtObject()
     {
         RaycastHit hit;
         Vector3 direction = pc.CameraRotationParent.forward;
 
         if(Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
         {
-            if(hit.transform.GetComponent<IInteractable>()!= null)
+            if (hit.transform.GetComponent<IInteractable>()!= null)
             {
                 if(hit.transform.GetComponent<ShipMovementControllers>() != null &&
                 !ShipDiveController.Instance.Diving)
