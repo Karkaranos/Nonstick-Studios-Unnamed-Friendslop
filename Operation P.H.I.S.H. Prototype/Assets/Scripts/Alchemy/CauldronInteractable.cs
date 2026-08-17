@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CauldronInteractable : Singleton<CauldronInteractable>, IInteractable
+public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInteractable
 {
     //replace type with ingredient ID
     private List<string> currentStoredIngredients;
@@ -89,22 +89,19 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IInteractab
 
     public void EnterHover()
     {
-        throw new System.NotImplementedException();
     }
 
-    public void EnterInteract(PlayerController pc)
+    public void ExitHover()
+    {
+    }
+
+    public void EnterInteract(AlchemyPlayerController pc)
     {
         CompareCurrentIngredientsToPossiblePotions();
         Debug.Log("$ Interacted with the cauldron.");
     }
 
-    public void ExitHover()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void ExitInteract()
     {
-        throw new System.NotImplementedException();
     }
 }
