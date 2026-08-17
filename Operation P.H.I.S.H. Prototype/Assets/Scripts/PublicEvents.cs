@@ -40,5 +40,7 @@ public static class PublicEvents
     public static Action HaltShipMovement;
     public static Action ResetPlayerInteractions;
 
+    public static Action ForceUpdatePage;
+
     #endregion OTHER EVENTS
 }
