@@ -608,7 +608,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1330595281361859899}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3856599944224869152}
+        m_TargetAssemblyTypeName: PopupCanvasInitializer, Assembly-CSharp
+        m_MethodName: AdvancePage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5635900992177844499
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +741,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2130021896270377056}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3856599944224869152}
+        m_TargetAssemblyTypeName: PopupCanvasInitializer, Assembly-CSharp
+        m_MethodName: TurnBackPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6129280201092430153
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,17 +6,33 @@ Brief Description : 	Stores data for the translating orb
 External Resources :    	
 ***************************************************/
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RecipeManager : Singleton<RecipeManager>
 {
-    [SerializeField] private RecipePageData[] storedInformation;
+    [SerializeField] public RecipePageData[] storedInformation;
 
-    public static RecipeManager instance { get; private set; }
+    public static RecipeManager InstancePub;
+
 
     [SerializeField] private int testUnlockByIndex;
     [SerializeField] private string testUnlockByTitle;
 
+
+    protected override void Awake()
+    {
+        if(InstancePub == null)
+        {
+            InstancePub = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+    }
     /// <summary>
     /// Unlocks page based on the page index
     /// </summary>

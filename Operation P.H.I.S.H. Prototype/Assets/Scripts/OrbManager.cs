@@ -11,14 +11,28 @@ using UnityEngine;
 
 public class OrbManager : Singleton<OrbManager>
 {
-    [SerializeField, Tooltip("In a non-prototype we could probably get this to autopopulate")] private OrbPageData[] storedInformation;
+    [SerializeField, Tooltip("In a non-prototype we could probably get this to autopopulate")] public OrbPageData[] storedInformation;
     [SerializeField] private Translation[] translations;
 
+    public static OrbManager InstancePub;
+
     public static Dictionary<string, string> RosettaStone = new Dictionary<string, string>();
-    public static OrbManager instance { get; private set; }
 
     [SerializeField] private int testUnlockByIndex;
     [SerializeField] private string testUnlockByTitle;
+
+    protected override void Awake()
+    {
+        if (InstancePub == null)
+        {
+            InstancePub = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     private void Start()
     {
