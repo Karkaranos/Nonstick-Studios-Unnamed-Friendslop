@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6522302751629910726}
   - component: {fileID: 5073936091912292644}
+  - component: {fileID: 710294763971848042}
   m_Layer: 0
   m_Name: Cauldron
   m_TagString: Untagged
@@ -47,6 +48,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8ee6416b0adb548bf912afac0435b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CauldronInteractable
+  destroyGameObject: 1
+  dontDestroyOnLoad: 0
+--- !u!65 &710294763971848042
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571032340604588789}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8448486, y: 1.5953932, z: 2.8094177}
+  m_Center: {x: -0.0005187988, y: 0.73520327, z: -0.0062408447}
 --- !u!1 &1677447475300112709
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,7 +1245,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 7b39bf043b4d2fc43a8d3e6858a09b7d, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!1 &3253917240786213365
 GameObject:
   m_ObjectHideFlags: 0
@@ -4279,7 +4303,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: dc65c3e027fea7d47992bb721968b6c3, type: 2}
+  m_Mesh: {fileID: 0}
 --- !u!1 &4227558483066033936
 GameObject:
   m_ObjectHideFlags: 0
@@ -5897,4 +5921,4 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 4ea8e8bbfff166548bfeca2ed4874b6d, type: 2}
+  m_Mesh: {fileID: 0}
