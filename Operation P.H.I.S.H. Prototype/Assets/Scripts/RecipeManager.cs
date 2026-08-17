@@ -6,29 +6,16 @@ Brief Description : 	Stores data for the translating orb
 External Resources :    	
 ***************************************************/
 using NaughtyAttributes;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class OrbManager : Singleton<OrbManager>
+public class RecipeManager : Singleton<RecipeManager>
 {
-    [SerializeField, Tooltip("In a non-prototype we could probably get this to autopopulate")] private OrbPageData[] storedInformation;
-    [SerializeField] private Translation[] translations;
+    [SerializeField] private RecipePageData[] storedInformation;
 
-    public static Dictionary<string, string> RosettaStone = new Dictionary<string, string>();
-    public static OrbManager instance { get; private set; }
+    public static RecipeManager instance { get; private set; }
 
     [SerializeField] private int testUnlockByIndex;
     [SerializeField] private string testUnlockByTitle;
-
-    private void Start()
-    {
-        // idk if this'll be useful in the prototype but eh
-        foreach(var entry in translations)
-        {
-            RosettaStone.Add(entry.Term, entry.Definition);
-        }
-    }
-
 
     /// <summary>
     /// Unlocks page based on the page index
@@ -36,7 +23,7 @@ public class OrbManager : Singleton<OrbManager>
     /// <param name="i"></param>
     public void UnlockPage(int i)
     {
-        if(i < storedInformation.Length)
+        if (i < storedInformation.Length)
         {
             storedInformation[i].Known = true;
             PublicEvents.ForceUpdatePage?.Invoke();
@@ -57,7 +44,7 @@ public class OrbManager : Singleton<OrbManager>
         // didnt let me do a foreach ebcause it was 'modifying the indexed variable or smth :(
         for (int i = 0; i < storedInformation.Length; i++)
         {
-            if(storedInformation[i].Title == s)
+            if (storedInformation[i].Title == s)
             {
                 storedInformation[i].Known = true;
                 foundMatch = true;
@@ -85,23 +72,10 @@ public class OrbManager : Singleton<OrbManager>
 }
 
 [System.Serializable]
-public struct OrbPageData
+public struct RecipePageData
 {
     public bool Known;
     public string Title;
     public string BodyText;
 
-}
-
-[System.Serializable]
-public struct Translation
-{
-    public string Term;
-    public PartOfWord part;
-    public string Definition;
-}
-
-public enum PartOfWord
-{
-    Prefix, Postfix, Word
 }

@@ -43,6 +43,7 @@ public class AlchemyMovement : Movement
 
     Vector2 rotation;
     Rigidbody rb;
+    bool paused;
 
     private Vector3 lookingDirection(Vector2 moveVector) => (pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x);
 
@@ -73,6 +74,10 @@ public class AlchemyMovement : Movement
     /// <param name="cameraVector">Vector2 containing the mouse's delta </param>
     protected override void OnMouseMove(Vector2 cameraVector)
     {
+        if(paused)
+        {
+            return;
+        }
         Vector2 adjustedDelta = cameraVector * pc.CameraSensitivity * Time.fixedDeltaTime;
 
         rotation.x -= adjustedDelta.y;
@@ -117,6 +122,10 @@ public class AlchemyMovement : Movement
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
+        if (paused)
+        {
+            return;
+        }
         Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) 
             * baseMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
 
@@ -182,6 +191,10 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnSpaceStarted(bool fullyPerformed)
     {
+        if (paused)
+        {
+            return;
+        }
         if (Grounded())
         {
             jumpThisFrame = true;
@@ -196,6 +209,10 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnSpaceFinished()
     {
+        if (paused)
+        {
+            return;
+        }
         jumpThisFrame = false;
         //Debug.Log("Space Finished");
     }
@@ -205,6 +222,10 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnShiftStarted()
     {
+        if (paused)
+        {
+            return;
+        }
         if (shiftHold == null && !isCrouching)
         {
             shiftHold = StartCoroutine(Accelerate());
@@ -217,6 +238,10 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnShiftFinished()
     {
+        if (paused)
+        {
+            return;
+        }
         if (shiftHold != null)
         {
             StopCoroutine(shiftHold);
@@ -231,6 +256,10 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnControlStarted()
     {
+        if (paused)
+        {
+            return;
+        }
         isCrouching = true;
         Crouch();
 
@@ -242,6 +271,10 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnControlFinished()
     {
+        if (paused)
+        {
+            return;
+        }
         isCrouching = false;
         Crouch();
 
@@ -377,6 +410,11 @@ public class AlchemyMovement : Movement
     {
         lookingAt = null;
         interactingWith = null;
+    }
+
+    public void SetPauseState(bool state)
+    {
+        paused = state;
     }
 
     /// <summary>
