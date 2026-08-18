@@ -161,7 +161,8 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     /// <param name="obj"></param>
     private void ECanceled(InputAction.CallbackContext obj)
     {
-        PublicEvents.ECanceled();
+        if(!Mathf.Approximately((float)obj.duration, 0))
+            PublicEvents.ECanceled(obj);
     }
 
     /// <summary>

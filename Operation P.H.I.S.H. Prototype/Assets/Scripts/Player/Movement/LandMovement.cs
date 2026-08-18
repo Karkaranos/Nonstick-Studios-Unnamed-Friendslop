@@ -9,6 +9,7 @@ External Resources :
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerController))]
 public class LandMovement : Movement
@@ -420,7 +421,7 @@ public class LandMovement : Movement
         interactingWith = null;
     }
 
-    protected override void OnECanceled()
+    protected override void OnECanceled(InputAction.CallbackContext obj)
     {
         throw new System.NotImplementedException();
     }

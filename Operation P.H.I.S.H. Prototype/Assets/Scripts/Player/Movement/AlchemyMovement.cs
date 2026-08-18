@@ -11,6 +11,7 @@ using NaughtyAttributes;
 using System.Collections;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(AlchemyPlayerController))]
@@ -217,7 +218,7 @@ public class AlchemyMovement : Movement
     /// <summary>
     /// Handles deciding between dropping and throwing an item as well as calculating the force with which to throw
     /// </summary>
-    protected override void OnECanceled()
+    protected override void OnECanceled(InputAction.CallbackContext obj)
     {
         if (interactingWith == null)
             return;
@@ -228,8 +229,11 @@ public class AlchemyMovement : Movement
             return;
         }
 
-        float eDuration = Time.time - timeEPressed;
+        float eDuration = (float)obj.duration;
         eDuration = Mathf.Clamp(Mathf.Abs(eDuration), 0f, maxCalculableDuration);
+
+        if (eDuration < 0.1f)
+            return;
 
         if(eDuration >= durationWhenThrowStarts)
         {
