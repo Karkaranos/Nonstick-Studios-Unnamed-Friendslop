@@ -91,6 +91,7 @@ public class RecipeManager : Singleton<RecipeManager>
 public struct RecipePageData
 {
     public bool Known;
+    public Sprite Visual;
     public string Title;
     public string BodyText;
 

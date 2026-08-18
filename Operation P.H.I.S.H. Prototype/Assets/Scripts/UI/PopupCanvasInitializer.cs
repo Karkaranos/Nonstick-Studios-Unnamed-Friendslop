@@ -109,16 +109,20 @@ public class PopupCanvasInitializer : MonoBehaviour
         {
             leftPage.transform.GetChild(0).GetComponent<TMP_Text>().text = (recipeMan.storedInformation[currentPage * 2].Known ? recipeMan.storedInformation[currentPage * 2].Title : "???");
             leftPage.transform.GetChild(1).GetComponent<TMP_Text>().text = (recipeMan.storedInformation[currentPage * 2].Known ? recipeMan.storedInformation[currentPage * 2].BodyText : "???");
+            leftPage.transform.GetChild(2).GetComponent<Image>().sprite = (recipeMan.storedInformation[currentPage * 2].Known ? recipeMan.storedInformation[currentPage * 2].Visual : null);
 
             if (recipeMan.storedInformation.Length > (currentPage * 2 + 1))
             {
                 rightPage.transform.GetChild(0).GetComponent<TMP_Text>().text = (recipeMan.storedInformation[currentPage * 2 + 1].Known ? recipeMan.storedInformation[currentPage * 2 + 1].Title : "???");
                 rightPage.transform.GetChild(1).GetComponent<TMP_Text>().text = (recipeMan.storedInformation[currentPage * 2 + 1].Known ? recipeMan.storedInformation[currentPage * 2 + 1].BodyText : "???");
+                leftPage.transform.GetChild(2).GetComponent<Image>().enabled = true;
+                rightPage.transform.GetChild(2).GetComponent<Image>().sprite = (recipeMan.storedInformation[currentPage * 2 + 1].Known ? recipeMan.storedInformation[currentPage * 2 + 1].Visual : null);
             }
             else
             {
                 rightPage.transform.GetChild(0).GetComponent<TMP_Text>().text = "";
                 rightPage.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
+                leftPage.transform.GetChild(2).GetComponent<Image>().enabled = false;
             }
         }
 
@@ -146,7 +150,10 @@ public class PopupCanvasInitializer : MonoBehaviour
         }
     }
 
-
+    public void CloseCanvas()
+    {
+        PublicEvents.ForceCloseCanvas?.Invoke(this.gameObject);
+    }
 
 }
 

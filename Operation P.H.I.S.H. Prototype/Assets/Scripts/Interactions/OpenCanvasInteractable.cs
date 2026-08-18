@@ -11,6 +11,18 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
 {
     [SerializeField, Tooltip("The canvas that spawns when this object is interacted with")] private GameObject canvasToSpawn;
     private GameObject openedCanvas = null;
+
+
+    private void Awake()
+    {
+        PublicEvents.ForceCloseCanvas += CheckIfCloseCalled;
+    }
+
+    private void OnDestroy()
+    {
+        PublicEvents.ForceCloseCanvas -= CheckIfCloseCalled;
+    }
+
     public void EnterHover()
     {
         return;
@@ -33,6 +45,20 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
     public void ExitHover()
     {
         return;
+    }
+
+    /// <summary>
+    /// Since the public event broadcasts to every instance, check if the canvas is the one this instance spawned
+    /// If it is, close it and set the user's interaction to null
+    /// </summary>
+    /// <param name="g"></param>
+    private void CheckIfCloseCalled(GameObject g)
+    {
+        if(g == openedCanvas)
+        {
+            ExitInteract();
+            PublicEvents.ResetInteractable?.Invoke();
+        }
     }
 
     public void ExitInteract()

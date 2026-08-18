@@ -53,8 +53,17 @@ public class AlchemyMovement : Movement
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        PublicEvents.ResetInteractable += ResetInteractions;
     }
 
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+
+        PublicEvents.ResetInteractable -= ResetInteractions;
+    }
     /// <summary>
     /// Grabs initial references and sets initial variables
     /// </summary>

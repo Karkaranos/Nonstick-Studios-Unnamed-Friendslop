@@ -34403,120 +34403,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!1 &781039579
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 781039580}
-  - component: {fileID: 781039581}
-  - component: {fileID: 781039582}
-  m_Layer: 0
-  m_Name: UIManagers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &781039580
+--- !u!4 &781039580 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+  m_PrefabInstance: {fileID: 7844920644909830078}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 781039579}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1126463191}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &781039581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 781039579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea2a710464b10bc409b81dfd446fd975, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  destroyGameObject: 1
-  dontDestroyOnLoad: 0
-  storedInformation:
-  - Known: 0
-    Title: Ingredients
-    BodyText: Oola \n'Calllllllll \n Albuda \n Snorgenbrot \n
-  - Known: 0
-    Title: Preparation Styles
-    BodyText: Manamana
-  - Known: 0
-    Title: Order
-    BodyText: lque \n ban \n aso \n
-  translations:
-  - Term: Ooola
-    part: 2
-    Definition: Mushroom First
-  - Term: Calllllllll
-    part: 2
-    Definition: Carrot Second
-  - Term: Manamana
-    part: 0
-    Definition: Chopped
-  - Term: Nany
-    part: 2
-    Definition: Mushroom Second
-  - Term: Sumtill
-    part: 2
-    Definition: Different ingredient order
-  - Term: 'ban '
-    part: 1
-    Definition: Second
-  - Term: Ique
-    part: 1
-    Definition: First
-  testUnlockByIndex: 0
-  testUnlockByTitle: 
---- !u!114 &781039582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 781039579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68836251c05732b4e853adcda74e7f2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  destroyGameObject: 1
-  dontDestroyOnLoad: 0
-  storedInformation:
-  - Known: 0
-    Title: Boom Juice
-    BodyText: Sometimes, life gets boring. Have you ever tried spicing it up by mixing
-      a Screaming ingredient with a breakable one? Maybe you should!
-  - Known: 0
-    Title: Mystery
-    BodyText: 'Try throwing things into the pot. Maybe something will work. '
-  - Known: 0
-    Title: Carrot Cake
-    BodyText: Ah, cake. A sacred food of the gods, that some idiot decided it had
-      to be healthy so they'd ruin it with carrots. Way to go. Then, if that wasn't
-      enough, a berry.
-  - Known: 0
-    Title: Poison
-    BodyText: Glowshrooms may or may not be toxic to ingest. You can find out easier
-      by chopping it and releasing its juices.
-  testUnlockByIndex: 0
-  testUnlockByTitle: 
 --- !u!1001 &782502703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91323,6 +91214,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db201c895a3c2274494d64b2e0b3f01b, type: 3}
+--- !u!1001 &7844920644909830078
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1126463191}
+    m_Modifications:
+    - target: {fileID: 4295720392687086283, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_Name
+      value: UIManagers
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
 --- !u!1001 &9193317124980153232
 PrefabInstance:
   m_ObjectHideFlags: 0
