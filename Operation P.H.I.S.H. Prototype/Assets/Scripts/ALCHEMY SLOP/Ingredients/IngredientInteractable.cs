@@ -71,6 +71,12 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
     /// <param name="standardInteraction"></param>
     public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
+        if(!standardInteraction)
+        {
+            return;
+        }
+
+
         RaycastHit checkForPrep;
 
         if (Physics.Raycast(transform.position, Vector3.down, out checkForPrep, 2f, prepLayer))

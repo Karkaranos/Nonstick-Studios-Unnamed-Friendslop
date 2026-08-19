@@ -386,10 +386,23 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnPrepPerformed()
     {
+        if (interactingWith != null)
+        {
+            interactingWith.ExitInteract();
+            if (interactingWith == lookingAt)
+            {
+                interactingWith.EnterHover();
+            }
+            interactingWith = null;
+        }
+
         if (lookingAt != null)
         {
             lookingAt.EnterInteract(pc, false);
         }
+
+
+
     }
 
     /// <summary>
