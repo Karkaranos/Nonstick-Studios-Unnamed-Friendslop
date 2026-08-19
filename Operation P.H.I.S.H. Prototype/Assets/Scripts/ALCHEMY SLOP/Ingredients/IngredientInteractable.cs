@@ -34,9 +34,24 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
     [Tooltip("Where will this ingredient move?")]
     [ShowIf("isMoving")] public List<Transform> Transforms = new List<Transform>();
 
+    [Layer]
+    [SerializeField] private int prepLayer = 10;
+
     int transformIndex = 0;
 
     NavMeshAgent navMeshAgent;
+
+    private bool prepped;
+
+    public bool GetPrepState()
+    {
+        return prepped;
+    }
+
+    public void SetPrepState(bool b)
+    {
+        prepped = b;
+    }
 
     void Start()
     {
@@ -51,6 +66,13 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
 
     public void EnterInteract(AlchemyPlayerController pc)
     {
+        RaycastHit checkForPrep;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out checkForPrep, 2f, prepLayer))
+        {
+            checkForPrep.transform.gameObject.GetComponent<IngredientPrepInteractable>().RemoveItemFromSurface(this);
+        }
+
         transform.parent = pc.PickupPoint;
         isPickedUp = true;
 
@@ -76,6 +98,15 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
             navMeshAgent.enabled = true;
             StartCoroutine(MoveNavMesh());
         }
+
+        RaycastHit checkForPrep;
+
+        if(Physics.Raycast(transform.position, Vector3.down, out checkForPrep, 5f))
+        {
+            checkForPrep.transform.gameObject.GetComponent<IngredientPrepInteractable>()?.AddItemToSurface(this);
+        }
+
+
     }
 
     public void EnterHover()
