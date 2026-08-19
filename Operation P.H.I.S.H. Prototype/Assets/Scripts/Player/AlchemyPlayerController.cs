@@ -40,6 +40,12 @@ public class AlchemyPlayerController : MonoBehaviour
     private Vector3 lastCamPosition;
     private float lineLength;
 
+    [Space(5)]
+
+    [Header("Testing")]
+    //FOR TESTING ONLY. DELETE LATER.
+    public PotionType HeldPotionType;
+
     #endregion
 
     #region FUNCTIONS
