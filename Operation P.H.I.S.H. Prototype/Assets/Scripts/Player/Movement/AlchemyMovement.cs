@@ -427,6 +427,32 @@ public class AlchemyMovement : Movement
     }
 
     /// <summary>
+    /// It's a wonky way of doing it but it works
+    /// Lets you interact with prep atations while holding items
+    /// the false makes it only work on prep stations
+    /// </summary>
+    protected override void OnPrepPerformed()
+    {
+        if (interactingWith != null)
+        {
+            interactingWith.ExitInteract();
+            if (interactingWith == lookingAt)
+            {
+                interactingWith.EnterHover();
+            }
+            interactingWith = null;
+        }
+
+        if (lookingAt != null)
+        {
+            lookingAt.EnterInteract(pc, false);
+        }
+
+
+
+    }
+
+    /// <summary>
     /// This section contains functions that are necessary to prevent compilation errors but should not be used for AS.
     /// </summary>
     #region Empty Overrides
