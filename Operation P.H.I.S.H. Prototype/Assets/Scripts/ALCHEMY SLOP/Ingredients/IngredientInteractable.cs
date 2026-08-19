@@ -64,6 +64,11 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
         }
     }
 
+    /// <summary>
+    /// Checks if it's on a prep surface and removes it from there
+    /// </summary>
+    /// <param name="pc"></param>
+    /// <param name="standardInteraction"></param>
     public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
         RaycastHit checkForPrep;
@@ -87,6 +92,9 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
         Debug.Log($"GRABBED {this.name}.");
     }
 
+    /// <summary>
+    /// Adds it to a prep surface if it's on there
+    /// </summary>
     public void ExitInteract()
     {
         transform.parent = null;

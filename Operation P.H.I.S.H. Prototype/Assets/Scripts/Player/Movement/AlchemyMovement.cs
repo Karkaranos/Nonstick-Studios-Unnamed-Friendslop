@@ -379,7 +379,11 @@ public class AlchemyMovement : Movement
         interactingWith = null;
     }
 
-
+    /// <summary>
+    /// It's a wonky way of doing it but it works
+    /// Lets you interact with prep atations while holding items
+    /// the false makes it only work on prep stations
+    /// </summary>
     protected override void OnPrepPerformed()
     {
         if (lookingAt != null)

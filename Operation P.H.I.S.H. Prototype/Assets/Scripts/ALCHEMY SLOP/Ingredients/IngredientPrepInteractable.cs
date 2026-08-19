@@ -30,6 +30,7 @@ public class IngredientPrepInteractable : MonoBehaviour, IAlchemyInteractable
     /// Heheheh let the shennanigans begin!
     /// When interacted with, all ingredients on this object should prep themselves
     /// Whuch means we need to know what's on here, match it with its related prep state, and spawn a new object
+    /// standard interaction (E) must be false for this to run
     /// </summary>
     /// <param name="pc"></param>
     public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction)
@@ -102,7 +103,9 @@ public class IngredientPrepInteractable : MonoBehaviour, IAlchemyInteractable
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    /// <summary>
+    /// Creates and populates a dictionary fromt he list of keys and values
+    /// </summary>
     void Awake()
     {
         BaseToPrep = new Dictionary<GameObject, GameObject>();
