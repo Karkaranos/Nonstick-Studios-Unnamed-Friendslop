@@ -54,6 +54,7 @@ public class AlchemyMovement : Movement
 
     Vector2 cameraRotation;
     Rigidbody rb;
+    bool paused;
 
     private Vector3 lookingDirection(Vector2 moveVector) => (pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x);
 
@@ -63,8 +64,17 @@ public class AlchemyMovement : Movement
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        PublicEvents.ResetInteractable += ResetInteractions;
     }
 
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+
+        PublicEvents.ResetInteractable -= ResetInteractions;
+    }
     /// <summary>
     /// Grabs initial references and sets initial variables
     /// </summary>
@@ -87,6 +97,10 @@ public class AlchemyMovement : Movement
     /// <param name="cameraVector">Vector2 containing the mouse's delta </param>
     protected override void OnMouseMove(Vector2 cameraVector)
     {
+        if(paused)
+        {
+            return;
+        }
         Vector2 adjustedDelta = cameraVector * pc.CameraSensitivity * Time.fixedDeltaTime;
 
         cameraRotation.x -= adjustedDelta.y;
@@ -128,7 +142,7 @@ public class AlchemyMovement : Movement
             pc.CrosshairImage.sprite = pc.StandardSprite;
         }
 
-        Debug.Log("LOOK");
+        //Debug.Log("LOOK");
     }
 
     /// <summary>
@@ -173,6 +187,10 @@ public class AlchemyMovement : Movement
     /// <param name="moveVector"></param>
     protected override void OnMove(Vector2 moveVector)
     {
+        if (paused)
+        {
+            return;
+        }
         Vector3 newValue = ((pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x)) 
             * baseMovementSpeed * 100f * accelleration * Time.fixedDeltaTime;
 
@@ -190,7 +208,7 @@ public class AlchemyMovement : Movement
 
         rb.linearVelocity = newValue;
 
-        Debug.Log("MOVE");
+        //Debug.Log("MOVE");
     }
 
     /// <summary>
@@ -230,7 +248,7 @@ public class AlchemyMovement : Movement
             interactingWith = null;
         }
 
-        Debug.Log("E");
+        //Debug.Log("E");
     }
 
     /// <summary>
@@ -238,13 +256,17 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnSpaceStarted(bool fullyPerformed)
     {
+        if (paused)
+        {
+            return;
+        }
         if (Grounded())
         {
             jumpThisFrame = true;
             float jumpForce = Mathf.Sqrt(fullJumpHeight * gravity * -2f);
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
         }
-        Debug.Log("Space Started");
+        //Debug.Log("Space Started");
     }
 
     /// <summary>
@@ -252,8 +274,12 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnSpaceFinished()
     {
+        if (paused)
+        {
+            return;
+        }
         jumpThisFrame = false;
-        Debug.Log("Space Finished");
+        //Debug.Log("Space Finished");
     }
 
     /// <summary>
@@ -261,11 +287,15 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnShiftStarted()
     {
+        if (paused)
+        {
+            return;
+        }
         if (shiftHold == null && !isCrouching)
         {
             shiftHold = StartCoroutine(Accelerate());
         }
-        Debug.Log("Shift Start");
+        //Debug.Log("Shift Start");
     }
 
     /// <summary>
@@ -273,13 +303,17 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnShiftFinished()
     {
+        if (paused)
+        {
+            return;
+        }
         if (shiftHold != null)
         {
             StopCoroutine(shiftHold);
             shiftHold = null;
             accelleration = 1;
         }
-        Debug.Log("Shift Finished");
+        //Debug.Log("Shift Finished");
     }
 
     /// <summary>
@@ -287,10 +321,14 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnControlStarted()
     {
+        if (paused)
+        {
+            return;
+        }
         isCrouching = true;
         Crouch();
 
-        Debug.Log("Control Started");
+        //Debug.Log("Control Started");
     }
 
     /// <summary>
@@ -298,10 +336,14 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnControlFinished()
     {
+        if (paused)
+        {
+            return;
+        }
         isCrouching = false;
         Crouch();
 
-        Debug.Log("Control Finished");
+        //Debug.Log("Control Finished");
     }
 
     /// <summary>
@@ -434,6 +476,11 @@ public class AlchemyMovement : Movement
     {
         lookingAt = null;
         interactingWith = null;
+    }
+
+    public void SetPauseState(bool state)
+    {
+        paused = state;
     }
 
     /// <summary>
