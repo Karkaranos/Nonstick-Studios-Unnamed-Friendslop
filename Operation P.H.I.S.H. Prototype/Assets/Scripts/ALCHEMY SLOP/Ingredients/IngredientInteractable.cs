@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
+public class IngredientInteractable : AlchemyPickupInteractable
 {
     Rigidbody rb;
     bool isPickedUp = false;
@@ -38,7 +38,7 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
 
     NavMeshAgent navMeshAgent;
 
-    void Start()
+    public override void Start()
     {
         rb = GetComponent<Rigidbody>();
 
@@ -47,45 +47,40 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
             navMeshAgent = GetComponentInChildren<NavMeshAgent>();
             StartCoroutine(MoveNavMesh());
         }
+
+        base.Start();
     }
 
-    public void EnterInteract(AlchemyPlayerController pc)
+    public override void EnterInteract(AlchemyPlayerController pc)
     {
         transform.parent = pc.PickupPoint;
         isPickedUp = true;
 
         if (isMoving)
         {
-            rb.isKinematic = true;
+            //rb.isKinematic = true;
             navMeshAgent.enabled = false;
         }
 
         transformIndex = 0;
+        base.EnterInteract(pc);
 
         Debug.Log($"GRABBED {this.name}.");
     }
 
-    public void ExitInteract()
+    public override void ExitInteract()
     {
         transform.parent = null;
         isPickedUp = false;
 
         if (isMoving)
         {
-            rb.isKinematic = false;
+            //rb.isKinematic = false;
             navMeshAgent.enabled = true;
             StartCoroutine(MoveNavMesh());
         }
-    }
 
-    public void EnterHover()
-    {
-
-    }
-
-    public void ExitHover()
-    {
-        
+        base.ExitInteract();
     }
 
     /// <summary>
@@ -120,7 +115,7 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
 
     //something about a glass ingredient??
     //remember midnight museum
-    void OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnter(Collision collision)
     {
         if (isBreakable)
         {
@@ -148,5 +143,14 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
                 }
             }
         }
+
+        base.OnCollisionEnter(collision);
+    }
+
+    public override void ThrowItem(Vector3 throwVec)
+    {
+        disablePlayerCollision = true;
+
+        base.ThrowItem(throwVec);
     }
 }

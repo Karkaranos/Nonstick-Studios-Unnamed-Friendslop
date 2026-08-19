@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 477355268}
   - component: {fileID: 477355267}
   - component: {fileID: 477355266}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: PersonalCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 504544419}
   - component: {fileID: 504544418}
   - component: {fileID: 504544417}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -484,7 +484,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 531248885}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HoldSpot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,7 +636,7 @@ GameObject:
   - component: {fileID: 546930441}
   - component: {fileID: 546930440}
   - component: {fileID: 546930439}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TestPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,9 +658,10 @@ MonoBehaviour:
   minCameraYClamp: -60
   maxCameraYClamp: 60
   armsParent: {fileID: 1968969809}
-  thrownItemForceMultiplier: 1
+  thrownItemForceMultiplier: 10
   durationWhenThrowStarts: 0.2
-  maxCalculableDuration: 0.5
+  maxCalculableDuration: 1
+  throwDirYCorrection: 0.1
   baseMovementSpeed: 5
   crouchMovementPenalty: 0.5
   tapJumpHeightPercent: 0.5
@@ -1883,7 +1884,7 @@ GameObject:
   - component: {fileID: 669880866}
   - component: {fileID: 669880865}
   - component: {fileID: 669880864}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2058,7 +2059,7 @@ GameObject:
   - component: {fileID: 1047138530}
   - component: {fileID: 1047138532}
   - component: {fileID: 1047138531}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RShoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2150,7 +2151,7 @@ GameObject:
   - component: {fileID: 1882817928}
   - component: {fileID: 1882817927}
   - component: {fileID: 1882817926}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2390,7 +2391,7 @@ GameObject:
   - component: {fileID: 1961014950}
   - component: {fileID: 1961014952}
   - component: {fileID: 1961014951}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2463,7 +2464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1968969809}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2499,7 +2500,7 @@ GameObject:
   - component: {fileID: 1980772291}
   - component: {fileID: 1980772293}
   - component: {fileID: 1980772292}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LShoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2592,7 +2593,7 @@ GameObject:
   - component: {fileID: 2004476107}
   - component: {fileID: 2004476106}
   - component: {fileID: 2004476105}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -2799,6 +2800,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fef2dbac09bf813478414ae2d6fec8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlchemyPickupInteractable
+  layerToIgnore:
+    serializedVersion: 2
+    m_Bits: 128
   hoverMat: {fileID: 2100000, guid: d03d55ef0003b0e40a178110718de389, type: 2}
   interactMat: {fileID: -1980079746186394843, guid: f0f6348f6ba9ace43a99af058e03b71c, type: 3}
   OriginalPos: {x: 0, y: 0, z: 0}
@@ -2931,7 +2935,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2080748853}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RotationParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}

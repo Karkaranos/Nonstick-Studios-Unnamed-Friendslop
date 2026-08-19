@@ -237,7 +237,11 @@ public class AlchemyMovement : Movement
 
         if(eDuration >= durationWhenThrowStarts)
         {
-            interactingWith.ThrowItem(pc.CameraRotationParent.transform.rotation.eulerAngles * (eDuration * thrownItemForceMultiplier));
+            Vector3 throwDir = pc.CameraRotationParent.transform.rotation.eulerAngles.normalized;
+            throwDir.x = -throwDir.x;
+            throwDir.z = -throwDir.z;
+
+            interactingWith.ThrowItem(throwDir * (eDuration * thrownItemForceMultiplier));
         }
         else
         {

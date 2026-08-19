@@ -14,6 +14,10 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
 {
     #region VARS
 
+    [SerializeField] private LayerMask layerToIgnore;
+
+    [Space(1)]
+
     private Material standardMat;
 
     [SerializeField] private Material hoverMat;
@@ -26,6 +30,8 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     private AlchemyPlayerController heldBy;
     private Rigidbody rb;
 
+    protected bool disablePlayerCollision = false;
+
     [HideInInspector] public Vector3 OriginalPos;
 
     #endregion
@@ -36,7 +42,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// Start is called on the first frame update
     /// Grabs a reference to the mesh renderer and sets the base material
     /// </summary>
-    void Start()
+    public virtual void Start()
     {
         mr = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
@@ -50,7 +56,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// Implemented function stub from IInteractable
     /// Changes the object's material when hovered over
     /// </summary>
-    public void EnterHover()
+    public virtual void EnterHover()
     {
         mr.material = hoverMat;
     }
@@ -59,7 +65,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// Implemented function stub from IInteractable
     /// Changes the object's material when interacted with
     /// </summary>
-    public void EnterInteract(AlchemyPlayerController pc)
+    public virtual void EnterInteract(AlchemyPlayerController pc)
     {
         mr.material = interactMat;
 
@@ -76,7 +82,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// Implemented function stub from IInteractable
     /// Resets the object's material when hover ends
     /// </summary>
-    public void ExitHover()
+    public virtual void ExitHover()
     {
         mr.material = standardMat;
     }
@@ -85,7 +91,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// Implemented function stub from IInteractable
     /// Resets the object's material when interaction ends
     /// </summary>
-    public void ExitInteract()
+    public virtual void ExitInteract()
     {
         mr.material = standardMat;
 
@@ -95,7 +101,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// <summary>
     /// Drops an item without adding force
     /// </summary>
-    public void DropItem()
+    public virtual void DropItem()
     {
         ExitInteract();
 
@@ -107,8 +113,9 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// <summary>
     /// Adds force when dropping an item to allow it to be thrown
     /// </summary>
-    public void ThrowItem(Vector3 throwVec)
+    public virtual void ThrowItem(Vector3 throwVec)
     {
+        rb.excludeLayers = layerToIgnore;
         transform.parent = null;
         c.enabled = true;
         rb.isKinematic = false;
@@ -118,6 +125,17 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
         ExitInteract();
 
 
+    }
+
+    public virtual void OnCollisionEnter(Collision collision)
+    {
+        if (disablePlayerCollision)
+        {
+            //enable player collision
+            rb.excludeLayers = LayerMask.NameToLayer("Nothing");
+
+            disablePlayerCollision = false;
+        }
     }
 
     #endregion
