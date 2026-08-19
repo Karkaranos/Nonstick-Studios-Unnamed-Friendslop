@@ -27,6 +27,8 @@ public static class PublicEvents
     public static Action ControlStarted;
     public static Action ControlFinished;
 
+    public static Action PrepPerformed;
+
     #endregion
 
     #region MOVEMENT EVENTS

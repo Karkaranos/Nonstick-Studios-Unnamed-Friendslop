@@ -64,7 +64,7 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
         }
     }
 
-    public void EnterInteract(AlchemyPlayerController pc)
+    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
         RaycastHit checkForPrep;
 

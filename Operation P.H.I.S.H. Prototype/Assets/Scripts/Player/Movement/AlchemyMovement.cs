@@ -379,6 +379,15 @@ public class AlchemyMovement : Movement
         interactingWith = null;
     }
 
+
+    protected override void OnPrepPerformed()
+    {
+        if (lookingAt != null)
+        {
+            lookingAt.EnterInteract(pc, false);
+        }
+    }
+
     /// <summary>
     /// This section contains functions that are necessary to prevent compilation errors but should not be used for AS.
     /// </summary>

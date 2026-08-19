@@ -32,8 +32,12 @@ public class IngredientPrepInteractable : MonoBehaviour, IAlchemyInteractable
     /// Whuch means we need to know what's on here, match it with its related prep state, and spawn a new object
     /// </summary>
     /// <param name="pc"></param>
-    public void EnterInteract(AlchemyPlayerController pc)
+    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction)
     {
+        if(standardInteraction)
+        {
+            return;
+        }
 
         Debug.Log("Started ingredient prep interaction");
         List<GameObject> ingredients = new List<GameObject>(BaseToPrep.Keys);
