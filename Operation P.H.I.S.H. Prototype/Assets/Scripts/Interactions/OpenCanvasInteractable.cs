@@ -76,4 +76,9 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
             Debug.Log("No canvas to destroy");
         }
     }
+
+    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
+    {
+        throw new System.NotImplementedException();
+    }
 }
