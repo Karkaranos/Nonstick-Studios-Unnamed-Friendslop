@@ -17,6 +17,9 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
     Rigidbody rb;
     bool isPickedUp = false;
 
+    //i maybe should have accounted for this before it became a problem but whatever
+    GameObject originalParent;
+
     [Tooltip("Is this ingredient breakable?")]
     [SerializeField] bool isBreakable;
 
@@ -56,6 +59,7 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        originalParent = transform.parent.gameObject;
 
         if(isMoving)
         {
@@ -94,6 +98,14 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
         }
 
         transformIndex = 0;
+
+        //"what if the ingredient uses navmesh?" idk.......
+        if(IngredientManager.Instance.ActiveIngredients.ContainsKey(originalParent))
+        {
+            IngredientManager.Instance.ActiveIngredients.Remove(originalParent);
+        }
+
+        Destroy(originalParent);
 
         Debug.Log($"GRABBED {this.name}.");
     }
