@@ -29,6 +29,9 @@ public static class PublicEvents
     public static Action ShiftFinished;
     public static Action ControlStarted;
     public static Action ControlFinished;
+    public static Action ResetInteractable;
+
+    public static Action PrepPerformed;
 
     #endregion
 
@@ -42,6 +45,9 @@ public static class PublicEvents
 
     public static Action HaltShipMovement;
     public static Action ResetPlayerInteractions;
+
+    public static Action ForceUpdatePage;
+    public static Action<GameObject> ForceCloseCanvas;
 
     #endregion OTHER EVENTS
 }

@@ -421,6 +421,11 @@ public class LandMovement : Movement
         interactingWith = null;
     }
 
+    protected override void OnPrepPerformed()
+    {
+        return;
+    }
+
     protected override void OnECanceled(InputAction.CallbackContext obj)
     {
         throw new System.NotImplementedException();

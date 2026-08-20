@@ -34,11 +34,26 @@ public class IngredientInteractable : AlchemyPickupInteractable
     [Tooltip("Where will this ingredient move?")]
     [ShowIf("isMoving")] public List<Transform> Transforms = new List<Transform>();
 
+    [Layer]
+    [SerializeField] private int prepLayer = 10;
+
     int transformIndex = 0;
 
     NavMeshAgent navMeshAgent;
 
-    public override void Start()
+    private bool prepped;
+
+    public bool GetPrepState()
+    {
+        return prepped;
+    }
+
+    public void SetPrepState(bool b)
+    {
+        prepped = b;
+    }
+
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
 
@@ -51,8 +66,26 @@ public class IngredientInteractable : AlchemyPickupInteractable
         base.Start();
     }
 
-    public override void EnterInteract(AlchemyPlayerController pc)
+    /// <summary>
+    /// Checks if it's on a prep surface and removes it from there
+    /// </summary>
+    /// <param name="pc"></param>
+    /// <param name="standardInteraction"></param>
+    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
+        if(!standardInteraction)
+        {
+            return;
+        }
+
+
+        RaycastHit checkForPrep;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out checkForPrep, 2f, prepLayer))
+        {
+            checkForPrep.transform.gameObject.GetComponent<IngredientPrepInteractable>().RemoveItemFromSurface(this);
+        }
+
         transform.parent = pc.PickupPoint;
         isPickedUp = true;
 
@@ -68,7 +101,10 @@ public class IngredientInteractable : AlchemyPickupInteractable
         Debug.Log($"GRABBED {this.name}.");
     }
 
-    public override void ExitInteract()
+    /// <summary>
+    /// Adds it to a prep surface if it's on there
+    /// </summary>
+    public void ExitInteract()
     {
         transform.parent = null;
         isPickedUp = false;
@@ -79,6 +115,16 @@ public class IngredientInteractable : AlchemyPickupInteractable
             navMeshAgent.enabled = true;
             StartCoroutine(MoveNavMesh());
         }
+
+        RaycastHit checkForPrep;
+
+        if(Physics.Raycast(transform.position, Vector3.down, out checkForPrep, 5f))
+        {
+            checkForPrep.transform.gameObject.GetComponent<IngredientPrepInteractable>()?.AddItemToSurface(this);
+        }
+
+
+    }
 
         base.ExitInteract();
     }
