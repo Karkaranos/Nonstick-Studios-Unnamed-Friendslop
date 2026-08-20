@@ -676,9 +676,17 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 1283
       objectReference: {fileID: 0}
+    - target: {fileID: 4343891272458160394, guid: e2c43eecc2d11c041b34ca5d0ac219fa, type: 3}
+      propertyPath: thrownItemForceMultiplier
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5629725561143310959, guid: e2c43eecc2d11c041b34ca5d0ac219fa, type: 3}
       propertyPath: m_Name
       value: TestPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7972407728038999945, guid: e2c43eecc2d11c041b34ca5d0ac219fa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.32
       objectReference: {fileID: 0}
     - target: {fileID: 8677461099161896662, guid: e2c43eecc2d11c041b34ca5d0ac219fa, type: 3}
       propertyPath: m_LocalPosition.x
