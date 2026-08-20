@@ -5,69 +5,101 @@ Brief Description : 	Script for interacting with customers
 External Resources :    	
 ***************************************************/
 
+using TMPro;
 using UnityEngine;
 
 public class CustomerInteractable : MonoBehaviour, IAlchemyInteractable
 {
 
     bool alreadyInteractedWith = false;
+    bool isInteractingWith = false;
     bool hasPotion = false;
 
     [SerializeField] Customer customerInfo;
 
+    [Space(5)]
+
+    [Tooltip("The customer's canvas goes here!")]
+    [SerializeField] GameObject dialogueCanvas;
+
+    [Tooltip("The customer's dialogue goes here!")]
+    [SerializeField] TMP_Text dialogueText;
+
     //will need to be adjusted when we've got an inventory system
-    public void EnterInteract(AlchemyPlayerController pc)
+    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction)
     {
+        if(isInteractingWith)
+        {
+            return;
+        }
+
+        //TODO: OR if held potion is null
         if (!alreadyInteractedWith)
         {
-            DialogueUIManager.Instance.ManageDialogueDisplay(true, customerInfo.RequestDialogue);
+            DisplayDialogue(customerInfo.RequestDialogue);
             alreadyInteractedWith = true;
         }
         else
         {
-            //TODO: integrate actual potions/inventory system
-            //this is gonna have to be reworked sooo much but this is a decent proof of concept i think
             if(pc.HeldPotionType == customerInfo.CorrectPotion)
             {
-                DialogueUIManager.Instance.ManageDialogueDisplay(true, customerInfo.CorrectPotionDialogue);
+                DisplayDialogue(customerInfo.CorrectPotionDialogue);
                 CurrencyManager.Instance.AddMoney(customerInfo.CorrectPotionPayment);
             }
             else if(customerInfo.AcceptablePotions.Contains(pc.HeldPotionType))
             {
-                DialogueUIManager.Instance.ManageDialogueDisplay(true, customerInfo.AcceptablePotionDialogue);
+                DisplayDialogue(customerInfo.AcceptablePotionDialogue);
                 CurrencyManager.Instance.AddMoney(customerInfo.AcceptablePotionPayment);
             }
             else if(!customerInfo.AcceptablePotions.Contains(pc.HeldPotionType))
             {
-                DialogueUIManager.Instance.ManageDialogueDisplay(true, customerInfo.WrongPotionDialogue);
+                DisplayDialogue(customerInfo.WrongPotionDialogue);
                 CurrencyManager.Instance.AddMoney(customerInfo.WrongPotionPayment);
-            }
-            else
-            {
-                //nothing would happen here if the player is not holding a potion
-                //ideally, i'd like to make it so that the player cannot interact at all with the customer
-                //in this case
             }
 
             hasPotion = true;
         }
+
+        isInteractingWith = true;
+
+        if(this != null)
+        {
+            Invoke("DisableDialogue", CustomerManager.Instance.DialogueDisplayTime);
+        }    
     }
 
-    public void ExitInteract()
+    /// <summary>
+    /// displays dialogue box and text
+    /// </summary>
+    void DisplayDialogue(string displayedDialogue)
     {
-        DialogueUIManager.Instance.ManageDialogueDisplay(false);
-        
-        if(hasPotion)
+        if(this != null)
+        {
+            dialogueCanvas.SetActive(true);
+            dialogueText.text = displayedDialogue;
+        }
+    }
+
+    /// <summary>
+    /// removes dialogue box and text
+    /// </summary>
+    void DisableDialogue()
+    {
+        dialogueCanvas.SetActive(false);
+        isInteractingWith = false;
+
+        if (hasPotion)
         {
             //ewww ew ew ewwwwwwwwwwwww
             //i can fix this later but i honestly can't be bothered rn
             CustomerManager.Instance.Invoke("SpawnNewCustomer", CustomerManager.Instance.Cooldown);
             Destroy(this.gameObject.transform.parent.gameObject);
-
-            //temp
-            //methinks i can swap this out once i can edit AlchemyMovement
-            FindFirstObjectByType<AlchemyMovement>().ResetInteractions();
         }
+    }
+
+    public void ExitInteract()
+    {
+
     }
 
     public void EnterHover()

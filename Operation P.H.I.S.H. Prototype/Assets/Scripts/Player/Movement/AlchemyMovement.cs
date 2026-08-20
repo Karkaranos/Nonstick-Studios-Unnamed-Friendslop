@@ -192,6 +192,11 @@ public class AlchemyMovement : Movement
             interactingWith = null;
         }
 
+        if(interactingWith != null && interactingWith.ToString().Contains("Customer"))
+        {
+            interactingWith = null;
+        }
+
         //Debug.Log("E");
     }
 

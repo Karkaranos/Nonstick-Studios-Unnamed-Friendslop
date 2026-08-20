@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6284034057800807635}
   - component: {fileID: 2478502495860742390}
+  - component: {fileID: 1658922457754645097}
   m_Layer: 0
-  m_Name: CustomerManager
+  m_Name: CustomerAndResourceManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,4 +51,20 @@ MonoBehaviour:
   - {fileID: 2106287779155938588, guid: 4f3b34eb3c9438747a50f13c0c465ed9, type: 3}
   - {fileID: 4683228050089157539, guid: d1925793129c7154eb96fdba82c6d438, type: 3}
   spawnPoint: {x: -0.27, y: 1.56, z: -16.32}
+  DialogueDisplayTime: 2
   Cooldown: 3
+--- !u!114 &1658922457754645097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456622359727844431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4606dfa2eb590054c947cdc083e904cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CurrencyManager
+  destroyGameObject: 1
+  dontDestroyOnLoad: 0
+  startingAmountOfMoney: 0
