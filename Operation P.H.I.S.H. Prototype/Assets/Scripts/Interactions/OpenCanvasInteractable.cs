@@ -28,9 +28,9 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
         return;
     }
 
-    public void EnterInteract(AlchemyPlayerController apc)
+    public void EnterInteract(AlchemyPlayerController apc, bool standardInteraction = true)
     {
-        if(openedCanvas == null)
+        if (openedCanvas == null)
         {
             openedCanvas = Instantiate(canvasToSpawn, apc.transform);
             Cursor.visible = true;
@@ -54,7 +54,7 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
     /// <param name="g"></param>
     private void CheckIfCloseCalled(GameObject g)
     {
-        if(g == openedCanvas)
+        if (g == openedCanvas)
         {
             ExitInteract();
             PublicEvents.ResetInteractable?.Invoke();
@@ -63,7 +63,7 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
 
     public void ExitInteract()
     {
-        if(openedCanvas != null)
+        if (openedCanvas != null)
         {
             Destroy(openedCanvas);
             openedCanvas = null;
@@ -75,10 +75,5 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
         {
             Debug.Log("No canvas to destroy");
         }
-    }
-
-    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
-    {
-        throw new System.NotImplementedException();
     }
 }
