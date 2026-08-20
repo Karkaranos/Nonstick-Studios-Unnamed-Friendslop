@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 797323236521986882}
+  - component: {fileID: -5510677843620298508}
+  - component: {fileID: 476449059185390512}
   m_Layer: 0
   m_Name: CarrotChopped
   m_TagString: Untagged
@@ -32,6 +34,47 @@ Transform:
   - {fileID: 8258968491732980191}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5510677843620298508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493562617739640250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c83027668664b43a043504fd71f7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientInteractable
+  isBreakable: 0
+  minVelocity: 0
+  breakableSurfaces:
+    serializedVersion: 2
+    m_Bits: 0
+  isMoving: 0
+  Transforms: []
+  prepLayer: 10
+--- !u!65 &476449059185390512
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493562617739640250}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.9, y: 0.1, z: 1}
+  m_Center: {x: 0, y: 0.05, z: 0}
 --- !u!1 &3575187762762562679
 GameObject:
   m_ObjectHideFlags: 0

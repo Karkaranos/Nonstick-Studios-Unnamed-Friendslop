@@ -23,7 +23,7 @@ public interface IAlchemyInteractable
     /// <summary>
     /// Abstract function for when an object implementing this starts being interacted with
     /// </summary>
-    public abstract void EnterInteract(AlchemyPlayerController pc);
+    public abstract void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true);
 
     /// <summary>
     /// Abstract function for when an object implementing this stops being interacted with
