@@ -53,7 +53,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
         prepped = b;
     }
 
-    void Start()
+    public override void Start()
     {
         rb = GetComponent<Rigidbody>();
 
@@ -104,7 +104,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
     /// <summary>
     /// Adds it to a prep surface if it's on there
     /// </summary>
-    public void ExitInteract()
+    public override void ExitInteract()
     {
         transform.parent = null;
         isPickedUp = false;
@@ -122,9 +122,6 @@ public class IngredientInteractable : AlchemyPickupInteractable
         {
             checkForPrep.transform.gameObject.GetComponent<IngredientPrepInteractable>()?.AddItemToSurface(this);
         }
-
-
-    }
 
         base.ExitInteract();
     }

@@ -76,4 +76,14 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
             Debug.Log("No canvas to destroy");
         }
     }
+
+    public void DropItem()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ThrowItem(Vector3 throwVec)
+    {
+        throw new System.NotImplementedException();
+    }
 }

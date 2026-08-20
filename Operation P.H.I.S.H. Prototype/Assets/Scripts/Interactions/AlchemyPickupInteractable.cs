@@ -65,7 +65,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// Implemented function stub from IInteractable
     /// Changes the object's material when interacted with
     /// </summary>
-    public virtual void EnterInteract(AlchemyPlayerController pc)
+    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
         mr.material = interactMat;
 
