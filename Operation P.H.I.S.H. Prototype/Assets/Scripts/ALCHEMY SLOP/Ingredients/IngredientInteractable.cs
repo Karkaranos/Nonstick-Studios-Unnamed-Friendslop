@@ -12,13 +12,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
+public class IngredientInteractable : AlchemyPickupInteractable
 {
     Rigidbody rb;
     bool isPickedUp = false;
 
     [Tooltip ("Ingredient Name")]
     public string IngredientID = "Default";
+    
+    //i maybe should have accounted for this before it became a problem but whatever
+    GameObject originalParent;
 
     [Tooltip("Is this ingredient breakable?")]
     [SerializeField] bool isBreakable;
@@ -56,15 +59,18 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
         prepped = b;
     }
 
-    void Start()
+    public override void Start()
     {
         rb = GetComponent<Rigidbody>();
+        originalParent = transform.parent.gameObject;
 
         if(isMoving)
         {
             navMeshAgent = GetComponentInChildren<NavMeshAgent>();
             StartCoroutine(MoveNavMesh());
         }
+
+        base.Start();
     }
 
     /// <summary>
@@ -92,11 +98,20 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
 
         if (isMoving)
         {
-            rb.isKinematic = true;
+            //rb.isKinematic = true;
             navMeshAgent.enabled = false;
         }
 
         transformIndex = 0;
+        base.EnterInteract(pc);
+
+        //"what if the ingredient uses navmesh?" idk.......
+        if(IngredientManager.Instance.ActiveIngredients.ContainsKey(originalParent))
+        {
+            IngredientManager.Instance.ActiveIngredients.Remove(originalParent);
+        }
+
+        Destroy(originalParent);
 
         Debug.Log($"GRABBED {this.name}.");
     }
@@ -104,14 +119,14 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
     /// <summary>
     /// Adds it to a prep surface if it's on there
     /// </summary>
-    public void ExitInteract()
+    public override void ExitInteract()
     {
         transform.parent = null;
         isPickedUp = false;
 
         if (isMoving)
         {
-            rb.isKinematic = false;
+            //rb.isKinematic = false;
             navMeshAgent.enabled = true;
             StartCoroutine(MoveNavMesh());
         }
@@ -123,17 +138,7 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
             checkForPrep.transform.gameObject.GetComponent<IngredientPrepInteractable>()?.AddItemToSurface(this);
         }
 
-
-    }
-
-    public void EnterHover()
-    {
-
-    }
-
-    public void ExitHover()
-    {
-        
+        base.ExitInteract();
     }
 
     /// <summary>
@@ -168,7 +173,7 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
 
     //something about a glass ingredient??
     //remember midnight museum
-    void OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnter(Collision collision)
     {
         if (isBreakable)
         {
@@ -196,5 +201,14 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
                 }
             }
         }
+
+        base.OnCollisionEnter(collision);
+    }
+
+    public override void ThrowItem(Vector3 throwVec)
+    {
+        disablePlayerCollision = true;
+
+        base.ThrowItem(throwVec);
     }
 }

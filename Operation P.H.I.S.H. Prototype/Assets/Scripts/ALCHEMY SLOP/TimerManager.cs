@@ -35,13 +35,23 @@ public class TimerManager : Singleton<TimerManager>
     private IEnumerator RunTimer()
     {
         float currentValue = timerSlider.value;
+        int currentIncrement = 0;
 
         while (timerSlider.value > 0)
         {
             yield return new WaitForSeconds(timeBetweenIncrements);
             currentValue -= (1 / (float)amountOfIncrements);
             timerSlider.value = currentValue;
-            //put ingredient spawn here
+
+            currentIncrement++;
+            
+            foreach(Ingredients ingredient in IngredientManager.Instance.AllIngredients)
+            {
+                if(currentIncrement % ingredient.SpawnInterval == 0)
+                {
+                    IngredientManager.Instance.SpawnIngredient(ingredient);
+                }
+            }
         }
 
         //just to see that the timer reached 0
