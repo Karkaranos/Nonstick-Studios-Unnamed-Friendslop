@@ -11,6 +11,7 @@ using NaughtyAttributes;
 using System.Collections;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.ProBuilder.MeshOperations;
 
 [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(AlchemyPlayerController))]
@@ -22,6 +23,12 @@ public class AlchemyMovement : Movement
     [SerializeField] private Transform armsParent;
     [SerializeField] private Transform bodyParent;
     [SerializeField] private Transform hipsParent;
+    [Tooltip("Multiplier for the force being applied when throwing a pickup item")]
+    [SerializeField] private float thrownItemForceMultiplier = 1f;
+    [Tooltip("The amount of time E must be held for an object to swap to being thrown")]
+    [SerializeField] private float durationWhenThrowStarts = 0.5f;
+    [Tooltip("The maximum amount of time E is held down that can be applied to force calculations")]
+    [SerializeField] private float maxCalculableDuration = 1f;
 
     [SerializeField] private float baseMovementSpeed = 1f;
     [Tooltip("This penalty is multiplied with the speed and should be 0 - 0.9")]
@@ -33,6 +40,7 @@ public class AlchemyMovement : Movement
     [SerializeField] private float maxAccelerationMultiplier = 3f;
     [SerializeField] private float gravity = -10f;
     private float accelleration = 1f;
+    private float timeEPressed;
     private Coroutine shiftHold;
 
     private IAlchemyInteractable lookingAt;
@@ -49,6 +57,7 @@ public class AlchemyMovement : Movement
 
     private bool jumpThisFrame;
     private bool isCrouching = false;
+    private bool itemPickedUpThisActon = false;
 
     Vector3 baseHipLocalRotation;
 
@@ -216,26 +225,55 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnEClicked()
     {
-        if (lookingAt != null)
+        timeEPressed = Time.time;
+
+        if(lookingAt != null)
+        {
+            if(interactingWith == null)
+            {
+                itemPickedUpThisActon = true;
+                interactingWith = lookingAt;
+                interactingWith.EnterInteract(pc);
+            }
+            else if(lookingAt != interactingWith)
+            {
+                interactingWith.DropItem();
+                itemPickedUpThisActon = true;
+                interactingWith = lookingAt;
+                interactingWith.EnterInteract(pc);
+            }
+            else
+            {
+                Debug.Log("Object will be thrown when E is released");
+            }
+        }
+        else if(interactingWith != null)
+        {
+            Debug.Log("Object will be thrown when E is released");
+        }
+        
+        
+        /*if (lookingAt != null)
         {
             if (interactingWith == null)
             {
                 interactingWith = lookingAt;
                 interactingWith.EnterInteract(pc);
             }
+        }
+
+        if (lookingAt != null)
+        {
+            if (lookingAt != interactingWith)
+            {
+                interactingWith.ExitInteract();
+                interactingWith = lookingAt;
+                interactingWith.EnterInteract(pc);
+            }
             else
             {
-                if (lookingAt != interactingWith)
-                {
-                    interactingWith.ExitInteract();
-                    interactingWith = lookingAt;
-                    interactingWith.EnterInteract(pc);
-                }
-                else
-                {
-                    interactingWith.ExitInteract();
-                    interactingWith = null;
-                }
+                interactingWith.ExitInteract();
+                interactingWith = null;
             }
         }
         else if (interactingWith != null)
@@ -246,9 +284,51 @@ public class AlchemyMovement : Movement
                 interactingWith.EnterHover();
             }
             interactingWith = null;
-        }
+        }*/
 
         //Debug.Log("E");
+    }
+
+    /// <summary>
+    /// Handles deciding between dropping and throwing an item as well as calculating the force with which to throw
+    /// </summary>
+    protected override void OnECanceled(InputAction.CallbackContext obj)
+    {
+        if (interactingWith == null)
+            return;
+
+        if (itemPickedUpThisActon)
+        {
+            itemPickedUpThisActon = false;
+            return;
+        }
+
+        float eDuration = (float)obj.duration;
+        eDuration = Mathf.Clamp(Mathf.Abs(eDuration), 0f, maxCalculableDuration);
+
+        if (eDuration < 0.1f)
+            return;
+
+        if(eDuration >= durationWhenThrowStarts)
+        {
+            Vector3 throwDir = pc.CameraRotationParent.transform.forward;
+            throwDir.x *= (eDuration * thrownItemForceMultiplier);
+            throwDir.y *= 2;
+            throwDir.z *= (eDuration * thrownItemForceMultiplier);
+
+            interactingWith.ThrowItem(throwDir);
+        }
+        else
+        {
+            interactingWith.DropItem();
+        }
+
+        if(interactingWith == lookingAt)
+        {
+            interactingWith.EnterHover();
+        }
+
+        interactingWith = null;
     }
 
     /// <summary>

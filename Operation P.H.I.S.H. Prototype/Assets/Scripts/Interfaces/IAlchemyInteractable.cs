@@ -30,5 +30,16 @@ public interface IAlchemyInteractable
     /// </summary>
     public abstract void ExitInteract();
 
+    /// <summary>
+    /// Abstract function for when an object should be dropped
+    /// </summary>
+    public abstract void DropItem();
+
+    /// <summary>
+    /// Abstract function for when an object should be thrown
+    /// </summary>
+    /// <param name="throwVec"> The direction and force with which the object should be thrown </param>
+    public abstract void ThrowItem(Vector3 throwVec);
+
 
 }

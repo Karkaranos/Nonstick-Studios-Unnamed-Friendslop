@@ -122,4 +122,14 @@ public class IngredientPrepInteractable : MonoBehaviour, IAlchemyInteractable
     {
         
     }
+
+    public void DropItem()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ThrowItem(Vector3 throwVec)
+    {
+        throw new System.NotImplementedException();
+    }
 }

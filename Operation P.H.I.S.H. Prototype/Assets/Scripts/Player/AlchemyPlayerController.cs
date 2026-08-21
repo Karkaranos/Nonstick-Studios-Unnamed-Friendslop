@@ -24,7 +24,6 @@ public class AlchemyPlayerController : PlayerController
 
     private Vector3 lastCamPosition;
     private float lineLength;
-
     #endregion
 
     #region FUNCTIONS
