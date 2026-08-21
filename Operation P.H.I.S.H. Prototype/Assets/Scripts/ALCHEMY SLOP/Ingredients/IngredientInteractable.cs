@@ -17,6 +17,7 @@ public class IngredientInteractable : MonoBehaviour, IAlchemyInteractable
     Rigidbody rb;
     bool isPickedUp = false;
 
+    [Tooltip ("Ingredient Name")]
     public string IngredientID = "Default";
 
     [Tooltip("Is this ingredient breakable?")]

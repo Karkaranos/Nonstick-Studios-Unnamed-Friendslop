@@ -1,3 +1,9 @@
+/*************************************************
+Author Names : 		    Sky Beal
+Date Created : 		    08/16/2026
+Brief Description : 	Manages all cauldron interactions, checks for correct potion, calls potion creation
+External Resources :    	
+***************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +37,17 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
 
     #endregion
 
+    /// <summary>
+    /// adds ingredients to list
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<IngredientInteractable>())
         {
             currentStoredIngredients.Add(Tuple.Create(collision.gameObject.GetComponent<IngredientInteractable>().IngredientID, collision.gameObject.GetComponent<IngredientInteractable>().GetPrepState()));
             Debug.Log($"Added {collision.gameObject} to the list. ID: {collision.gameObject.GetComponent<IngredientInteractable>().IngredientID}, Prepped : {collision.gameObject.GetComponent<IngredientInteractable>().GetPrepState()}");
+
             collision.gameObject.GetComponent<IngredientInteractable>().ExitInteract();
             collision.gameObject.SetActive(false);
         }
@@ -44,9 +55,11 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
 
     /// <summary>
     /// horribly inefficient way of doing it but i'm hardcoding for this prototype
+    /// compares the current list of ingredients to predetermined potion recipe
     /// </summary>
     private void CompareCurrentIngredientsToPossiblePotions()
     {
+        //cauldron empty
         if (currentStoredIngredients.Count() <= 0)
         {
             Debug.Log($" No ingredients in the pot.");
@@ -60,6 +73,7 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
             ClearCurrentIngredientsList();
             Debug.Log($"Found potion 1 : {potion1}.");
         }
+
         //potion 2
         else if (currentStoredIngredients.SequenceEqual(potion2))
         {
@@ -67,6 +81,7 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
             ClearCurrentIngredientsList();
             Debug.Log($"Found potion 2 : {potion2}.");
         }
+
         //potion 3
         else if (currentStoredIngredients.SequenceEqual(potion3))
         {
@@ -74,6 +89,7 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
             ClearCurrentIngredientsList();
             Debug.Log($"Found potion 3 : {potion3}.");
         }
+
         //potion 4
         else if (currentStoredIngredients.SequenceEqual(potion4))
         {
@@ -81,6 +97,7 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
             ClearCurrentIngredientsList();
             Debug.Log($"Found potion 4 : {potion4}.");
         }
+
         //potion 5
         else if (currentStoredIngredients.SequenceEqual(potion5))
         {
@@ -88,6 +105,7 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
             ClearCurrentIngredientsList();
             Debug.Log($"Found potion 5 : {potion5}.");
         }
+
         //potion 6
         else if (currentStoredIngredients.SequenceEqual(potion6))
         {
@@ -95,6 +113,7 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
             ClearCurrentIngredientsList();
             Debug.Log($"Found potion 6 : {potion6}.");
         }
+
         //nasty null (potion 7)
         else
         {
@@ -104,6 +123,9 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
         }
     }
 
+    /// <summary>
+    /// Clears current ingredient list
+    /// </summary>
     private void ClearCurrentIngredientsList()
     {
         currentStoredIngredients.Clear();
@@ -112,12 +134,19 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
 
     public void EnterHover()
     {
+        return;
     }
 
     public void ExitHover()
     {
+        return;
     }
 
+    /// <summary>
+    /// The "stir", finds that matching potion to current ingredient list
+    /// </summary>
+    /// <param name="pc"></param>
+    /// <param name="standardInteraction"></param>
     public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
         CompareCurrentIngredientsToPossiblePotions();
@@ -126,5 +155,6 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
 
     public void ExitInteract()
     {
+        return;
     }
 }
