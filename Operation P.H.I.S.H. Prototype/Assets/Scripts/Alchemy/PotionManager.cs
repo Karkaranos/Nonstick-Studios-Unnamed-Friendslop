@@ -10,12 +10,13 @@ public class PotionManager : Singleton<PotionManager>
     [SerializeField] private GameObject potion5;
     [SerializeField] private GameObject potion6;
     [SerializeField] private GameObject potion7;
+    [SerializeField] private Transform potionSpawnPoint;
 
     private List<GameObject> possiblePotions;
 
     private void Start()
     {
-        possiblePotions = new List<GameObject> {potion1, potion2, potion3, potion4, potion5, potion6, potion7 };
+        possiblePotions = new List<GameObject> {potion1, potion2, potion3, potion4, potion5, potion6, potion7};
     }
 
     public void GivePotion(int potion)
@@ -25,7 +26,7 @@ public class PotionManager : Singleton<PotionManager>
             Debug.Log($" {potion} is null.");
         }
 
-        Instantiate(possiblePotions[potion - 1]);
+        Instantiate(possiblePotions[potion - 1], potionSpawnPoint);
         Debug.Log($"Give {potion}");
     }
 }

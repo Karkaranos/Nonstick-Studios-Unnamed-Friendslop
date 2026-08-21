@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 797323236521986882}
   - component: {fileID: -5510677843620298508}
   - component: {fileID: 476449059185390512}
+  - component: {fileID: -8649899150744171493}
   m_Layer: 0
   m_Name: CarrotChopped
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c83027668664b43a043504fd71f7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientInteractable
+  IngredientID: Awakened Carrot
   isBreakable: 0
   minVelocity: 0
   breakableSurfaces:
@@ -75,6 +77,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9, y: 0.1, z: 1}
   m_Center: {x: 0, y: 0.05, z: 0}
+--- !u!54 &-8649899150744171493
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493562617739640250}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &3575187762762562679
 GameObject:
   m_ObjectHideFlags: 0
