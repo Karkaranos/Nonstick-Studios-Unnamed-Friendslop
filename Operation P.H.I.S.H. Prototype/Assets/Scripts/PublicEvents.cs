@@ -29,6 +29,8 @@ public static class PublicEvents
     public static Action ControlFinished;
     public static Action ResetInteractable;
 
+    public static Action PrepPerformed;
+
     #endregion
 
     #region MOVEMENT EVENTS

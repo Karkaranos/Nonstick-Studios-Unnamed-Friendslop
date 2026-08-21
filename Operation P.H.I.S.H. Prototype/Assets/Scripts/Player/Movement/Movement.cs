@@ -6,6 +6,7 @@ Brief Description : 	Base Class that defines all functions movement scripts shou
 
 External Resources :    	
 ***************************************************/
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.ControlFinished += OnControlFinished;
 
         PublicEvents.ResetPlayerInteractions += ResetInteractions;
+        PublicEvents.PrepPerformed += OnPrepPerformed;
     }
 
     /// <summary>
@@ -51,6 +53,7 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.ShiftFinished -= OnShiftFinished;
         PublicEvents.ControlStarted -= OnControlStarted;
         PublicEvents.ControlFinished -= OnControlFinished;
+        PublicEvents.PrepPerformed -= OnPrepPerformed;
 
         PublicEvents.ResetPlayerInteractions -= ResetInteractions;
     }
@@ -70,7 +73,9 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnControlStarted();
     protected abstract void OnControlFinished();
 
-    protected abstract bool UpdateLookingAtObject();
+    protected abstract void OnPrepPerformed();
+
+    protected abstract bool LookingAtObject();
 
     public abstract Vector3 LastCameraAngle();
 

@@ -25,6 +25,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     private InputAction space;
     private InputAction shift;
     private InputAction control;
+    private InputAction prep;
 
     private Coroutine movementUpdates;
 
@@ -51,6 +52,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         space = input.currentActionMap.FindAction("Space");
         shift = input.currentActionMap.FindAction("Shift");
         control = input.currentActionMap.FindAction("Control");
+        prep = input.currentActionMap.FindAction("Prep");
         
     }
 
@@ -72,6 +74,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         shift.canceled += ShiftCanceled;
         control.started += ControlPressed;
         control.canceled += ControlCanceled;
+        prep.performed += Prep_performed;
         
     }
 
@@ -86,6 +89,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         space.Disable();
         shift.Disable();
         control.Disable();
+        prep.Disable();
     }
     #endregion
 
@@ -228,6 +232,12 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     private void ControlCanceled(InputAction.CallbackContext obj)
     {
         PublicEvents.ControlFinished();
+    }
+
+
+    private void Prep_performed(InputAction.CallbackContext obj)
+    {
+        PublicEvents.PrepPerformed();
     }
 
     #endregion

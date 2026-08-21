@@ -425,4 +425,9 @@ public class LandMovement : Movement
         lookingAt = null;
         interactingWith = null;
     }
+
+    protected override void OnPrepPerformed()
+    {
+        return;
+    }
 }
