@@ -157,4 +157,14 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
     {
         return;
     }
+
+    public void DropItem()
+    {
+        return;
+    }
+
+    public void ThrowItem(Vector3 throwVec)
+    {
+        return;
+    }
 }

@@ -6,38 +6,7 @@ External Resources :
 ***************************************************/
 using UnityEngine;
 
-public class PotionInteractable : MonoBehaviour, IAlchemyInteractable
+public class PotionInteractable : AlchemyPickupInteractable
 {
     public string PotionID = "Default";
-
-    public void EnterHover()
-    {
-        return;
-    }
-
-    /// <summary>
-    /// Puts potion in hands
-    /// </summary>
-    /// <param name="pc"></param>
-    /// <param name="standardInteraction"></param>
-    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
-    {
-        transform.parent = pc.PickupPoint;
-        transform.localPosition = Vector3.zero;
-        Debug.Log($"GRABBED {this.PotionID}.");
-    }
-
-    public void ExitHover()
-    {
-        return;
-    }
-
-    /// <summary>
-    /// Removes potion from hands
-    /// </summary>
-    public void ExitInteract()
-    {
-        transform.parent = null;
-        Debug.Log($"DROPPED {this.PotionID}.");
-    }
 }
