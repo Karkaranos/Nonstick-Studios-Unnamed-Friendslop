@@ -28,7 +28,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     private Collider c;
 
     private AlchemyPlayerController heldBy;
-    private Rigidbody rb;
+    protected Rigidbody rb;
 
     protected bool disablePlayerCollision = false;
 
@@ -70,8 +70,8 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
         mr.material = interactMat;
 
         heldBy = pc;
-        rb.isKinematic = true;
-        c.enabled = false;
+        //rb.isKinematic = true;
+        //c.enabled = false;
         transform.parent = pc.PickupPoint;
         transform.localPosition = Vector3.zero;
 
@@ -106,8 +106,8 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
         ExitInteract();
 
         transform.parent = null;
-        c.enabled = true;
-        rb.isKinematic = false;
+        //c.enabled = true;
+        //rb.isKinematic = false;
     }
 
     /// <summary>
@@ -117,8 +117,8 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     {
         rb.excludeLayers = layerToIgnore;
         transform.parent = null;
-        c.enabled = true;
-        rb.isKinematic = false;
+        //c.enabled = true;
+        //rb.isKinematic = false;
 
         rb.AddForce(throwVec, ForceMode.Impulse);
 

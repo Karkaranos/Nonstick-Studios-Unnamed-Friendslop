@@ -14,14 +14,13 @@ using UnityEngine.AI;
 
 public class IngredientInteractable : AlchemyPickupInteractable
 {
-    Rigidbody rb;
     bool isPickedUp = false;
 
     [Tooltip ("Ingredient Name")]
     public string IngredientID = "Default";
     
     //i maybe should have accounted for this before it became a problem but whatever
-    GameObject originalParent;
+    private GameObject originalParent;
 
     [Tooltip("Is this ingredient breakable?")]
     [SerializeField] bool isBreakable;
@@ -61,8 +60,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
 
     public override void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        originalParent = transform.parent.gameObject;
+        //originalParent = transform.parent.gameObject;
 
         if(isMoving)
         {
@@ -85,6 +83,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
             return;
         }
 
+        base.EnterInteract(pc, true);
 
         RaycastHit checkForPrep;
 

@@ -56097,6 +56097,9 @@ MonoBehaviour:
   minCameraYClamp: -60
   maxCameraYClamp: 60
   armsParent: {fileID: 760981388}
+  thrownItemForceMultiplier: 1
+  durationWhenThrowStarts: 0.5
+  maxCalculableDuration: 1
   baseMovementSpeed: 1
   crouchMovementPenalty: 0.5
   tapJumpHeightPercent: 0.5
@@ -95226,6 +95229,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1576309822}
+    - target: {fileID: 5073936091912292644, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
+      propertyPath: pc
+      value: 
+      objectReference: {fileID: 1256850682}
+    - target: {fileID: 5073936091912292644, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
+      propertyPath: alchemyMovement
+      value: 
+      objectReference: {fileID: 1256850682}
     - target: {fileID: 5860073315723608565, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -95236,7 +95247,7 @@ PrefabInstance:
       objectReference: {fileID: 1576309822}
     - target: {fileID: 6078832606293555715, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1591
+      value: 1600
       objectReference: {fileID: 0}
     - target: {fileID: 6522302751629910726, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -95284,7 +95295,7 @@ PrefabInstance:
       objectReference: {fileID: 1610348379}
     - target: {fileID: 8309777339067610267, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1341
+      value: 1350
       objectReference: {fileID: 0}
     - target: {fileID: 8693166287708395613, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_Mesh
@@ -95296,7 +95307,7 @@ PrefabInstance:
       objectReference: {fileID: 1559242923}
     - target: {fileID: 8988132957513810990, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_VersionIndex
-      value: 635
+      value: 644
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
