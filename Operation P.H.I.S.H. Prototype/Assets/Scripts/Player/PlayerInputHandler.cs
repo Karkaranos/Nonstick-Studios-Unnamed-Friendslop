@@ -64,6 +64,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         move.canceled += MoveStopped;
         look.performed += LookCalled;   
         e.performed += EPressed;
+        e.canceled += ECanceled;
         reelTether.started += ReelTetherStarted;
         reelTether.canceled += ReelTetherCanceled;
         space.started += SpacePressed;
@@ -76,6 +77,8 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         prep.performed += Prep_performed;
         
     }
+
+
 
     /// <summary>
     /// unsubscribes input actions from functions
@@ -154,6 +157,16 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     private void EPressed(InputAction.CallbackContext obj)
     {
         PublicEvents.EClicked();
+    }
+
+    /// <summary>
+    /// Input function of E canceled.
+    /// </summary>
+    /// <param name="obj"></param>
+    private void ECanceled(InputAction.CallbackContext obj)
+    {
+        if(!Mathf.Approximately((float)obj.duration, 0))
+            PublicEvents.ECanceled(obj);
     }
 
     /// <summary>
