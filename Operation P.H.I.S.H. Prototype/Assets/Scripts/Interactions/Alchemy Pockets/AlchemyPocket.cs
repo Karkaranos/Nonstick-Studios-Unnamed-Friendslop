@@ -52,7 +52,7 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
     /// Implemented function stub from IInteractable
     /// Handles swapping the players currently held item with the item in the pocket
     /// </summary>
-    public void EnterInteract(AlchemyPlayerController pc)
+    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
         mr.material = interactMat;
         Debug.Log($"{gameObject.name} is starting its interaction");
@@ -105,6 +105,16 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
     {
         mr.material = standardMat;
         Debug.Log($"{gameObject.name} has ended its interaction");
+    }
+
+    public void DropItem()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ThrowItem(Vector3 throwVec)
+    {
+        throw new System.NotImplementedException();
     }
 
     #endregion

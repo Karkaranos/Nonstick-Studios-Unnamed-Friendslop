@@ -102,7 +102,7 @@ public class LandMovement : Movement
 
        
 
-        if (UpdateLookingAtObject())
+        if (LookingAtObject())
         {
             pc.CrosshairImage.sprite = pc.InteractableSprite;
         }
@@ -297,7 +297,7 @@ public class LandMovement : Movement
     /// Checks if the player is looking at an object that can be interacted with
     /// </summary>
     /// <returns>Returns true if they are</returns>
-    protected override bool UpdateLookingAtObject()
+    protected override bool LookingAtObject()
     {
         RaycastHit hit;
         Vector3 direction = pc.CameraRotationParent.forward;

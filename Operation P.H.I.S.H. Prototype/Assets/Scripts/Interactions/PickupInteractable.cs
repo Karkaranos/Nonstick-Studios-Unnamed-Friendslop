@@ -9,7 +9,7 @@ using NaughtyAttributes;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(MeshRenderer), typeof(Collider))]
-public class PickupInteractable : MonoBehaviour, IInteractable, IAlchemyInteractable
+public class PickupInteractable : MonoBehaviour, IInteractable
 {
     #region VARS
     private Material standardMat;
@@ -56,19 +56,6 @@ public class PickupInteractable : MonoBehaviour, IInteractable, IAlchemyInteract
     public bool IsPickupable()
     {
         return isToggled && !isHeld;
-    }
-
-    /// <summary>
-    /// Sets the item as picked up
-    /// </summary>
-    public void PickupItem(PlayerController pc)
-    {
-        mr.material = interactMat;
-
-        heldBy = pc;
-        TogglePhysics(false);
-        transform.parent = pc.PickupPoint;
-        transform.localPosition = Vector3.zero;
     }
 
     /// <summary>
