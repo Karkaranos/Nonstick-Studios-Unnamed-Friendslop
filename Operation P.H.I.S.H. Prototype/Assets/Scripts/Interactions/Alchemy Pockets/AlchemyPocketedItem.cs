@@ -10,11 +10,11 @@ External Resources :
 using UnityEngine;
 
 [System.Serializable]
-public class PocketedItem
+public class AlchemyPocketedItem
 {
-    public PickupInteractable pickup;
+    public AlchemyPickupInteractable pickup;
 
-    public PocketedItem(PickupInteractable pickup)
+    public AlchemyPocketedItem(AlchemyPickupInteractable pickup)
     {
         this.pickup = pickup;
     }

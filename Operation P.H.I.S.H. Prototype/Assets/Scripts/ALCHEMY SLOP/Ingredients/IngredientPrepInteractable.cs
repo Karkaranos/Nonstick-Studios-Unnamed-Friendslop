@@ -123,7 +123,7 @@ public class IngredientPrepInteractable : MonoBehaviour, IAlchemyInteractable
         
     }
 
-    public void DropItem()
+    public void DropItem(bool updatePlayer = true)
     {
         throw new System.NotImplementedException();
     }

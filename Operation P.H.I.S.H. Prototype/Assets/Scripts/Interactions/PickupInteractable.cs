@@ -74,11 +74,9 @@ public class PickupInteractable : MonoBehaviour, IInteractable
     /// <summary>
     /// Drops the item.
     /// </summary>
-    public void DropItem(bool updatePlayer = true)
+    public void DropItem()
     {
         mr.material = standardMat;
-
-        heldBy.SetPickupItem(null);
 
         heldBy = null;
         transform.parent = null;
@@ -97,19 +95,6 @@ public class PickupInteractable : MonoBehaviour, IInteractable
         if (!IsPickupable()) return;
 
         mr.material = hoverMat;
-    }
-
-    /// <summary>
-    /// Implemented function stub from IInteractable
-    /// Changes the object's material when interacted with
-    /// </summary>
-    public void EnterInteract(PlayerController pc)
-    {
-        if (!IsPickupable()) return;
-
-        PickupItem(pc);   
-
-        Debug.Log($"{gameObject.name} is starting its interaction");
     }
 
     /// <summary>
@@ -160,7 +145,6 @@ public class PickupInteractable : MonoBehaviour, IInteractable
         }
     }
 
-
     /// <summary>
     /// Toggle if player can pickup this guy
     /// </summary>
@@ -182,7 +166,7 @@ public class PickupInteractable : MonoBehaviour, IInteractable
         rb.isKinematic = !physicsEnabled;
     }
 
-    public void EnterInteract(AlchemyPlayerController pc)
+    public void EnterInteract(PlayerController pc)
     {
         if (!IsPickupable()) return;
 

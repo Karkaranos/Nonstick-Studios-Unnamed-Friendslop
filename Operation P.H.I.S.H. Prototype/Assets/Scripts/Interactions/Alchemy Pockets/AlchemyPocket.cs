@@ -26,7 +26,7 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
     [SerializeField] private Vector3 maxHeldItemScale;
 
     [Header("Debug")]
-    [SerializeField, ReadOnly] private PocketedItem pocketedItem;
+    [SerializeField, ReadOnly] private AlchemyPocketedItem pocketedItem;
 
     #region Functions
     /// <summary>
@@ -57,8 +57,8 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
         mr.material = interactMat;
         Debug.Log($"{gameObject.name} is starting its interaction");
 
-        PocketedItem oldPocketedItem = pocketedItem;
-        PocketedItem newPocketedItem = pc.heldInteractable == null ? null : new PocketedItem(pc.heldInteractable);
+        AlchemyPocketedItem oldPocketedItem = pocketedItem;
+        AlchemyPocketedItem newPocketedItem = pc.heldInteractable == null ? null : new AlchemyPocketedItem(pc.heldInteractable);
 
         if (newPocketedItem != null)
         {
@@ -80,7 +80,7 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
     /// <summary>
     /// Disables physics and rescales object to go pocket mode.
     /// </summary>
-    private void DisableItemToGoInPocket(PickupInteractable item)
+    private void DisableItemToGoInPocket(AlchemyPickupInteractable item)
     {
         item.TogglePhysics(false);
         item.ToggleInteractable(false);
@@ -107,12 +107,12 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
         Debug.Log($"{gameObject.name} has ended its interaction");
     }
 
-    public void DropItem()
+    public void ThrowItem(Vector3 throwVec)
     {
         throw new System.NotImplementedException();
     }
 
-    public void ThrowItem(Vector3 throwVec)
+    public void DropItem(bool updatePlayer = true)
     {
         throw new System.NotImplementedException();
     }

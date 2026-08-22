@@ -14,8 +14,35 @@ using UnityEngine.UI;
 using NaughtyAttributes;
 using System.Collections;
 
-public class AlchemyPlayerController : PlayerController
+public class AlchemyPlayerController : MonoBehaviour
 {
+    #region VARS
+
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private float cameraSensitivity;
+    [SerializeField] private Transform cameraRotationParent;
+
+    public Camera PlayerCam { get { return playerCamera; } }
+    public float CameraSensitivity { get { return cameraSensitivity; } }
+    public Transform CameraRotationParent { get { return cameraRotationParent; } }
+
+
+    // in a non-prototype, these should be stored in a different script
+    [SerializeField] private Image playerCrosshair;
+    public Image CrosshairImage { get { return playerCrosshair; } }
+    [SerializeField] private Sprite standard;
+    public Sprite StandardSprite { get { return standard; } }
+    [SerializeField] private Sprite interactable;
+    public Sprite InteractableSprite { get { return interactable; } }
+
+    public Transform PickupPoint;
+
+    private Vector3 lastCamPosition;
+    private float lineLength;
+
+    public AlchemyPickupInteractable heldInteractable { get; private set; }
+    #endregion
+
     #region FUNCTIONS
 
     /// <summary>
@@ -23,10 +50,26 @@ public class AlchemyPlayerController : PlayerController
     /// Populates MovementType Movement dictionary
     /// Sets default movement script to active
     /// </summary>
-    protected override void Start()
+    private void Start()
     {
-        base.Start();
         Cursor.visible = false;
+    }
+
+    /// <summary>
+    /// Sets held item. Rest of pickup logic is handled in the PickupInteractable script.
+    /// </summary>
+    /// <param name="pickup"></param>
+    public void SetPickupItem(AlchemyPickupInteractable pickup, bool dropHeldItem = true)
+    {
+        Debug.Log($"{gameObject.name} is now holding {(pickup == null ? "nothing" : pickup.gameObject.name)}");
+
+        // if already holding something
+        if (heldInteractable != null && dropHeldItem)
+        {
+            heldInteractable.DropItem();
+        }
+
+        heldInteractable = pickup;
     }
 
     #endregion

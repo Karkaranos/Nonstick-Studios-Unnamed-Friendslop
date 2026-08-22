@@ -33,7 +33,7 @@ public interface IAlchemyInteractable
     /// <summary>
     /// Abstract function for when an object should be dropped
     /// </summary>
-    public abstract void DropItem();
+    public abstract void DropItem(bool updatePlayer = true);
 
     /// <summary>
     /// Abstract function for when an object should be thrown

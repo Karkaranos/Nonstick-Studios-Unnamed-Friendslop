@@ -109,7 +109,8 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
             movementUpdates = StartCoroutine(MovementUpdates());
         }
         IsMovementHeld = true;
-        PublicEvents.MoveStarted.Invoke();
+        if(PublicEvents.MoveStarted != null)
+            PublicEvents.MoveStarted.Invoke();
     }
 
     /// <summary>

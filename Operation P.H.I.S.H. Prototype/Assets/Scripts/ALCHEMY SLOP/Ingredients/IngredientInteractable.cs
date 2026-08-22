@@ -14,7 +14,7 @@ using UnityEngine.AI;
 
 public class IngredientInteractable : AlchemyPickupInteractable
 {
-    Rigidbody rb;
+    //Rigidbody rb;
     bool isPickedUp = false;
 
     //i maybe should have accounted for this before it became a problem but whatever
@@ -59,7 +59,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
     public override void Start()
     {
         rb = GetComponent<Rigidbody>();
-        originalParent = transform.parent.gameObject;
+        originalParent = transform.parent == null ? null : transform.parent.gameObject;
 
         if(isMoving)
         {
@@ -75,7 +75,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
     /// </summary>
     /// <param name="pc"></param>
     /// <param name="standardInteraction"></param>
-    public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
+    public override void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
         if(!standardInteraction)
         {
@@ -103,7 +103,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
         base.EnterInteract(pc);
 
         //"what if the ingredient uses navmesh?" idk.......
-        if(IngredientManager.Instance.ActiveIngredients.ContainsKey(originalParent))
+        if(originalParent != null && IngredientManager.Instance.ActiveIngredients.ContainsKey(originalParent))
         {
             IngredientManager.Instance.ActiveIngredients.Remove(originalParent);
         }

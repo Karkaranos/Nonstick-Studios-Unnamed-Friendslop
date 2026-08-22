@@ -77,7 +77,7 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
         }
     }
 
-    public void DropItem()
+    public void DropItem(bool updatePlayer = true)
     {
         throw new System.NotImplementedException();
     }
