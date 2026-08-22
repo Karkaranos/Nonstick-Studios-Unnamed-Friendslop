@@ -33948,18 +33948,38 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1501569487}
-    - target: {fileID: 3043166787672721855, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-      propertyPath: m_Size.y
-      value: 2.2275112
+    - target: {fileID: 582788501506445659, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
+      propertyPath: m_VersionIndex
+      value: 1307
       objectReference: {fileID: 0}
-    - target: {fileID: 3043166787672721855, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-      propertyPath: m_Center.y
-      value: -0.11375567
+    - target: {fileID: 591336107871330204, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5423759139870987188, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1501569487}
+    - target: {fileID: 6294708011720585894, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
+      propertyPath: m_Size.z
+      value: 1.3187522
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294708011720585894, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
+      propertyPath: m_Center.y
+      value: -0.01966078
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294708011720585894, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
+      propertyPath: m_Center.z
+      value: -0.16371168
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294708011720585894, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6642291001662203007, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
+      propertyPath: m_Name
+      value: L Pocket
+      objectReference: {fileID: 0}
     - target: {fileID: 7572498517557241847, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
       propertyPath: m_Name
       value: Alchemy Player
@@ -34007,10 +34027,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7572498517557241847, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1144544915}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
 --- !u!43 &689160159
 Mesh:
@@ -53776,27 +53793,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!1 &1144544909 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7572498517557241847, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-  m_PrefabInstance: {fileID: 687835806}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1144544915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144544909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c6aea393a379ef4a905174714d9e424, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AlchemyLegsAnimator
-  leftLegPivot: {fileID: 1254047133}
-  rightLegPivot: {fileID: 1576189248}
-  legRotationRange: {x: 20, y: 120}
-  legRotationSpeed: 1
 --- !u!1001 &1148710161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60034,11 +60030,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!4 &1254047133 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8607815317497436376, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-  m_PrefabInstance: {fileID: 687835806}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1254125405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74260,11 +74251,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!4 &1576189248 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6713709033868707752, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-  m_PrefabInstance: {fileID: 687835806}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1578874792
 GameObject:
   m_ObjectHideFlags: 0

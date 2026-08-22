@@ -23,12 +23,6 @@ public class AlchemyMovement : Movement
     [SerializeField] private Transform armsParent;
     [SerializeField] private Transform bodyParent;
     [SerializeField] private Transform hipsParent;
-    [Tooltip("Multiplier for the force being applied when throwing a pickup item")]
-    [SerializeField] private float thrownItemForceMultiplier = 1f;
-    [Tooltip("The amount of time E must be held for an object to swap to being thrown")]
-    [SerializeField] private float durationWhenThrowStarts = 0.5f;
-    [Tooltip("The maximum amount of time E is held down that can be applied to force calculations")]
-    [SerializeField] private float maxCalculableDuration = 1f;
 
     [SerializeField] private float baseMovementSpeed = 1f;
     [Tooltip("This penalty is multiplied with the speed and should be 0 - 0.9")]
@@ -40,16 +34,25 @@ public class AlchemyMovement : Movement
     [SerializeField] private float maxAccelerationMultiplier = 3f;
     [SerializeField] private float gravity = -10f;
     private float accelleration = 1f;
-    private float timeEPressed;
     private Coroutine shiftHold;
 
     private IAlchemyInteractable lookingAt;
     private IAlchemyInteractable interactingWith;
     private bool interacting;
 
-    [Header("Camera Interaction")]
+    [Header("Interaction")]
     [SerializeField] private float sightDistance = 2f;
     [SerializeField] private LayerMask interactionLayerMask;
+
+    [Header("Throwing")]
+    [Tooltip("Multiplier for the force being applied when throwing a pickup item")]
+    [SerializeField] private float thrownItemForceMultiplier = 1f;
+    [Tooltip("The amount of time E must be held for an object to swap to being thrown")]
+    [SerializeField] private float durationWhenThrowStarts = 0.5f;
+    [Tooltip("The maximum amount of time E is held down that can be applied to force calculations")]
+    [SerializeField] private float maxCalculableDuration = 1f;
+
+    [Header("Camera Interaction")]
     [Tooltip("The minimum angle for the camera to be considered to be \"looking down\"")]
     [SerializeField] private float lookingDownAngle = 50f;
     [Tooltip("If the difference between the players look direction and their legs rotation is greater, then legs start rotating with the camera")]
@@ -225,8 +228,6 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnEClicked()
     {
-        timeEPressed = Time.time;
-
         if(lookingAt != null)
         {
             if(interactingWith == null)
@@ -237,7 +238,8 @@ public class AlchemyMovement : Movement
             }
             else if(lookingAt != interactingWith)
             {
-                interactingWith.DropItem();
+                if(lookingAt is not AlchemyPocket)
+                    interactingWith.DropItem();
                 itemPickedUpThisActon = true;
                 interactingWith = lookingAt;
                 interactingWith.EnterInteract(pc);

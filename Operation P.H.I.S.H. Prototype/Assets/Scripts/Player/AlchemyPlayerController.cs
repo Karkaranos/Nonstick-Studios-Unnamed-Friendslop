@@ -40,7 +40,7 @@ public class AlchemyPlayerController : MonoBehaviour
     private Vector3 lastCamPosition;
     private float lineLength;
 
-    public AlchemyPickupInteractable heldInteractable { get; private set; }
+    public AlchemyPickupInteractable heldInteractable;// { get; private set; }
     #endregion
 
     #region FUNCTIONS
@@ -52,7 +52,7 @@ public class AlchemyPlayerController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        Cursor.visible = false;
+        StaticUtilities.HideCursor();
     }
 
     /// <summary>

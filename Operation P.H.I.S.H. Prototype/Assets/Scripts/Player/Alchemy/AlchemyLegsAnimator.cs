@@ -60,7 +60,6 @@ public class AlchemyLegsAnimator : MonoBehaviour
     {
         while (PlayerInputHandler.Instance.IsMovementHeld)
         {
-            Debug.Log(t);
 
             // theres definitely a cleaner way to do this that isnt a million if statements and itll haunt me every night but idc
 
@@ -85,8 +84,6 @@ public class AlchemyLegsAnimator : MonoBehaviour
 
     IEnumerator ReturnLegsToRestingPosition()
     {
-        Debug.Log("Resting Position");
-
         float rightLeg_t = Mathf.InverseLerp(legRotationRange.x, legRotationRange.y, rightLegPivot.localEulerAngles.x);
 
         while (t != restingLegRotation_percent || rightLeg_t != restingLegRotation_percent)
@@ -101,8 +98,6 @@ public class AlchemyLegsAnimator : MonoBehaviour
 
             yield return null;
         }
-
-        Debug.Log("Legs rested");
 
         leftLegMovingForwards = true;
         rightLegMovingForwards = false;

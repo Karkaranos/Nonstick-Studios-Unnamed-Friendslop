@@ -76,15 +76,26 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
         TogglePhysics(false);
         transform.parent = pc.PickupPoint;
         transform.localPosition = Vector3.zero;
+
+        if(pc.heldInteractable != this)
+            pc.SetPickupItem(this);
     }
 
     /// <summary>
     /// Drops an item without adding force
     /// </summary>
-    public void DropItem(bool updatePlayer = true)
+    public void DropItem()
     {
-        if(updatePlayer)
-            heldBy.SetPickupItem(null);
+        Debug.Log($"Dropping {gameObject.name}");
+
+        if(heldBy != null && heldBy.heldInteractable == this)
+        {
+            // do this to prevent stack overflow
+            var oldHeldBy = heldBy;
+            heldBy = null;
+            oldHeldBy.SetPickupItem(null);
+        }
+            
 
         transform.parent = null;
         col.enabled = true;
@@ -174,7 +185,8 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// </summary>
     public virtual void ExitInteract()
     {
-        DropItem(updatePlayer:false);
+        //why would we drop it when E is released?
+        //DropItem();
 
         Debug.Log($"{gameObject.name} has ended its interaction");
     }

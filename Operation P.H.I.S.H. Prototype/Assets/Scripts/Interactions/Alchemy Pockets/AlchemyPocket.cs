@@ -7,6 +7,7 @@ External Resources :
 ***************************************************/
 
 using NaughtyAttributes;
+using System.Collections;
 using UnityEngine;
 
 public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
@@ -28,6 +29,8 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
     [Header("Debug")]
     [SerializeField, ReadOnly] private AlchemyPocketedItem pocketedItem;
 
+    private Transform anchorPoint;
+
     #region Functions
     /// <summary>
     /// Start is called on the first frame update
@@ -37,7 +40,47 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
     {
         mr = GetComponent<MeshRenderer>();
         standardMat = mr.material;
+
+        CreateAnchorPoint();
     }
+
+    #region Anchor Points
+
+    /// <summary>
+    /// Create an anchor point for this pocket to follow, since you cant raycast something thats childed to you (grrrrr)
+    /// </summary>
+    void CreateAnchorPoint()
+    {
+        anchorPoint = new GameObject().transform;
+        anchorPoint.position = transform.position;
+        //anchorPoint.localScale = transform.localScale;
+        anchorPoint.rotation = transform.rotation;
+
+        // its like that one parent swap movie
+        anchorPoint.parent = transform.parent;
+        this.transform.parent = null;
+
+        StartCoroutine(FollowAnchorPoint());
+    }
+
+    /// <summary>
+    /// Moves this transform to match the anchor point's.
+    /// Runs forever
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator FollowAnchorPoint()
+    {
+        while (true)
+        {
+            transform.position = anchorPoint.position;
+            transform.rotation = anchorPoint.rotation;
+
+            yield return null;
+        }
+    }
+
+    #endregion
+
 
     /// <summary>
     /// Implemented function stub from IInteractable
@@ -55,7 +98,7 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
     public void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
         mr.material = interactMat;
-        Debug.Log($"{gameObject.name} is starting its interaction");
+        Debug.Log($"Pocket: {gameObject.name} is starting its interaction");
 
         AlchemyPocketedItem oldPocketedItem = pocketedItem;
         AlchemyPocketedItem newPocketedItem = pc.heldInteractable == null ? null : new AlchemyPocketedItem(pc.heldInteractable);
@@ -63,12 +106,12 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
         if (newPocketedItem != null)
         {
             // disables physics and the item now considers its holder to be none
-            newPocketedItem.pickup.DropItem(updatePlayer: false);
+            newPocketedItem.pickup.DropItem();
             DisableItemToGoInPocket(newPocketedItem.pickup);
         }
 
-        // if item was in pocket, it is now in the players hand
-        if(oldPocketedItem.pickup != null)
+        // if there was an item was in pocket, it is now in the players hand
+        if(oldPocketedItem != null && oldPocketedItem.pickup != null)
         {
             oldPocketedItem.pickup.PickupItem(pc);
             oldPocketedItem.pickup.ToggleInteractable(true);
@@ -82,6 +125,7 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
     /// </summary>
     private void DisableItemToGoInPocket(AlchemyPickupInteractable item)
     {
+        Debug.Log($"Putting {item.gameObject.name} in pocket");
         item.TogglePhysics(false);
         item.ToggleInteractable(false);
         item.transform.parent = heldItemPosition;
@@ -109,12 +153,12 @@ public class AlchemyPocket : MonoBehaviour, IAlchemyInteractable
 
     public void ThrowItem(Vector3 throwVec)
     {
-        throw new System.NotImplementedException();
+        // why?
     }
 
-    public void DropItem(bool updatePlayer = true)
+    public void DropItem()
     {
-        throw new System.NotImplementedException();
+        // why?
     }
 
     #endregion
