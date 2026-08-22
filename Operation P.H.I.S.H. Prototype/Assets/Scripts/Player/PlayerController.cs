@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Layer, Tooltip("The layer the phish is on")] private int shipLayer;
     [SerializeField, Layer, Tooltip("The layer land is on")] private int landLayer;
 
-    [SerializeField] private Camera playerCamera;
-    [SerializeField] private float cameraSensitivity;
-    [SerializeField] private Transform cameraRotationParent;
+    [SerializeField] protected Camera playerCamera;
+    [SerializeField] protected float cameraSensitivity;
+    [SerializeField] protected Transform cameraRotationParent;
 
     [SerializeField, Tooltip("How often, in seconds, the game should check for a new movement type")] private float timeBetweenMovementUpdates;
     public Camera PlayerCam { get { return playerCamera; } }
@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 lastCamPosition;
     private float lineLength;
 
-
     #endregion
 
     #region FUNCTIONS
@@ -70,7 +69,7 @@ public class PlayerController : MonoBehaviour
     /// Populates MovementType Movement dictionary
     /// Sets default movement script to active
     /// </summary>
-    private void Start()
+    protected virtual void Start()
     {
         Cursor.visible = false;
         movementScripts = new Dictionary<MovementType, Movement>()

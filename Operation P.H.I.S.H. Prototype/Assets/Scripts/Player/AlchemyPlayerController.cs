@@ -16,16 +16,6 @@ using System.Collections;
 
 public class AlchemyPlayerController : PlayerController
 {
-    #region VARS
-
-    [SerializeField] private Camera playerCamera;
-    [SerializeField] private float cameraSensitivity;
-    [SerializeField] private Transform cameraRotationParent;
-
-    private Vector3 lastCamPosition;
-    private float lineLength;
-    #endregion
-
     #region FUNCTIONS
 
     /// <summary>
@@ -33,8 +23,9 @@ public class AlchemyPlayerController : PlayerController
     /// Populates MovementType Movement dictionary
     /// Sets default movement script to active
     /// </summary>
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         Cursor.visible = false;
     }
 
