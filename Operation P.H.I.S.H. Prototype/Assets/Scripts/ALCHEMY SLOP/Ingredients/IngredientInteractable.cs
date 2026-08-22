@@ -108,7 +108,8 @@ public class IngredientInteractable : AlchemyPickupInteractable
             IngredientManager.Instance.ActiveIngredients.Remove(originalParent);
         }
 
-        Destroy(originalParent);
+        if(originalParent != null)
+            Destroy(originalParent);
 
         Debug.Log($"GRABBED {this.name}.");
     }
