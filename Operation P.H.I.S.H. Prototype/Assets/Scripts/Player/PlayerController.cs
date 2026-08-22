@@ -33,9 +33,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Layer, Tooltip("The layer the phish is on")] private int shipLayer;
     [SerializeField, Layer, Tooltip("The layer land is on")] private int landLayer;
 
-    [SerializeField] protected Camera playerCamera;
-    [SerializeField] protected float cameraSensitivity;
-    [SerializeField] protected Transform cameraRotationParent;
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private float cameraSensitivity;
+    [SerializeField] private Transform cameraRotationParent;
 
     [SerializeField, Tooltip("How often, in seconds, the game should check for a new movement type")] private float timeBetweenMovementUpdates;
     public Camera PlayerCam { get { return playerCamera; } }
@@ -53,7 +53,6 @@ public class PlayerController : MonoBehaviour
     public Sprite StandardSprite { get { return standard; } }
     [SerializeField] private Sprite interactable;
     public Sprite InteractableSprite { get { return interactable; } }
-    public PickupInteractable heldInteractable { get; private set; }
 
     public Transform PickupPoint;
 
@@ -69,7 +68,7 @@ public class PlayerController : MonoBehaviour
     /// Populates MovementType Movement dictionary
     /// Sets default movement script to active
     /// </summary>
-    protected virtual void Start()
+    private void Start()
     {
         Cursor.visible = false;
         movementScripts = new Dictionary<MovementType, Movement>()
@@ -110,16 +109,9 @@ public class PlayerController : MonoBehaviour
     private void ToggleMovement(MovementType type)
     {
         currentMovement = type;
-        // first movement script thats not null.
-        Movement newMovement = movementScripts
-            .Select(k_v=>k_v.Value)
-            .Where(m=>m!=null)
-            .First();
+        Movement newMovement = movementScripts[0];
         foreach (var movement in movementScripts.Values)
         {
-            if (movement == null) continue;
-            if (!movementScripts.ContainsKey(type) || movementScripts[type] == null) continue;
-
             if (movementScripts[type].Equals(movement))
             {
                 movement.enabled = true;
@@ -128,7 +120,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (movement!=null && movement.enabled)
+                if (movement.enabled)
                 {
                     lastCamPosition = movement.LastCameraAngle();
                 }
@@ -275,7 +267,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 // Not childed to the ship, so in the ocean or on the ground
-                if(transform.parent == null)
+                if (transform.parent == null)
                 {
                     // short raycast up
                     Physics.Raycast(transform.position, Vector3.up, out hit, 3f);
@@ -283,7 +275,7 @@ public class PlayerController : MonoBehaviour
 
                     if (hit.collider != null)
                     {
-                       
+
                         // If they aren't on the ship, had been on land, and there's something above them, they're probably in water
                         if (hit.collider.gameObject != null && lastMovement == MovementType.Land)
                         {
@@ -307,10 +299,10 @@ public class PlayerController : MonoBehaviour
                     lineLength = longerDistanceToCheck;
 
                     // if it hit something
-                    if(hit.collider != null)
+                    if (hit.collider != null)
                     {
                         // If they're jumping on the ship and they dont currently have land movement (this is a redundancy check)
-                        if(hit.collider.gameObject.layer == shipLayer && lastMovement == MovementType.Water)
+                        if (hit.collider.gameObject.layer == shipLayer && lastMovement == MovementType.Water)
                         {
                             GameObject newParent = hit.collider.gameObject;
 
@@ -357,33 +349,14 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+
+
+
             yield return new WaitForSecondsRealtime(timeBetweenMovementUpdates);
 
         }
     }
 
     #endregion
-
-    #region Interaction
-
-    /// <summary>
-    /// Sets held item. Rest of pickup logic is handled in the PickupInteractable script.
-    /// </summary>
-    /// <param name="pickup"></param>
-    public void SetPickupItem(PickupInteractable pickup, bool dropHeldItem = true)
-    {
-        Debug.Log($"{gameObject.name} is now holding {(pickup == null ? "nothing" : pickup.gameObject.name)}");
-
-        // if already holding something
-        if(heldInteractable != null && dropHeldItem)
-        {
-            heldInteractable.DropItem();
-        }
-
-        heldInteractable = pickup;
-    }
-
-    #endregion
-
     #endregion
 }
