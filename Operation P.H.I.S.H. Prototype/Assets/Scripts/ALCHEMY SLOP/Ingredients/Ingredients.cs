@@ -14,14 +14,16 @@ public class Ingredients : ScriptableObject
     [Tooltip("Where should this ingredient spawn?")]
     public List<Vector3> SpawnPoints;
 
-    //TODO: add spawning intervals once the timer is finished!!
+    [Tooltip("How many seconds in between each time this ingredient spawns?")]
+    public int SpawnInterval;
 
     [Tooltip("Which ingredient(s) can spawn here?")]
     public GameObject SpawnableIngredient;
 
-    public Ingredients(List<Vector3> spawnPoints, GameObject spawnableIngredient)
+    public Ingredients(List<Vector3> spawnPoints, int spawnInterval, GameObject spawnableIngredient)
     {
         this.SpawnPoints = spawnPoints;
+        this.SpawnInterval = spawnInterval;
         this.SpawnableIngredient = spawnableIngredient;
     }
 }
