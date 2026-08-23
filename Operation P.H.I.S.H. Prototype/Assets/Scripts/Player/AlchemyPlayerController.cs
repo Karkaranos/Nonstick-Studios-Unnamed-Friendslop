@@ -37,10 +37,7 @@ public class AlchemyPlayerController : MonoBehaviour
 
     public Transform PickupPoint;
 
-    private Vector3 lastCamPosition;
-    private float lineLength;
-
-    public AlchemyPickupInteractable heldInteractable;// { get; private set; }
+    public AlchemyPickupInteractable heldInteractable { get; private set; }
     #endregion
 
     #region FUNCTIONS
