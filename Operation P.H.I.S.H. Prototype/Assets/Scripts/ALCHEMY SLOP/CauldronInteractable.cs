@@ -37,19 +37,20 @@ public class CauldronInteractable : Singleton<CauldronInteractable>, IAlchemyInt
 
     #endregion
 
-    /// <summary>
-    /// adds ingredients to list
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.GetComponent<IngredientInteractable>())
-        {
-            currentStoredIngredients.Add(Tuple.Create(collision.gameObject.GetComponent<IngredientInteractable>().IngredientID, collision.gameObject.GetComponent<IngredientInteractable>().GetPrepState()));
-            Debug.Log($"Added {collision.gameObject} to the list. ID: {collision.gameObject.GetComponent<IngredientInteractable>().IngredientID}, Prepped : {collision.gameObject.GetComponent<IngredientInteractable>().GetPrepState()}");
 
-            collision.gameObject.GetComponent<IngredientInteractable>().ExitInteract();
-            collision.gameObject.SetActive(false);
+    /// <summary>
+    /// adds ingredients to current list
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<IngredientInteractable>())
+        {
+            currentStoredIngredients.Add(Tuple.Create(other.gameObject.GetComponent<IngredientInteractable>().IngredientID, other.gameObject.GetComponent<IngredientInteractable>().GetPrepState()));
+            Debug.Log($"Added {other.gameObject} to the list. ID: {other.gameObject.GetComponent<IngredientInteractable>().IngredientID}, Prepped : {other.gameObject.GetComponent<IngredientInteractable>().GetPrepState()}");
+
+            other.gameObject.GetComponent<IngredientInteractable>().ExitInteract();
+            other.gameObject.SetActive(false);
         }
     }
 

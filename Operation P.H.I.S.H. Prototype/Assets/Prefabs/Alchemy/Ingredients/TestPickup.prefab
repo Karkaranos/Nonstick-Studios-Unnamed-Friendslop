@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8531592371027668957}
   - component: {fileID: 2050772703402423503}
   - component: {fileID: 4687196481253485606}
+  - component: {fileID: 2869236563290677706}
   m_Layer: 0
   m_Name: TestPickup
   m_TagString: Untagged
@@ -159,3 +160,24 @@ MonoBehaviour:
   hoverMat: {fileID: 2100000, guid: d03d55ef0003b0e40a178110718de389, type: 2}
   interactMat: {fileID: -1980079746186394843, guid: f0f6348f6ba9ace43a99af058e03b71c, type: 3}
   OriginalPos: {x: 0, y: 0, z: 0}
+--- !u!65 &2869236563290677706
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060324540103350673}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
