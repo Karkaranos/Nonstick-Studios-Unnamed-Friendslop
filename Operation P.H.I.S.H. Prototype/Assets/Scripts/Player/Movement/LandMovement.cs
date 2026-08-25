@@ -432,6 +432,11 @@ public class LandMovement : Movement
         return;
     }
 
+    protected override void OnLeftClick()
+    {
+        
+    }
+
     protected override void OnECanceled(InputAction.CallbackContext obj)
     {
         throw new System.NotImplementedException();
