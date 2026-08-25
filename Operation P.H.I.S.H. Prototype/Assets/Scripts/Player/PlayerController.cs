@@ -13,6 +13,7 @@ using UnityEngine.UI;
 using NaughtyAttributes;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
@@ -266,7 +267,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 // Not childed to the ship, so in the ocean or on the ground
-                if(transform.parent == null)
+                if (transform.parent == null)
                 {
                     // short raycast up
                     Physics.Raycast(transform.position, Vector3.up, out hit, 3f);
@@ -274,7 +275,7 @@ public class PlayerController : MonoBehaviour
 
                     if (hit.collider != null)
                     {
-                       
+
                         // If they aren't on the ship, had been on land, and there's something above them, they're probably in water
                         if (hit.collider.gameObject != null && lastMovement == MovementType.Land)
                         {
@@ -298,10 +299,10 @@ public class PlayerController : MonoBehaviour
                     lineLength = longerDistanceToCheck;
 
                     // if it hit something
-                    if(hit.collider != null)
+                    if (hit.collider != null)
                     {
                         // If they're jumping on the ship and they dont currently have land movement (this is a redundancy check)
-                        if(hit.collider.gameObject.layer == shipLayer && lastMovement == MovementType.Water)
+                        if (hit.collider.gameObject.layer == shipLayer && lastMovement == MovementType.Water)
                         {
                             GameObject newParent = hit.collider.gameObject;
 
@@ -351,7 +352,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-                yield return new WaitForSecondsRealtime(timeBetweenMovementUpdates);
+            yield return new WaitForSecondsRealtime(timeBetweenMovementUpdates);
 
         }
     }

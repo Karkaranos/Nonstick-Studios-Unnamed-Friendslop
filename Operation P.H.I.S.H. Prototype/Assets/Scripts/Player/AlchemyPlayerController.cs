@@ -37,8 +37,7 @@ public class AlchemyPlayerController : MonoBehaviour
 
     public Transform PickupPoint;
 
-    private Vector3 lastCamPosition;
-    private float lineLength;
+    public AlchemyPickupInteractable heldInteractable { get; private set; }
     #endregion
 
     #region FUNCTIONS
@@ -50,7 +49,24 @@ public class AlchemyPlayerController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        Cursor.visible = false;
+        StaticUtilities.HideCursor();
+    }
+
+    /// <summary>
+    /// Sets held item. Rest of pickup logic is handled in the PickupInteractable script.
+    /// </summary>
+    /// <param name="pickup"></param>
+    public void SetPickupItem(AlchemyPickupInteractable pickup, bool dropHeldItem = true)
+    {
+        Debug.Log($"{gameObject.name} is now holding {(pickup == null ? "nothing" : pickup.gameObject.name)}");
+
+        // if already holding something
+        if (heldInteractable != null && dropHeldItem)
+        {
+            heldInteractable.DropItem();
+        }
+
+        heldInteractable = pickup;
     }
 
     #endregion

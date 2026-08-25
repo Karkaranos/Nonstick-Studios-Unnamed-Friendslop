@@ -92,6 +92,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
 
         transform.parent = pc.PickupPoint;
         isPickedUp = true;
+        pc.SetPickupItem(this);
 
         if (isMoving)
         {

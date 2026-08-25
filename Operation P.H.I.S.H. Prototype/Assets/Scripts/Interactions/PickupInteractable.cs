@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Cade Naylor
+Author Names : 		    Cade Naylor, Toby Schamberger
 Date Created : 		    07/30/2026
-Date Last Modified : 	07/30/2026
+Date Last Modified : 	08/16/2026
 Brief Description : 	A test object for pick up interactions
 External Resources :    	
 ***************************************************/
@@ -19,13 +19,17 @@ public class PickupInteractable : MonoBehaviour, IInteractable
     [SerializeField] private Material interactMat;
 
     private MeshRenderer mr;
-    private Collider c;
+    private Collider col;
 
     [SerializeField, Layer] private int shipLayer;
     private PlayerController heldBy;
     private Rigidbody rb;
 
-    [HideInInspector] public Vector3 OriginalPos;
+    [HideInInspector] public Vector3 OriginalPosition;
+    [HideInInspector] public Vector3 OriginalScale;
+
+    [SerializeField, BoxGroup("Debug")] private bool isToggled = true;
+    private bool isHeld => heldBy != null;
     #endregion
 
     #region Functions
@@ -37,36 +41,60 @@ public class PickupInteractable : MonoBehaviour, IInteractable
     {
         mr = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
-        c = GetComponent<Collider>();
+        col = GetComponent<Collider>();
         standardMat = mr.material;
 
-        OriginalPos = gameObject.transform.position;
+        OriginalPosition = gameObject.transform.position;
+        OriginalScale = gameObject.transform.lossyScale;
     }
 
+    #region Pickup Functions
+
+    /// <summary>
+    /// Return true if pickup can be... picked up
+    /// </summary>
+    public bool IsPickupable()
+    {
+        return isToggled && !isHeld;
+    }
+
+    /// <summary>
+    /// Sets the item as picked up
+    /// </summary>
+    public void PickupItem(PlayerController pc)
+    {
+        mr.material = interactMat;
+
+        heldBy = pc;
+        TogglePhysics(false);
+        transform.parent = pc.PickupPoint;
+        transform.localPosition = Vector3.zero;
+    }
+
+    /// <summary>
+    /// Drops the item.
+    /// </summary>
+    public void DropItem()
+    {
+        mr.material = standardMat;
+
+        heldBy = null;
+        transform.parent = null;
+        TogglePhysics(true);
+    }
+
+    #endregion
+
+    #region Interaction Implementation
     /// <summary>
     /// Implemented function stub from IInteractable
     /// Changes the object's material when hovered over
     /// </summary>
     public void EnterHover()
     {
+        if (!IsPickupable()) return;
+
         mr.material = hoverMat;
-    }
-
-    /// <summary>
-    /// Implemented function stub from IInteractable
-    /// Changes the object's material when interacted with
-    /// </summary>
-    public void EnterInteract(PlayerController pc)
-    {
-        mr.material = interactMat;
-
-        heldBy = pc;
-        rb.isKinematic = true;
-        c.enabled = false;
-        transform.parent = pc.PickupPoint;
-        transform.localPosition = Vector3.zero;
-
-        Debug.Log($"{gameObject.name} is starting its interaction");
     }
 
     /// <summary>
@@ -84,14 +112,12 @@ public class PickupInteractable : MonoBehaviour, IInteractable
     /// </summary>
     public void ExitInteract()
     {
-        mr.material = standardMat;
-
-        transform.parent = null;
-        c.enabled = true;
-        rb.isKinematic = false;
+        DropItem();
 
         Debug.Log($"{gameObject.name} has ended its interaction");
     }
+
+    #endregion
 
     /// <summary>
     /// When this object collides with another object, child it if it's collided with the ship
@@ -118,6 +144,37 @@ public class PickupInteractable : MonoBehaviour, IInteractable
             }
         }
     }
+
+    /// <summary>
+    /// Toggle if player can pickup this guy
+    /// </summary>
+    /// <param name="interactable"></param>
+    public void ToggleInteractable(bool interactable)
+    {
+        isToggled = interactable;
+
+        if (!interactable)
+        {
+            ExitInteract();
+            ExitHover();
+        }
+    }
+
+    public void TogglePhysics(bool physicsEnabled)
+    {
+        col.enabled = physicsEnabled;
+        rb.isKinematic = !physicsEnabled;
+    }
+
+    public void EnterInteract(PlayerController pc)
+    {
+        if (!IsPickupable()) return;
+
+        PickupItem(pc);
+
+        Debug.Log($"{gameObject.name} is starting its interaction");
+    }
+
     #endregion
 
 }

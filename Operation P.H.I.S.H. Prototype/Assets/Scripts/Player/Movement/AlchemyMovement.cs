@@ -1,7 +1,7 @@
 /*************************************************
-Author Names : 		    Jacob Bateman, Clare Grady, Cade Naylor, Sky Beal
+Author Names : 		    Jacob Bateman, Clare Grady, Cade Naylor, Sky Beal, Toby Schamberger
 Date Created : 		    08/12/2026
-Date Last Modified : 	08/12/2026
+Date Last Modified : 	08/16/2026
 Brief Description : 	Actually defines and handles land movement.
 Jacob Note:             Took this script from PHISH and edited it to fit AS.
 
@@ -21,12 +21,8 @@ public class AlchemyMovement : Movement
     [SerializeField] private float minCameraYClamp = 120f;
     [SerializeField] private float maxCameraYClamp = 60f;
     [SerializeField] private Transform armsParent;
-    [Tooltip("Multiplier for the force being applied when throwing a pickup item")]
-    [SerializeField] private float thrownItemForceMultiplier = 1f;
-    [Tooltip("The amount of time E must be held for an object to swap to being thrown")]
-    [SerializeField] private float durationWhenThrowStarts = 0.5f;
-    [Tooltip("The maximum amount of time E is held down that can be applied to force calculations")]
-    [SerializeField] private float maxCalculableDuration = 1f;
+    [SerializeField] private Transform bodyParent;
+    [SerializeField] private Transform hipsParent;
 
     [SerializeField] private float baseMovementSpeed = 1f;
     [Tooltip("This penalty is multiplied with the speed and should be 0 - 0.9")]
@@ -38,19 +34,37 @@ public class AlchemyMovement : Movement
     [SerializeField] private float maxAccelerationMultiplier = 3f;
     [SerializeField] private float gravity = -10f;
     private float accelleration = 1f;
-    private float timeEPressed;
     private Coroutine shiftHold;
 
     private IAlchemyInteractable lookingAt;
     private IAlchemyInteractable interactingWith;
     private bool interacting;
+
+    [Header("Interaction")]
     [SerializeField] private float sightDistance = 2f;
+    [SerializeField] private LayerMask interactionLayerMask;
+
+    [Header("Throwing")]
+    [Tooltip("Multiplier for the force being applied when throwing a pickup item")]
+    [SerializeField] private float thrownItemForceMultiplier = 1f;
+    [Tooltip("The amount of time E must be held for an object to swap to being thrown")]
+    [SerializeField] private float durationWhenThrowStarts = 0.5f;
+    [Tooltip("The maximum amount of time E is held down that can be applied to force calculations")]
+    [SerializeField] private float maxCalculableDuration = 1f;
+
+    [Header("Camera Interaction")]
+    [Tooltip("The minimum angle for the camera to be considered to be \"looking down\"")]
+    [SerializeField] private float lookingDownAngle = 50f;
+    [Tooltip("If the difference between the players look direction and their legs rotation is greater, then legs start rotating with the camera")]
+    [SerializeField] private float lookingAwayFromLegsAngle = 50f;
 
     private bool jumpThisFrame;
     private bool isCrouching = false;
     private bool itemPickedUpThisActon = false;
 
-    Vector2 rotation;
+    Vector3 baseHipLocalRotation;
+
+    Vector2 cameraRotation;
     Rigidbody rb;
     bool paused;
 
@@ -80,7 +94,10 @@ public class AlchemyMovement : Movement
     {
         pc = GetComponent<AlchemyPlayerController>();
         rb = GetComponent<Rigidbody>();
-        rotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
+        cameraRotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
+
+        if (hipsParent != null)
+            baseHipLocalRotation = hipsParent.transform.localEulerAngles;
     }
 
     /// <summary>
@@ -98,19 +115,35 @@ public class AlchemyMovement : Movement
         }
         Vector2 adjustedDelta = cameraVector * pc.CameraSensitivity * Time.fixedDeltaTime;
 
-        rotation.x -= adjustedDelta.y;
-        rotation.x = Mathf.Clamp(rotation.x, minCameraYClamp, maxCameraYClamp);
-        rotation.y += adjustedDelta.x;
+        cameraRotation.x -= adjustedDelta.y;
+        cameraRotation.x = Mathf.Clamp(cameraRotation.x, minCameraYClamp, maxCameraYClamp);
+        cameraRotation.y += adjustedDelta.x;
 
-        pc.CameraRotationParent.localEulerAngles = rotation;
+        pc.CameraRotationParent.localEulerAngles = cameraRotation;
 
+        #region Rotate Arms Parent
         if (armsParent != null)
         {
             Vector3 armsRotation = armsParent.transform.localEulerAngles;
-            armsRotation.y = rotation.y;
-            armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
+            armsRotation.y = cameraRotation.y;
+            armsRotation.x = Mathf.Clamp(cameraRotation.x, -40, 40);
             armsParent.transform.localEulerAngles = armsRotation;
         }
+        #endregion
+
+        #region Rotate Body Parent
+        // Similar rotation to arms, but doesnt move up and down with camera.
+        if (bodyParent != null)
+        {
+            Vector3 bodyRotation = bodyParent.transform.localEulerAngles;
+            bodyRotation.y = cameraRotation.y;
+            bodyParent.transform.localEulerAngles = bodyRotation;
+        }
+        #endregion
+
+        #region Rotate hips/legs Parent
+        RotateHips();
+        #endregion
 
         if (LookingAtObject())
         {
@@ -122,6 +155,32 @@ public class AlchemyMovement : Movement
         }
 
         //Debug.Log("LOOK");
+    }
+
+    /// <summary>
+    /// Rotates legs so that pockets can be easily accessed.
+    /// </summary>
+    private void RotateHips()
+    {
+        if (hipsParent == null)
+            return;
+
+        float hipRotation = hipsParent.transform.localEulerAngles.y;
+
+        // only rotate the hips if the player is looking up, this way they can reach in their pockets
+        if (cameraRotation.x < lookingDownAngle)
+        {
+            hipRotation = cameraRotation.y;
+        }
+
+        // if the player is looking too far away from their legs, then rotate em just a lil
+        else if (Mathf.Abs(Mathf.DeltaAngle(hipRotation, cameraRotation.y)) > lookingAwayFromLegsAngle)
+        {
+            hipRotation = Mathf.MoveTowardsAngle(hipRotation, cameraRotation.y, Time.deltaTime * 10); //todo: dont hardcode this l8r
+        }
+
+        // if code reaches this point, then player is looking down, so we dont rotate anything.
+        hipsParent.transform.localEulerAngles = baseHipLocalRotation.WithY(hipRotation);
     }
 
     /// <summary>
@@ -169,8 +228,6 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnEClicked()
     {
-        timeEPressed = Time.time;
-
         if(lookingAt != null)
         {
             if(interactingWith == null)
@@ -181,7 +238,8 @@ public class AlchemyMovement : Movement
             }
             else if(lookingAt != interactingWith)
             {
-                interactingWith.DropItem();
+                if(lookingAt is not AlchemyPocket)
+                    interactingWith.DropItem();
                 itemPickedUpThisActon = true;
                 interactingWith = lookingAt;
                 interactingWith.EnterInteract(pc);
@@ -408,19 +466,20 @@ public class AlchemyMovement : Movement
 
         if (Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
         {
-            if (hit.transform.GetComponent<IAlchemyInteractable>() != null)
+            IAlchemyInteractable interactable = hit.transform.GetComponentInParent<IAlchemyInteractable>();
+            if (interactable != null)
             {
-                if (interactingWith != null && hit.transform.GetComponent<IAlchemyInteractable>() == interactingWith)
+                if (interactingWith != null && interactable == interactingWith)
                 {
                     return true;
                 }
 
-                if (lookingAt != null && hit.transform.GetComponent<IAlchemyInteractable>() != lookingAt)
+                if (lookingAt != null && interactable != lookingAt)
                 {
                     lookingAt.ExitHover();
                 }
 
-                lookingAt = hit.transform.GetComponent<IAlchemyInteractable>();
+                lookingAt = interactable;
                 lookingAt.EnterHover();
 
                 pc.CrosshairImage.sprite = pc.InteractableSprite;
