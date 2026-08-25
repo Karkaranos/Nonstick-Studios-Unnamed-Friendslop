@@ -111,4 +111,14 @@ public class CustomerInteractable : MonoBehaviour, IAlchemyInteractable
     {
 
     }
+
+    public void DropItem()
+    {
+
+    }
+
+    public void ThrowItem(Vector3 throwVec)
+    {
+
+    }
 }
