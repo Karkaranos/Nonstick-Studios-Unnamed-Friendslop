@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639220412976992291
+  lastModified: 639228567488027085
   FileSizes:
   - Name: Desktop
     Value: 1878
@@ -35,10 +35,10 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639220412976992291
+  lastModified: 639228567488031769
   FileSizes:
   - Name: Desktop
-    Value: 952
+    Value: 996
   Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -60,12 +60,13 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: 47562884264458377}
   - {fileID: 3990295674920579119}
+  - {fileID: 2731621525331173449}
   EditorParameters: []
   MasterBanks:
   - {fileID: -1870992053996906871}
   StringsBanks:
   - {fileID: -221674237988211303}
-  cacheTime: 639220412976992291
+  cacheTime: 639228567488031769
   cacheVersion: 131637
 --- !u!114 &47562884264458377
 MonoBehaviour:
@@ -109,11 +110,38 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639220412976992291
+  lastModified: 639228566036889370
   FileSizes:
   - Name: Desktop
     Value: 494
   Exists: 1
+--- !u!114 &2731621525331173449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/alchemydemoBGM
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/alchemydemoBGM
+  Guid:
+    Data1: -1252894192
+    Data2: 1105567985
+    Data3: -618520409
+    Data4: 924538137
+  Banks:
+  - {fileID: 7659375027450640843}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 79916
 --- !u!114 &3990295674920579119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,8 +184,8 @@ MonoBehaviour:
   Path: Assets/FMOD/Desktop/BGM.bank
   Name: BGM
   StudioPath: bank:/BGM
-  lastModified: 639220412976992291
+  lastModified: 639228567487853867
   FileSizes:
   - Name: Desktop
-    Value: 970304
+    Value: 1897952
   Exists: 1
