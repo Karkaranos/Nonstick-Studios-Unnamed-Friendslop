@@ -9,18 +9,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using NaughtyAttributes;
 
-//swap this out for whatever we end up doing for potions i think
-//i can do that
-public enum PotionType
-{
-    Endurance,
-    Strength,
-    GentleRepose,
-    Hydration,
-    Luck,
-    Health
-}
-
 [CreateAssetMenu(fileName = "Customer", menuName = "Scriptable Objects/Customer")]
 
 public class Customer : ScriptableObject

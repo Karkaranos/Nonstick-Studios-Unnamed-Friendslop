@@ -6,6 +6,7 @@ External Resources :
 ***************************************************/
 
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CustomerInteractable : MonoBehaviour, IAlchemyInteractable
@@ -33,29 +34,35 @@ public class CustomerInteractable : MonoBehaviour, IAlchemyInteractable
             return;
         }
 
-        //TODO: OR if held potion is null
-        if (!alreadyInteractedWith)
+        if (!alreadyInteractedWith || pc.heldInteractable == null || 
+            pc.heldInteractable.GetComponent<PotionInteractable>() == null)
         {
             DisplayDialogue(customerInfo.RequestDialogue);
             alreadyInteractedWith = true;
         }
-        else
+        else if (alreadyInteractedWith && pc.heldInteractable != null && 
+                 pc.heldInteractable.GetComponent<PotionInteractable>() != null)
         {
-            if(pc.HeldPotionType == customerInfo.CorrectPotion)
+            if (pc.heldInteractable.GetComponent<PotionInteractable>().PotionID ==
+                customerInfo.CorrectPotion)
             {
                 DisplayDialogue(customerInfo.CorrectPotionDialogue);
                 CurrencyManager.Instance.AddMoney(customerInfo.CorrectPotionPayment);
             }
-            else if(customerInfo.AcceptablePotions.Contains(pc.HeldPotionType))
+            else if (customerInfo.AcceptablePotions.Contains
+                    (pc.heldInteractable.GetComponent<PotionInteractable>().PotionID))
             {
                 DisplayDialogue(customerInfo.AcceptablePotionDialogue);
                 CurrencyManager.Instance.AddMoney(customerInfo.AcceptablePotionPayment);
             }
-            else if(!customerInfo.AcceptablePotions.Contains(pc.HeldPotionType))
+            else if (!customerInfo.AcceptablePotions.Contains
+                    (pc.heldInteractable.GetComponent<PotionInteractable>().PotionID))
             {
                 DisplayDialogue(customerInfo.WrongPotionDialogue);
                 CurrencyManager.Instance.AddMoney(customerInfo.WrongPotionPayment);
             }
+
+            Destroy(pc.heldInteractable.gameObject);
 
             hasPotion = true;
         }

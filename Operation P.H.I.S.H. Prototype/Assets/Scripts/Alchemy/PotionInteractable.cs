@@ -6,7 +6,19 @@ External Resources :
 ***************************************************/
 using UnityEngine;
 
+public enum PotionType
+{
+    Endurance,
+    GentleRepose,
+    Health,
+    Hydration,
+    Luck,
+    Strength,
+    Null
+}
+
+
 public class PotionInteractable : AlchemyPickupInteractable
 {
-    public string PotionID = "Default";
+    public PotionType PotionID;
 }
