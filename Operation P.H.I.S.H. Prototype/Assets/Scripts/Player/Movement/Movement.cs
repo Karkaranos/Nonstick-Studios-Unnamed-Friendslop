@@ -9,6 +9,7 @@ External Resources :
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public abstract class Movement: MonoBehaviour 
 {
@@ -21,6 +22,7 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.MoveStopped += OnMoveEnd;
         PublicEvents.MousePosition += OnMouseMove;
         PublicEvents.EClicked += OnEClicked;
+        PublicEvents.ECanceled += OnECanceled;
         PublicEvents.ReelTetherStarted += ReelTetherStarted;
         PublicEvents.ReelTetherHeld += WhileReelTetherHeld;
         PublicEvents.ReelTetherFinished += ReelTetherFinished;
@@ -44,6 +46,7 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.MoveStopped -= OnMoveEnd;
         PublicEvents.MousePosition -= OnMouseMove;
         PublicEvents.EClicked -= OnEClicked;
+        PublicEvents.ECanceled -= OnECanceled;
         PublicEvents.ReelTetherStarted -= ReelTetherStarted;
         PublicEvents.ReelTetherHeld -= WhileReelTetherHeld;
         PublicEvents.ReelTetherFinished -= ReelTetherFinished;
@@ -63,6 +66,7 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnMoveEnd();
     protected abstract void OnMouseMove(Vector2 cameraVector);
     protected abstract void OnEClicked();
+    protected abstract void OnECanceled(InputAction.CallbackContext obj);
     protected abstract void OnSpaceStarted(bool fullyPerformed);
     protected abstract void OnSpaceFinished();
     protected abstract void ReelTetherStarted();
