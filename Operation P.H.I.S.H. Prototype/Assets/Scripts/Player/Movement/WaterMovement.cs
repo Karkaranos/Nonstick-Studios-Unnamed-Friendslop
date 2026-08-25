@@ -9,6 +9,7 @@ External Resources :
 using System.Collections;
 using UnityEngine;
 using NaughtyAttributes;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerController))]
 public class WaterMovement : Movement
@@ -401,5 +402,10 @@ public class WaterMovement : Movement
     protected override void OnPrepPerformed()
     {
         return;
+    }
+
+    protected override void OnECanceled(InputAction.CallbackContext obj)
+    {
+        throw new System.NotImplementedException();
     }
 }

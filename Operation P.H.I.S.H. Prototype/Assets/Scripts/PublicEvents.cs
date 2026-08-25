@@ -8,15 +8,19 @@ External Resources :    Wayward Woods
 	***************************************************/
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 public static class PublicEvents
 {
     #region INPUT EVENTS    
 
     public static Action<Vector2> MoveDirection;
+    public static Action MoveStarted;
     public static Action MoveStopped;
     public static Action<Vector2> MousePosition;
     public static Action EClicked;
+    public static Action<InputAction.CallbackContext> ECanceled;
     public static Action ReelTetherStarted;
     public static Action<float> ReelTetherHeld; // float: deltaTime
     public static Action ReelTetherFinished;

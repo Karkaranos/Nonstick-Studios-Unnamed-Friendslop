@@ -175,7 +175,7 @@ public class ShipResourceManager : Singleton<ShipResourceManager>
     {
         foreach(GameObject treasure in CollectedTreasures)
         {
-            treasure.transform.position = treasure.GetComponent<PickupInteractable>().OriginalPos;
+            treasure.transform.position = treasure.GetComponent<PickupInteractable>().OriginalPosition;
         }
 
         CollectedTreasures.Clear();

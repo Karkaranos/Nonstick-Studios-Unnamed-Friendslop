@@ -8,34 +8,35 @@ External Resources :
 using UnityEngine;
 using System.Collections.Generic;
 using NaughtyAttributes;
+using System.Linq;
 
-public class IngredientManager : MonoBehaviour
+public class IngredientManager : Singleton<IngredientManager>
 {
-    //waaaait should spawning intervals should be here??
-    //hmm.....
+    public List<Ingredients> AllIngredients = new List<Ingredients>();
+    [HideInInspector] public Dictionary<GameObject, Vector3> ActiveIngredients = new Dictionary<GameObject, Vector3>();
 
-    [SerializeField] List<Ingredients> ingredients = new List<Ingredients>();
-
-    //TODO: spawn based on timer intervals
-
-    [Button]
-    void TestSpawning()
+    public void SpawnIngredient(Ingredients ingredient)
     {
-        SpawnIngredient(null, new Vector3(0, 0, 0));
-    }
+        Vector3 pos = Vector3.zero;
 
-    void SpawnIngredient(GameObject ingredient, Vector3 pos)
-    {
-        if(ingredient == null)
+        //goes through possible spawn points and picks the first available option
+        //if there are no available options, then nothing will spawn
+        for(int i = 0; i < ingredient.SpawnPoints.Count; i++)
         {
-            int index = Random.Range(0, ingredients.Count);
-
-            ingredient = ingredients[index].SpawnableIngredient;
-
-            pos = ingredients[index].SpawnPoints[Random.Range(0, ingredients[index].SpawnPoints.Count)];
+            if (!ActiveIngredients.ContainsValue(ingredient.SpawnPoints[i]))
+            {
+                pos = ingredient.SpawnPoints[i];
+                break;
+            }
         }
 
-        Instantiate(ingredient, pos, Quaternion.identity);
+        if(pos == Vector3.zero)
+        {
+            return;
+        }
+
+        GameObject spawnedIngredient = Instantiate(ingredient.SpawnableIngredient, pos, Quaternion.identity);
+        ActiveIngredients.Add(spawnedIngredient, pos);
 
         Debug.Log($"{ingredient.name} spawned at {pos}!");
     }

@@ -43,8 +43,6 @@ public class IngredientPrepInteractable : MonoBehaviour, IAlchemyInteractable
         Debug.Log("Started ingredient prep interaction");
         List<GameObject> ingredients = new List<GameObject>(BaseToPrep.Keys);
 
-
-
         for(int i= itemsOnSurface.Count-1; i>=0; i--)
         {
             Debug.Log($"Surface has {itemsOnSurface[i].gameObject.name}");
@@ -121,5 +119,15 @@ public class IngredientPrepInteractable : MonoBehaviour, IAlchemyInteractable
     void Update()
     {
         
+    }
+
+    public void DropItem()
+    {
+        //throw new System.NotImplementedException();
+    }
+
+    public void ThrowItem(Vector3 throwVec)
+    {
+        //throw new System.NotImplementedException();
     }
 }

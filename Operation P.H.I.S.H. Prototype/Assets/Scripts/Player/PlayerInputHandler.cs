@@ -30,6 +30,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     private Coroutine movementUpdates;
 
     public bool IsReelTetherHeld { get; private set; } = false;
+    public bool IsMovementHeld { get; private set; } = false;
 
     #endregion
 
@@ -64,6 +65,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         move.canceled += MoveStopped;
         look.performed += LookCalled;   
         e.performed += EPressed;
+        e.canceled += ECanceled;
         reelTether.started += ReelTetherStarted;
         reelTether.canceled += ReelTetherCanceled;
         space.started += SpacePressed;
@@ -76,6 +78,8 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         prep.performed += Prep_performed;
         
     }
+
+
 
     /// <summary>
     /// unsubscribes input actions from functions
@@ -100,10 +104,13 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     /// <param name="obj"></param>
     private void MoveCalled(InputAction.CallbackContext obj)
     {
-        if(movementUpdates == null)
+        if (movementUpdates == null)
         {
             movementUpdates = StartCoroutine(MovementUpdates());
         }
+        IsMovementHeld = true;
+        if(PublicEvents.MoveStarted != null)
+            PublicEvents.MoveStarted.Invoke();
     }
 
     /// <summary>
@@ -121,6 +128,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         Vector2 moveDirection = move.ReadValue<Vector2>();
         PublicEvents.MoveDirection(moveDirection);
         PublicEvents.MoveStopped?.Invoke();
+        IsMovementHeld = false;
     }
 
     /// <summary>
@@ -154,6 +162,16 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     private void EPressed(InputAction.CallbackContext obj)
     {
         PublicEvents.EClicked();
+    }
+
+    /// <summary>
+    /// Input function of E canceled.
+    /// </summary>
+    /// <param name="obj"></param>
+    private void ECanceled(InputAction.CallbackContext obj)
+    {
+        if(!Mathf.Approximately((float)obj.duration, 0))
+            PublicEvents.ECanceled(obj);
     }
 
     /// <summary>

@@ -1,14 +1,16 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor, Sky Beal
+Author Names : 		    Clare Grady, Cade Naylor, Sky Beal, Toby Schamberger
 Date Created : 		    07/22/2026
-Date Last Modified : 	08/7/2026
+Date Last Modified : 	08/15/2026
 Brief Description : 	Actually defines and handles land movement
 
 External Resources :    	
 ***************************************************/
+using NaughtyAttributes;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerController))]
 public class LandMovement : Movement
@@ -18,6 +20,7 @@ public class LandMovement : Movement
     [SerializeField] private float maxCameraYClamp = 60f;
     [SerializeField] private Transform armsParent;
 
+    [Header("Movement Variables")]
     [SerializeField] private float baseLandMovementSpeed = 1f;
     [SerializeField] private float tapJumpHeightPercent = .5f;
     [SerializeField] private float fullJumpHeight;
@@ -30,11 +33,13 @@ public class LandMovement : Movement
     private IInteractable lookingAt;
     private IInteractable interactingWith;
     private bool interacting;
+
+    [Header("Camera Interaction")]
     [SerializeField] private float sightDistance = 2f;
 
     bool jumpThisFrame;
 
-    Vector2 rotation;
+    Vector2 cameraRotation;
     Rigidbody rb;
 
     private Vector3 lookingDirection(Vector2 moveVector) => (pc.CameraRotationParent.forward * moveVector.y) + (pc.CameraRotationParent.right * moveVector.x);
@@ -60,7 +65,7 @@ public class LandMovement : Movement
     {
         pc = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody>();
-        rotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
+        cameraRotation = new Vector2(pc.CameraRotationParent.eulerAngles.y, pc.CameraRotationParent.eulerAngles.x);
     }
 
     /// <summary>
@@ -79,21 +84,25 @@ public class LandMovement : Movement
 
         Vector2 adjustedDelta = cameraVector * pc.CameraSensitivity * Time.fixedDeltaTime;
 
-        rotation.x -= adjustedDelta.y;
-        rotation.x = Mathf.Clamp(rotation.x, minCameraYClamp, maxCameraYClamp);
-        rotation.y += adjustedDelta.x;
+        cameraRotation.x -= adjustedDelta.y;
+        cameraRotation.x = Mathf.Clamp(cameraRotation.x, minCameraYClamp, maxCameraYClamp);
+        cameraRotation.y += adjustedDelta.x;
 
-        pc.CameraRotationParent.localEulerAngles = rotation;
+        pc.CameraRotationParent.localEulerAngles = cameraRotation;
 
+        #region Rotate Arms Parent
         if (armsParent != null)
         {
             Vector3 armsRotation = armsParent.transform.localEulerAngles;
-            armsRotation.y = rotation.y;
-            armsRotation.x = Mathf.Clamp(rotation.x, -40, 40);
+            armsRotation.y = cameraRotation.y;
+            armsRotation.x = Mathf.Clamp(cameraRotation.x, -40, 40);
             armsParent.transform.localEulerAngles = armsRotation;
         }
+        #endregion
 
-        if(LookingAtObject())
+       
+
+        if (LookingAtObject())
         {
             pc.CrosshairImage.sprite = pc.InteractableSprite;
         }
@@ -101,8 +110,6 @@ public class LandMovement : Movement
         {
             pc.CrosshairImage.sprite = pc.StandardSprite;
         }
-        
-        Debug.Log("LOOK");
     }
 
     /// <summary>
@@ -297,7 +304,7 @@ public class LandMovement : Movement
 
         if(Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
         {
-            if(hit.transform.GetComponent<IInteractable>()!= null)
+            if (hit.transform.GetComponent<IInteractable>()!= null)
             {
                 if(hit.transform.GetComponent<ShipMovementControllers>() != null &&
                 !ShipDiveController.Instance.Diving)
@@ -423,5 +430,10 @@ public class LandMovement : Movement
     protected override void OnPrepPerformed()
     {
         return;
+    }
+
+    protected override void OnECanceled(InputAction.CallbackContext obj)
+    {
+        throw new System.NotImplementedException();
     }
 }
