@@ -14,11 +14,13 @@ using UnityEngine.AI;
 
 public class IngredientInteractable : AlchemyPickupInteractable
 {
-    //Rigidbody rb;
     bool isPickedUp = false;
 
+    [Tooltip ("Ingredient Name")]
+    public string IngredientID = "Default";
+    
     //i maybe should have accounted for this before it became a problem but whatever
-    GameObject originalParent;
+    private GameObject originalParent;
 
     [Tooltip("Is this ingredient breakable?")]
     [SerializeField] bool isBreakable;
@@ -58,9 +60,6 @@ public class IngredientInteractable : AlchemyPickupInteractable
 
     public override void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        originalParent = transform.parent == null ? null : transform.parent.gameObject;
-
         if(isMoving)
         {
             navMeshAgent = GetComponentInChildren<NavMeshAgent>();
@@ -75,13 +74,14 @@ public class IngredientInteractable : AlchemyPickupInteractable
     /// </summary>
     /// <param name="pc"></param>
     /// <param name="standardInteraction"></param>
-    public override void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
+    public new void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
         if(!standardInteraction)
         {
             return;
         }
 
+        base.EnterInteract(pc, true);
 
         RaycastHit checkForPrep;
 
@@ -104,13 +104,11 @@ public class IngredientInteractable : AlchemyPickupInteractable
         base.EnterInteract(pc);
 
         //"what if the ingredient uses navmesh?" idk.......
-        if(originalParent != null && IngredientManager.Instance.ActiveIngredients.ContainsKey(originalParent))
+        if(IngredientManager.Instance != null && 
+        IngredientManager.Instance.ActiveIngredients.ContainsKey(this.gameObject))
         {
-            IngredientManager.Instance.ActiveIngredients.Remove(originalParent);
+            IngredientManager.Instance.ActiveIngredients.Remove(this.gameObject);
         }
-
-        if(originalParent != null)
-            Destroy(originalParent);
 
         Debug.Log($"GRABBED {this.name}.");
     }
