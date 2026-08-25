@@ -456,7 +456,7 @@ public class AlchemyMovement : Movement
 
             timer += Time.fixedDeltaTime;
 
-            Debug.Log(accelleration);
+            //Debug.Log(accelleration);
             yield return null;
         }
     }

@@ -28,7 +28,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     private Collider c;
 
     private AlchemyPlayerController heldBy;
-    private Rigidbody rb;
+    protected Rigidbody rb;
 
     protected bool disablePlayerCollision = false;
 

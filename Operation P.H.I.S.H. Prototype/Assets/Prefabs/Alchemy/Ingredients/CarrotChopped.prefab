@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5019925600680761129
+--- !u!1 &3493562617739640250
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,46 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4875543386569833539}
-  - component: {fileID: 5485150338163467166}
-  - component: {fileID: 5566024375377272237}
+  - component: {fileID: 797323236521986882}
+  - component: {fileID: 8452366390359628606}
+  - component: {fileID: -5510677843620298508}
+  - component: {fileID: 476449059185390512}
+  - component: {fileID: -1691877710705427824}
+  - component: {fileID: -8649899150744171493}
   m_Layer: 0
-  m_Name: CubeFruitModel
+  m_Name: CarrotChopped
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4875543386569833539
+--- !u!4 &797323236521986882
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5019925600680761129}
+  m_GameObject: {fileID: 3493562617739640250}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.0148680955, y: 0.04554687, z: -0.040633768}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7499346190155051524}
+  m_Children:
+  - {fileID: 8258968491732980191}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5485150338163467166
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5019925600680761129}
-  m_Mesh: {fileID: -1263274042204386392, guid: cfb4dcb956eff5b4a9379b9df1257e39, type: 3}
---- !u!23 &5566024375377272237
+--- !u!23 &8452366390359628606
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5019925600680761129}
+  m_GameObject: {fileID: 3493562617739640250}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -66,8 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3211239797394532614, guid: cfb4dcb956eff5b4a9379b9df1257e39, type: 3}
-  - {fileID: -4642563728027398946, guid: cfb4dcb956eff5b4a9379b9df1257e39, type: 3}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,52 +86,25 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &6199983260221584611
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6578626442435662484}
-  - component: {fileID: -3897417958356946912}
-  - component: {fileID: 7729336747746267062}
-  m_Layer: 0
-  m_Name: GlassFruitChopped
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6578626442435662484
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6199983260221584611}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7499346190155051524}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3897417958356946912
+--- !u!114 &-5510677843620298508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6199983260221584611}
+  m_GameObject: {fileID: 3493562617739640250}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0c83027668664b43a043504fd71f7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientInteractable
+  layerToIgnore:
+    serializedVersion: 2
+    m_Bits: 0
+  hoverMat: {fileID: -876546973899608171, guid: ca2ed216f98028c4dae6c5224a952b3c, type: 3}
+  interactMat: {fileID: 0}
+  OriginalPos: {x: 0, y: 0, z: 0}
+  IngredientID: Awakened Carrot
   isBreakable: 0
   minVelocity: 0
   breakableSurfaces:
@@ -145,13 +113,13 @@ MonoBehaviour:
   isMoving: 0
   Transforms: []
   prepLayer: 10
---- !u!65 &7729336747746267062
+--- !u!65 &476449059185390512
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6199983260221584611}
+  m_GameObject: {fileID: 3493562617739640250}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -164,9 +132,57 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.3, z: 1}
-  m_Center: {x: 0, y: 0.1, z: 0}
---- !u!1 &6698037669759482326
+  m_Size: {x: 0.9, y: 0.1, z: 0.9482692}
+  m_Center: {x: 0, y: 0.05, z: 0.025865406}
+--- !u!65 &-1691877710705427824
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493562617739640250}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.9, y: 0.1, z: 0.9482692}
+  m_Center: {x: 0, y: 0.05, z: 0.025865406}
+--- !u!54 &-8649899150744171493
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3493562617739640250}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!1 &3575187762762562679
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,46 +190,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6980338252249311083}
-  - component: {fileID: 5495348803508034184}
-  - component: {fileID: 2023599448312670060}
+  - component: {fileID: 8258968491732980191}
+  - component: {fileID: 419155368284691935}
+  - component: {fileID: 3228921142565711684}
   m_Layer: 0
-  m_Name: PlateModel
+  m_Name: CarrotChoppedAsset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6980338252249311083
+--- !u!4 &8258968491732980191
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6698037669759482326}
+  m_GameObject: {fileID: 3575187762762562679}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.009896798, y: -0.05794911, z: -0.037489276}
-  m_LocalScale: {x: 100, y: 100, z: 100}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -4.3297806e-17, y: 0.7071068, z: 0.7071068, w: -4.3297806e-17}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 7499346190155051524}
+  m_Father: {fileID: 797323236521986882}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5495348803508034184
+--- !u!33 &419155368284691935
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6698037669759482326}
-  m_Mesh: {fileID: 12468251933278661, guid: cfb4dcb956eff5b4a9379b9df1257e39, type: 3}
---- !u!23 &2023599448312670060
+  m_GameObject: {fileID: 3575187762762562679}
+  m_Mesh: {fileID: 2582422411719531254, guid: 5b74beb83140c8d4598ca0c945f1b0c9, type: 3}
+--- !u!23 &3228921142565711684
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6698037669759482326}
+  m_GameObject: {fileID: 3575187762762562679}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -232,7 +248,12 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3846018093981099296, guid: cfb4dcb956eff5b4a9379b9df1257e39, type: 3}
+  - {fileID: -8274133419916619345, guid: 5b74beb83140c8d4598ca0c945f1b0c9, type: 3}
+  - {fileID: -3856538164910404464, guid: 5b74beb83140c8d4598ca0c945f1b0c9, type: 3}
+  - {fileID: -1423726631761276837, guid: 5b74beb83140c8d4598ca0c945f1b0c9, type: 3}
+  - {fileID: -2648463922183160674, guid: 5b74beb83140c8d4598ca0c945f1b0c9, type: 3}
+  - {fileID: -1895772299519667426, guid: 5b74beb83140c8d4598ca0c945f1b0c9, type: 3}
+  - {fileID: 1939552450905068062, guid: 5b74beb83140c8d4598ca0c945f1b0c9, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -256,36 +277,3 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8343818506605909775
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7499346190155051524}
-  m_Layer: 0
-  m_Name: GlassFruitChoppedAsset
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7499346190155051524
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8343818506605909775}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4875543386569833539}
-  - {fileID: 6980338252249311083}
-  m_Father: {fileID: 6578626442435662484}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
