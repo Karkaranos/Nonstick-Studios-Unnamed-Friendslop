@@ -161,7 +161,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     /// <param name="obj"></param>
     private void EPressed(InputAction.CallbackContext obj)
     {
-        PublicEvents.EClicked();
+        PublicEvents.EClicked(obj);
     }
 
     /// <summary>

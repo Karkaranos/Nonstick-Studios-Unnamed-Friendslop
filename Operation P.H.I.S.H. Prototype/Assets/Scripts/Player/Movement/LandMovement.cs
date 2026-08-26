@@ -157,7 +157,7 @@ public class LandMovement : Movement
     /// <summary>
     /// Override from Movement base class
     /// </summary>
-    protected override void OnEClicked()
+    protected override void OnEClicked(InputAction.CallbackContext obj)
     {
         if(lookingAt != null)
         {
