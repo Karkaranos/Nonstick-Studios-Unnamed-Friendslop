@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Customer
   RequestDialogue: Potion seller. I am going into battle, but do not have the time
     to train before we set out. I must have your strongest potion.
-  CorrectPotion: 1
+  CorrectPotion: 5
   AcceptablePotions: 0400000000000000
   CorrectPotionPayment: 6
   AcceptablePotionPayment: 3
