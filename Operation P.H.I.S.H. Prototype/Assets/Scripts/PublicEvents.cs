@@ -1,5 +1,5 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor
+Author Names : 		    Clare Grady, Cade Naylor, Jay Embry
 Date Created : 		    07/21/2026
 Date Last Modified : 	07/28/202
 Brief Description : 	Contains all the events for the game
@@ -33,6 +33,8 @@ public static class PublicEvents
     public static Action ResetInteractable;
 
     public static Action PrepPerformed;
+
+    public static Action LeftClickPerformed;
 
     #endregion
 
