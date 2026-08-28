@@ -243,12 +243,12 @@ public class AlchemyMovement : Movement
             Debug.Log("picking up");
             if (lookingAt != interactingWith && interactingWith != null)
             {
-                if (lookingAt is not AlchemyPocket)
+                if (lookingAt is not AlchemyPocket && lookingAt is not CustomerInteractable)
                     interactingWith.DropItem();
             }
             if (lookingAt is AlchemyPickupInteractable && (AlchemyPickupInteractable)lookingAt != pc.heldInteractable && pc.heldInteractable != null)
             {
-                if (lookingAt is not AlchemyPocket)
+                if (lookingAt is not AlchemyPocket && lookingAt is not CustomerInteractable)
                     pc.heldInteractable.DropItem();
             }
 
@@ -293,6 +293,11 @@ public class AlchemyMovement : Movement
             }
             interactingWith = null;
         }*/
+
+        if(interactingWith != null && interactingWith.ToString().Contains("Customer"))
+        {
+            interactingWith = null;
+        }
 
         //Debug.Log("E");
     }
@@ -625,6 +630,11 @@ public class AlchemyMovement : Movement
     protected override void ReelTetherFinished()
     {
         Debug.LogWarning("Function ReelTetherFinished should not be called in AS");
+    }
+
+    protected override void OnLeftClick()
+    {
+  
     }
 
     #endregion

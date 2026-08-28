@@ -1,5 +1,5 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor
+Author Names : 		    Clare Grady, Cade Naylor, Jay Embry
 Date Created : 		    07/22/2026
 Date Last Modified : 	07/28/202
 Brief Description : 	Throws out events for whenever and input happens
@@ -26,6 +26,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     private InputAction shift;
     private InputAction control;
     private InputAction prep;
+    private InputAction leftClick;
 
     private Coroutine movementUpdates;
 
@@ -53,6 +54,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         shift = input.currentActionMap.FindAction("Shift");
         control = input.currentActionMap.FindAction("Control");
         prep = input.currentActionMap.FindAction("Prep");
+        leftClick = input.currentActionMap.FindAction("Left Click");
         
     }
 
@@ -76,6 +78,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         control.started += ControlPressed;
         control.canceled += ControlCanceled;
         prep.performed += Prep_performed;
+        leftClick.performed += LeftClickPerformed;
         
     }
 
@@ -93,6 +96,7 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         shift.Disable();
         control.Disable();
         prep.Disable();
+        leftClick.Disable();
     }
     #endregion
 
@@ -252,6 +256,11 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
     private void Prep_performed(InputAction.CallbackContext obj)
     {
         PublicEvents.PrepPerformed();
+    }
+
+    private void LeftClickPerformed(InputAction.CallbackContext obj)
+    {
+        PublicEvents.LeftClickPerformed();
     }
 
     #endregion
