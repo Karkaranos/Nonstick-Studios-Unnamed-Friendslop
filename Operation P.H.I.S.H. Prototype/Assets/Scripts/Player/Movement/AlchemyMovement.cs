@@ -238,7 +238,7 @@ public class AlchemyMovement : Movement
             }
             else if(lookingAt != interactingWith)
             {
-                if(lookingAt is not AlchemyPocket)
+                if(lookingAt is not AlchemyPocket && lookingAt is not CustomerInteractable)
                     interactingWith.DropItem();
                 itemPickedUpThisActon = true;
                 interactingWith = lookingAt;
@@ -287,6 +287,11 @@ public class AlchemyMovement : Movement
             }
             interactingWith = null;
         }*/
+
+        if(interactingWith != null && interactingWith.ToString().Contains("Customer"))
+        {
+            interactingWith = null;
+        }
 
         //Debug.Log("E");
     }

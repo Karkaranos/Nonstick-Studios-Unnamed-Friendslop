@@ -53,8 +53,10 @@ MonoBehaviour:
     m_Bits: 0
   hoverMat: {fileID: 0}
   interactMat: {fileID: 0}
-  OriginalPos: {x: 0, y: 0, z: 0}
-  PotionID: Potion of Gentle Repose
+  OriginalPosition: {x: 0, y: 0, z: 0}
+  OriginalScale: {x: 0, y: 0, z: 0}
+  isToggled: 1
+  PotionID: 1
 --- !u!65 &4402011497413022843
 BoxCollider:
   m_ObjectHideFlags: 0
