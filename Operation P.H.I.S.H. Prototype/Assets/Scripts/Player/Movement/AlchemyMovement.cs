@@ -246,6 +246,12 @@ public class AlchemyMovement : Movement
                 if (lookingAt is not AlchemyPocket)
                     interactingWith.DropItem();
             }
+            if (lookingAt is AlchemyPickupInteractable && (AlchemyPickupInteractable)lookingAt != pc.heldInteractable && pc.heldInteractable != null)
+            {
+                if (lookingAt is not AlchemyPocket)
+                    pc.heldInteractable.DropItem();
+            }
+
 
             itemPickedUpThisActon = true;
             interactingWith = lookingAt;
@@ -297,19 +303,23 @@ public class AlchemyMovement : Movement
     protected override void OnECanceled(InputAction.CallbackContext obj)
     {
         // prevent double inputs (no idea why this is happening)
-        if (Mathf.Approximately(timeOfLastInteractRelease, (float)obj.time)) return;
+        if (Mathf.Approximately(timeOfLastInteractRelease, (float)obj.time)) { interactingWith = null; return; }
         timeOfLastInteractRelease = (float)obj.time;
 
         Debug.Log($"E cancelled. Held Duration: {obj.duration}");
 
         if (itemPickedUpThisActon)
         {
+            interactingWith = null;
             itemPickedUpThisActon = false;
             return;
         }
 
-        if (interactingWith == null)
+        if (pc.heldInteractable == null)
+        {
+            interactingWith = null;
             return;
+        }
 
         float eDuration = (float)obj.duration;
         eDuration = Mathf.Clamp(Mathf.Abs(eDuration), 0f, maxCalculableDuration);
@@ -323,15 +333,15 @@ public class AlchemyMovement : Movement
             throwForce.y *= 2;
             throwForce.z *= (eDuration * thrownItemForceMultiplier);
 
-            interactingWith.ThrowItem(throwForce);
+            pc.heldInteractable.ThrowItem(throwForce);
         }
         // drop it
         else
         {
-            interactingWith.DropItem();
+            pc.heldInteractable.DropItem();
         }
 
-        if (interactingWith == lookingAt)
+        if (interactingWith == lookingAt && interactingWith!= null)
         {
             interactingWith.EnterHover();
         }
