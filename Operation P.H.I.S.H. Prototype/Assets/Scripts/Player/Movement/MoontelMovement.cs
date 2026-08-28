@@ -176,7 +176,7 @@ public class MoontelMovement : Movement
 
     #region OTHER INPUTS
 
-    protected override void OnEClicked()
+    protected override void OnEClicked(InputAction.CallbackContext obj)
     {
         if (lookingAt != null)
         {

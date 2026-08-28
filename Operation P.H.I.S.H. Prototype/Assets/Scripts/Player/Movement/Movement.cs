@@ -69,7 +69,7 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnMove(Vector2 moveVector);
     protected abstract void OnMoveEnd();
     protected abstract void OnMouseMove(Vector2 cameraVector);
-    protected abstract void OnEClicked();
+    protected abstract void OnEClicked(InputAction.CallbackContext obj);
     protected abstract void OnECanceled(InputAction.CallbackContext obj);
     protected abstract void OnSpaceStarted(bool fullyPerformed);
     protected abstract void OnSpaceFinished();

@@ -38,6 +38,8 @@ public class AlchemyMovement : Movement
 
     private IAlchemyInteractable lookingAt;
     private IAlchemyInteractable interactingWith;
+    private float timeOfLastInteractRelease;
+    private float timeOfLastInteractStart;
     private bool interacting;
 
     [Header("Interaction")]
@@ -226,32 +228,36 @@ public class AlchemyMovement : Movement
     /// <summary>
     /// Override from Movement base class
     /// </summary>
-    protected override void OnEClicked()
+    protected override void OnEClicked(InputAction.CallbackContext obj)
     {
+        itemPickedUpThisActon = false;
+
+        Debug.Log("E Pressed");
+
+        // just ignore it
+        if (lookingAt == interactingWith)
+            return;
+
         if(lookingAt != null)
         {
-            if(interactingWith == null)
+            Debug.Log("picking up");
+            if (lookingAt != interactingWith && interactingWith != null)
             {
-                itemPickedUpThisActon = true;
-                interactingWith = lookingAt;
-                interactingWith.EnterInteract(pc);
-            }
-            else if(lookingAt != interactingWith)
-            {
-                if(lookingAt is not AlchemyPocket && lookingAt is not CustomerInteractable)
+                if (lookingAt is not AlchemyPocket && lookingAt is not CustomerInteractable)
                     interactingWith.DropItem();
-                itemPickedUpThisActon = true;
-                interactingWith = lookingAt;
-                interactingWith.EnterInteract(pc);
             }
-            else
+            if (lookingAt is AlchemyPickupInteractable && (AlchemyPickupInteractable)lookingAt != pc.heldInteractable && pc.heldInteractable != null)
             {
-                Debug.Log("Object will be thrown when E is released");
+                if (lookingAt is not AlchemyPocket && lookingAt is not CustomerInteractable)
+                    pc.heldInteractable.DropItem();
             }
-        }
-        else if(interactingWith != null)
-        {
-            Debug.Log("Object will be thrown when E is released");
+
+
+            itemPickedUpThisActon = true;
+            interactingWith = lookingAt;
+            interactingWith.EnterInteract(pc);
+
+            return;
         }
         
         
@@ -301,36 +307,46 @@ public class AlchemyMovement : Movement
     /// </summary>
     protected override void OnECanceled(InputAction.CallbackContext obj)
     {
-        if (interactingWith == null)
-            return;
+        // prevent double inputs (no idea why this is happening)
+        if (Mathf.Approximately(timeOfLastInteractRelease, (float)obj.time)) { interactingWith = null; return; }
+        timeOfLastInteractRelease = (float)obj.time;
+
+        Debug.Log($"E cancelled. Held Duration: {obj.duration}");
 
         if (itemPickedUpThisActon)
         {
+            interactingWith = null;
             itemPickedUpThisActon = false;
+            return;
+        }
+
+        if (pc.heldInteractable == null)
+        {
+            interactingWith = null;
             return;
         }
 
         float eDuration = (float)obj.duration;
         eDuration = Mathf.Clamp(Mathf.Abs(eDuration), 0f, maxCalculableDuration);
 
-        if (eDuration < 0.1f)
-            return;
-
+        // throw it.
         if(eDuration >= durationWhenThrowStarts)
         {
-            Vector3 throwDir = pc.CameraRotationParent.transform.forward;
-            throwDir.x *= (eDuration * thrownItemForceMultiplier);
-            throwDir.y *= 2;
-            throwDir.z *= (eDuration * thrownItemForceMultiplier);
+            Debug.Log($"throwing object");
+            Vector3 throwForce = pc.CameraRotationParent.transform.forward;
+            throwForce.x *= (eDuration * thrownItemForceMultiplier);
+            throwForce.y *= 2;
+            throwForce.z *= (eDuration * thrownItemForceMultiplier);
 
-            interactingWith.ThrowItem(throwDir);
+            pc.heldInteractable.ThrowItem(throwForce);
         }
+        // drop it
         else
         {
-            interactingWith.DropItem();
+            pc.heldInteractable.DropItem();
         }
 
-        if(interactingWith == lookingAt)
+        if (interactingWith == lookingAt && interactingWith!= null)
         {
             interactingWith.EnterHover();
         }
