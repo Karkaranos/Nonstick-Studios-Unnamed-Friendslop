@@ -84,7 +84,7 @@ public class AlchemyPickupInteractable : MonoBehaviour, IAlchemyInteractable
     /// <summary>
     /// Drops an item without adding force
     /// </summary>
-    public void DropItem()
+    public virtual void DropItem()
     {
         Debug.Log($"Dropping {gameObject.name}");
 

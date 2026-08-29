@@ -86218,6 +86218,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChoppingStation
       objectReference: {fileID: 0}
+    - target: {fileID: 5205261986427607746, guid: 67891c6936034f94fb87d95cccf68c34, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5205261986427607746, guid: 67891c6936034f94fb87d95cccf68c34, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5205261986427607746, guid: 67891c6936034f94fb87d95cccf68c34, type: 3}
+      propertyPath: m_Size.z
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7594576044414704118, guid: 67891c6936034f94fb87d95cccf68c34, type: 3}
       propertyPath: m_LocalPosition.x
       value: 501.63928
