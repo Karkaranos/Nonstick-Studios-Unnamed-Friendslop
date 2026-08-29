@@ -67,6 +67,7 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
         {
             Destroy(openedCanvas);
             openedCanvas = null;
+            StaticUtilities.HideCursor();
 
             FindFirstObjectByType<AlchemyMovement>().SetPauseState(false);
         }
