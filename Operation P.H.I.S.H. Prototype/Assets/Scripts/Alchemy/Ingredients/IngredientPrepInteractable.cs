@@ -40,6 +40,7 @@ public class IngredientPrepInteractable : MonoBehaviour, IAlchemyInteractable
             return;
         }
 
+
         Debug.Log("Started ingredient prep interaction");
         List<GameObject> ingredients = new List<GameObject>(BaseToPrep.Keys);
 
@@ -98,6 +99,23 @@ public class IngredientPrepInteractable : MonoBehaviour, IAlchemyInteractable
         if(itemsOnSurface.Contains(g))
         {
             itemsOnSurface.Remove(g);
+        }
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.GetComponent<IngredientInteractable>())
+        {
+            AddItemToSurface(collision.gameObject.GetComponent<IngredientInteractable>());
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<IngredientInteractable>())
+        {
+            RemoveItemFromSurface(collision.gameObject.GetComponent<IngredientInteractable>());
         }
     }
 

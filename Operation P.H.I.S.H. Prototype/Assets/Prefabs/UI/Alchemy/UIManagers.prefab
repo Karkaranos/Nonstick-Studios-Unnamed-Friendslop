@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   destroyGameObject: 1
   dontDestroyOnLoad: 0
+  unlockAllOnStart: 1
   storedInformation:
   - Known: 0
     Title: Ingredients
@@ -111,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   destroyGameObject: 1
   dontDestroyOnLoad: 0
+  unlockAllOnStart: 1
   storedInformation:
   - Known: 0
     Visual: {fileID: 21300000, guid: fec5d2007c9009b48aa48accb0b1baa1, type: 3}
