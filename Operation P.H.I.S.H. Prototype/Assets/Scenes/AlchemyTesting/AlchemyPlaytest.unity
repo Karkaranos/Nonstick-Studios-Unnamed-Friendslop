@@ -18272,6 +18272,95 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &363669216
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1240673877008752078, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: potion1
+      value: 
+      objectReference: {fileID: 3546121738933271766, guid: 547b462fba982e94e82e05bc45aeb6a5, type: 3}
+    - target: {fileID: 1240673877008752078, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: potion2
+      value: 
+      objectReference: {fileID: 3546121738933271766, guid: b659768914528744b9685253ef86470a, type: 3}
+    - target: {fileID: 1240673877008752078, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: potion3
+      value: 
+      objectReference: {fileID: 3546121738933271766, guid: 48431377e08e9914e9bf779f1f442b1d, type: 3}
+    - target: {fileID: 1240673877008752078, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: potion4
+      value: 
+      objectReference: {fileID: 3546121738933271766, guid: bf8cfc760752630439fd6bc6c9702db4, type: 3}
+    - target: {fileID: 1240673877008752078, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: potion5
+      value: 
+      objectReference: {fileID: 3546121738933271766, guid: 7e37856ffa96e8944a6b44b2faf0162b, type: 3}
+    - target: {fileID: 1240673877008752078, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: potion6
+      value: 
+      objectReference: {fileID: 3546121738933271766, guid: 7a6addcbe0e88bc42a6b3e04062e7539, type: 3}
+    - target: {fileID: 1240673877008752078, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: potion7
+      value: 
+      objectReference: {fileID: 3546121738933271766, guid: d9e58cd6aa190b048aa34318507bad97, type: 3}
+    - target: {fileID: 1240673877008752078, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: potionSpawnPoint
+      value: 
+      objectReference: {fileID: 2064941039}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3170.9595
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0020300935
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2525.5662
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454410120230042472, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538780110273412269, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
+      propertyPath: m_Name
+      value: PotionManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 22ec2297e411c374c8933ac6cf1f1358, type: 3}
 --- !u!43 &368080377
 Mesh:
   m_ObjectHideFlags: 0
@@ -53299,7 +53388,7 @@ PrefabInstance:
       objectReference: {fileID: 472398245}
     - target: {fileID: 582788501506445659, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
       propertyPath: m_VersionIndex
-      value: 1307
+      value: 1301
       objectReference: {fileID: 0}
     - target: {fileID: 5423759139870987188, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
       propertyPath: m_Mesh
@@ -95916,6 +96005,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6522302751629910726, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
   m_PrefabInstance: {fileID: 2064941037}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2064941039 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7158373012756933751, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
+  m_PrefabInstance: {fileID: 2064941037}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2069741082
 Mesh:
   m_ObjectHideFlags: 0
@@ -100032,6 +100126,7 @@ SceneRoots:
   - {fileID: 1317730952}
   - {fileID: 1272230506}
   - {fileID: 1273512054}
+  - {fileID: 363669216}
   - {fileID: 1180858024}
   - {fileID: 114216715}
   - {fileID: 557937692}
