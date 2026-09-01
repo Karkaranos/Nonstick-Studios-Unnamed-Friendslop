@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c013cf5952d146244a2a0ab15ac34886, type: 3}
+  m_Name: Bulbshroom
+  m_EditorClassIdentifier: Assembly-CSharp::Ingredients
+  SpawnPoints:
+  - {x: 481.13477, y: 1.774, z: 487.369}
+  - {x: 479.13477, y: 0.77400005, z: 488.369}
+  - {x: 462.13477, y: 1.774, z: 490.369}
+  SpawnInterval: 6
+  SpawnableIngredient: {fileID: 3788386300332028143, guid: addf177d37414f343b80fa65f9bf7925, type: 3}
