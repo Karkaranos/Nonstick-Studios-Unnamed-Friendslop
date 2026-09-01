@@ -138,6 +138,22 @@ public class IngredientInteractable : AlchemyPickupInteractable
         base.ExitInteract();
     }
 
+
+    /// <summary>
+    /// Drops an item without adding force
+    /// </summary>
+    public override void DropItem()
+    {
+        base.DropItem();
+
+        RaycastHit checkForPrep;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out checkForPrep, 5f))
+        {
+            checkForPrep.transform.gameObject.GetComponent<IngredientPrepInteractable>()?.AddItemToSurface(this);
+        }
+    }
+
     /// <summary>
     /// moves an ingredient between set points
     /// </summary>

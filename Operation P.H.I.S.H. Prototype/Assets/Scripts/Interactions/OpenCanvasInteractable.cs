@@ -33,7 +33,7 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
         if (openedCanvas == null)
         {
             openedCanvas = Instantiate(canvasToSpawn, apc.transform);
-            Cursor.visible = true;
+            StaticUtilities.ShowCursor();
             FindFirstObjectByType<AlchemyMovement>().SetPauseState(true);
         }
         else
@@ -67,7 +67,7 @@ public class OpenCanvasInteractable : MonoBehaviour, IAlchemyInteractable
         {
             Destroy(openedCanvas);
             openedCanvas = null;
-            Cursor.visible = false;
+            StaticUtilities.HideCursor();
 
             FindFirstObjectByType<AlchemyMovement>().SetPauseState(false);
         }
