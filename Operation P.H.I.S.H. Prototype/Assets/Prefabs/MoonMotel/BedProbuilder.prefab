@@ -1078,7 +1078,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2295769976647867577}
   m_Layer: 0
-  m_Name: Bed
+  m_Name: BedProbuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
