@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9150018746432413908}
   - component: {fileID: 8530273035609845161}
   - component: {fileID: 5326635061009979892}
+  - component: {fileID: 7920642153966091772}
   m_Layer: 0
   m_Name: BedAsset
   m_TagString: Untagged
@@ -94,6 +95,28 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7920642153966091772
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6471749461082220684}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6508942946276188115, guid: 48c5e8e85356dd14f84e2acbd04a4974, type: 3}
 --- !u!1 &8963657577937396151
 GameObject:
   m_ObjectHideFlags: 0
