@@ -44505,9 +44505,121 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1854136690}
     m_Modifications:
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[0].Title
+      value: Potion of Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[1].Title
+      value: Potion of Strength
+      objectReference: {fileID: 0}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[2].Title
+      value: Potion of Endurance
+      objectReference: {fileID: 0}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[3].Title
+      value: Potion of Luck
+      objectReference: {fileID: 0}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[1].Visual
+      value: 
+      objectReference: {fileID: 21300000, guid: 0a342dec245116747acab4485901d5b2, type: 3}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[2].Visual
+      value: 
+      objectReference: {fileID: 21300000, guid: 1218ecbaaed330d4fb67cc140631f37f, type: 3}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[3].Visual
+      value: 
+      objectReference: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[0].BodyText
+      value: Murglebrim Duno \n Brula Shooshoo
+      objectReference: {fileID: 0}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[1].BodyText
+      value: Tramu Murglebrim \n Burlu Truma Dunkrill Skrib \n Scribb Duno
+      objectReference: {fileID: 0}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[2].BodyText
+      value: Burlu Murglebrim \n Snoosnoo Duno \n Brulu Tramu
+      objectReference: {fileID: 0}
+    - target: {fileID: 179751479217011154, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: storedInformation.Array.data[3].BodyText
+      value: Dunkrill \n Snoosnoo Skribb \n Shooshoo Burlu \n Truma Duno Du Brulu
+      objectReference: {fileID: 0}
     - target: {fileID: 4295720392687086283, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
       propertyPath: m_Name
       value: UIManagers
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[6].Term
+      value: Duno
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[7].Term
+      value: Murglebrim
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[8].Term
+      value: Shooshoo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[9].Term
+      value: Snoosnoo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[10].Term
+      value: Dunkrill
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[11].Term
+      value: Truma
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[12].Term
+      value: Tramu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[12].part
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[6].Definition
+      value: Again
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[7].Definition
+      value: Awakened Carrot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[8].Definition
+      value: Glowcap
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[9].Definition
+      value: Snoozeberry
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[10].Definition
+      value: Fragilefruit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[11].Definition
+      value: Chopped
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209045938441310686, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
+      propertyPath: translations.Array.data[12].Definition
+      value: Cooked
       objectReference: {fileID: 0}
     - target: {fileID: 7406728420852238425, guid: b0fe7054ad4103f4c9249041e2c2144f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59409,6 +59521,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CustomerAndResourceManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1658922457754645097, guid: 81eec3d5aff53144da5e6b52f76907ba, type: 3}
+      propertyPath: startingAmountOfMoney
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2478502495860742390, guid: 81eec3d5aff53144da5e6b52f76907ba, type: 3}
       propertyPath: spawnPoint.x
       value: 512.34
@@ -59424,6 +59540,10 @@ PrefabInstance:
     - target: {fileID: 2478502495860742390, guid: 81eec3d5aff53144da5e6b52f76907ba, type: 3}
       propertyPath: spawnRotation
       value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478502495860742390, guid: 81eec3d5aff53144da5e6b52f76907ba, type: 3}
+      propertyPath: DialogueDisplayTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6284034057800807635, guid: 81eec3d5aff53144da5e6b52f76907ba, type: 3}
       propertyPath: m_LocalPosition.x
