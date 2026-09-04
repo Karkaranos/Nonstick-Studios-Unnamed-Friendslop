@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Ingredients
   SpawnPoints:
   - {x: 481.13477, y: 1.774, z: 487.369}
-  - {x: 479.13477, y: 0.77400005, z: 488.369}
+  - {x: 481.13477, y: 1.774, z: 487.369}
   - {x: 462.13477, y: 1.774, z: 490.369}
+  - {x: 463.35, y: 0.633, z: 492.49}
   SpawnInterval: 6
   SpawnableIngredient: {fileID: 3788386300332028143, guid: addf177d37414f343b80fa65f9bf7925, type: 3}

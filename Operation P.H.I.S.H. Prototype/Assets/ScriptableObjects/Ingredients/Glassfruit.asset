@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Glassfruit
   m_EditorClassIdentifier: Assembly-CSharp::Ingredients
   SpawnPoints:
-  - {x: 495.1729, y: 0.0001, z: 502.8783}
-  - {x: 472.13477, y: 0.77400017, z: 510.36902}
-  - {x: 493.13477, y: 0.77400017, z: 469.36902}
-  SpawnInterval: 8
+  - {x: 432.158, y: 0.476, z: 438.608}
+  - {x: 419.494, y: 0.881, z: 441.7}
+  - {x: 493.122, y: 0.77400017, z: 469.073}
+  - {x: 423.03, y: 0.87, z: 488.24}
+  - {x: 419.124, y: 1.063, z: 488.027}
+  SpawnInterval: 12
   SpawnableIngredient: {fileID: 7782362553649573050, guid: 753a2f3724f6c1841b3eea7cbba9175f, type: 3}

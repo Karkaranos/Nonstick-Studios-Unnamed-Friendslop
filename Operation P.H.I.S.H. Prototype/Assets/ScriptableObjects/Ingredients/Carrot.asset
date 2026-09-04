@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Carrot
   m_EditorClassIdentifier: Assembly-CSharp::Ingredients
   SpawnPoints:
-  - {x: 422.13477, y: 0.77400017, z: 438.36902}
-  - {x: 432.13477, y: 0.77400017, z: 438.36902}
-  - {x: 420.13477, y: 0.77400017, z: 442.36902}
-  SpawnInterval: 5
+  - {x: 421.76, y: 0.62, z: 446.57}
+  - {x: 421.33, y: 0.62, z: 448.19}
+  - {x: 471.58, y: 0.62, z: 478.21}
+  - {x: 469.25, y: 1.07, z: 477.56}
+  SpawnInterval: 8
   SpawnableIngredient: {fileID: 3403241495057742766, guid: 83cc2ccf50583c848b30de8584f9b72b, type: 3}

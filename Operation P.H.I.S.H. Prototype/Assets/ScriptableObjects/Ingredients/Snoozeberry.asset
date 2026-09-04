@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Snoozeberry
   m_EditorClassIdentifier: Assembly-CSharp::Ingredients
   SpawnPoints:
-  - {x: 440.13477, y: 0.77400017, z: 455.36902}
-  - {x: 446.13477, y: 0.77400017, z: 479.36902}
-  - {x: 424.13477, y: 0.77400017, z: 475.36902}
-  SpawnInterval: 3
+  - {x: 440.28, y: 0.77400017, z: 455.383}
+  - {x: 440.61, y: 1.33, z: 456.8}
+  - {x: 446.78, y: 0.77, z: 479.98}
+  - {x: 449.18, y: 1.3, z: 481.02}
+  - {x: 424.93, y: 0.77, z: 474.17}
+  - {x: 425.38, y: 1.13, z: 470.81}
+  SpawnInterval: 10
   SpawnableIngredient: {fileID: 2360725909731145079, guid: 2767df005efa02040af3872978b687a3, type: 3}
