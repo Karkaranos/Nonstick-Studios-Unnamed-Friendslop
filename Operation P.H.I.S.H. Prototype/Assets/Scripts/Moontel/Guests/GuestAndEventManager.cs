@@ -17,7 +17,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     [Header("Lists")]
 
     [SerializeField] List<GameObject> guests;
-    public List<GameObject> ActiveGuestsInScene = new List<GameObject>();
+    [HideInInspector] public List<GameObject> ActiveGuestsInScene = new List<GameObject>();
 
     List<GameObject> guestQueue = new List<GameObject>();
 
