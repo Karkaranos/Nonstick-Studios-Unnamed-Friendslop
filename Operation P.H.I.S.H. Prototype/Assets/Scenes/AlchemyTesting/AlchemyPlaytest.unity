@@ -53635,6 +53635,10 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 1301
       objectReference: {fileID: 0}
+    - target: {fileID: 3308921311351058517, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
+      propertyPath: sightDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5423759139870987188, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
       propertyPath: m_Mesh
       value: 
