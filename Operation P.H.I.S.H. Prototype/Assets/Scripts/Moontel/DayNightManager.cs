@@ -42,6 +42,9 @@ public class DayNightManager : Singleton<DayNightManager>
     private bool AM = false;
     private Coroutine clockCoroutine;
 
+    //for guest stuff
+    int hoursSinceLastCheckIn = 0;
+
     #endregion
 
     /// <summary>
@@ -56,7 +59,6 @@ public class DayNightManager : Singleton<DayNightManager>
         {
             clockCoroutine = StartCoroutine(RunningClock());
         }
-        
     }
 
     /// <summary>
@@ -73,6 +75,7 @@ public class DayNightManager : Singleton<DayNightManager>
             currentMinute++;
             totalMinutes++;
 
+            //hey it's jay here. sorry about this.
             //check for new hour
             if (currentMinute == 60)
             {
@@ -80,25 +83,55 @@ public class DayNightManager : Singleton<DayNightManager>
                 totalHours++;
 
                 currentMinute = 0;
-            }
 
-            //convert to 12 hour clock
-            if (currentHour > 12)
-            {
-                currentHour = 1;
-            }
+                hoursSinceLastCheckIn++;
 
-            //change AM
-            if (currentHour > 11 && currentMinute == 0)
-            {
-                AM = !AM;
-            }
+                //convert to 12 hour clock
+                if (currentHour > 12)
+                {
+                    currentHour = 1;
+                }
 
-            //check for new day
-            if (AM == startingAM && currentMinute == 0 && currentHour == startingHour)
-            {
-                currentDay++;
-                totalDays++;
+                //change AM
+                if (currentHour > 11 && currentMinute == 0)
+                {
+                    AM = !AM;
+                }
+
+                //ensures that guests cannot spawn between closed hours
+                if ((AM && currentHour < GuestAndEventManager.Instance.EarliestCheckInTime) ||
+                   (!AM && currentHour > GuestAndEventManager.Instance.LatestCheckInTime))
+                {
+                    hoursSinceLastCheckIn--;
+                }
+
+                //check for new day
+                if (AM == startingAM && currentMinute == 0 && currentHour == startingHour)
+                {
+                    currentDay++;
+                    totalDays++;
+                }
+
+                //checks out guests
+                if (AM && currentHour == GuestAndEventManager.Instance.CheckOutTime)
+                {
+                    GuestAndEventManager.Instance.UpdateGuestCheckIn(totalDays);
+                }
+
+                //gurantees new guests at 3PM
+                if (!AM && currentHour == 3)
+                {
+                    hoursSinceLastCheckIn = 0;
+                    GuestAndEventManager.Instance.ChooseGuests(totalDays);
+                }
+
+                //checks to see if new guests should be checked in
+                if (hoursSinceLastCheckIn != 0 &&
+                    hoursSinceLastCheckIn == GuestAndEventManager.Instance.NextInterval)
+                {
+                    hoursSinceLastCheckIn = 0;
+                    GuestAndEventManager.Instance.ChooseGuests(totalDays);
+                }
             }
 
             //check for new week
