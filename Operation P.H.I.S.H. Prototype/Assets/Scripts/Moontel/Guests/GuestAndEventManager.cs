@@ -1,6 +1,7 @@
 /*************************************************
-Author Names : 		    Jay Embry
+Author Names : 		    Jay Embry, Toby Schamberger
 Date Created : 		    09/03/2026
+Date Last Modified : 	09/09/2026
 Brief Description : 	Stores a list of (active) guests and spawns them
                         Handles events
 External Resources :    	
@@ -8,6 +9,7 @@ External Resources :
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,9 +19,9 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     [Header("Lists")]
 
     [SerializeField] List<GameObject> guests;
-    [HideInInspector] public List<GameObject> ActiveGuestsInScene = new List<GameObject>();
+    [HideInInspector] public List<GuestInteractable> ActiveGuestsInScene = new List<GuestInteractable>();
 
-    List<GameObject> guestQueue = new List<GameObject>();
+    List<GameObject> guestQueue = new List<GameObject>(); // why not just use a queue lol
 
     [Space(8)]
 
@@ -77,6 +79,14 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     //TODO: add list of events
     //add list of active events
 
+    //TODO: remove debug
+    private void Start()
+    {
+        ActiveGuestsInScene = FindObjectsByType<GuestInteractable>(FindObjectsSortMode.None)
+            .Select(g=>g.GetComponent<GuestInteractable>())
+            .ToList();
+    }
+
     /// <summary>
     /// checks in guests per interval
     /// </summary>
@@ -121,9 +131,10 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         foreach(GameObject guest in guestQueue)
         {
             GameObject newGuest = Instantiate(guest, GuestSpawnLocation, Quaternion.identity);
-            guest.GetComponent<GuestInteractable>().CheckInDay = day;
+            GuestInteractable guestInteractable = guest.GetComponent<GuestInteractable>();
+            guestInteractable.CheckInDay = day;
 
-            ActiveGuestsInScene.Add(newGuest);
+            ActiveGuestsInScene.Add(guestInteractable);
 
             Debug.Log($"GUEST SPAWNED: {guest.name}");
 
@@ -139,17 +150,15 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     /// </summary>
     public void UpdateGuestCheckIn(int day)
     {
-        List<GameObject> guestsToCheckOut = new List<GameObject>();
+        List<GuestInteractable> guestsToCheckOut = new List<GuestInteractable>();
 
-        foreach (GameObject guest in ActiveGuestsInScene)
+        foreach (var guest in ActiveGuestsInScene)
         {
-            if (guest.GetComponent<GuestInteractable>().CheckedIn &&
-               guest.GetComponent<GuestInteractable>().CheckInDay != day)
+            if (guest.CheckedIn && guest.CheckInDay != day)
             {
-                guest.GetComponent<GuestInteractable>().DaysSpent++;
+                guest.DaysSpent++;
 
-                if (guest.GetComponent<GuestInteractable>().DaysSpent >=
-                    guest.GetComponent<GuestInteractable>().StayTime)
+                if (guest.DaysSpent >= guest.StayTime)
                 {
                     guestsToCheckOut.Add(guest);
                 }
@@ -157,14 +166,12 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         }
 
         //annoying but whatever
-        foreach(GameObject newGuest in guestsToCheckOut)
+        foreach(GuestInteractable newGuest in guestsToCheckOut)
         {
             if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(newGuest) &&
-               !ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1].GetComponent
-               <GuestInteractable>().CheckedIn)
+               !ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1].CheckedIn)
             {
-                StartCoroutine(RearrangeLine(newGuest.transform.position, 
-                ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1]));
+                StartCoroutine(RearrangeLine(newGuest.transform.position, ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1]));
             }
 
             ActiveGuestsInScene.Remove(newGuest);
@@ -172,7 +179,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         }
     }
 
-    IEnumerator RearrangeLine(Vector3 newPos, GameObject guest)
+    IEnumerator RearrangeLine(Vector3 newPos, GuestInteractable guest)
     {
         Vector3 oldPos = guest.transform.position;
 
@@ -185,8 +192,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         }
 
         if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(guest) &&
-           !ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1].GetComponent
-           <GuestInteractable>().CheckedIn)
+           !ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1].CheckedIn)
         {
             StartCoroutine(RearrangeLine(oldPos,
             ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1]));
@@ -199,7 +205,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     /// </summary>
     public void PullGuestsAndEvents()
     {
-        List<GameObject> availableGuests = ActiveGuestsInScene;
+        List<GuestInteractable> availableGuests = ActiveGuestsInScene;
 
         //TODO: create events
         //place the following inside of a loop going through each event
@@ -211,7 +217,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         {
             for(int i = 0; i < numberOfRequests; i++)
             {
-                GameObject selectedGuest = availableGuests
+                var selectedGuest = availableGuests
                 [Random.Range(0, availableGuests.Count)];
 
                 //TODO: initiate event
