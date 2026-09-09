@@ -63,7 +63,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
         if(isMoving)
         {
             navMeshAgent = GetComponentInChildren<NavMeshAgent>();
-            StartCoroutine(MoveNavMesh());
+            StartCoroutine("MoveNavMesh");
         }
 
         base.Start();
@@ -74,7 +74,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
     /// </summary>
     /// <param name="pc"></param>
     /// <param name="standardInteraction"></param>
-    public new void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
+    public override void EnterInteract(AlchemyPlayerController pc, bool standardInteraction = true)
     {
         if(!standardInteraction)
         {
@@ -96,7 +96,7 @@ public class IngredientInteractable : AlchemyPickupInteractable
 
         if (isMoving)
         {
-            //rb.isKinematic = true;
+            StopCoroutine("MoveNavMesh");
             navMeshAgent.enabled = false;
         }
 
@@ -118,16 +118,6 @@ public class IngredientInteractable : AlchemyPickupInteractable
     /// </summary>
     public override void ExitInteract()
     {
-        transform.parent = null;
-        isPickedUp = false;
-
-        if (isMoving)
-        {
-            //rb.isKinematic = false;
-            navMeshAgent.enabled = true;
-            StartCoroutine(MoveNavMesh());
-        }
-
         RaycastHit checkForPrep;
 
         if(Physics.Raycast(transform.position, Vector3.down, out checkForPrep, 5f))
@@ -145,6 +135,16 @@ public class IngredientInteractable : AlchemyPickupInteractable
     public override void DropItem()
     {
         base.DropItem();
+
+        transform.parent = null;
+        isPickedUp = false;
+
+        if (isMoving)
+        {
+            //rb.isKinematic = false;
+            navMeshAgent.enabled = true;
+            StartCoroutine("MoveNavMesh");
+        }
 
         RaycastHit checkForPrep;
 
