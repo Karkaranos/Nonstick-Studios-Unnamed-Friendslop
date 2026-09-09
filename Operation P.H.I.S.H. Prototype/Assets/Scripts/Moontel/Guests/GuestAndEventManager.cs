@@ -98,6 +98,9 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
             {
                 GameObject selectedGuest = guests[Random.Range(0, guests.Count)];
                 guestQueue.Add(selectedGuest);
+
+                //lemme see if this changes anything
+                selectedGuest = null;
             }
 
             StartCoroutine(SpawnGuests(day));
