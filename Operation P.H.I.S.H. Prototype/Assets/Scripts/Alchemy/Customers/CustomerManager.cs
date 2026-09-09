@@ -1,7 +1,8 @@
 /*************************************************
-Author Names : 		    Jay Embry
+Author Names : 		    Jay Embry, Toby Schamberger
 Date Created : 		    08/18/2026
-Brief Description : 	Spawns customers in
+Date Last Modified : 	09/09/2026
+Brief Description : 	Spawns customers in. Stores references to all of them
 External Resources :    	
 ***************************************************/
 
