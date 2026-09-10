@@ -11,6 +11,7 @@ External Resources :
 
 using NaughtyAttributes;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,7 @@ public class MoontelGuestMapUI : MonoBehaviour
     [Header("Floors")]
     [SerializeField] private List<MoontelMapFloor> floorMaps = new List<MoontelMapFloor>();
     [SerializeField, ReadOnly] private int currentFloorIndex;
+    private MoontelMapFloor currentFloorMap => floorMaps[currentFloorIndex];
 
     [Foldout("Animation"), SerializeField] private float animationSpeed = 0.5f;
     [Foldout("Animation"), SerializeField] private float animationMaxScale= 1.25f;
@@ -39,6 +41,43 @@ public class MoontelGuestMapUI : MonoBehaviour
     Vector3 topRightPosition3D => new Vector3(MapCenter.x + (MapSize.x / 2), 0, MapCenter.y + (MapSize.y / 2));
     Vector3 bottomLeftPosition3D => new Vector3(MapCenter.x - (MapSize.x / 2), 0, MapCenter.y - (MapSize.y / 2));
 
+    #region Floors
+
+    /// <summary>
+    /// Return true if object is on the floor
+    /// </summary>
+    private bool IsObjectWithinFloor(Transform worldTransform, MoontelMapFloor floorMap)
+    {
+        float heightTotal = mapFloorLevel;
+        for (int i = 0; i < floorMaps.Count; i++)
+        {
+            MoontelMapFloor floor = floorMaps[i];
+
+            if (floor == floorMap)
+            {
+                float y = worldTransform.position.y;
+                bool withinBounds = (y >= heightTotal && y <= heightTotal + floor.Height);
+                return withinBounds;
+            }
+
+            // add height for the next iteration
+            heightTotal += floor.Height;
+        }
+
+        Debug.LogWarning($"{worldTransform.name} is out of the vertical bounds of the motel!");
+        return false;
+    }
+
+    /// <summary>
+    /// Increments current floor index, so a different motel floor is displayed
+    /// </summary>
+    public void CycleCurrentFloor()
+    {
+
+    }
+
+    #endregion
+
     /// <summary>
     /// Update the location of each customer.
     /// Running every frame because of how much customers will be moving. 
@@ -46,6 +85,9 @@ public class MoontelGuestMapUI : MonoBehaviour
     /// </summary>
     void Update()
     {
+        mapDisplayImage.sprite = currentFloorMap.MapSprite;
+
+        // Update Guests:
         ClearUnusedGuests();
 
         foreach (var guest in GuestAndEventManager.Instance.ActiveGuestsInScene)
@@ -64,14 +106,20 @@ public class MoontelGuestMapUI : MonoBehaviour
             AddGuestToDisplay(guest);
 
         var icon = guestIconInstances[guest];
+
+        // Make guest invisible if they arent on current floor
+        bool guestOnCurrentFloor = IsObjectWithinFloor(guest.transform, currentFloorMap);
+        icon.color = guestOnCurrentFloor ? icon.color.WithAlpha(1) : icon.color.WithAlpha(0);
+
+        if (!guestOnCurrentFloor) return;
+
         Vector2 scaledPosition = GetPositionScalar(guest.transform);
         Vector2 canvasPosition = GetCanvasPositionFromScaledGuestPosition(scaledPosition);
 
-        Debug.Log("scaledposition: "+ scaledPosition.ToString());
-        Debug.Log("canvasposition: "+ canvasPosition.ToString());
-
         icon.rectTransform.localPosition = canvasPosition;
     }
+
+    
 
     /// <summary>
     /// Adds one guest to the display
