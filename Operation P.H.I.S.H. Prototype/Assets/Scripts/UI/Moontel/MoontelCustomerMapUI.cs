@@ -4,6 +4,7 @@ Date Created : 		    9/9/2026
 Date Last Modified : 	9/9/2026
 
 Brief Description : 	Displays customer locations on the map.
+                        Does not need any input from other scripts. (You can do whatever you want to the guests, and this script should adapt pretty good)
 
 External Resources :    	
 ***************************************************/
@@ -22,22 +23,16 @@ public class MoontelCustomerMapUI : MonoBehaviour
     [Foldout("Advanced"), SerializeField] private Image mapDisplayImage;
     [Foldout("Advanced"), SerializeField] private Image guestDisplayIconPrefab;
 
-    private Dictionary<GuestInteractable, Image> guestCanvasImages;
+    private Dictionary<GuestInteractable, Image> guestIconInstances;
+
+    // topRight / bottomLeft instead of topLeft / bottomRight because it matches how rectTransform.anchorMin is calculated
+    Vector3 topRightPosition3D => new Vector3(MapCenter.x + (MapSize.x / 2), 0, MapCenter.y + (MapSize.y / 2));
+    Vector3 bottomLeftPosition3D => new Vector3(MapCenter.x - (MapSize.x / 2), 0, MapCenter.y - (MapSize.y / 2));
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
-    }
-
-    /// <summary>
-    /// Returns guests position as a scalar vector (x and y are between 0-1)
-    /// (0,0) is top left of map. (1,1) is bottom right of map.
-    /// Position may be out of the 0-1 range if the guest is off of the map
-    /// </summary>
-    private Vector2 GetGuestPositionScalar(GuestInteractable guest)
-    {
-
     }
 
     /// <summary>
@@ -47,14 +42,85 @@ public class MoontelCustomerMapUI : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        ClearUnusedGuests();
+
+        foreach (var guest in GuestAndEventManager.Instance.ActiveGuestsInScene)
+        {
+            UpdateGuestOnMapDisplay(guest);
+        }
     }
 
-    private void OnDrawGizmosSelected()
+
+    /// <summary>
+    /// Updates the UI for one guest
+    /// </summary>
+    private void UpdateGuestOnMapDisplay(GuestInteractable guest)
+    {
+        if ( ! guestIconInstances.ContainsKey(guest))
+            AddGuestToDisplay(guest);
+
+        var icon = guestIconInstances[guest];
+        Vector2 scaledPosition = GetGuestPositionScalar(guest);
+        Vector2 canvasPosition = GetCanvasPositionFromScaledGuestPosition(scaledPosition);
+
+        icon.rectTransform.localPosition = canvasPosition;
+    }
+
+    /// <summary>
+    /// Adds one guest to the display
+    /// </summary>
+    /// <param name="guestInteractable"></param>
+    private void AddGuestToDisplay(GuestInteractable guestInteractable)
+    {
+        Image iconInstance = Instantiate(guestDisplayIconPrefab, parent:mapDisplayImage.transform);
+        guestIconInstances.Add(guestInteractable, iconInstance);
+
+        iconInstance.name = $"{guestInteractable.name} map icon";
+        iconInstance.sprite = guestInteractable.MapSprite;
+    }
+
+    /// <summary>
+    /// Deletes the icons of guests that no longer exist
+    /// </summary>
+    private void ClearUnusedGuests()
+    {
+        //TODO:
+    }
+
+    
+
+    /// <summary>
+    /// Returns guests position as a scalar vector (x and y are between 0-1)
+    /// (0,0) is top right of map. (1,1) is bottom left of map.
+    /// Position may be out of the 0-1 range if the guest is off of the map
+    /// </summary>
+    private Vector2 GetGuestPositionScalar(GuestInteractable guest)
+    {
+        float x = StaticUtilities.InverseLerpUnclamped(topRightPosition3D.x, bottomLeftPosition3D.x, guest.transform.position.x);
+        float y = StaticUtilities.InverseLerpUnclamped(topRightPosition3D.y, bottomLeftPosition3D.y, guest.transform.position.z);
+        return new Vector2(x,y);
+    }
+
+    /// <summary>
+    /// Given the guests position AS A SCALAR.
+    /// Performs calculations to get where the guest would be on the canvas.
+    /// Does not move the guest icon.
+    /// </summary>
+    private Vector2 GetCanvasPositionFromScaledGuestPosition(Vector2 scaledGuestPosition)
+    {
+        float x = StaticUtilities.InverseLerpUnclamped(mapDisplayImage.rectTransform.anchorMin.x, mapDisplayImage.rectTransform.anchorMax.x, scaledGuestPosition.x);
+        float y = StaticUtilities.InverseLerpUnclamped(mapDisplayImage.rectTransform.anchorMin.y, mapDisplayImage.rectTransform.anchorMax.y, scaledGuestPosition.y);
+        return new Vector2(x,y);
+    }
+
+    private void OnDrawGizmos()
     {
         Vector3 transformedScale = new Vector3(MapSize.x, 2, MapSize.y);
         Vector3 transformedCenter = new Vector3(MapCenter.x, 0, MapCenter.y);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transformedCenter, transformedScale);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(topRightPosition3D.WithY(-10), topRightPosition3D.WithY(10));
     }
 }

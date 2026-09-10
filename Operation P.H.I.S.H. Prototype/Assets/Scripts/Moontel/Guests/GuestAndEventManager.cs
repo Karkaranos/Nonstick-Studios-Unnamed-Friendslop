@@ -18,10 +18,10 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
 {
     [Header("Lists")]
 
-    [SerializeField] List<GameObject> guests;
+    [SerializeField] List<GuestInteractable> guestPrefabs;
     [HideInInspector] public List<GuestInteractable> ActiveGuestsInScene = new List<GuestInteractable>();
 
-    List<GameObject> guestQueue = new List<GameObject>(); // why not just use a queue lol
+    List<GuestInteractable> guestQueue = new List<GuestInteractable>(); // why not just use a queue lol
 
     [Space(8)]
 
@@ -106,7 +106,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         {
             for(int i = 0; i < numberOfGuests; i++)
             {
-                GameObject selectedGuest = guests[Random.Range(0, guests.Count)];
+                GuestInteractable selectedGuest = guestPrefabs[Random.Range(0, guestPrefabs.Count)];
                 guestQueue.Add(selectedGuest);
 
                 //lemme see if this changes anything
@@ -128,13 +128,12 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     /// <returns></returns>
     IEnumerator SpawnGuests(int day)
     {
-        foreach(GameObject guest in guestQueue)
+        foreach(GuestInteractable guest in guestQueue)
         {
-            GameObject newGuest = Instantiate(guest, GuestSpawnLocation, Quaternion.identity);
-            GuestInteractable guestInteractable = guest.GetComponent<GuestInteractable>();
-            guestInteractable.CheckInDay = day;
+            GuestInteractable newGuest = Instantiate(guest, GuestSpawnLocation, Quaternion.identity);
+            newGuest.CheckInDay = day;
 
-            ActiveGuestsInScene.Add(guestInteractable);
+            ActiveGuestsInScene.Add(newGuest);
 
             Debug.Log($"GUEST SPAWNED: {guest.name}");
 
