@@ -23,7 +23,7 @@ public class MoontelCustomerMapUI : MonoBehaviour
     [Foldout("Advanced"), SerializeField] private Image mapDisplayImage;
     [Foldout("Advanced"), SerializeField] private Image guestDisplayIconPrefab;
 
-    private Dictionary<GuestInteractable, Image> guestIconInstances;
+    private Dictionary<GuestInteractable, Image> guestIconInstances = new();
 
     // topRight / bottomLeft instead of topLeft / bottomRight because it matches how rectTransform.anchorMin is calculated
     Vector3 topRightPosition3D => new Vector3(MapCenter.x + (MapSize.x / 2), 0, MapCenter.y + (MapSize.y / 2));
@@ -84,7 +84,14 @@ public class MoontelCustomerMapUI : MonoBehaviour
     /// </summary>
     private void ClearUnusedGuests()
     {
-        //TODO:
+        foreach(var guest_icon in guestIconInstances)
+        {
+            GuestInteractable guest = guest_icon.Key;
+            if (guest == null || guest.gameObject == null)
+            {
+                guestIconInstances.RemoveAllInstancesWithValue(guest_icon.Value);
+            }
+        }
     }
 
     
