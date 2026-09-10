@@ -28,7 +28,8 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     [HideInInspector] public int DaysSpent = 0;
     [HideInInspector] public int CheckInDay;
 
-    [HideInInspector] public bool CheckedIn;
+    [HideInInspector] public RoomBehavior AssignedRoom;
+
     bool isInteractingWith = false;
     bool moving = false;
 
@@ -63,8 +64,8 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     [Space(5)]
 
-    [SerializeField] List<GuestTraits> exhibitedTraits;
-    [SerializeField] List<GuestTraits> dislikedTraits;
+    public List<GuestTraits> ExhibitedTraits;
+    public List<GuestTraits> DislikedTraits;
 
     //[Space(8)]
 
@@ -78,8 +79,6 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     public void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        CheckedIn = false;
-
         StartCoroutine(MoveNavMesh(GuestAndEventManager.Instance.GuestLineLocation));
     }
 
@@ -104,6 +103,12 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
             moving = false;
             agent.isStopped = true;
         }
+
+        if(other.GetComponent<RoomBehavior>() && other.GetComponent<RoomBehavior>() == AssignedRoom)
+        {
+            //this way, the satisfaction triggers won't go down until the guest reaches the room
+            AssignedRoom.AssignGuest(this);
+        }
     }
 
     #region IINTERACTABLE
@@ -116,9 +121,6 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
         }
 
         transform.LookAt(pc.gameObject.transform.position);
-
-        CheckedIn = true;
-        Debug.Log($"{guestName} IS CHECKED IN.");
 
         DisplayDialogue(dialogue);
 
@@ -171,4 +173,19 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     }
 
     #endregion DIALOGUE
+
+    #region SATISFACTION
+
+    /// <summary>
+    /// handles the guest's satisfaction
+    /// for losing satisfaction, changeInSatisfaction should be a negative number
+    /// </summary>
+    /// <param name="changeInSatisfaction"> how much satisfaction the guest gains or loses</param>
+    public void ChangeSatisfaction(int changeInSatisfaction)
+    {
+        //TODO: UI lol
+        currentSatisfactionLevel += changeInSatisfaction;
+    }
+
+    #endregion SATISFACTION
 }

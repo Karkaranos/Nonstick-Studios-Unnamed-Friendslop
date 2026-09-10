@@ -8,6 +8,7 @@ External Resources :
 
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -71,8 +72,10 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
 
     [Header("Events and Requests")]
 
-    [Tooltip("How much satisfaction that the guests lose per unfulfilled event.")]
-    [SerializeField] int satisfactionDrop;
+    [Tooltip("How much satisfaction that the guests lose per unfulfilled event. Cannot be a positive value.")]
+    [SerializeField, MaxValue(0)] int satisfactionDropPerEvent;
+    [Tooltip("How much satisfaction that the guests lose per disliked neighbors. Cannot be a positive value.")]
+    [MaxValue(0)] public int SatisfactionDropPerRoom;
 
     //TODO: add list of events
     //add list of active events
@@ -143,7 +146,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
 
         foreach (GameObject guest in ActiveGuestsInScene)
         {
-            if (guest.GetComponent<GuestInteractable>().CheckedIn &&
+            if (guest.GetComponent<GuestInteractable>().AssignedRoom != null &&
                guest.GetComponent<GuestInteractable>().CheckInDay != day)
             {
                 guest.GetComponent<GuestInteractable>().DaysSpent++;
@@ -160,12 +163,14 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         foreach(GameObject newGuest in guestsToCheckOut)
         {
             if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(newGuest) &&
-               !ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1].GetComponent
-               <GuestInteractable>().CheckedIn)
+               ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1].GetComponent
+               <GuestInteractable>().AssignedRoom != null)
             {
                 StartCoroutine(RearrangeLine(newGuest.transform.position, 
                 ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1]));
             }
+
+            newGuest.GetComponent<GuestInteractable>().AssignedRoom.RemoveGuest();
 
             ActiveGuestsInScene.Remove(newGuest);
             Destroy(newGuest);
@@ -185,8 +190,8 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         }
 
         if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(guest) &&
-           !ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1].GetComponent
-           <GuestInteractable>().CheckedIn)
+           ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1].GetComponent
+           <GuestInteractable>().AssignedRoom != null)
         {
             StartCoroutine(RearrangeLine(oldPos,
             ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1]));
