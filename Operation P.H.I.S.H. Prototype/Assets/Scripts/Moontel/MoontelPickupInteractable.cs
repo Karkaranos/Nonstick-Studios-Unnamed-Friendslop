@@ -2,7 +2,7 @@
 Author Names : 		    Jacob Bateman, Cade Naylor
 Date Created : 		    08/16/2026
 Brief Description : 	Component that all alchemy pickup interactables should have attached.
-Jacob Note:             Another refactor of a PHISH script to make it work for AS.
+Jacob Note:             Another refactor of an AS script to make it work for Moontel.
 
 External Resources :    	
 ***************************************************/
@@ -101,23 +101,6 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
         col.enabled = true;
         rb.isKinematic = false;
         heldBy = null;
-    }
-
-    /// <summary>
-    /// Adds force when dropping an item to allow it to be thrown
-    /// </summary>
-    public virtual void ThrowItem(Vector3 throwVec)
-    {
-        rb.excludeLayers = layerToIgnore;
-        transform.parent = null;
-        col.enabled = true;
-        rb.isKinematic = false;
-
-        rb.AddForce(throwVec, ForceMode.Impulse);
-
-        ExitInteract();
-
-
     }
 
     /// <summary>

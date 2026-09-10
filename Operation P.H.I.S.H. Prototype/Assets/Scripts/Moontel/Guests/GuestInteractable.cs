@@ -108,7 +108,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     #region IINTERACTABLE
 
-    public void EnterInteract(MoontelPlayerController pc)
+    public void EnterInteract(MoontelPlayerController pc, bool standardInteraction = true)
     {
         if (isInteractingWith)
         {
@@ -143,6 +143,12 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     public void ExitHover()
     {
 
+    }
+
+    public void DropItem()
+    {
+        //needed for minigame items
+        throw new System.NotImplementedException();
     }
 
     #endregion IINTERACTABLE

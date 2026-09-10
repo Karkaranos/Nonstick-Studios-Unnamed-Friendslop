@@ -23,12 +23,17 @@ public interface IMoontelInteractable
     /// <summary>
     /// Abstract function for when an object implementing this starts being interacted with
     /// </summary>
-    public abstract void EnterInteract(MoontelPlayerController pc);
+    public abstract void EnterInteract(MoontelPlayerController pc, bool standardInteraction = true);
 
     /// <summary>
     /// Abstract function for when an object implementing this stops being interacted with
     /// </summary>
     public abstract void ExitInteract();
+
+    /// <summary>
+    /// Abstract function for when an object should be dropped
+    /// </summary>
+    public abstract void DropItem();
 
 
 }
