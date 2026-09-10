@@ -5,7 +5,7 @@ Brief Description : 	Central script with player info for design
                         Controls movement system management
 
 Jay Note:               hey guys
-
+Sky Note:               hi guys I added back the function for item pickup
 External Resources :    	
 ***************************************************/
 
@@ -30,9 +30,27 @@ public class MoontelPlayerController : MonoBehaviour
     public Sprite InteractableSprite { get { return interactable; } }
 
     public Transform PickupPoint;
+    public MoontelPickupInteractable heldInteractable { get; private set; }
 
     private void Start()
     {
         StaticUtilities.HideCursor();
+    }
+
+    /// <summary>
+    /// Sets held item. Rest of pickup logic is handled in the PickupInteractable script.
+    /// </summary>
+    /// <param name="pickup"></param>
+    public void SetPickupItem(MoontelPickupInteractable pickup, bool dropHeldItem = true)
+    {
+        Debug.Log($"{gameObject.name} is now holding {(pickup == null ? "nothing" : pickup.gameObject.name)}");
+
+        // if already holding something
+        if (heldInteractable != null && dropHeldItem)
+        {
+            heldInteractable.DropItem();
+        }
+
+        heldInteractable = pickup;
     }
 }

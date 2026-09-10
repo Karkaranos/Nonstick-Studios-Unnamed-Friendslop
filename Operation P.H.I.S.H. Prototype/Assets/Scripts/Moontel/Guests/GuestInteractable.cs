@@ -145,6 +145,12 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     }
 
+    public void DropItem()
+    {
+        //needed for minigame items
+        throw new System.NotImplementedException();
+    }
+
     #endregion IINTERACTABLE
 
     #region DIALOGUE
