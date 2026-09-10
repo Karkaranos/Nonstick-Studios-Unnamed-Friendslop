@@ -11,6 +11,7 @@ using UnityEngine;
 
 public class RecipeManager : Singleton<RecipeManager>
 {
+    [SerializeField] private bool unlockAllOnStart;
     [SerializeField] public RecipePageData[] storedInformation;
 
     public static RecipeManager InstancePub;
@@ -33,6 +34,18 @@ public class RecipeManager : Singleton<RecipeManager>
         }
 
     }
+
+    private void Start()
+    {
+        if (unlockAllOnStart)
+        {
+            for (int i = 0; i < storedInformation.Length; i++)
+            {
+                storedInformation[i].Known = true;
+            }
+        }
+    }
+
     /// <summary>
     /// Unlocks page based on the page index
     /// </summary>

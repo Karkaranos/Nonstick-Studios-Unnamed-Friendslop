@@ -49,7 +49,8 @@ public class AlchemyPlayerController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        StaticUtilities.HideCursor();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     /// <summary>

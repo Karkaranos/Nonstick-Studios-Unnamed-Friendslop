@@ -1,5 +1,5 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor
+Author Names : 		    Clare Grady, Cade Naylor, Jay Embry
 Date Created : 		    07/22/2026
 Date Last Modified : 	07/28/202
 Brief Description : 	Base Class that defines all functions movement scripts should have
@@ -35,6 +35,8 @@ public abstract class Movement: MonoBehaviour
 
         PublicEvents.ResetPlayerInteractions += ResetInteractions;
         PublicEvents.PrepPerformed += OnPrepPerformed;
+
+        PublicEvents.LeftClickPerformed += OnLeftClick;
     }
 
     /// <summary>
@@ -58,6 +60,8 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.ControlFinished -= OnControlFinished;
         PublicEvents.PrepPerformed -= OnPrepPerformed;
 
+        PublicEvents.LeftClickPerformed -= OnLeftClick;
+
         PublicEvents.ResetPlayerInteractions -= ResetInteractions;
     }
 
@@ -65,7 +69,7 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnMove(Vector2 moveVector);
     protected abstract void OnMoveEnd();
     protected abstract void OnMouseMove(Vector2 cameraVector);
-    protected abstract void OnEClicked();
+    protected abstract void OnEClicked(InputAction.CallbackContext obj);
     protected abstract void OnECanceled(InputAction.CallbackContext obj);
     protected abstract void OnSpaceStarted(bool fullyPerformed);
     protected abstract void OnSpaceFinished();
@@ -78,6 +82,8 @@ public abstract class Movement: MonoBehaviour
     protected abstract void OnControlFinished();
 
     protected abstract void OnPrepPerformed();
+
+    protected abstract void OnLeftClick();
 
     protected abstract bool LookingAtObject();
 

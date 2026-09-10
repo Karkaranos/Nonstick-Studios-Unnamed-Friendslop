@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18426b1614c243c419bce01dae81d0ae, type: 3}
+  m_Name: Customer (Strength)
+  m_EditorClassIdentifier: Assembly-CSharp::Customer
+  RequestDialogue: Potion seller. I am going into battle, but do not have the time
+    to train before we set out. I must have your strongest potion.
+  CorrectPotion: 5
+  AcceptablePotions: 0400000000000000
+  CorrectPotionPayment: 6
+  AcceptablePotionPayment: 3
+  WrongPotionPayment: 0
+  CorrectPotionDialogue: This is exactly what I have been searching for. This will
+    win us the war for sure.
+  AcceptablePotionDialogue: I'll take it.
+  WrongPotionDialogue: This is unacceptable.

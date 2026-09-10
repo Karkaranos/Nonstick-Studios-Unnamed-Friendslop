@@ -33950,36 +33950,12 @@ PrefabInstance:
       objectReference: {fileID: 1501569487}
     - target: {fileID: 582788501506445659, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
       propertyPath: m_VersionIndex
-      value: 1313
-      objectReference: {fileID: 0}
-    - target: {fileID: 591336107871330204, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
+      value: 1319
       objectReference: {fileID: 0}
     - target: {fileID: 5423759139870987188, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1501569487}
-    - target: {fileID: 6294708011720585894, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-      propertyPath: m_Size.z
-      value: 1.3187522
-      objectReference: {fileID: 0}
-    - target: {fileID: 6294708011720585894, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-      propertyPath: m_Center.y
-      value: -0.01966078
-      objectReference: {fileID: 0}
-    - target: {fileID: 6294708011720585894, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-      propertyPath: m_Center.z
-      value: -0.16371168
-      objectReference: {fileID: 0}
-    - target: {fileID: 6294708011720585894, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6642291001662203007, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
-      propertyPath: m_Name
-      value: L Pocket
-      objectReference: {fileID: 0}
     - target: {fileID: 7572498517557241847, guid: bcd05fff28e5eec45920041b2a1d9d79, type: 3}
       propertyPath: m_Name
       value: Alchemy Player
@@ -98304,7 +98280,7 @@ PrefabInstance:
       objectReference: {fileID: 1033902418}
     - target: {fileID: 6078832606293555715, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1543
+      value: 1546
       objectReference: {fileID: 0}
     - target: {fileID: 6522302751629910726, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -98352,7 +98328,7 @@ PrefabInstance:
       objectReference: {fileID: 128073047}
     - target: {fileID: 8309777339067610267, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_VersionIndex
-      value: 1293
+      value: 1296
       objectReference: {fileID: 0}
     - target: {fileID: 8693166287708395613, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_Mesh
@@ -98364,7 +98340,7 @@ PrefabInstance:
       objectReference: {fileID: 1757177665}
     - target: {fileID: 8988132957513810990, guid: df1fc78d24a9aa9438cf56e31bf0579c, type: 3}
       propertyPath: m_VersionIndex
-      value: 587
+      value: 590
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

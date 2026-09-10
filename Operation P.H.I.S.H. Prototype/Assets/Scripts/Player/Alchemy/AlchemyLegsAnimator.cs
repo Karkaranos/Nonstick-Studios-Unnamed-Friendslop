@@ -46,7 +46,6 @@ public class AlchemyLegsAnimator : MonoBehaviour
     /// </summary>
     void OnPlayerMoveStart()
     {
-        Debug.Log("move started");
         if(legAnimationCoroutine != null)
             StopCoroutine(legAnimationCoroutine);
         legAnimationCoroutine = StartCoroutine(AnimateLegs()).Then(ReturnLegsToRestingPosition());

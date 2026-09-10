@@ -7,14 +7,17 @@ External Resources :
 ***************************************************/
 using NaughtyAttributes;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OrbManager : Singleton<OrbManager>
 {
+    [SerializeField] private bool unlockAllOnStart;
     [SerializeField, Tooltip("In a non-prototype we could probably get this to autopopulate")] public OrbPageData[] storedInformation;
     [SerializeField] private Translation[] translations;
 
     public static OrbManager InstancePub;
+
 
     public static Dictionary<string, string> RosettaStone = new Dictionary<string, string>();
 
@@ -40,6 +43,14 @@ public class OrbManager : Singleton<OrbManager>
         foreach(var entry in translations)
         {
             RosettaStone.Add(entry.Term, entry.Definition);
+        }
+
+        if(unlockAllOnStart)
+        {
+            for(int i=0; i<storedInformation.Length; i++)
+            {
+                storedInformation[i].Known = true;
+            }
         }
     }
 

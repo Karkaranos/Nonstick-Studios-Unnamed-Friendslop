@@ -1,5 +1,5 @@
 /*************************************************
-Author Names : 		    Clare Grady, Cade Naylor
+Author Names : 		    Clare Grady, Cade Naylor, Jay Embry
 Date Created : 		    07/21/2026
 Date Last Modified : 	07/28/202
 Brief Description : 	Contains all the events for the game
@@ -19,7 +19,7 @@ public static class PublicEvents
     public static Action MoveStarted;
     public static Action MoveStopped;
     public static Action<Vector2> MousePosition;
-    public static Action EClicked;
+    public static Action<InputAction.CallbackContext> EClicked;
     public static Action<InputAction.CallbackContext> ECanceled;
     public static Action ReelTetherStarted;
     public static Action<float> ReelTetherHeld; // float: deltaTime
@@ -33,6 +33,8 @@ public static class PublicEvents
     public static Action ResetInteractable;
 
     public static Action PrepPerformed;
+
+    public static Action LeftClickPerformed;
 
     #endregion
 

@@ -53,8 +53,10 @@ MonoBehaviour:
     m_Bits: 0
   hoverMat: {fileID: 0}
   interactMat: {fileID: 0}
-  OriginalPos: {x: 0, y: 0, z: 0}
-  PotionID: Potion of Luck
+  OriginalPosition: {x: 0, y: 0, z: 0}
+  OriginalScale: {x: 0, y: 0, z: 0}
+  isToggled: 1
+  PotionID: 4
 --- !u!65 &3359997377089144618
 BoxCollider:
   m_ObjectHideFlags: 0
