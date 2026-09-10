@@ -632,10 +632,14 @@ public class AlchemyMovement : Movement
         Debug.LogWarning("Function ReelTetherFinished should not be called in AS");
     }
 
-    protected override void OnLeftClick()
+    protected override void OnLeftClickStarted()
     {
-  
     }
+
+    protected override void OnLeftClickFinished()
+    {
+    }
+
 
     #endregion
 }

@@ -36,7 +36,8 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.ResetPlayerInteractions += ResetInteractions;
         PublicEvents.PrepPerformed += OnPrepPerformed;
 
-        PublicEvents.LeftClickPerformed += OnLeftClick;
+        PublicEvents.LeftClickStarted += OnLeftClickStarted;
+        PublicEvents.LeftClickFinished += OnLeftClickFinished;
     }
 
     /// <summary>
@@ -60,7 +61,8 @@ public abstract class Movement: MonoBehaviour
         PublicEvents.ControlFinished -= OnControlFinished;
         PublicEvents.PrepPerformed -= OnPrepPerformed;
 
-        PublicEvents.LeftClickPerformed -= OnLeftClick;
+        PublicEvents.LeftClickStarted -= OnLeftClickStarted;
+        PublicEvents.LeftClickFinished -= OnLeftClickFinished;
 
         PublicEvents.ResetPlayerInteractions -= ResetInteractions;
     }
@@ -83,7 +85,8 @@ public abstract class Movement: MonoBehaviour
 
     protected abstract void OnPrepPerformed();
 
-    protected abstract void OnLeftClick();
+    protected abstract void OnLeftClickStarted();
+    protected abstract void OnLeftClickFinished();
 
     protected abstract bool LookingAtObject();
 

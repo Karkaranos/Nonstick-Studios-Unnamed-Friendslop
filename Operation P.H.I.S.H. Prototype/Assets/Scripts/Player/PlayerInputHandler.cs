@@ -78,7 +78,8 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         control.started += ControlPressed;
         control.canceled += ControlCanceled;
         prep.performed += Prep_performed;
-        leftClick.performed += LeftClickPerformed;
+        leftClick.started += LeftClickPressed;
+        leftClick.canceled += LeftClickCanceled;
         
     }
 
@@ -258,9 +259,13 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         PublicEvents.PrepPerformed();
     }
 
-    private void LeftClickPerformed(InputAction.CallbackContext obj)
+    private void LeftClickPressed(InputAction.CallbackContext obj)
     {
-        PublicEvents.LeftClickPerformed();
+        PublicEvents.LeftClickStarted();
+    }
+    private void LeftClickCanceled(InputAction.CallbackContext obj)
+    {
+        PublicEvents.LeftClickFinished();
     }
 
     #endregion
