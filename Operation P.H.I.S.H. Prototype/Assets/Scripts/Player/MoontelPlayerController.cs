@@ -5,7 +5,7 @@ Brief Description : 	Central script with player info for design
                         Controls movement system management
 
 Jay Note:               hey guys
-
+Sky Note:               hi guys I added back the function for item pickup
 External Resources :    	
 ***************************************************/
 

@@ -108,7 +108,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     #region IINTERACTABLE
 
-    public void EnterInteract(MoontelPlayerController pc, bool standardInteraction = true)
+    public void EnterInteract(MoontelPlayerController pc)
     {
         if (isInteractingWith)
         {

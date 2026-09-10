@@ -1,9 +1,9 @@
 /*************************************************
-Author Names : 		    Jacob Bateman, Cade Naylor
-Date Created : 		    08/16/2026
-Brief Description : 	Component that all alchemy pickup interactables should have attached.
-Jacob Note:             Another refactor of an AS script to make it work for Moontel.
-
+Author Names : 		    Cade Naylor, Toby Schamberger, Sky Beal
+Date Created : 		    07/30/2026
+Date Last Modified : 	09/09/2026
+Brief Description : 	A test object for pick up interactions
+                        Stolen from PHISH for Moontel
 External Resources :    	
 ***************************************************/
 using NaughtyAttributes;
@@ -13,11 +13,6 @@ using UnityEngine;
 public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
 {
     #region VARS
-
-    [SerializeField] private LayerMask layerToIgnore;
-
-    [Space(1)]
-
     private Material standardMat;
 
     [SerializeField] private Material hoverMat;
@@ -27,26 +22,23 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     private MeshRenderer mr;
     private Collider col;
 
+    [SerializeField, Layer] private int shipLayer;
     private MoontelPlayerController heldBy;
-    protected Rigidbody rb;
-
-    protected bool disablePlayerCollision = false;
+    private Rigidbody rb;
 
     [HideInInspector] public Vector3 OriginalPosition;
     [HideInInspector] public Vector3 OriginalScale;
 
     [SerializeField, BoxGroup("Debug")] private bool isToggled = true;
     private bool isHeld => heldBy != null;
-
     #endregion
 
-    #region FUNCTIONS
-
+    #region Functions
     /// <summary>
     /// Start is called on the first frame update
     /// Grabs a reference to the mesh renderer and sets the base material
     /// </summary>
-    public virtual void Start()
+    void Start()
     {
         mr = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
@@ -56,6 +48,8 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
         OriginalPosition = gameObject.transform.position;
         OriginalScale = gameObject.transform.lossyScale;
     }
+
+    #region Pickup Functions
 
     /// <summary>
     /// Return true if pickup can be... picked up
@@ -76,42 +70,55 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
         TogglePhysics(false);
         transform.parent = pc.PickupPoint;
         transform.localPosition = Vector3.zero;
-
-        if (pc.heldInteractable != this)
-            pc.SetPickupItem(this);
     }
 
     /// <summary>
-    /// Drops an item without adding force
+    /// Drops the item.
     /// </summary>
-    public virtual void DropItem()
+    public void DropItem()
     {
-        Debug.Log($"Dropping {gameObject.name}");
+        mr.material = standardMat;
 
-        if (heldBy != null && heldBy.heldInteractable == this)
-        {
-            // do this to prevent stack overflow
-            var oldHeldBy = heldBy;
-            heldBy = null;
-            oldHeldBy.SetPickupItem(null);
-        }
-
-
-        transform.parent = null;
-        col.enabled = true;
-        rb.isKinematic = false;
         heldBy = null;
+        transform.parent = null;
+        TogglePhysics(true);
+    }
+
+    #endregion
+
+    #region Interaction Implementation
+    /// <summary>
+    /// Implemented function stub from IMoontelInteractable
+    /// Changes the object's material when hovered over
+    /// </summary>
+    public void EnterHover()
+    {
+        if (!IsPickupable()) return;
+
+        mr.material = hoverMat;
     }
 
     /// <summary>
-    /// Toggles if item can be physically interacted with
+    /// Implemented function stub from IMoontelInteractable
+    /// Resets the object's material when hover ends
     /// </summary>
-    /// <param name="physicsEnabled"></param>
-    public void TogglePhysics(bool physicsEnabled)
+    public void ExitHover()
     {
-        col.enabled = physicsEnabled;
-        rb.isKinematic = !physicsEnabled;
+        mr.material = standardMat;
     }
+
+    /// <summary>
+    /// Implemented function stub from IMoontelInteractable
+    /// Resets the object's material when interaction ends
+    /// </summary>
+    public void ExitInteract()
+    {
+        DropItem();
+
+        Debug.Log($"{gameObject.name} has ended its interaction");
+    }
+
+    #endregion
 
     /// <summary>
     /// Toggle if player can pickup this guy
@@ -128,65 +135,21 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
         }
     }
 
-    #region Interaction Implementation
-    /// <summary>
-    /// Implemented function stub from IInteractable
-    /// Changes the object's material when hovered over
-    /// </summary>
-    public void EnterHover()
+    public void TogglePhysics(bool physicsEnabled)
     {
-        if (!IsPickupable()) return;
-
-        mr.material = hoverMat;
+        col.enabled = physicsEnabled;
+        rb.isKinematic = !physicsEnabled;
     }
 
-    /// <summary>
-    /// Implemented function stub from IInteractable
-    /// Changes the object's material when interacted with
-    /// </summary>
-    public virtual void EnterInteract(MoontelPlayerController mpc, bool standardInteraction = true)
+    public void EnterInteract(MoontelPlayerController pc)
     {
         if (!IsPickupable()) return;
 
-        PickupItem(mpc);
+        PickupItem(pc);
 
         Debug.Log($"{gameObject.name} is starting its interaction");
     }
 
-    /// <summary>
-    /// Implemented function stub from IInteractable
-    /// Resets the object's material when hover ends
-    /// </summary>
-    public void ExitHover()
-    {
-        mr.material = standardMat;
-    }
-
-    /// <summary>
-    /// Implemented function stub from IInteractable
-    /// Resets the object's material when interaction ends
-    /// </summary>
-    public virtual void ExitInteract()
-    {
-        //why would we drop it when E is released?
-        //DropItem();
-
-        Debug.Log($"{gameObject.name} has ended its interaction");
-    }
-
     #endregion
 
-
-    public virtual void OnCollisionEnter(Collision collision)
-    {
-        if (disablePlayerCollision)
-        {
-            //enable player collision
-            rb.excludeLayers = LayerMask.NameToLayer("Nothing");
-
-            disablePlayerCollision = false;
-        }
-    }
-
-    #endregion
 }

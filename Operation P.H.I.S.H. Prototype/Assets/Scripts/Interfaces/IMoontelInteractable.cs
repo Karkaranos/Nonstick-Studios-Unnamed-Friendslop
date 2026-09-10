@@ -23,7 +23,7 @@ public interface IMoontelInteractable
     /// <summary>
     /// Abstract function for when an object implementing this starts being interacted with
     /// </summary>
-    public abstract void EnterInteract(MoontelPlayerController pc, bool standardInteraction = true);
+    public abstract void EnterInteract(MoontelPlayerController pc);
 
     /// <summary>
     /// Abstract function for when an object implementing this stops being interacted with
