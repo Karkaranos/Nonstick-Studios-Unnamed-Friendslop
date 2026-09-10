@@ -14,11 +14,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoontelCustomerMapUI : MonoBehaviour
+public class MoontelGuestMapUI : MonoBehaviour
 {
     [Header("Map Calibration")]
     [SerializeField] private Vector2 MapSize = Vector2.one;
     [SerializeField] private Vector2 MapCenter = Vector2.one;
+    [SerializeField] private float mapFloorLevel = 0;
+
+    [Header("Floors")]
+    [SerializeField] private List<MoontelMapFloor> floorMaps = new List<MoontelMapFloor>();
+    [SerializeField, ReadOnly] private int currentFloorIndex;
 
     [Foldout("Animation"), SerializeField] private float animationSpeed = 0.5f;
     [Foldout("Animation"), SerializeField] private float animationMaxScale= 1.25f;
@@ -49,7 +54,6 @@ public class MoontelCustomerMapUI : MonoBehaviour
             AnimateGuest(guest);
         }
     }
-
 
     /// <summary>
     /// Updates the UI for one guest
@@ -135,10 +139,20 @@ public class MoontelCustomerMapUI : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Vector3 transformedScale = new Vector3(MapSize.x, 2, MapSize.y);
+        Vector3 transformedScale = new Vector3(MapSize.x, -1, MapSize.y);
         Vector3 transformedCenter = new Vector3(MapCenter.x, 0, MapCenter.y);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transformedCenter, transformedScale);
+
+        float heightTotal = mapFloorLevel;
+        for (int i = 0; i < floorMaps.Count; i++)
+        {
+            MoontelMapFloor floor = floorMaps[i];
+            float y = heightTotal + (floor.Height / 2);
+            Gizmos.DrawWireCube(transformedCenter.WithY(y), transformedScale.WithY(floor.Height));
+
+            // add height for the next iteration
+            heightTotal += floor.Height;
+        }
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(topRightPosition3D.WithY(-10), topRightPosition3D.WithY(10));
