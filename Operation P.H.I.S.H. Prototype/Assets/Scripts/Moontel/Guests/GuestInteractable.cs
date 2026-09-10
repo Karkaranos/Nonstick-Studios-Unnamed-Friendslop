@@ -47,7 +47,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     [SerializeField] GameObject dialogueCanvas;
     [Tooltip("The customer's dialogue goes here!")]
     [SerializeField] TMP_Text dialogueText;
-    [Tooltip("The sprite that appears on the map")]
+    [Tooltip("The sprite that appears on the map"), ShowAssetPreview(32,32)]
     public Sprite MapSprite;
 
     [Space(8)]

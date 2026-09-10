@@ -20,6 +20,9 @@ public class MoontelCustomerMapUI : MonoBehaviour
     [SerializeField] private Vector2 MapSize = Vector2.one;
     [SerializeField] private Vector2 MapCenter = Vector2.one;
 
+    [Foldout("Animation"), SerializeField] private float animationSpeed = 0.5f;
+    [Foldout("Animation"), SerializeField] private float animationMaxScale= 1.25f;
+
     [Foldout("Advanced"), SerializeField] private Image mapDisplayImage;
     [Foldout("Advanced"), SerializeField] private RectTransform topRightAnchor;
     [Foldout("Advanced"), SerializeField] private RectTransform bottomLeftAnchor;
@@ -30,12 +33,6 @@ public class MoontelCustomerMapUI : MonoBehaviour
     // topRight / bottomLeft instead of topLeft / bottomRight because it matches how rectTransform.anchorMin is calculated
     Vector3 topRightPosition3D => new Vector3(MapCenter.x + (MapSize.x / 2), 0, MapCenter.y + (MapSize.y / 2));
     Vector3 bottomLeftPosition3D => new Vector3(MapCenter.x - (MapSize.x / 2), 0, MapCenter.y - (MapSize.y / 2));
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     /// <summary>
     /// Update the location of each customer.
@@ -48,7 +45,8 @@ public class MoontelCustomerMapUI : MonoBehaviour
 
         foreach (var guest in GuestAndEventManager.Instance.ActiveGuestsInScene)
         {
-            UpdateGuestOnMapDisplay(guest);
+            UpdateIconOnMapDisplay(guest);
+            AnimateGuest(guest);
         }
     }
 
@@ -56,13 +54,13 @@ public class MoontelCustomerMapUI : MonoBehaviour
     /// <summary>
     /// Updates the UI for one guest
     /// </summary>
-    private void UpdateGuestOnMapDisplay(GuestInteractable guest)
+    private void UpdateIconOnMapDisplay(GuestInteractable guest)
     {
         if ( ! guestIconInstances.ContainsKey(guest))
             AddGuestToDisplay(guest);
 
         var icon = guestIconInstances[guest];
-        Vector2 scaledPosition = GetGuestPositionScalar(guest);
+        Vector2 scaledPosition = GetPositionScalar(guest.transform);
         Vector2 canvasPosition = GetCanvasPositionFromScaledGuestPosition(scaledPosition);
 
         Debug.Log("scaledposition: "+ scaledPosition.ToString());
@@ -99,17 +97,26 @@ public class MoontelCustomerMapUI : MonoBehaviour
         }
     }
 
-    
+    /// <summary>
+    /// Does a lil scaling animation
+    /// </summary>
+    /// <param name="guest"></param>
+    void AnimateGuest(GuestInteractable guest)
+    {
+        var icon = guestIconInstances[guest];
+        float scale = StaticUtilities.SinRange(Time.time * animationSpeed, 1, animationMaxScale);
+        icon.transform.localScale = Vector2.one * scale;
+    }
 
     /// <summary>
     /// Returns guests position as a scalar vector (x and y are between 0-1)
     /// (0,0) is top right of map. (1,1) is bottom left of map.
     /// Position may be out of the 0-1 range if the guest is off of the map
     /// </summary>
-    private Vector2 GetGuestPositionScalar(GuestInteractable guest)
+    private Vector2 GetPositionScalar(Transform worldObject)
     {
-        float x = StaticUtilities.InverseLerpUnclamped(topRightPosition3D.x, bottomLeftPosition3D.x, guest.transform.position.x);
-        float y = StaticUtilities.InverseLerpUnclamped(topRightPosition3D.y, bottomLeftPosition3D.y, guest.transform.position.z);
+        float x = StaticUtilities.InverseLerpUnclamped(topRightPosition3D.x, bottomLeftPosition3D.x, worldObject.position.x);
+        float y = StaticUtilities.InverseLerpUnclamped(topRightPosition3D.z, bottomLeftPosition3D.z, worldObject.position.z);
         return new Vector2(x,y);
     }
 
