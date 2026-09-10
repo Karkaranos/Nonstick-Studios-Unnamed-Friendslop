@@ -20,6 +20,8 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     [SerializeField] List<GameObject> guests;
     [HideInInspector] public List<GameObject> ActiveGuestsInScene = new List<GameObject>();
 
+    [SerializeField] List<GuestEvent> events;
+
     List<GameObject> guestQueue = new List<GameObject>();
 
     [Space(8)]
