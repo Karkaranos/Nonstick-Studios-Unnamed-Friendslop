@@ -165,7 +165,7 @@ public class MoontelMovement : Movement
     }
 
     /// <summary>
-    /// ripping this from the regular lookingat function, not using lookingatminigamespot rn but it might be useful later
+    /// ripping this from the regular lookingat function, not using lookingatminigamespot variable rn but it might be useful later
     /// </summary>
     /// <returns></returns>
     protected bool LookingAtMinigameSpot()
