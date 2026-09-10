@@ -71,9 +71,11 @@ public class MoontelGuestMapUI : MonoBehaviour
     /// <summary>
     /// Increments current floor index, so a different motel floor is displayed
     /// </summary>
+    [Button]
     public void CycleCurrentFloor()
     {
-
+        currentFloorIndex = (currentFloorIndex+1)% floorMaps.Count;
+        mapDisplayImage.sprite = currentFloorMap.MapSprite;
     }
 
     #endregion
@@ -85,7 +87,7 @@ public class MoontelGuestMapUI : MonoBehaviour
     /// </summary>
     void Update()
     {
-        mapDisplayImage.sprite = currentFloorMap.MapSprite;
+        //mapDisplayImage.sprite = currentFloorMap.MapSprite;
 
         // Update Guests:
         ClearUnusedGuests();
@@ -118,8 +120,6 @@ public class MoontelGuestMapUI : MonoBehaviour
 
         icon.rectTransform.localPosition = canvasPosition;
     }
-
-    
 
     /// <summary>
     /// Adds one guest to the display
@@ -185,7 +185,7 @@ public class MoontelGuestMapUI : MonoBehaviour
         return new Vector2(x,y);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Vector3 transformedScale = new Vector3(MapSize.x, -1, MapSize.y);
         Vector3 transformedCenter = new Vector3(MapCenter.x, 0, MapCenter.y);
@@ -203,11 +203,11 @@ public class MoontelGuestMapUI : MonoBehaviour
         }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(topRightPosition3D.WithY(-10), topRightPosition3D.WithY(10));
+        Gizmos.DrawLine(topRightPosition3D.WithY(-10), topRightPosition3D.WithY(20));
         Gizmos.DrawWireSphere(topRightAnchor.transform.position,0.05f);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(bottomLeftPosition3D.WithY(-10), bottomLeftPosition3D.WithY(10));
+        Gizmos.DrawLine(bottomLeftPosition3D.WithY(-10), bottomLeftPosition3D.WithY(20));
         Gizmos.DrawWireSphere(bottomLeftAnchor.transform.position, 0.05f);
     }
 }
