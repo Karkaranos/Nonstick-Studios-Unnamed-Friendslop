@@ -30,5 +30,10 @@ public interface IMoontelInteractable
     /// </summary>
     public abstract void ExitInteract();
 
+    /// <summary>
+    /// Abstract function for when an object should be dropped
+    /// </summary>
+    public abstract void DropItem();
+
 
 }
