@@ -21,6 +21,8 @@ public class MoontelCustomerMapUI : MonoBehaviour
     [SerializeField] private Vector2 MapCenter = Vector2.one;
 
     [Foldout("Advanced"), SerializeField] private Image mapDisplayImage;
+    [Foldout("Advanced"), SerializeField] private RectTransform topRightAnchor;
+    [Foldout("Advanced"), SerializeField] private RectTransform bottomLeftAnchor;
     [Foldout("Advanced"), SerializeField] private Image guestDisplayIconPrefab;
 
     private Dictionary<GuestInteractable, Image> guestIconInstances = new();
@@ -62,6 +64,9 @@ public class MoontelCustomerMapUI : MonoBehaviour
         var icon = guestIconInstances[guest];
         Vector2 scaledPosition = GetGuestPositionScalar(guest);
         Vector2 canvasPosition = GetCanvasPositionFromScaledGuestPosition(scaledPosition);
+
+        Debug.Log("scaledposition: "+ scaledPosition.ToString());
+        Debug.Log("canvasposition: "+ canvasPosition.ToString());
 
         icon.rectTransform.localPosition = canvasPosition;
     }
@@ -115,8 +120,9 @@ public class MoontelCustomerMapUI : MonoBehaviour
     /// </summary>
     private Vector2 GetCanvasPositionFromScaledGuestPosition(Vector2 scaledGuestPosition)
     {
-        float x = StaticUtilities.InverseLerpUnclamped(mapDisplayImage.rectTransform.anchorMin.x, mapDisplayImage.rectTransform.anchorMax.x, scaledGuestPosition.x);
-        float y = StaticUtilities.InverseLerpUnclamped(mapDisplayImage.rectTransform.anchorMin.y, mapDisplayImage.rectTransform.anchorMax.y, scaledGuestPosition.y);
+        // guests can technically go off the map because i think its funny (also what else would happen if they went OOB, think about it)
+        float x = Mathf.LerpUnclamped(topRightAnchor.localPosition.x, bottomLeftAnchor.localPosition.x, scaledGuestPosition.x);
+        float y = Mathf.LerpUnclamped(topRightAnchor.localPosition.y, bottomLeftAnchor.localPosition.y, scaledGuestPosition.y);
         return new Vector2(x,y);
     }
 
@@ -129,5 +135,10 @@ public class MoontelCustomerMapUI : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(topRightPosition3D.WithY(-10), topRightPosition3D.WithY(10));
+        Gizmos.DrawWireSphere(topRightAnchor.transform.position,0.05f);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(bottomLeftPosition3D.WithY(-10), bottomLeftPosition3D.WithY(10));
+        Gizmos.DrawWireSphere(bottomLeftAnchor.transform.position, 0.05f);
     }
 }
