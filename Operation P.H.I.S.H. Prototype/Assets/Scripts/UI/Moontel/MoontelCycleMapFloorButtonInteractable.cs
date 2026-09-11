@@ -24,22 +24,22 @@ public class MoontelCycleMapFloorButtonInteractable : MonoBehaviour, IMoontelInt
     #region Unnecessary Events
     public void DropItem()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void EnterHover()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void ExitHover()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public void ExitInteract()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     #endregion
