@@ -1,5 +1,5 @@
 /*************************************************
-Author Names : 		    Sky Beal
+Author Names : 		    Sky Beal, Cade
 Date Created : 		    9/1/2026
 Date Last Modified : 	9/2/2026
 Brief Description : 	Controls the timer for the day/night cycle, Updates UI accordingly
@@ -21,15 +21,15 @@ public class DayNightManager : Singleton<DayNightManager>
 
     //minutes
     private int currentMinute = 0;
-    [HideInInspector] public int totalMinutes;
+    [HideInInspector] public int TotalMinutes;
 
     //hours
     private int currentHour;
-    [HideInInspector] public int totalHours;
+    [HideInInspector] public int TotalHours;
 
     //days
     private int currentDay = 1;
-    [HideInInspector] public int totalDays;
+    [HideInInspector] public int TotalDays;
 
     //weeks
     private int currentWeek = 1;
@@ -73,14 +73,14 @@ public class DayNightManager : Singleton<DayNightManager>
 
             //seconds tic
             currentMinute++;
-            totalMinutes++;
+            TotalMinutes++;
 
             //hey it's jay here. sorry about this.
             //check for new hour
             if (currentMinute == 60)
             {
                 currentHour++;
-                totalHours++;
+                TotalHours++;
 
                 currentMinute = 0;
 
@@ -109,20 +109,20 @@ public class DayNightManager : Singleton<DayNightManager>
                 if (AM == startingAM && currentMinute == 0 && currentHour == startingHour)
                 {
                     currentDay++;
-                    totalDays++;
+                    TotalDays++;
                 }
 
                 //checks out guests
                 if (AM && currentHour == GuestAndEventManager.Instance.CheckOutTime)
                 {
-                    GuestAndEventManager.Instance.UpdateGuestCheckIn(totalDays);
+                    GuestAndEventManager.Instance.UpdateGuestCheckIn(TotalDays);
                 }
 
                 //gurantees new guests at 3PM
                 if (!AM && currentHour == 3)
                 {
                     hoursSinceLastCheckIn = 0;
-                    GuestAndEventManager.Instance.ChooseGuests(totalDays);
+                    GuestAndEventManager.Instance.ChooseGuests(TotalDays);
                 }
 
                 //checks to see if new guests should be checked in
@@ -130,7 +130,7 @@ public class DayNightManager : Singleton<DayNightManager>
                     hoursSinceLastCheckIn == GuestAndEventManager.Instance.NextInterval)
                 {
                     hoursSinceLastCheckIn = 0;
-                    GuestAndEventManager.Instance.ChooseGuests(totalDays);
+                    GuestAndEventManager.Instance.ChooseGuests(TotalDays);
                 }
             }
 
