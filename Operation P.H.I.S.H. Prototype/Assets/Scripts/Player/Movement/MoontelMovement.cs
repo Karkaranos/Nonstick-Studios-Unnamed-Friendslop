@@ -332,13 +332,15 @@ public class MoontelMovement : Movement
         //looking at spot
         if (lookingAtMinigameSpot != null)
         {
-            Debug.Log("Looking at Minigame Spot");
+            if(pc.heldInteractable == null)
+            {
+                return;
+            }
 
             //held object is a minigame tool and is the same enum type
             if (pc.heldInteractable.GetComponent<MinigameToolInteractable>() != null && 
                 lookingAtMinigameSpot.objectTypeNeeded == pc.heldInteractable.GetComponent<MinigameToolInteractable>().objectType)
             {
-                Debug.Log("Tool matches spot.");
                 lookingAtMinigameSpot.StartCleanOrFixTimer();
             }
         }
@@ -349,7 +351,6 @@ public class MoontelMovement : Movement
     {
         if (lookingAtMinigameSpot != null)
         {
-            Debug.Log("Stop timer");
             lookingAtMinigameSpot.StopCleanOrFixTimer();
         }
 
@@ -410,7 +411,6 @@ public class MoontelMovement : Movement
 
     protected override void OnPrepPerformed()
     {
-        throw new System.NotImplementedException();
     }
 
     #endregion EMPTY FUNCTIONS
