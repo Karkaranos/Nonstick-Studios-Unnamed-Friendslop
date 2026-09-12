@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 424935889614843423}
   - component: {fileID: 4132909595063198686}
   - component: {fileID: 1608619021329392953}
+  - component: {fileID: 8771755801009352852}
   m_Layer: 0
   m_Name: MotelRoom
   m_TagString: Untagged
@@ -471,10 +472,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa058328db958b4fbd8df7911a3d024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomBehavior
-  roomID: 0
-  neighboringRooms: []
+  RoomID: 0
   OccupyingGuest: {fileID: 0}
-  OccupyingGuestTraits: 
+--- !u!95 &8771755801009352852
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7469194080915912735}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fed71d4458e302247855ca9c5ee0e4ab, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &135539950713923899
 PrefabInstance:
   m_ObjectHideFlags: 0

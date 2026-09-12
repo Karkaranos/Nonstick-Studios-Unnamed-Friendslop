@@ -38,7 +38,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// Start is called on the first frame update
     /// Grabs a reference to the mesh renderer and sets the base material
     /// </summary>
-    void Start()
+    public virtual void Start()
     {
         mr = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
@@ -70,12 +70,15 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
         TogglePhysics(false);
         transform.parent = pc.PickupPoint;
         transform.localPosition = Vector3.zero;
+
+        if (pc.heldInteractable != this)
+            pc.SetPickupItem(this);
     }
 
     /// <summary>
     /// Drops the item.
     /// </summary>
-    public void DropItem()
+    public virtual void DropItem()
     {
         mr.material = standardMat;
 
@@ -111,7 +114,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// Implemented function stub from IMoontelInteractable
     /// Resets the object's material when interaction ends
     /// </summary>
-    public void ExitInteract()
+    public virtual void ExitInteract()
     {
         DropItem();
 

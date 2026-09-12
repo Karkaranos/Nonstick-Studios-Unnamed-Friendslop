@@ -10,13 +10,20 @@ using UnityEngine;
 
 public class RoomBehavior : MonoBehaviour
 {
-    [SerializeField] int roomID;
+    public int RoomID;
+    public Transform TeleportPoint;
 
+    Animator animator;
     List<RoomBehavior> neighboringRooms = new List<RoomBehavior>();
 
     //TODO(?): more room data here
 
     [HideInInspector] public GuestInteractable OccupyingGuest;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     /// <summary>
     /// assigns guests to this room
@@ -24,6 +31,8 @@ public class RoomBehavior : MonoBehaviour
     /// <param name="newGuest"> assigned guest </param>
     public void AssignGuest(GuestInteractable newGuest)
     {
+        animator.SetBool("IsOpen", true);
+
         OccupyingGuest = newGuest;
 
         //this is funny to me for some reason. enjoy the foreach loops, everyone <3
@@ -37,6 +46,7 @@ public class RoomBehavior : MonoBehaviour
                     {
                         neighbor.OccupyingGuest.ChangeSatisfaction
                         (GuestAndEventManager.Instance.SatisfactionDropPerRoom);
+                        Debug.Log($"{OccupyingGuest.gameObject.name}'s SATISFACTION {GuestAndEventManager.Instance.SatisfactionDropPerRoom}");
                     }
                 }
 
@@ -46,6 +56,7 @@ public class RoomBehavior : MonoBehaviour
                     {
                         OccupyingGuest.ChangeSatisfaction
                         (GuestAndEventManager.Instance.SatisfactionDropPerRoom);
+                        Debug.Log($"{OccupyingGuest.gameObject.name}'s SATISFACTION {GuestAndEventManager.Instance.SatisfactionDropPerRoom}");
                     }
                 }
             }
@@ -59,6 +70,7 @@ public class RoomBehavior : MonoBehaviour
     public void RemoveGuest()
     {
         OccupyingGuest = null;
+        animator.SetBool("IsOpen", false);
     }
 
     private void OnTriggerEnter(Collider collider)

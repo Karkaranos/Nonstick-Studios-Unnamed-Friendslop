@@ -87,7 +87,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
         moving = true;
 
         while(moving && Vector3.Distance
-        (gameObject.transform.position, newPos) >= 0)
+        (gameObject.transform.position, newPos) >= 0 && agent.isActiveAndEnabled)
         {
             agent.SetDestination(newPos);
             yield return new WaitForFixedUpdate();
@@ -98,16 +98,10 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<GuestInteractable>())
+        if(other.GetComponent<GuestInteractable>() && AssignedRoom == null)
         {
             moving = false;
             agent.isStopped = true;
-        }
-
-        if(other.GetComponent<RoomBehavior>() && other.GetComponent<RoomBehavior>() == AssignedRoom)
-        {
-            //this way, the satisfaction triggers won't go down until the guest reaches the room
-            AssignedRoom.AssignGuest(this);
         }
     }
 
@@ -120,7 +114,32 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
             return;
         }
 
-        transform.LookAt(pc.gameObject.transform.position);
+        if(pc.heldInteractable .GetComponent<KeyPickupInteractable>() != null)
+        {
+            foreach(RoomBehavior room in RoomManager.Instance.Rooms)
+            {
+                if(room.RoomID == pc.heldInteractable.GetComponent<KeyPickupInteractable>().KeyID &&
+                   room.OccupyingGuest == null)
+                {
+                    AssignedRoom = room;
+                    room.AssignGuest(this);
+
+                    //not actually messing with navmesh more rn sorry
+                    //StartCoroutine(MoveNavMesh(room.gameObject.transform.position));
+
+                    agent.enabled = false;
+                    gameObject.transform.position = room.gameObject.transform.position;
+
+                    Debug.Log($"{gameObject.name} CHECKED IN.");
+
+                    break;
+                }
+            }
+
+            return;
+        }
+
+            transform.LookAt(pc.gameObject.transform.position);
 
         DisplayDialogue(dialogue);
 

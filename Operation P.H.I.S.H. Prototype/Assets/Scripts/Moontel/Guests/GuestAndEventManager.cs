@@ -164,21 +164,25 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         //annoying but whatever
         foreach(GameObject newGuest in guestsToCheckOut)
         {
-            if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(newGuest) &&
-               ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1].GetComponent
-               <GuestInteractable>().AssignedRoom != null)
-            {
-                StartCoroutine(RearrangeLine(newGuest.transform.position, 
-                ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1]));
-            }
+            //if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(newGuest) &&
+            //   ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1].GetComponent
+            //   <GuestInteractable>().AssignedRoom != null)
+            //{
+            //    StartCoroutine(RearrangeLine(newGuest.transform.position, 
+            //    ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1]));
+            //}
 
             newGuest.GetComponent<GuestInteractable>().AssignedRoom.RemoveGuest();
 
             ActiveGuestsInScene.Remove(newGuest);
             Destroy(newGuest);
+
+            Debug.Log($"{newGuest} CHECKED OUT.");
         }
     }
 
+    //hey so i'm probably not using this anymore
+    //least of my worries tbh
     IEnumerator RearrangeLine(Vector3 newPos, GameObject guest)
     {
         Vector3 oldPos = guest.transform.position;

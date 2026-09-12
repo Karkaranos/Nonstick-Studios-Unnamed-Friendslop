@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 5459896433177348015}
   - component: {fileID: 1558933981717242084}
   m_Layer: 0
-  m_Name: Boring Guest
+  m_Name: Fragrant Guest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -499,17 +499,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GuestInteractable
   DaysSpent: 3
   CheckInDay: 0
-  CheckedIn: 1
-  guestName: Boring
-  dialogue: I'm boring.
+  AssignedRoom: {fileID: 0}
+  guestName: Fragrant
+  dialogue: I smell nice.
   requestPing: {fileID: 8199198357867763524}
   dialogueCanvas: {fileID: 3002766953812581677}
   dialogueText: {fileID: 296781651723819411}
   satisfactionLevel: 25
   StayTime: 1
   payAmount: 10
-  exhibitedTraits: 
-  dislikedTraits: 00000000010000000200000003000000
+  ExhibitedTraits: 02000000
+  DislikedTraits: 03000000
 --- !u!195 &1558933981717242084
 NavMeshAgent:
   m_ObjectHideFlags: 0

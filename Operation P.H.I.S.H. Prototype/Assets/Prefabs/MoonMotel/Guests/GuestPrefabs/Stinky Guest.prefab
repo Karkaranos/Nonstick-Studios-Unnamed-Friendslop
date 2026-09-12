@@ -600,7 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GuestInteractable
   DaysSpent: 1
   CheckInDay: 0
-  CheckedIn: 1
+  AssignedRoom: {fileID: 0}
   guestName: Stinky
   dialogue: I'm stinky!
   requestPing: {fileID: 2074797761025394271}
@@ -609,8 +609,8 @@ MonoBehaviour:
   satisfactionLevel: 50
   StayTime: 1
   payAmount: 8
-  exhibitedTraits: 03000000
-  dislikedTraits: 02000000
+  ExhibitedTraits: 03000000
+  DislikedTraits: 02000000
 --- !u!195 &3463626922863172289
 NavMeshAgent:
   m_ObjectHideFlags: 0
