@@ -80,7 +80,6 @@ public class PlayerInputHandler : Singleton<PlayerInputHandler>
         prep.performed += Prep_performed;
         leftClick.started += LeftClickPressed;
         leftClick.canceled += LeftClickCanceled;
-        
     }
 
 
