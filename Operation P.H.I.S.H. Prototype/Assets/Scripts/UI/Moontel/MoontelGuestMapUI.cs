@@ -90,7 +90,7 @@ public class MoontelGuestMapUI : MonoBehaviour
         //mapDisplayImage.sprite = currentFloorMap.MapSprite;
 
         // Update Guests:
-        ClearUnusedGuests();
+        //ClearUnusedGuests();
 
         foreach (var guest in GuestAndEventManager.Instance.ActiveGuestsInScene)
         {
@@ -147,6 +147,15 @@ public class MoontelGuestMapUI : MonoBehaviour
                 guestIconInstances.RemoveAllInstancesWithValue(guest_icon.Value);
             }
         }
+    }
+
+    /// <summary>
+    /// temp
+    /// </summary>
+    /// <param name="guest"></param>
+    public void RemoveGuest(GuestInteractable guest)
+    {
+        guestIconInstances.Remove(guest);
     }
 
     /// <summary>
