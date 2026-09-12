@@ -38,6 +38,8 @@ public class MoontelMovement : Movement
 
     private IMoontelInteractable lookingAt;
     private IMoontelInteractable interactingWith;
+    private MinigameSpotInteractable lookingAtMinigameSpot;
+    private MinigameSpotInteractable interactingWithMinigameSpot;
 
 
     [Space(5)]
@@ -162,6 +164,52 @@ public class MoontelMovement : Movement
         return false;
     }
 
+    /// <summary>
+    /// ripping this from the regular lookingat function, not using lookingatminigamespot variable rn but it might be useful later
+    /// </summary>
+    /// <returns></returns>
+    protected bool LookingAtMinigameSpot()
+    {
+        RaycastHit hit;
+        Vector3 direction = pc.CameraRotationParent.forward;
+
+        if (Physics.Raycast(pc.CameraRotationParent.transform.position, direction, out hit, sightDistance))
+        {
+            MinigameSpotInteractable interactable = hit.transform.GetComponentInParent<MinigameSpotInteractable>();
+            if (interactable != null)
+            {
+                if (lookingAtMinigameSpot != null && interactable == interactingWithMinigameSpot)
+                {
+                    return true;
+                }
+
+                if (lookingAtMinigameSpot != null && interactable != lookingAtMinigameSpot)
+                {
+                    lookingAtMinigameSpot.ExitHover();
+                }
+
+                lookingAtMinigameSpot = interactable;
+                lookingAtMinigameSpot.EnterHover();
+
+                pc.CrosshairImage.sprite = pc.InteractableSprite;
+
+                return true;
+            }
+        }
+
+        if (lookingAtMinigameSpot != null)
+        {
+            if (lookingAtMinigameSpot != interactingWithMinigameSpot)
+            {
+                lookingAtMinigameSpot.ExitHover();
+            }
+            lookingAtMinigameSpot = null;
+        }
+
+        pc.CrosshairImage.sprite = pc.StandardSprite;
+        return false;
+    }
+
     public override void SetCameraAngle(Vector3 angle)
     {
         return;
@@ -277,10 +325,36 @@ public class MoontelMovement : Movement
         }
     }
 
-    protected override void OnLeftClick()
+    protected override void OnLeftClickStarted()
     {
-        //TODO: add funtion once there are "consumables"
-        Debug.Log("LEFT MOUSE BUTTON CLICKED.");
+        LookingAtMinigameSpot();
+
+        //looking at spot
+        if (lookingAtMinigameSpot != null)
+        {
+            if(pc.heldInteractable == null)
+            {
+                return;
+            }
+
+            //held object is a minigame tool and is the same enum type
+            if (pc.heldInteractable.GetComponent<MinigameToolInteractable>() != null && 
+                lookingAtMinigameSpot.objectTypeNeeded == pc.heldInteractable.GetComponent<MinigameToolInteractable>().objectType)
+            {
+                lookingAtMinigameSpot.StartCleanOrFixTimer();
+            }
+        }
+
+        Debug.Log("LEFT MOUSE BUTTON STARTED.");
+    }
+    protected override void OnLeftClickFinished()
+    {
+        if (lookingAtMinigameSpot != null)
+        {
+            lookingAtMinigameSpot.StopCleanOrFixTimer();
+        }
+
+        Debug.Log("LEFT MOUSE BUTTON FINISHED.");
     }
 
     #endregion OTHER INPUTS
@@ -337,7 +411,6 @@ public class MoontelMovement : Movement
 
     protected override void OnPrepPerformed()
     {
-        throw new System.NotImplementedException();
     }
 
     #endregion EMPTY FUNCTIONS

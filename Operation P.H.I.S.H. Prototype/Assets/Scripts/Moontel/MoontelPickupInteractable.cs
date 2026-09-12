@@ -70,6 +70,9 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
         TogglePhysics(false);
         transform.parent = pc.PickupPoint;
         transform.localPosition = Vector3.zero;
+
+        if (pc.heldInteractable != this)
+            pc.SetPickupItem(this);
     }
 
     /// <summary>
@@ -77,11 +80,21 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// </summary>
     public void DropItem()
     {
-        mr.material = standardMat;
+        Debug.Log($"Dropping {gameObject.name}");
 
-        heldBy = null;
+        if (heldBy != null && heldBy.heldInteractable == this)
+        {
+            // do this to prevent stack overflow
+            var oldHeldBy = heldBy;
+            heldBy = null;
+            oldHeldBy.SetPickupItem(null);
+        }
+
+
         transform.parent = null;
-        TogglePhysics(true);
+        col.enabled = true;
+        rb.isKinematic = false;
+        heldBy = null;
     }
 
     #endregion
