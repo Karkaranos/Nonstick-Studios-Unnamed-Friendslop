@@ -1,6 +1,7 @@
 /*************************************************
-Author Names : 		    Jay Embry
+Author Names : 		    Jay Embry, Toby Schamberger
 Date Created : 		    09/03/2026
+Date Last Modified : 	09/09/2026
 Brief Description : 	Stores a list of (active) guests and spawns them
                         Handles events
 External Resources :    	
@@ -8,7 +9,7 @@ External Resources :
 
 using System.Collections;
 using System.Collections.Generic;
-using NaughtyAttributes;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,12 +18,10 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
 {
     [Header("Lists")]
 
-    [SerializeField] List<GameObject> guests;
-    [HideInInspector] public List<GameObject> ActiveGuestsInScene = new List<GameObject>();
+    [SerializeField] List<GuestInteractable> guestPrefabs;
+    [HideInInspector] public List<GuestInteractable> ActiveGuestsInScene = new List<GuestInteractable>();
 
-    [SerializeField] List<GuestEvent> events;
-
-    List<GameObject> guestQueue = new List<GameObject>();
+    List<GuestInteractable> guestQueue = new List<GuestInteractable>(); // why not just use a queue lol
 
     [Space(8)]
 
@@ -82,6 +81,14 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     //TODO: add list of events
     //add list of active events
 
+    //TODO: remove debug
+    private void Start()
+    {
+        ActiveGuestsInScene = FindObjectsByType<GuestInteractable>(FindObjectsSortMode.None)
+            .Select(g=>g.GetComponent<GuestInteractable>())
+            .ToList();
+    }
+
     /// <summary>
     /// checks in guests per interval
     /// </summary>
@@ -101,7 +108,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         {
             for(int i = 0; i < numberOfGuests; i++)
             {
-                GameObject selectedGuest = guests[Random.Range(0, guests.Count)];
+                GuestInteractable selectedGuest = guestPrefabs[Random.Range(0, guestPrefabs.Count)];
                 guestQueue.Add(selectedGuest);
 
                 //lemme see if this changes anything
@@ -123,10 +130,10 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     /// <returns></returns>
     IEnumerator SpawnGuests(int day)
     {
-        foreach(GameObject guest in guestQueue)
+        foreach(GuestInteractable guest in guestQueue)
         {
-            GameObject newGuest = Instantiate(guest, GuestSpawnLocation, Quaternion.identity);
-            guest.GetComponent<GuestInteractable>().CheckInDay = day;
+            GuestInteractable newGuest = Instantiate(guest, GuestSpawnLocation, Quaternion.identity);
+            newGuest.CheckInDay = day;
 
             ActiveGuestsInScene.Add(newGuest);
 
@@ -144,17 +151,16 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     /// </summary>
     public void UpdateGuestCheckIn(int day)
     {
-        List<GameObject> guestsToCheckOut = new List<GameObject>();
+        List<GuestInteractable> guestsToCheckOut = new List<GuestInteractable>();
 
-        foreach (GameObject guest in ActiveGuestsInScene)
+        foreach (var guest in ActiveGuestsInScene)
         {
             if (guest.GetComponent<GuestInteractable>().AssignedRoom != null &&
                guest.GetComponent<GuestInteractable>().CheckInDay != day)
             {
-                guest.GetComponent<GuestInteractable>().DaysSpent++;
+                guest.DaysSpent++;
 
-                if (guest.GetComponent<GuestInteractable>().DaysSpent >=
-                    guest.GetComponent<GuestInteractable>().StayTime)
+                if (guest.DaysSpent >= guest.StayTime)
                 {
                     guestsToCheckOut.Add(guest);
                 }
@@ -162,7 +168,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         }
 
         //annoying but whatever
-        foreach(GameObject newGuest in guestsToCheckOut)
+        foreach(GuestInteractable newGuest in guestsToCheckOut)
         {
 
             newGuest.GetComponent<GuestInteractable>().AssignedRoom.RemoveGuest();
@@ -217,7 +223,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     /// </summary>
     public void PullGuestsAndEvents()
     {
-        List<GameObject> availableGuests = ActiveGuestsInScene;
+        List<GuestInteractable> availableGuests = ActiveGuestsInScene;
 
         //TODO: create events
         //place the following inside of a loop going through each event
@@ -229,7 +235,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         {
             for(int i = 0; i < numberOfRequests; i++)
             {
-                GameObject selectedGuest = availableGuests
+                var selectedGuest = availableGuests
                 [Random.Range(0, availableGuests.Count)];
 
                 //TODO: initiate event

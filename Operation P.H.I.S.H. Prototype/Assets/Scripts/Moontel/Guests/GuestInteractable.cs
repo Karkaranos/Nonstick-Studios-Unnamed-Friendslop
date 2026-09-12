@@ -48,6 +48,8 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     [SerializeField] GameObject dialogueCanvas;
     [Tooltip("The customer's dialogue goes here!")]
     [SerializeField] TMP_Text dialogueText;
+    [Tooltip("The sprite that appears on the map"), ShowAssetPreview(32,32)]
+    public Sprite MapSprite;
 
     [Space(8)]
 
@@ -86,8 +88,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     {
         moving = true;
 
-        while(moving && Vector3.Distance
-        (gameObject.transform.position, newPos) >= 0 && agent.isActiveAndEnabled)
+        while(moving && agent.isOnNavMesh && Vector3.Distance(gameObject.transform.position, newPos) >= 0)
         {
             agent.SetDestination(newPos);
             yield return new WaitForFixedUpdate();

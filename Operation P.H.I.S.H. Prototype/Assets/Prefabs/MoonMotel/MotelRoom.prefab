@@ -5633,6 +5633,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CeilingBathroom
       objectReference: {fileID: 0}
+    - target: {fileID: 1205442684459302513, guid: 94b444f320be6934db98588e685d16c4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2679218609801819203, guid: 94b444f320be6934db98588e685d16c4, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -7504,6 +7508,10 @@ PrefabInstance:
     - target: {fileID: 7787946470421466171, guid: 75fde7cb129153947bda5dd09fff401c, type: 3}
       propertyPath: m_Name
       value: CeilingBedroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 7787946470421466171, guid: 75fde7cb129153947bda5dd09fff401c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
