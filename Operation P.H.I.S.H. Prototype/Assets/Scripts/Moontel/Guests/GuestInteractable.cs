@@ -115,7 +115,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
             return;
         }
 
-        if(pc.heldInteractable .GetComponent<KeyPickupInteractable>() != null)
+        if(pc.heldInteractable != null && pc.heldInteractable.GetComponent<KeyPickupInteractable>() != null)
         {
             foreach(RoomBehavior room in RoomManager.Instance.Rooms)
             {
@@ -142,9 +142,13 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
             return;
         }
+        else if(pc.heldInteractable != null && pc.heldInteractable.GetComponent<EventPickupInteractable>())
+        {
+            //TODO: conditions for if an event is fulfilled
+            Destroy(pc.heldInteractable.gameObject);
+        }
 
-            transform.LookAt(pc.gameObject.transform.position);
-
+        transform.LookAt(pc.gameObject.transform.position);
         DisplayDialogue(dialogue);
 
         if (this != null)

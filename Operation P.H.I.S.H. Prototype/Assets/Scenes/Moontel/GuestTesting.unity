@@ -66727,6 +66727,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!4 &454712067 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+  m_PrefabInstance: {fileID: 1509316639}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &454926900
 Mesh:
   m_ObjectHideFlags: 0
@@ -167015,9 +167020,9 @@ Transform:
   m_Children:
   - {fileID: 2047823419}
   - {fileID: 1981537178}
-  - {fileID: 1863798166}
   - {fileID: 1315771558}
   - {fileID: 1180298254}
+  - {fileID: 454712067}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1069267009
@@ -187109,7 +187114,7 @@ PrefabInstance:
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: events.Array.data[2].RequiredInteractableItem
       value: 
-      objectReference: {fileID: 1863798165}
+      objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: events.Array.data[3].RequiredInteractableItem
       value: 
@@ -218810,6 +218815,67 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &1509316639
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1069101388}
+    m_Modifications:
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.691756
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 20.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726150675419011551, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3359380984632623973, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: m_Name
+      value: ToiletPaperInteractable
+      objectReference: {fileID: 0}
+    - target: {fileID: 3730887371531919521, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
+      propertyPath: originalCopy
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8aecdcc80cc698e41a4f30aff881cc5b, type: 3}
 --- !u!43 &1510975195
 Mesh:
   m_ObjectHideFlags: 0
@@ -260848,73 +260914,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!1001 &1863798164
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1069101388}
-    m_Modifications:
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 13.427269
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.583
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 20.409492
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5478837771508884805, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-      propertyPath: m_Name
-      value: ToiletPaper
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
---- !u!1 &1863798165 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5478837771508884805, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-  m_PrefabInstance: {fileID: 1863798164}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1863798166 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1707855554356385009, guid: 34ff8e30dee2c154c80a48f3b28fc384, type: 3}
-  m_PrefabInstance: {fileID: 1863798164}
-  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1865034202
 Mesh:
   m_ObjectHideFlags: 0
