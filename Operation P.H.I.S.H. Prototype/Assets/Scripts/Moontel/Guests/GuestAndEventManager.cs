@@ -10,6 +10,7 @@ External Resources :
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -21,7 +22,11 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     [SerializeField] List<GuestInteractable> guestPrefabs;
     [HideInInspector] public List<GuestInteractable> ActiveGuestsInScene = new List<GuestInteractable>();
 
-    List<GuestInteractable> guestQueue = new List<GuestInteractable>(); // why not just use a queue lol
+    List<GuestInteractable> guestQueue = new List<GuestInteractable>(); // why not just use a queue lol //i didnt know what that was man
+
+    [Space(5)]
+
+    [SerializeField] MoontelGuestMapUI map;
 
     [Space(8)]
 
@@ -153,7 +158,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     {
         List<GuestInteractable> guestsToCheckOut = new List<GuestInteractable>();
 
-        foreach (var guest in ActiveGuestsInScene)
+        foreach (GuestInteractable guest in ActiveGuestsInScene)
         {
             if (guest.GetComponent<GuestInteractable>().AssignedRoom != null &&
                guest.GetComponent<GuestInteractable>().CheckInDay != day)
@@ -167,16 +172,16 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
             }
         }
 
-        //annoying but whatever
-        foreach(GuestInteractable newGuest in guestsToCheckOut)
+        foreach(GuestInteractable oldGuest in guestsToCheckOut)
         {
+            oldGuest.GetComponent<GuestInteractable>().AssignedRoom.RemoveGuest();
 
-            newGuest.GetComponent<GuestInteractable>().AssignedRoom.RemoveGuest();
+            map.RemoveGuest(oldGuest);
+            ActiveGuestsInScene.Remove(oldGuest);
 
-            ActiveGuestsInScene.Remove(newGuest);
-            Destroy(newGuest);
+            Debug.Log($"{oldGuest.gameObject} CHECKED OUT.");
 
-            Debug.Log($"{newGuest} CHECKED OUT.");
+            Destroy(oldGuest.gameObject);
         }
     }
 
@@ -186,11 +191,12 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     /// <param name="guest"></param>
     public void CheckLine(GameObject guest, Vector3 pos)
     {
-        if (ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(guest) &&
-           ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1].GetComponent
+        if (ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(guest.GetComponent<GuestInteractable>()) &&
+           ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest.GetComponent<GuestInteractable>()) + 1].GetComponent
            <GuestInteractable>().AssignedRoom == null)
         {
-            StartCoroutine(RearrangeLine(pos, ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1]));
+            StartCoroutine(RearrangeLine
+            (pos, ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest.GetComponent<GuestInteractable>()) + 1].gameObject));
         }
     }
 
@@ -208,12 +214,12 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
             yield return new WaitForFixedUpdate();
         }
 
-        if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(guest) &&
-           ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1].GetComponent
+        if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(guest.GetComponent<GuestInteractable>()) &&
+           ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest.GetComponent<GuestInteractable>()) + 1].GetComponent
            <GuestInteractable>().AssignedRoom == null)
         {
             StartCoroutine(RearrangeLine(oldPos,
-            ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1]));
+            ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest.GetComponent<GuestInteractable>()) + 1].gameObject));
         }
     }
 
