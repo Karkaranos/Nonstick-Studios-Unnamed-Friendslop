@@ -110,9 +110,6 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     public void EnterInteract(MoontelPlayerController pc)
     {
-        moving = false;
-        agent.enabled = false;
-
         if (isInteractingWith)
         {
             return;
@@ -130,6 +127,9 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
                     //not actually messing with navmesh more rn sorry
                     //StartCoroutine(MoveNavMesh(room.gameObject.transform.position));
+
+                    moving = false;
+                    agent.enabled = false;
 
                     GuestAndEventManager.Instance.CheckLine(gameObject, gameObject.transform.position);
                     gameObject.transform.position = room.TeleportPoint.transform.position;
@@ -199,9 +199,6 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     {
         dialogueCanvas.SetActive(false);
         isInteractingWith = false;
-
-        moving = false;
-        agent.enabled = true;
     }
 
     #endregion DIALOGUE
