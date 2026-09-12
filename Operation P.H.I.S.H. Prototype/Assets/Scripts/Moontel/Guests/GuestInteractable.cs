@@ -37,7 +37,10 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     [Header("General")]
     [SerializeField] string guestName;
-    [SerializeField] string dialogue;
+    //[SerializeField] List<GuestDialogue> listOfDialogue;
+    [SerializeField] GuestDialogue[] listOfDialogue;
+
+    Dictionary<DialogueContext, string> guestDialogue = new Dictionary<DialogueContext, string>();
 
     [Space(8)]
 
@@ -82,6 +85,11 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     {
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(MoveNavMesh(GuestAndEventManager.Instance.GuestLineLocation));
+
+        foreach (GuestDialogue dialogue in listOfDialogue)
+        {
+            guestDialogue.Add(dialogue.Context, dialogue.Dialogue);
+        }
     }
 
     IEnumerator MoveNavMesh(Vector3 newPos)
@@ -139,24 +147,42 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
                     break;
                 }
             }
-
-            return;
         }
         else if(pc.heldInteractable != null && pc.heldInteractable.GetComponent<EventPickupInteractable>())
         {
+            transform.LookAt(pc.gameObject.transform.position);
+
+            if (guestDialogue.ContainsKey(DialogueContext.FetchedTP) && 
+            pc.heldInteractable.gameObject.name.Contains("ToiletPaper"))
+            {
+                DisplayDialogue(guestDialogue[DialogueContext.FetchedTP]);
+            }
+            else if (guestDialogue.ContainsKey(DialogueContext.FetchedTowel) &&
+            pc.heldInteractable.gameObject.name.Contains("Towel"))
+            {
+                DisplayDialogue(guestDialogue[DialogueContext.FetchedTowel]);
+            }
+            
             //TODO: conditions for if an event is fulfilled
             Destroy(pc.heldInteractable.gameObject);
+
+            isInteractingWith = true;
         }
-
-        transform.LookAt(pc.gameObject.transform.position);
-        DisplayDialogue(dialogue);
-
-        if (this != null)
+        else
         {
-            Invoke("DisableDialogue", GuestAndEventManager.Instance.DialogueDisplayTime);
-        }
+            transform.LookAt(pc.gameObject.transform.position);
 
-        isInteractingWith = true;
+            if(guestDialogue.ContainsKey(DialogueContext.CheckingIn) && AssignedRoom == null)
+            {
+                DisplayDialogue(guestDialogue[DialogueContext.CheckingIn]);
+            }
+            else if(guestDialogue.ContainsKey(DialogueContext.CheckedIn) && AssignedRoom != null)
+            {
+                DisplayDialogue(guestDialogue[DialogueContext.CheckedIn]);
+            }
+
+            isInteractingWith = true;
+        }
     }
 
     public void ExitInteract()
@@ -193,6 +219,8 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
         {
             dialogueCanvas.SetActive(true);
             dialogueText.text = activeDialogue;
+
+            Invoke("DisableDialogue", GuestAndEventManager.Instance.DialogueDisplayTime);
         }
     }
 

@@ -1,16 +1,30 @@
+/*************************************************
+Author Names : 		    Jay Embry
+Date Created : 		    09/12/2026
+Brief Description : 	Stores guest dialogue
+External Resources :    	
+***************************************************/
+
 using UnityEngine;
 
-public class GuestDialogue : MonoBehaviour
+public enum DialogueContext
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    CheckingIn,
+    CheckedIn,
+    
+    FetchTP,
+    FetchTowel,
+    FetchedTP,
+    FetchedTowel,
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    Fix,
+    Clean
+
+}
+
+[System.Serializable]
+public class GuestDialogue
+{
+    public DialogueContext Context;
+    public string Dialogue;
 }

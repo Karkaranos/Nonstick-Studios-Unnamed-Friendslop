@@ -501,7 +501,23 @@ MonoBehaviour:
   CheckInDay: 0
   AssignedRoom: {fileID: 0}
   guestName: Fragrant
-  dialogue: I smell nice.
+  listOfDialogue:
+  - Context: 0
+    Dialogue: I'm fragrant! Check me in!
+  - Context: 1
+    Dialogue: I love being checked in!
+  - Context: 2
+    Dialogue: Fetch me some toilet paper!
+  - Context: 3
+    Dialogue: Fetch me a towel!
+  - Context: 4
+    Dialogue: Hooray! Toilet paper!
+  - Context: 5
+    Dialogue: Hooray! A towel!
+  - Context: 6
+    Dialogue: Fix this!
+  - Context: 7
+    Dialogue: Clean that!
   requestPing: {fileID: 8199198357867763524}
   dialogueCanvas: {fileID: 3002766953812581677}
   dialogueText: {fileID: 296781651723819411}

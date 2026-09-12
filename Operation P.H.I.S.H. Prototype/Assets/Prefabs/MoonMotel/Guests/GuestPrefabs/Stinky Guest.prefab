@@ -602,7 +602,23 @@ MonoBehaviour:
   CheckInDay: 0
   AssignedRoom: {fileID: 0}
   guestName: Stinky
-  dialogue: I'm stinky!
+  listOfDialogue:
+  - Context: 0
+    Dialogue: I'm stinky! Check me in!
+  - Context: 1
+    Dialogue: I love being checked in!
+  - Context: 2
+    Dialogue: Fetch me some toilet paper!
+  - Context: 3
+    Dialogue: Fetch me a towel!
+  - Context: 4
+    Dialogue: Hooray! Toilet paper!
+  - Context: 5
+    Dialogue: Hooray! A towel!
+  - Context: 6
+    Dialogue: Fix this!
+  - Context: 7
+    Dialogue: Clean that!
   requestPing: {fileID: 2074797761025394271}
   dialogueCanvas: {fileID: 426192082789966934}
   dialogueText: {fileID: 5990218339762515914}
