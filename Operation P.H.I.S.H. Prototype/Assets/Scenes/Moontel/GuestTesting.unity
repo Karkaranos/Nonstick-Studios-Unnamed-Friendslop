@@ -180984,62 +180984,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: CheckOutTime
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: LatestCheckInTime
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: maxAmountOfGuests
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: CheckInIntervalMax
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: CheckInIntervalMin
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: EarliestCheckInTime
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: GuestLineLocation.x
-      value: 19.76
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: GuestLineLocation.y
-      value: 1.4989998
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: GuestLineLocation.z
-      value: 17.84
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: GuestsPerCheckInMax
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: GuestsPerCheckInMin
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: GuestSpawnLocation.x
-      value: -21.291094
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: GuestSpawnLocation.y
-      value: 1.479
-      objectReference: {fileID: 0}
-    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
-      propertyPath: GuestSpawnLocation.z
-      value: 16.978779
-      objectReference: {fileID: 0}
     - target: {fileID: 1433375432539368531, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: m_Name
       value: GuestAndEventManager
@@ -250093,6 +250037,10 @@ PrefabInstance:
     - target: {fileID: 7394230119687047375, guid: 2e53a72543d33d4479227e91faf887f6, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8315060433683627352, guid: 2e53a72543d33d4479227e91faf887f6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
