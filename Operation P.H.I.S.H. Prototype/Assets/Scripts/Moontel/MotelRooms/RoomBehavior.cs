@@ -46,7 +46,7 @@ public class RoomBehavior : MonoBehaviour
                     {
                         neighbor.OccupyingGuest.ChangeSatisfaction
                         (GuestAndEventManager.Instance.SatisfactionDropPerRoom);
-                        Debug.Log($"{OccupyingGuest.gameObject.name}'s SATISFACTION {GuestAndEventManager.Instance.SatisfactionDropPerRoom}");
+                        Debug.Log($"{neighbor.OccupyingGuest.gameObject.name}'s SATISFACTION {GuestAndEventManager.Instance.SatisfactionDropPerRoom}");
                     }
                 }
 

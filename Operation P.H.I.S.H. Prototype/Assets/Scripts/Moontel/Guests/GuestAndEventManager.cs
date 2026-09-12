@@ -164,13 +164,6 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         //annoying but whatever
         foreach(GameObject newGuest in guestsToCheckOut)
         {
-            //if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(newGuest) &&
-            //   ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1].GetComponent
-            //   <GuestInteractable>().AssignedRoom != null)
-            //{
-            //    StartCoroutine(RearrangeLine(newGuest.transform.position, 
-            //    ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(newGuest) + 1]));
-            //}
 
             newGuest.GetComponent<GuestInteractable>().AssignedRoom.RemoveGuest();
 
@@ -178,6 +171,20 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
             Destroy(newGuest);
 
             Debug.Log($"{newGuest} CHECKED OUT.");
+        }
+    }
+
+    /// <summary>
+    /// checks if the line needs to move up
+    /// </summary>
+    /// <param name="guest"></param>
+    public void CheckLine(GameObject guest, Vector3 pos)
+    {
+        if (ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(guest) &&
+           ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1].GetComponent
+           <GuestInteractable>().AssignedRoom == null)
+        {
+            StartCoroutine(RearrangeLine(pos, ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1]));
         }
     }
 
@@ -197,7 +204,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
 
         if(ActiveGuestsInScene.Count - 1 > ActiveGuestsInScene.IndexOf(guest) &&
            ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1].GetComponent
-           <GuestInteractable>().AssignedRoom != null)
+           <GuestInteractable>().AssignedRoom == null)
         {
             StartCoroutine(RearrangeLine(oldPos,
             ActiveGuestsInScene[ActiveGuestsInScene.IndexOf(guest) + 1]));

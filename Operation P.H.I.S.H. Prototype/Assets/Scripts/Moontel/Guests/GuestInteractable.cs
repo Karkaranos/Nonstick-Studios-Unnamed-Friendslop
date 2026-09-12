@@ -127,8 +127,10 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
                     //not actually messing with navmesh more rn sorry
                     //StartCoroutine(MoveNavMesh(room.gameObject.transform.position));
 
-                    agent.enabled = false;
-                    gameObject.transform.position = room.gameObject.transform.position;
+                    moving = false;
+
+                    GuestAndEventManager.Instance.CheckLine(gameObject, gameObject.transform.position);
+                    gameObject.transform.position = room.TeleportPoint.transform.position;
 
                     Debug.Log($"{gameObject.name} CHECKED IN.");
 
