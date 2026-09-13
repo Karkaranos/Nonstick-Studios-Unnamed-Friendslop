@@ -291,6 +291,12 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
                     [Random.Range(0, availableGuests.Count)];
 
                     selectedGuest.AssignedEvent = guestEvent;
+
+                    if(selectedGuest.RequestPing != null)
+                    {
+                        selectedGuest.RequestPing.SetActive(true);
+                    }
+
                     ActiveEvents.Add(selectedGuest, guestEvent);
 
                     Debug.Log($"{selectedGuest} wants you to {guestEvent.EventType} {guestEvent.RequestedItem}");

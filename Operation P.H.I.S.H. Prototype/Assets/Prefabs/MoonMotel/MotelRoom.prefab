@@ -506,6 +506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomBehavior
   RoomID: 0
   TeleportPoint: {fileID: 4733796755299128347}
+  RotateTowards: {x: -7.65, y: -1.067, z: 0}
   OccupyingGuest: {fileID: 0}
 --- !u!95 &8771755801009352852
 Animator:

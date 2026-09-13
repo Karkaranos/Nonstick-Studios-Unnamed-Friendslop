@@ -47,13 +47,14 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     [Header("UI")]
     [Tooltip("The icon that should appear when the guest has a request.")]
-    [SerializeField] GameObject requestPing;
+    public GameObject RequestPing;
     [Tooltip("The customer's canvas goes here!")]
     [SerializeField] GameObject dialogueCanvas;
     [Tooltip("The customer's dialogue goes here!")]
     [SerializeField] TMP_Text dialogueText;
     [Tooltip("The sprite that appears on the map"), ShowAssetPreview(32,32)]
     public Sprite MapSprite;
+    [HideInInspector] public GameObject RequestPingMap;
 
     [Space(8)]
 
@@ -141,6 +142,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
                     GuestAndEventManager.Instance.CheckLine(gameObject, gameObject.transform.position);
                     gameObject.transform.position = room.TeleportPoint.transform.position;
+                    gameObject.transform.rotation = Quaternion.Euler(room.RotateTowards);
 
                     Debug.Log($"{gameObject.name} CHECKED IN.");
 
@@ -173,6 +175,12 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
             ChangeSatisfaction(GuestAndEventManager.Instance.SatisfactionGainedPerEvent);
             GuestAndEventManager.Instance.ActiveEvents.Remove(this);
             AssignedEvent = null;
+
+            if (RequestPing != null)
+            {
+                RequestPing.SetActive(false);
+            }
+
             Destroy(pc.heldInteractable.gameObject);
 
             isInteractingWith = true;

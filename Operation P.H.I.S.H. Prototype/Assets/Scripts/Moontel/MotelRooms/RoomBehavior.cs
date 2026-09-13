@@ -12,6 +12,7 @@ public class RoomBehavior : MonoBehaviour
 {
     public int RoomID;
     public Transform TeleportPoint;
+    public Vector3 RotateTowards;
 
     Animator animator;
     List<RoomBehavior> neighboringRooms = new List<RoomBehavior>();
