@@ -8,11 +8,19 @@ External Resources :
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum ItemType
+{
+    ToiletPaper,
+    Towel
+}
+
 public class EventPickupInteractable : MoontelPickupInteractable
 {
-    [HideInInspector] public bool canBeCopied = true;
+    [HideInInspector] public ItemType TypeOfItem;
 
+    bool canBeCopied = true;
     GameObject eventItemCopy;
+
     Vector3 rotation;
 
     public override void Start()
@@ -20,6 +28,16 @@ public class EventPickupInteractable : MoontelPickupInteractable
         base.Start();
         eventItemCopy = gameObject;
         rotation = gameObject.transform.rotation.eulerAngles;
+
+        //ik that this is unreliable in the long run but bear with me for now
+        if(gameObject.name.Contains("ToiletPaper"))
+        {
+            TypeOfItem = ItemType.ToiletPaper;
+        }
+        else if(gameObject.name.Contains("Towel"))
+        {
+            TypeOfItem = ItemType.Towel;
+        }
     }
 
     public override void PickupItem(MoontelPlayerController pc)

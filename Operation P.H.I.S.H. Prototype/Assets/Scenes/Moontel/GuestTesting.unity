@@ -187062,6 +187062,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 364864662}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
+      propertyPath: eventsMax
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
+      propertyPath: eventsMin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: CheckOutTime
       value: 10
       objectReference: {fileID: 0}
@@ -187071,7 +187079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: events.Array.size
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: guests.Array.size
@@ -187107,11 +187115,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: GuestsPerCheckInMax
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: GuestsPerCheckInMin
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: GuestSpawnLocation.x
@@ -187139,7 +187147,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: satisfactionDropPerEvent
-      value: 0
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
+      propertyPath: PossibleEvents.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
+      propertyPath: SatisfactionGainedPerEvent
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: events.Array.data[2].Title
@@ -187162,6 +187178,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7123630692657630087, guid: 7e2a9ae90ac820943bb8e3cdf4a25ef3, type: 3}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
+      propertyPath: MinutesBetweenSatisfactionDrops
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
+      propertyPath: minutesBetweenSatisfactionDrops
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: events.Array.data[1].TypeOfEvent
       value: 0
       objectReference: {fileID: 0}
@@ -187175,6 +187199,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
       propertyPath: events.Array.data[4].TypeOfEvent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
+      propertyPath: events.Array.data[1].RequestedItem
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
+      propertyPath: PossibleEvents.Array.data[1].RequestedItem
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8094159412501245829, guid: 265bccc37f3476b4cb720665257b431f, type: 3}
