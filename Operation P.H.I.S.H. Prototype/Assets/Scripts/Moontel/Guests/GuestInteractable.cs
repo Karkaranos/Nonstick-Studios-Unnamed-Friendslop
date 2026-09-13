@@ -118,9 +118,9 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
         MoontelPickupInteractable pickup = null;
 
-        if(pc.heldInteractable != null)
+        if(pc.GetComponentInChildren<MoontelPickupInteractable>() != null)
         {
-            pickup = pc.heldInteractable;
+            pickup = pc.GetComponentInChildren<MoontelPickupInteractable>();
         }
 
         if(pickup != null && pickup.GetComponent<KeyPickupInteractable>() != null && AssignedRoom == null)
