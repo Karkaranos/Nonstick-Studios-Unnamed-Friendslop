@@ -126,8 +126,6 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// </summary>
     public virtual void ExitInteract()
     {
-        //bear with me please
-        //hashtag yep hashtag my bandaid fix
         Invoke("DropItem", 0.1f);
         Debug.Log($"{gameObject.name} has ended its interaction");
     }

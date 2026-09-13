@@ -111,6 +111,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     public void EnterInteract(MoontelPlayerController pc)
     {
+        //bandaid fix to an obnoxious bug
         if (isInteractingWith)
         {
             return;
@@ -118,9 +119,9 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
         MoontelPickupInteractable pickup = null;
 
-        if(pc.GetComponentInChildren<MoontelPickupInteractable>() != null)
+        if(pc.heldInteractable != null)
         {
-            pickup = pc.GetComponentInChildren<MoontelPickupInteractable>();
+            pickup = pc.heldInteractable;
         }
 
         if(pickup != null && pickup.GetComponent<KeyPickupInteractable>() != null && AssignedRoom == null)
@@ -134,15 +135,9 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
                     AssignedRoom = room;
                     room.AssignGuest(this);
 
-                    //not actually messing with navmesh more rn sorry
-                    //StartCoroutine(MoveNavMesh(room.gameObject.transform.position));
-
-                    moving = false;
-                    agent.enabled = false;
-
                     GuestAndEventManager.Instance.CheckLine(gameObject, gameObject.transform.position);
                     gameObject.transform.position = room.TeleportPoint.transform.position;
-                    gameObject.transform.rotation = Quaternion.Euler(room.RotateTowards);
+                    gameObject.transform.LookAt(room.RotateTowards);
 
                     Debug.Log($"{gameObject.name} CHECKED IN.");
 
@@ -201,6 +196,19 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
                     else if(AssignedEvent.RequestedItem == ItemType.Towel)
                     {
                         DisplayDialogue(guestDialogue[DialogueContext.FetchTowel]);
+                        Invoke("DisableDialogue", GuestAndEventManager.Instance.DialogueDisplayTime);
+                    }
+                }
+                else if(AssignedEvent.EventType == TypeOfEvent.Interact)
+                {
+                    if (AssignedEvent.RequiredTool == MinigameObjectType.Broom)
+                    {
+                        DisplayDialogue(guestDialogue[DialogueContext.Clean]);
+                        Invoke("DisableDialogue", GuestAndEventManager.Instance.DialogueDisplayTime);
+                    }
+                    else if (AssignedEvent.RequiredTool == MinigameObjectType.Toolbox)
+                    {
+                        DisplayDialogue(guestDialogue[DialogueContext.Fix]);
                         Invoke("DisableDialogue", GuestAndEventManager.Instance.DialogueDisplayTime);
                     }
                 }
@@ -282,7 +290,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     {
         //TODO: UI lol
         currentSatisfactionLevel += changeInSatisfaction;
-        Debug.Log($"{gameObject.name}'s SATISFACTION {GuestAndEventManager.Instance.SatisfactionDropPerRoom}");
+        Debug.Log($"{gameObject.name}'s satisfaction = {currentSatisfactionLevel}");
     }
 
     #endregion SATISFACTION

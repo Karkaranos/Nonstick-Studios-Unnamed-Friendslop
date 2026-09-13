@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using Unity.VisualScripting;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -297,10 +298,19 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
                         selectedGuest.RequestPing.SetActive(true);
                     }
 
+                    if(guestEvent.EventType == TypeOfEvent.Interact)
+                    {
+                        if(guestEvent.RequiredTool == MinigameObjectType.Broom)
+                        {
+                            selectedGuest.AssignedRoom.Mess.CreateMess();
+                        }
+                        else if(guestEvent.RequiredTool == MinigameObjectType.Toolbox)
+                        {
+                            selectedGuest.AssignedRoom.BreakableObject.BreakObject();
+                        }
+                    }
+
                     ActiveEvents.Add(selectedGuest, guestEvent);
-
-                    Debug.Log($"{selectedGuest} wants you to {guestEvent.EventType} {guestEvent.RequestedItem}");
-
                     availableGuests.Remove(selectedGuest);
                 }
             }

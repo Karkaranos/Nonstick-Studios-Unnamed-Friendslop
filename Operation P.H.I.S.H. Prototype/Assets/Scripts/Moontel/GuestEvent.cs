@@ -20,6 +20,8 @@ public class GuestEvent
 {
     public TypeOfEvent EventType;
 
-    [ShowIf(nameof(EventType), TypeOfEvent.Fetch)]
+    [AllowNesting, ShowIf(nameof(EventType), TypeOfEvent.Fetch)]
     public ItemType RequestedItem;
+    [AllowNesting, ShowIf(nameof(EventType), TypeOfEvent.Interact)]
+    public MinigameObjectType RequiredTool;
 }

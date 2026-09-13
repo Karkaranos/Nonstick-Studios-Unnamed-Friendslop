@@ -11,8 +11,15 @@ using UnityEngine;
 public class RoomBehavior : MonoBehaviour
 {
     public int RoomID;
+
+    [Space(5)]
     public Transform TeleportPoint;
-    public Vector3 RotateTowards;
+    public Transform RotateTowards;
+
+    [Space(5)]
+
+    public MinigameSpotInteractable BreakableObject;
+    public MinigameSpotInteractable Mess;
 
     Animator animator;
     List<RoomBehavior> neighboringRooms = new List<RoomBehavior>();
