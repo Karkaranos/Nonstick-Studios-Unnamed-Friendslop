@@ -6,9 +6,10 @@ External Resources :
 ***************************************************/
 using UnityEngine;
 
-public class CleanFixMinigameInteractable : MoontelPickupInteractable
+public class MinigameToolInteractable: MoontelPickupInteractable
 {
-    private enum MinigameObjectType { Broom, Toolbox };
     [Header("Minigame")]
-    [SerializeField] private MinigameObjectType objectType;
+    public MinigameObjectType objectType;
 }
+
+public enum MinigameObjectType { Broom, Toolbox };
