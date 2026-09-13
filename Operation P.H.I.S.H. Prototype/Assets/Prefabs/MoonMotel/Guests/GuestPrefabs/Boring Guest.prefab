@@ -505,6 +505,7 @@ MonoBehaviour:
   requestPing: {fileID: 8199198357867763524}
   dialogueCanvas: {fileID: 3002766953812581677}
   dialogueText: {fileID: 296781651723819411}
+  MapSprite: {fileID: 21300000, guid: 89608b060fc7279479398a62e245a409, type: 3}
   satisfactionLevel: 25
   StayTime: 1
   payAmount: 10
