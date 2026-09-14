@@ -34,7 +34,8 @@ public static class PublicEvents
 
     public static Action PrepPerformed;
 
-    public static Action LeftClickPerformed;
+    public static Action LeftClickStarted;
+    public static Action LeftClickFinished;
 
     #endregion
 

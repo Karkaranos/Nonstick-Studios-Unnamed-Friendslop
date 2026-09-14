@@ -80,11 +80,21 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// </summary>
     public virtual void DropItem()
     {
-        mr.material = standardMat;
+        Debug.Log($"Dropping {gameObject.name}");
 
-        heldBy = null;
+        if (heldBy != null && heldBy.heldInteractable == this)
+        {
+            // do this to prevent stack overflow
+            var oldHeldBy = heldBy;
+            heldBy = null;
+            oldHeldBy.SetPickupItem(null);
+        }
+
+
         transform.parent = null;
-        TogglePhysics(true);
+        col.enabled = true;
+        rb.isKinematic = false;
+        heldBy = null;
     }
 
     #endregion
@@ -94,7 +104,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// Implemented function stub from IMoontelInteractable
     /// Changes the object's material when hovered over
     /// </summary>
-    public void EnterHover()
+    public virtual void EnterHover()
     {
         if (!IsPickupable()) return;
 
@@ -105,7 +115,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// Implemented function stub from IMoontelInteractable
     /// Resets the object's material when hover ends
     /// </summary>
-    public void ExitHover()
+    public virtual void ExitHover()
     {
         mr.material = standardMat;
     }
