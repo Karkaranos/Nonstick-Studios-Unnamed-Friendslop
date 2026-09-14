@@ -404,13 +404,17 @@ public class WaterMovement : Movement
         return;
     }
 
-    protected override void OnLeftClick()
-    {
-        
-    }
 
     protected override void OnECanceled(InputAction.CallbackContext obj)
     {
         throw new System.NotImplementedException();
+    }
+
+    protected override void OnLeftClickStarted()
+    {
+    }
+
+    protected override void OnLeftClickFinished()
+    {
     }
 }
