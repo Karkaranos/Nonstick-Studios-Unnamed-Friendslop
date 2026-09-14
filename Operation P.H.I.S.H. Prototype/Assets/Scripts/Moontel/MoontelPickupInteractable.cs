@@ -90,6 +90,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
             oldHeldBy.SetPickupItem(null);
         }
 
+        mr.material = StandardMat;
 
         transform.parent = null;
         col.enabled = true;
