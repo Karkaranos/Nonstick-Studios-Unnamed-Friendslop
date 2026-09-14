@@ -38,7 +38,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// Start is called on the first frame update
     /// Grabs a reference to the mesh renderer and sets the base material
     /// </summary>
-    void Start()
+    public virtual void Start()
     {
         mr = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
@@ -78,7 +78,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// <summary>
     /// Drops the item.
     /// </summary>
-    public void DropItem()
+    public virtual void DropItem()
     {
         Debug.Log($"Dropping {gameObject.name}");
 
@@ -124,7 +124,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// Implemented function stub from IMoontelInteractable
     /// Resets the object's material when interaction ends
     /// </summary>
-    public void ExitInteract()
+    public virtual void ExitInteract()
     {
         DropItem();
 
