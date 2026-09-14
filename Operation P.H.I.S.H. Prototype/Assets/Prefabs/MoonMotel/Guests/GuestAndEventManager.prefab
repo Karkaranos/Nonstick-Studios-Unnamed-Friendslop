@@ -46,17 +46,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GuestAndEventManager
   destroyGameObject: 1
   dontDestroyOnLoad: 0
-  guests:
-  - {fileID: 8041768748638757635, guid: 63b91096ad21d374da82e7515396980d, type: 3}
-  - {fileID: 6440731780428652943, guid: 616ee76286026ab42ad213a952e91de3, type: 3}
-  - {fileID: 4363659877859473912, guid: 7e2a9ae90ac820943bb8e3cdf4a25ef3, type: 3}
+  guestPrefabs:
+  - {fileID: 8131442628074531412, guid: 616ee76286026ab42ad213a952e91de3, type: 3}
+  - {fileID: 5459896433177348015, guid: 63b91096ad21d374da82e7515396980d, type: 3}
+  - {fileID: 7123630692657630087, guid: 7e2a9ae90ac820943bb8e3cdf4a25ef3, type: 3}
+  ActiveGuestsInScene: []
   DialogueDisplayTime: 2
-  GuestSpawnLocation: {x: 0, y: 0, z: 0}
-  GuestLineLocation: {x: 0, y: 0, z: 0}
-  CheckInIntervalMin: 0
-  CheckInIntervalMax: 0
-  GuestsPerCheckInMin: 0
-  GuestsPerCheckInMax: 0
-  maxAmountOfGuests: 0
+  GuestSpawnLocation: {x: -21.291094, y: 1.479, z: 16.978779}
+  GuestLineLocation: {x: 19.76, y: 1.4989998, z: 17.84}
+  EarliestCheckInTime: 6
+  LatestCheckInTime: 10
+  CheckInIntervalMin: 1
+  CheckInIntervalMax: 3
+  GuestsPerCheckInMin: 1
+  GuestsPerCheckInMax: 3
+  CheckOutTime: 10
+  maxAmountOfGuests: 5
   NextInterval: 0
   satisfactionDrop: 0

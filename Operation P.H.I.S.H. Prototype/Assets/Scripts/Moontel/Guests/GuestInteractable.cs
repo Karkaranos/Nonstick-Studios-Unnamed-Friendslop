@@ -28,7 +28,8 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     [HideInInspector] public int DaysSpent = 0;
     [HideInInspector] public int CheckInDay;
 
-    [HideInInspector] public bool CheckedIn;
+    [HideInInspector] public RoomBehavior AssignedRoom;
+
     bool isInteractingWith = false;
     bool moving = false;
 
@@ -47,6 +48,8 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     [SerializeField] GameObject dialogueCanvas;
     [Tooltip("The customer's dialogue goes here!")]
     [SerializeField] TMP_Text dialogueText;
+    [Tooltip("The sprite that appears on the map"), ShowAssetPreview(32,32)]
+    public Sprite MapSprite;
 
     [Space(8)]
 
@@ -63,8 +66,8 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     [Space(5)]
 
-    [SerializeField] List<GuestTraits> exhibitedTraits;
-    [SerializeField] List<GuestTraits> dislikedTraits;
+    public List<GuestTraits> ExhibitedTraits;
+    public List<GuestTraits> DislikedTraits;
 
     //[Space(8)]
 
@@ -78,8 +81,6 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     public void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        CheckedIn = false;
-
         StartCoroutine(MoveNavMesh(GuestAndEventManager.Instance.GuestLineLocation));
     }
 
@@ -87,8 +88,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     {
         moving = true;
 
-        while(moving && Vector3.Distance
-        (gameObject.transform.position, newPos) >= 0)
+        while(moving && agent.isOnNavMesh && Vector3.Distance(gameObject.transform.position, newPos) >= 0)
         {
             agent.SetDestination(newPos);
             yield return new WaitForFixedUpdate();
@@ -99,7 +99,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.GetComponent<GuestInteractable>())
+        if(other.GetComponent<GuestInteractable>() && AssignedRoom == null)
         {
             moving = false;
             agent.isStopped = true;
@@ -115,10 +115,35 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
             return;
         }
 
-        transform.LookAt(pc.gameObject.transform.position);
+        if(pc.heldInteractable .GetComponent<KeyPickupInteractable>() != null)
+        {
+            foreach(RoomBehavior room in RoomManager.Instance.Rooms)
+            {
+                if(room.RoomID == pc.heldInteractable.GetComponent<KeyPickupInteractable>().KeyID &&
+                   room.OccupyingGuest == null)
+                {
+                    AssignedRoom = room;
+                    room.AssignGuest(this);
 
-        CheckedIn = true;
-        Debug.Log($"{guestName} IS CHECKED IN.");
+                    //not actually messing with navmesh more rn sorry
+                    //StartCoroutine(MoveNavMesh(room.gameObject.transform.position));
+
+                    moving = false;
+                    agent.enabled = false;
+
+                    GuestAndEventManager.Instance.CheckLine(gameObject, gameObject.transform.position);
+                    gameObject.transform.position = room.TeleportPoint.transform.position;
+
+                    Debug.Log($"{gameObject.name} CHECKED IN.");
+
+                    break;
+                }
+            }
+
+            return;
+        }
+
+            transform.LookAt(pc.gameObject.transform.position);
 
         DisplayDialogue(dialogue);
 
@@ -177,4 +202,19 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     }
 
     #endregion DIALOGUE
+
+    #region SATISFACTION
+
+    /// <summary>
+    /// handles the guest's satisfaction
+    /// for losing satisfaction, changeInSatisfaction should be a negative number
+    /// </summary>
+    /// <param name="changeInSatisfaction"> how much satisfaction the guest gains or loses</param>
+    public void ChangeSatisfaction(int changeInSatisfaction)
+    {
+        //TODO: UI lol
+        currentSatisfactionLevel += changeInSatisfaction;
+    }
+
+    #endregion SATISFACTION
 }
