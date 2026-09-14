@@ -7,6 +7,7 @@ External Resources :
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using NaughtyAttributes;
 using TMPro;
 using Unity.VisualScripting.ReorderableList;
@@ -22,6 +23,7 @@ public enum GuestTraits
     Fragrant,
     Smelly
 }
+
 
 public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 {
@@ -214,6 +216,16 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     {
         //TODO: UI lol
         currentSatisfactionLevel += changeInSatisfaction;
+    }
+
+    public int GetSatisfaction()
+    {
+        return currentSatisfactionLevel;
+    }
+
+    public int GetMoney()
+    {
+        return Mathf.CeilToInt(currentSatisfactionLevel / 100f * payAmount);
     }
 
     #endregion SATISFACTION
