@@ -259619,10 +259619,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuotaManager
   destroyGameObject: 1
   dontDestroyOnLoad: 0
-  daysUntilQuotaCheck: 5
-  quotaType: 0
+  daysUntilQuotaCheck: 4
+  quotaType: 1
   targetMoney: 15
   targetSatisfaction: 90
+  quotaCanvas: {fileID: 3145722410248258619, guid: 439ef18e1c630b14ab2f873e548b5719, type: 3}
+  metColor: {r: 0, g: 1, b: 0.1347475, a: 0.5019608}
+  failColor: {r: 1, g: 0, b: 0, a: 0.5019608}
+  metText: Quota Met!
+  failText: Quota Failed :(
+  displayTime: 2
 --- !u!43 &1845560092
 Mesh:
   m_ObjectHideFlags: 0

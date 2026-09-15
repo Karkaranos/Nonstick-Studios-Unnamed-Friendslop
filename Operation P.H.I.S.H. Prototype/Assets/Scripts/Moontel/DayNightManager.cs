@@ -110,6 +110,7 @@ public class DayNightManager : Singleton<DayNightManager>
                 {
                     currentDay++;
                     TotalDays++;
+                    QuotaManager.Instance.CheckDayCount(TotalDays);
                 }
 
                 //checks out guests
