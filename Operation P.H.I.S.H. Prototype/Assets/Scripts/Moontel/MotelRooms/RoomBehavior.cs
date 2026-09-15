@@ -11,7 +11,15 @@ using UnityEngine;
 public class RoomBehavior : MonoBehaviour
 {
     public int RoomID;
+
+    [Space(5)]
     public Transform TeleportPoint;
+    public Transform RotateTowards;
+
+    [Space(5)]
+
+    public MinigameSpotInteractable BreakableObject;
+    public MinigameSpotInteractable Mess;
 
     Animator animator;
     List<RoomBehavior> neighboringRooms = new List<RoomBehavior>();
@@ -46,7 +54,6 @@ public class RoomBehavior : MonoBehaviour
                     {
                         neighbor.OccupyingGuest.ChangeSatisfaction
                         (GuestAndEventManager.Instance.SatisfactionDropPerRoom);
-                        Debug.Log($"{neighbor.OccupyingGuest.gameObject.name}'s SATISFACTION {GuestAndEventManager.Instance.SatisfactionDropPerRoom}");
                     }
                 }
 
@@ -56,7 +63,6 @@ public class RoomBehavior : MonoBehaviour
                     {
                         OccupyingGuest.ChangeSatisfaction
                         (GuestAndEventManager.Instance.SatisfactionDropPerRoom);
-                        Debug.Log($"{OccupyingGuest.gameObject.name}'s SATISFACTION {GuestAndEventManager.Instance.SatisfactionDropPerRoom}");
                     }
                 }
             }
