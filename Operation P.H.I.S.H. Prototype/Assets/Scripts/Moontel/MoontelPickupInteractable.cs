@@ -13,7 +13,7 @@ using UnityEngine;
 public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
 {
     #region VARS
-    private Material standardMat;
+    [HideInInspector] public Material StandardMat;
 
     [SerializeField] private Material hoverMat;
 
@@ -43,7 +43,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
         mr = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        standardMat = mr.material;
+        StandardMat = mr.material;
 
         OriginalPosition = gameObject.transform.position;
         OriginalScale = gameObject.transform.lossyScale;
@@ -62,7 +62,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// <summary>
     /// Sets the item as picked up
     /// </summary>
-    public void PickupItem(MoontelPlayerController pc)
+    public virtual void PickupItem(MoontelPlayerController pc)
     {
         mr.material = interactMat;
 
@@ -90,6 +90,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
             oldHeldBy.SetPickupItem(null);
         }
 
+        mr.material = StandardMat;
 
         transform.parent = null;
         col.enabled = true;
@@ -117,7 +118,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// </summary>
     public virtual void ExitHover()
     {
-        mr.material = standardMat;
+        mr.material = StandardMat;
     }
 
     /// <summary>
@@ -126,8 +127,7 @@ public class MoontelPickupInteractable : MonoBehaviour, IMoontelInteractable
     /// </summary>
     public virtual void ExitInteract()
     {
-        DropItem();
-
+        Invoke("DropItem", 0.1f);
         Debug.Log($"{gameObject.name} has ended its interaction");
     }
 

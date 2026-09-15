@@ -12,76 +12,104 @@ using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using Unity.VisualScripting;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class GuestAndEventManager : Singleton<GuestAndEventManager>
 {
-    [Header("Lists")]
+    #region VARS
 
-    [SerializeField] List<GuestInteractable> guestPrefabs;
+    #region LISTS
+
+    [SerializeField, BoxGroup("Lists")] List<GuestInteractable> guestPrefabs;
     [HideInInspector] public List<GuestInteractable> ActiveGuestsInScene = new List<GuestInteractable>();
+
+    [BoxGroup("Lists")] public GuestEvent[] PossibleEvents;
+    [HideInInspector] public Dictionary<GuestInteractable, GuestEvent> ActiveEvents = new Dictionary<GuestInteractable, GuestEvent>();
 
     List<GuestInteractable> guestQueue = new List<GuestInteractable>(); // why not just use a queue lol //i didnt know what that was man
 
-    [Space(5)]
+    #endregion LISTS
 
-    [SerializeField] MoontelGuestMapUI map;
+    #region UI
 
-    [Space(8)]
+    [SerializeField, BoxGroup("UI")] MoontelGuestMapUI map;
 
-    [Header("Checking In")]
-
-    [Tooltip("How long a guest's dialogue box will appear upon an interaction.")]
+    [Tooltip("How long a guest's dialogue box will appear upon an interaction."), BoxGroup("UI")]
     public int DialogueDisplayTime;
 
-    [Space(5)]
+    #endregion UI
 
-    [Tooltip("Where the guest will spawn before moving in line.")]
+    #region SPAWNING
+
+    [Tooltip("Where the guest will spawn before moving in line."), BoxGroup("Spawning")]
     public Vector3 GuestSpawnLocation;
-    [Tooltip("Where the guest should head after spawning.")]
+    [Tooltip("Where the guest should head after spawning."), BoxGroup("Spawning")]
     public Vector3 GuestLineLocation;
 
-    [Space(5)]
+    #endregion SPAWNING
 
-    [Tooltip("What's the earliest in the AMs that guests can check in?")]
+    #region TIMES AND INTERVALS
+
+    [Tooltip("What's the earliest in the AMs that guests can check in?"), BoxGroup("Times and Intervals")]
     public int EarliestCheckInTime;
-    [Tooltip("What's the latest in the PMs that guests can check in?")]
+    [Tooltip("What's the latest in the PMs that guests can check in?"), BoxGroup("Times and Intervals")]
     public int LatestCheckInTime;
 
     [Space(5)]
 
-    [Tooltip("Least amount of hours that will pass until more guests check in.")]
+    [Tooltip("Least amount of hours that will pass until more guests check in."), BoxGroup("Times and Intervals")]
     public int CheckInIntervalMin;
-    [Tooltip("Most amount of hours that will pass until more guests check in.")]
+    [Tooltip("Most amount of hours that will pass until more guests check in."), BoxGroup("Times and Intervals")]
     public int CheckInIntervalMax;
+
+    [HideInInspector] public int NextInterval;
 
     [Space(5)]
 
-    [Tooltip("Least amount of guests that will check in per interval.")]
+    [Tooltip("Least amount of guests that will check in per interval."), BoxGroup("Times and Intervals")]
     [SerializeField] int GuestsPerCheckInMin;
-    [Tooltip("Most amount of guests that will check in per ")]
+    [Tooltip("Most amount of guests that will check in per "), BoxGroup("Times and Intervals")]
     [SerializeField] int GuestsPerCheckInMax;
 
     [Space(5)]
 
-    public int CheckOutTime;
+    [Tooltip("How many guests can be checked in at a time."), BoxGroup("Times and Intervals")]
+    [SerializeField] int maxAmountOfGuests;
 
     [Space(5)]
 
-    [Tooltip("How many guests can be checked in at a time.")]
-    [SerializeField] int maxAmountOfGuests;
+    [BoxGroup("Times and Intervals")] public int CheckOutTime;
 
-    [HideInInspector] public int NextInterval;
+    #endregion TIMES AND INTERVALS
 
-    [Space(8)]
+    #region EVENTS
 
-    [Header("Events and Requests")]
+    [Tooltip("The least amount of times that an event can occur per hour.")]
+    [SerializeField, BoxGroup("Events")] int eventsMin;
+
+    [Tooltip("The most amount of times that an event can occur per hour.")]
+    [SerializeField, BoxGroup("Events")] int eventsMax;
 
     [Tooltip("How much satisfaction that the guests lose per unfulfilled event. Cannot be a positive value.")]
-    [SerializeField, MaxValue(0)] int satisfactionDropPerEvent;
+    [SerializeField, BoxGroup("Events"), MaxValue(0)] int satisfactionDropPerEvent;
     [Tooltip("How much satisfaction that the guests lose per disliked neighbors. Cannot be a positive value.")]
-    [MaxValue(0)] public int SatisfactionDropPerRoom;
+    [MaxValue(0), BoxGroup("Events")] public int SatisfactionDropPerRoom;
+
+    [Space(5)]
+
+    [Tooltip("How many seconds should pass before each drop in satisfaction per unfulfilled event?"), BoxGroup("Events")]
+    public int MinutesBetweenSatisfactionDrops;
+
+    [Space(5)]
+
+    [Tooltip("How much satisfaction will the guest (re)gain upon fulfilled event?"), BoxGroup("Events")]
+    [Min(0)] public int SatisfactionGainedPerEvent;
+
+    #endregion EVENTS
+
+    #endregion VARS
 
     //TODO: add list of events
     //add list of active events
@@ -139,6 +167,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         {
             GuestInteractable newGuest = Instantiate(guest, GuestSpawnLocation, Quaternion.identity);
             newGuest.CheckInDay = day;
+            newGuest.AssignedEvent = null;
 
             ActiveGuestsInScene.Add(newGuest);
 
@@ -229,25 +258,73 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     /// </summary>
     public void PullGuestsAndEvents()
     {
-        List<GuestInteractable> availableGuests = ActiveGuestsInScene;
+        List<GuestInteractable> availableGuests = new List<GuestInteractable>();
 
-        //TODO: create events
-        //place the following inside of a loop going through each event
-        //return to later!!!!
-
-        int numberOfRequests = Random.Range(0, availableGuests.Count + 1);
-
-        if(numberOfRequests > 0)
+        foreach(GuestInteractable guest in ActiveGuestsInScene)
         {
-            for(int i = 0; i < numberOfRequests; i++)
+            if(guest.AssignedEvent == null && guest.AssignedRoom != null)
             {
-                var selectedGuest = availableGuests
-                [Random.Range(0, availableGuests.Count)];
-
-                //TODO: initiate event
-
-                availableGuests.Remove(selectedGuest);
+                availableGuests.Add(guest);
             }
         }
-    }    
+
+        int max = eventsMax;
+
+        if(max > availableGuests.Count)
+        {
+            max = availableGuests.Count;
+        }
+
+        foreach(GuestEvent guestEvent in PossibleEvents)
+        {
+            int numberOfRequests = Random.Range(1, max + 1);
+
+            if (numberOfRequests > 0)
+            {
+                for (int i = 0; i < numberOfRequests; i++)
+                {
+                    if (availableGuests.Count <= 0)
+                    {
+                        return;
+                    }
+
+                    GuestInteractable selectedGuest = availableGuests
+                    [Random.Range(0, availableGuests.Count)];
+
+                    selectedGuest.AssignedEvent = guestEvent;
+
+                    if(selectedGuest.RequestPing != null)
+                    {
+                        selectedGuest.RequestPing.SetActive(true);
+                    }
+
+                    if(guestEvent.EventType == TypeOfEvent.Interact)
+                    {
+                        if(guestEvent.RequiredTool == MinigameObjectType.Broom)
+                        {
+                            selectedGuest.AssignedRoom.Mess.CreateMess();
+                        }
+                        else if(guestEvent.RequiredTool == MinigameObjectType.Toolbox)
+                        {
+                            selectedGuest.AssignedRoom.BreakableObject.BreakObject();
+                        }
+                    }
+
+                    ActiveEvents.Add(selectedGuest, guestEvent);
+                    availableGuests.Remove(selectedGuest);
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// goes through active events and causes guests to lose satisfaction accordingly
+    /// </summary>
+    public void TriggerEventSatisfactionLoss()
+    {
+        foreach(var guest in ActiveEvents)
+        {
+            guest.Key.ChangeSatisfaction(satisfactionDropPerEvent);
+        }
+    }
 }

@@ -13,6 +13,8 @@ using UnityEngine.UI;
 
 public class MinigameSpotInteractable : MoontelPickupInteractable
 {
+    RoomBehavior room;
+
     [HorizontalLine(color: EColor.Red, height: 4)]
     [Header("Design Variables")]
     [Tooltip("What tool is required to clean/fix this.")]
@@ -32,14 +34,17 @@ public class MinigameSpotInteractable : MoontelPickupInteractable
     private Coroutine cleanOrFixCoroutine;
     private bool shouldRunCoroutine = false;
 
-
-
     [Button, ShowIf("isFixMinigame")]
     /// <summary>
     /// Breaks item for fix minigame, adds new shader to object
     /// </summary>
     public void BreakObject()
     {
+        if (room == null)
+        {
+            room = GetComponentInParent<RoomBehavior>();
+        }
+
         //if already broken or if it's a mess minigame
         if (isBroken || !isFixMinigame)
         {
@@ -97,6 +102,8 @@ public class MinigameSpotInteractable : MoontelPickupInteractable
         fixedOrCleanedSlider.enabled = false;
         fixedOrCleanedSlider.value = 0;
         currentSecondsComplete = 0;
+
+        ConcludeEvent();
     }
 
     [Button, HideIf("isFixMinigame")]
@@ -105,6 +112,11 @@ public class MinigameSpotInteractable : MoontelPickupInteractable
     /// </summary>
     public void CreateMess()
     {
+        if(room == null)
+        {
+            room = GetComponentInParent<RoomBehavior>();
+        }
+
         if (!isFixMinigame)
         {
             gameObject.SetActive(true);
@@ -122,6 +134,23 @@ public class MinigameSpotInteractable : MoontelPickupInteractable
         fixedOrCleanedSlider.enabled = false;
         fixedOrCleanedSlider.value = 0;
         currentSecondsComplete = 0;
+
+        ConcludeEvent();
+    }
+
+    /// <summary>
+    /// triggers the end of the associated event
+    /// </summary>
+    void ConcludeEvent()
+    {
+        room.OccupyingGuest.ChangeSatisfaction(GuestAndEventManager.Instance.SatisfactionGainedPerEvent);
+        GuestAndEventManager.Instance.ActiveEvents.Remove(room.OccupyingGuest);
+        room.OccupyingGuest.AssignedEvent = null;
+
+        if (room.OccupyingGuest.RequestPing != null)
+        {
+            room.OccupyingGuest.RequestPing.SetActive(false);
+        }
     }
 
     /// <summary>

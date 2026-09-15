@@ -75,6 +75,12 @@ public class DayNightManager : Singleton<DayNightManager>
             currentMinute++;
             totalMinutes++;
 
+            if(currentMinute % GuestAndEventManager.Instance.MinutesBetweenSatisfactionDrops == 0 &&
+            GuestAndEventManager.Instance.ActiveEvents.Count > 0)
+            {
+                GuestAndEventManager.Instance.TriggerEventSatisfactionLoss();
+            }
+
             //hey it's jay here. sorry about this.
             //check for new hour
             if (currentMinute == 60)
@@ -116,6 +122,11 @@ public class DayNightManager : Singleton<DayNightManager>
                 if (AM && currentHour == GuestAndEventManager.Instance.CheckOutTime)
                 {
                     GuestAndEventManager.Instance.UpdateGuestCheckIn(totalDays);
+                }
+
+                if(GuestAndEventManager.Instance.PossibleEvents.Length > 0)
+                {
+                    GuestAndEventManager.Instance.PullGuestsAndEvents();
                 }
 
                 //gurantees new guests at 3PM

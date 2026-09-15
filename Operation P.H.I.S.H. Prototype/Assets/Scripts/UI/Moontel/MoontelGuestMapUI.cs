@@ -108,10 +108,17 @@ public class MoontelGuestMapUI : MonoBehaviour
             AddGuestToDisplay(guest);
 
         var icon = guestIconInstances[guest];
+        var ping = guest.RequestPingMap;
 
         // Make guest invisible if they arent on current floor
         bool guestOnCurrentFloor = IsObjectWithinFloor(guest.transform, currentFloorMap);
         icon.color = guestOnCurrentFloor ? icon.color.WithAlpha(1) : icon.color.WithAlpha(0);
+
+        if (guest.AssignedEvent != null)
+        {
+            ping.SetActive(guestOnCurrentFloor);
+        }
+        else { ping.SetActive(false); }
 
         if (!guestOnCurrentFloor) return;
 
@@ -129,6 +136,9 @@ public class MoontelGuestMapUI : MonoBehaviour
     {
         Image iconInstance = Instantiate(guestDisplayIconPrefab, parent:mapDisplayImage.transform);
         guestIconInstances.Add(guestInteractable, iconInstance);
+
+        guestInteractable.RequestPingMap = iconInstance.GetComponentInChildren<Animator>().gameObject;
+        guestInteractable.RequestPingMap.SetActive(false);
 
         iconInstance.name = $"{guestInteractable.name} map icon";
         iconInstance.sprite = guestInteractable.MapSprite;
