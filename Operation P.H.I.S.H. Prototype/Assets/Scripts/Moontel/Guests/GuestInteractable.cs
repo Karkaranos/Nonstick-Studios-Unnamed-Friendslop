@@ -52,8 +52,9 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     [SerializeField] GameObject dialogueCanvas;
     [Tooltip("The customer's dialogue goes here!")]
     [SerializeField] TMP_Text dialogueText;
-    [Tooltip("The sprite that appears on the map"), ShowAssetPreview(32,32)]
+    [Tooltip("The sprite that appears on the map"), ShowAssetPreview(32, 32)]
     public Sprite MapSprite;
+    [SerializeField] TMP_Text SatisfactionDisplay;
     [HideInInspector] public GameObject RequestPingMap;
 
     [Space(8)]
@@ -77,6 +78,12 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     public void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        if (SatisfactionDisplay != null)
+        {
+            SatisfactionDisplay.text = $"Satisfaction: {currentSatisfactionLevel}";
+        }
+
         StartCoroutine(MoveNavMesh(GuestAndEventManager.Instance.GuestLineLocation));
 
         foreach (GuestDialogue dialogue in listOfDialogue)
@@ -288,9 +295,17 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     /// <param name="changeInSatisfaction"> how much satisfaction the guest gains or loses</param>
     public void ChangeSatisfaction(int changeInSatisfaction)
     {
-        //TODO: UI lol
         currentSatisfactionLevel += changeInSatisfaction;
-        Debug.Log($"{gameObject.name}'s satisfaction = {currentSatisfactionLevel}");
+
+        if(currentSatisfactionLevel < 0)
+        {
+            currentSatisfactionLevel = 0;
+        }
+
+        if(SatisfactionDisplay != null)
+        {
+            SatisfactionDisplay.text = $"Satisfaction: {currentSatisfactionLevel}";
+        }
     }
 
     #endregion SATISFACTION
