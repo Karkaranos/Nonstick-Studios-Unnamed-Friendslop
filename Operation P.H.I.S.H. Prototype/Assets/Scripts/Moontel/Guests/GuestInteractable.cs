@@ -84,6 +84,7 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     {
         agent = GetComponent<NavMeshAgent>();
         StartCoroutine(MoveNavMesh(GuestAndEventManager.Instance.GuestLineLocation));
+        currentSatisfactionLevel = satisfactionLevel;
     }
 
     IEnumerator MoveNavMesh(Vector3 newPos)
@@ -225,7 +226,14 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 
     public int GetMoney()
     {
-        return Mathf.CeilToInt(currentSatisfactionLevel / 100f * payAmount);
+        return Mathf.CeilToInt(((float)currentSatisfactionLevel / 100f) * payAmount);
+    }
+
+    [Button]
+    public void ForceCallQuotaUpdate()
+    {
+        PublicEvents.UpdateQuotaSatisfaction(GetSatisfaction());
+        PublicEvents.UpdateQuotaMoney(GetMoney());
     }
 
     #endregion SATISFACTION

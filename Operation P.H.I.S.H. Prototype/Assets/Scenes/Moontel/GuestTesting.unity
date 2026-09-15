@@ -259595,8 +259595,34 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 285205967097580498, guid: 495b22bb5f6c3a946be67cb8e37bb07c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3767350341903313878, guid: 495b22bb5f6c3a946be67cb8e37bb07c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1845233064}
   m_SourcePrefab: {fileID: 100100000, guid: 495b22bb5f6c3a946be67cb8e37bb07c, type: 3}
+--- !u!1 &1845233063 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3767350341903313878, guid: 495b22bb5f6c3a946be67cb8e37bb07c, type: 3}
+  m_PrefabInstance: {fileID: 1845233062}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1845233064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845233063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f08c49d41217c446a26c946cb476f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuotaManager
+  destroyGameObject: 1
+  dontDestroyOnLoad: 0
+  daysUntilQuotaCheck: 5
+  quotaType: 0
+  targetMoney: 15
+  targetSatisfaction: 90
 --- !u!43 &1845560092
 Mesh:
   m_ObjectHideFlags: 0

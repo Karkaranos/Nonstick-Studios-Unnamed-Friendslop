@@ -18,7 +18,8 @@ public class QuotaManager : Singleton<QuotaManager>
     [SerializeField, ShowIf(nameof(quotaType), QuotaType.Satisfaction)] private float targetSatisfaction;
     private int currentMoney;
     private int currentSatisfaction = 100;
-    private int counter;
+    private int counter = 0;
+    private int sumSatisfaction = 0;
     protected enum QuotaType
     {
         Satisfaction, Money
@@ -47,7 +48,7 @@ public class QuotaManager : Singleton<QuotaManager>
         }
 
         currentMoney += money;
-        Debug.Log($"Current money level: {currentSatisfaction}");
+        Debug.Log($"Current money level: {currentMoney} after adding {money}");
 
         if (currentMoney >= targetMoney)
         {
@@ -65,8 +66,9 @@ public class QuotaManager : Singleton<QuotaManager>
         }
 
         counter++;
-        //New average = old average * (n - 1) / n + new value / n
-        currentSatisfaction = Mathf.RoundToInt(currentSatisfaction * (counter - 1) / (float)counter + satisfaction / (float)counter);
+        sumSatisfaction += satisfaction;
+
+        currentSatisfaction = sumSatisfaction / counter;
         Debug.Log($"Current satisfaction level: {currentSatisfaction}");
 
         if(currentSatisfaction >= targetSatisfaction)
