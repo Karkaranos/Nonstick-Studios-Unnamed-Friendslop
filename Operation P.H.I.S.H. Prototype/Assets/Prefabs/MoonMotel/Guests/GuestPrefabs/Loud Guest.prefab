@@ -548,14 +548,14 @@ MonoBehaviour:
   RequestPing: {fileID: 5987496492085415486}
   dialogueCanvas: {fileID: 7182958989454579950}
   dialogueText: {fileID: 8681378067632482273}
-  SatisfactionDisplay: {fileID: 7609993668279098472}
   MapSprite: {fileID: 21300000, guid: 3cf8ae89579fd29479f4269d09600e16, type: 3}
+  SatisfactionDisplay: {fileID: 7609993668279098472}
   RequestPingMap: {fileID: 0}
   satisfactionLevel: 75
   StayTime: 1
   payAmount: 15
-  ExhibitedTraits: 
-  DislikedTraits: 
+  ExhibitedTraits: 00000000
+  DislikedTraits: 01000000
 --- !u!195 &6546245038016459376
 NavMeshAgent:
   m_ObjectHideFlags: 0
