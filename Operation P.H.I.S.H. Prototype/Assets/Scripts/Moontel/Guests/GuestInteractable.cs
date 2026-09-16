@@ -7,6 +7,7 @@ External Resources :
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using NaughtyAttributes;
 using TMPro;
 using Unity.VisualScripting.ReorderableList;
@@ -22,6 +23,7 @@ public enum GuestTraits
     Fragrant,
     Smelly
 }
+
 
 public class GuestInteractable : MonoBehaviour, IMoontelInteractable
 {
@@ -78,14 +80,14 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
     public void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
+        currentSatisfactionLevel = satisfactionLevel; 
         if (SatisfactionDisplay != null)
         {
             SatisfactionDisplay.text = $"Satisfaction: {currentSatisfactionLevel}";
         }
 
         StartCoroutine(MoveNavMesh(GuestAndEventManager.Instance.GuestLineLocation));
-
+        
         foreach (GuestDialogue dialogue in listOfDialogue)
         {
             guestDialogue.Add(dialogue.Context, dialogue.Dialogue);
@@ -306,6 +308,23 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
         {
             SatisfactionDisplay.text = $"Satisfaction: {currentSatisfactionLevel}";
         }
+    }
+
+    public int GetSatisfaction()
+    {
+        return currentSatisfactionLevel;
+    }
+
+    public int GetMoney()
+    {
+        return Mathf.CeilToInt(((float)currentSatisfactionLevel / 100f) * payAmount);
+    }
+
+    [Button]
+    public void ForceCallQuotaUpdate()
+    {
+        PublicEvents.UpdateQuotaSatisfaction(GetSatisfaction());
+        PublicEvents.UpdateQuotaMoney(GetMoney());
     }
 
     #endregion SATISFACTION
