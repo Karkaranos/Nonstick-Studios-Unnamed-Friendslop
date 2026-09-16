@@ -53,5 +53,9 @@ public static class PublicEvents
     public static Action ForceUpdatePage;
     public static Action<GameObject> ForceCloseCanvas;
 
+    public static Action<int> UpdateQuotaMoney;
+    public static Action<int> UpdateQuotaSatisfaction;
+    public static Action UpdateDay;
+
     #endregion OTHER EVENTS
 }
