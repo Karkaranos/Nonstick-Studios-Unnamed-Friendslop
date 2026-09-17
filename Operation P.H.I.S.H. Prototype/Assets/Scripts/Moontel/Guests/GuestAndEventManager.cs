@@ -261,6 +261,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     public void PullGuestsAndEvents()
     {
         List<GuestInteractable> availableGuests = new List<GuestInteractable>();
+        List<GuestEvent> events = PossibleEvents.ToList();
 
         foreach(GuestInteractable guest in ActiveGuestsInScene)
         {
@@ -277,13 +278,20 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
             max = availableGuests.Count;
         }
 
-        foreach(GuestEvent guestEvent in PossibleEvents)
+        //in case of errors
+        int listCount = events.Count;
+
+        //this might suck ass
+        for(int i = 0; i < listCount; i++)
         {
             int numberOfRequests = Random.Range(1, max + 1);
 
+            GuestEvent newEvent = events[Random.Range(0, events.Count)];
+            events.Remove(newEvent);
+
             if (numberOfRequests > 0)
             {
-                for (int i = 0; i < numberOfRequests; i++)
+                for (int j = 0; j < numberOfRequests; j++)
                 {
                     if (availableGuests.Count <= 0)
                     {
@@ -293,26 +301,26 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
                     GuestInteractable selectedGuest = availableGuests
                     [Random.Range(0, availableGuests.Count)];
 
-                    selectedGuest.AssignedEvent = guestEvent;
+                    selectedGuest.AssignedEvent = newEvent;
 
-                    if(selectedGuest.RequestPing != null)
+                    if (selectedGuest.RequestPing != null)
                     {
                         selectedGuest.RequestPing.SetActive(true);
                     }
 
-                    if(guestEvent.EventType == TypeOfEvent.Interact)
+                    if (newEvent.EventType == TypeOfEvent.Interact)
                     {
-                        if(guestEvent.RequiredTool == MinigameObjectType.Broom)
+                        if (newEvent.RequiredTool == MinigameObjectType.Broom)
                         {
                             selectedGuest.AssignedRoom.Mess.CreateMess();
                         }
-                        else if(guestEvent.RequiredTool == MinigameObjectType.Toolbox)
+                        else if (newEvent.RequiredTool == MinigameObjectType.Toolbox)
                         {
                             selectedGuest.AssignedRoom.BreakableObject.BreakObject();
                         }
                     }
 
-                    ActiveEvents.Add(selectedGuest, guestEvent);
+                    ActiveEvents.Add(selectedGuest, newEvent);
                     availableGuests.Remove(selectedGuest);
                 }
             }
