@@ -143,7 +143,8 @@ public class GuestInteractable : MonoBehaviour, IMoontelInteractable
                 {
                     AssignedRoom = room;
                     room.AssignGuest(this);
-
+                    agent.enabled = false;
+                    GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
                     GuestAndEventManager.Instance.CheckLine(gameObject, gameObject.transform.position);
                     gameObject.transform.position = room.TeleportPoint.transform.position;
                     gameObject.transform.LookAt(room.RotateTowards);
