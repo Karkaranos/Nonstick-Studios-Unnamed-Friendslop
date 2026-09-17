@@ -94,7 +94,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
 
     [Space(5)]
 
-    [Tooltip("How many active events can there be at a time?")]
+    [Tooltip("How many active events can there be at a time.")]
     [SerializeField, BoxGroup("Events")] int activeEventsMax;
 
     [Space(5)]
@@ -272,7 +272,8 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
 
         foreach(GuestInteractable guest in ActiveGuestsInScene)
         {
-            if(guest.AssignedEvent == null && guest.AssignedRoom != null && availableGuests.Count < activeEventsMax)
+            if(guest.AssignedEvent == null && guest.AssignedRoom != null && 
+            (availableGuests.Count + ActiveEvents.Count) < activeEventsMax)
             {
                 availableGuests.Add(guest);
             }
