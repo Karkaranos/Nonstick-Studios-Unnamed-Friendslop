@@ -155,8 +155,8 @@ public class MoontelGuestMapUI : MonoBehaviour
             if (guest == null || guest.gameObject == null)
             {
                 guestIconInstances.RemoveAllInstancesWithValue(guest_icon.Value);
+                Destroy(guest_icon.Value.gameObject);
             }
-            Destroy(guest_icon.Value.gameObject);
         }
     }
 
