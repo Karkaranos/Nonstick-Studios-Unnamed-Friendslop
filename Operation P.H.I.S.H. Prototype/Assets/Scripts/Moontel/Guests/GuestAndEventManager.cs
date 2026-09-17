@@ -194,7 +194,7 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
             {
                 guest.DaysSpent++;
 
-                if (guest.DaysSpent >= guest.StayTime)
+                if (guest.DaysSpent >= guest.StayTime + 1)
                 {
                     guestsToCheckOut.Add(guest);
                 }
