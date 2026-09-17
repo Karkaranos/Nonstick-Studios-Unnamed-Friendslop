@@ -392,6 +392,7 @@ Transform:
   - {fileID: 8790008415691102401}
   - {fileID: 5375505558598206519}
   - {fileID: 9187943210400883501}
+  - {fileID: 2239559604561931441}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4622272541262615920
@@ -409,7 +410,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6440731780428652943}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -544,11 +545,27 @@ MonoBehaviour:
     RequestedItem: 0
     RequiredTool: 0
   guestName: Loud
-  listOfDialogue: []
+  listOfDialogue:
+  - Context: 0
+    Dialogue: CHECK ME IN NOW PLEASE THANKS!!
+  - Context: 1
+    Dialogue: OH YEAHHHH IM CHECKED IN
+  - Context: 2
+    Dialogue: GIMME TP NOW NOW
+  - Context: 3
+    Dialogue: GIMME TOWEL NOW NOW
+  - Context: 4
+    Dialogue: THANK YA FOR THE TP
+  - Context: 5
+    Dialogue: THANK YA FOR THE TOWEL
+  - Context: 6
+    Dialogue: SOMETHING BROKE I NEED IT FIXED
+  - Context: 7
+    Dialogue: THIS PLACE IS SOOOO DIRTY
   RequestPing: {fileID: 5987496492085415486}
   dialogueCanvas: {fileID: 7182958989454579950}
   dialogueText: {fileID: 8681378067632482273}
-  MapSprite: {fileID: 21300000, guid: 3cf8ae89579fd29479f4269d09600e16, type: 3}
+  MapSprite: {fileID: 21300000, guid: dcd1baed72a416c4b966928fcc951c62, type: 3}
   SatisfactionDisplay: {fileID: 7609993668279098472}
   RequestPingMap: {fileID: 0}
   satisfactionLevel: 75
@@ -996,3 +1013,65 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &4307382778318011516
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7451595635386812237}
+    m_Modifications:
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195526324128338918, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+      propertyPath: m_Name
+      value: GuestNoisy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+--- !u!4 &2239559604561931441 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2653295592154714317, guid: afe693c233b73f5409f4256d2e6836f2, type: 3}
+  m_PrefabInstance: {fileID: 4307382778318011516}
+  m_PrefabAsset: {fileID: 0}
