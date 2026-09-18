@@ -211,8 +211,8 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
         foreach(GuestInteractable oldGuest in guestsToCheckOut)
         {
             oldGuest.GetComponent<GuestInteractable>().AssignedRoom.RemoveGuest();
-            PublicEvents.UpdateQuotaSatisfaction(oldGuest.GetSatisfaction());
-            PublicEvents.UpdateQuotaMoney(oldGuest.GetMoney());
+            PublicEvents.UpdateQuotaSatisfaction?.Invoke(oldGuest.GetSatisfaction());
+            PublicEvents.UpdateQuotaMoney?.Invoke(oldGuest.GetMoney());
 
             map.RemoveGuest(oldGuest);
             ActiveGuestsInScene.Remove(oldGuest);

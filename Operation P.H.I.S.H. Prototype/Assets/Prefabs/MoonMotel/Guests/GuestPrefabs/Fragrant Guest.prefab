@@ -594,6 +594,7 @@ Transform:
   - {fileID: 6808618142800175125}
   - {fileID: 1031595492123750231}
   - {fileID: 9117957610926684227}
+  - {fileID: 1021099037236664129}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2144870636519432122
@@ -611,7 +612,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8041768748638757635}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -748,7 +749,7 @@ MonoBehaviour:
   guestName: Fragrant
   listOfDialogue:
   - Context: 0
-    Dialogue: I'm fragrant! Check me in!
+    Dialogue: You better not check me in somewhere stinky
   - Context: 1
     Dialogue: I love being checked in!
   - Context: 2
@@ -766,8 +767,8 @@ MonoBehaviour:
   RequestPing: {fileID: 8199198357867763524}
   dialogueCanvas: {fileID: 3002766953812581677}
   dialogueText: {fileID: 296781651723819411}
+  MapSprite: {fileID: 21300000, guid: fa5c12be550fa90488f39a850e147a58, type: 3}
   SatisfactionDisplay: {fileID: 3103506031199609982}
-  MapSprite: {fileID: 21300000, guid: 89608b060fc7279479398a62e245a409, type: 3}
   RequestPingMap: {fileID: 0}
   satisfactionLevel: 25
   StayTime: 1
@@ -1012,3 +1013,65 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &2179954819553353208
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4877663065785614527}
+    m_Modifications:
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.971
+      objectReference: {fileID: 0}
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5520317868024108310, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+      propertyPath: m_Name
+      value: GuestFragrant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+--- !u!4 &1021099037236664129 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1183159662822607545, guid: 6860d6d9a736cf742b7bf1c63839e724, type: 3}
+  m_PrefabInstance: {fileID: 2179954819553353208}
+  m_PrefabAsset: {fileID: 0}
