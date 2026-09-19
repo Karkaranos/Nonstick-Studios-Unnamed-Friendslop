@@ -92,6 +92,13 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
     [Tooltip("The most amount of times that an event can occur per hour.")]
     [SerializeField, BoxGroup("Events")] int eventsMax;
 
+    [Space(5)]
+
+    [Tooltip("How many active events can there be at a time.")]
+    [SerializeField, BoxGroup("Events")] int activeEventsMax;
+
+    [Space(5)]
+
     [Tooltip("How much satisfaction that the guests lose per unfulfilled event. Cannot be a positive value.")]
     [SerializeField, BoxGroup("Events"), MaxValue(0)] int satisfactionDropPerEvent;
     [Tooltip("How much satisfaction that the guests lose per disliked neighbors. Cannot be a positive value.")]
@@ -265,7 +272,8 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
 
         foreach(GuestInteractable guest in ActiveGuestsInScene)
         {
-            if(guest.AssignedEvent == null && guest.AssignedRoom != null)
+            if(guest.AssignedEvent == null && guest.AssignedRoom != null && 
+            (availableGuests.Count + ActiveEvents.Count) < activeEventsMax)
             {
                 availableGuests.Add(guest);
             }
@@ -322,8 +330,15 @@ public class GuestAndEventManager : Singleton<GuestAndEventManager>
 
                     ActiveEvents.Add(selectedGuest, newEvent);
                     availableGuests.Remove(selectedGuest);
+
+                    //insurance
+                    selectedGuest = null;
                 }
             }
+
+            //insurance
+            numberOfRequests = 0;
+            newEvent = null;
         }
     }
     
