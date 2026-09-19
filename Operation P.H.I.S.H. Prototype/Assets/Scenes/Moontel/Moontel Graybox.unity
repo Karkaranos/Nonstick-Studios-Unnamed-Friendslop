@@ -161785,6 +161785,30 @@ PrefabInstance:
       propertyPath: maxAccelerationMultiplier
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2539141320265186974, guid: 7153137d8194ce24eb997c894d89bf1e, type: 3}
+      propertyPath: m_Size.x
+      value: 0.93128777
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539141320265186974, guid: 7153137d8194ce24eb997c894d89bf1e, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9933558
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539141320265186974, guid: 7153137d8194ce24eb997c894d89bf1e, type: 3}
+      propertyPath: m_Size.z
+      value: 0.9253578
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539141320265186974, guid: 7153137d8194ce24eb997c894d89bf1e, type: 3}
+      propertyPath: m_Center.x
+      value: -0.0020208359
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539141320265186974, guid: 7153137d8194ce24eb997c894d89bf1e, type: 3}
+      propertyPath: m_Center.y
+      value: -0.0033221245
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539141320265186974, guid: 7153137d8194ce24eb997c894d89bf1e, type: 3}
+      propertyPath: m_Center.z
+      value: 0.007464409
+      objectReference: {fileID: 0}
     - target: {fileID: 4047171212459176384, guid: 7153137d8194ce24eb997c894d89bf1e, type: 3}
       propertyPath: m_Mesh
       value: 
