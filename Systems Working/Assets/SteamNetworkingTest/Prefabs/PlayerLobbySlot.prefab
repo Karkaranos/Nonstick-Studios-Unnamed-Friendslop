@@ -54,6 +54,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  IsReady: 0
+  ReadyButton: {fileID: 2369926015341980117}
+  NameText: {fileID: 2465898955555234337}
 --- !u!114 &-3674383942893448037
 MonoBehaviour:
   m_ObjectHideFlags: 0
